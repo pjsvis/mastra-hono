@@ -5,7 +5,7 @@ import { webSearchTool } from '@src/mastra/tools/web-search-tool';
 // biome-ignore lint/suspicious/noExplicitAny: generic test helper
 async function execTool(tool: any, params: any) {
   // biome-ignore lint/suspicious/noExplicitAny: generic test helper
-  const result = await tool.execute!(params, {} as any);
+  const result = await tool.execute?.(params, {} as any);
   if (result && typeof result === 'object' && 'error' in result) {
     throw new Error((result as { message: string }).message);
   }
