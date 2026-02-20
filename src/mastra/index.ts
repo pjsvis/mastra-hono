@@ -1,24 +1,33 @@
 import { Mastra } from '@mastra/core/mastra';
 import { LibSQLStore } from '@mastra/libsql';
 import { PinoLogger } from '@mastra/loggers';
+import { Memory } from '@mastra/memory';
 import {
   CloudExporter,
   DefaultExporter,
   Observability,
   SensitiveDataFilter,
 } from '@mastra/observability';
+import { localMemoryAgent } from './agents/local-memory-agent';
 import { researchAgent } from './agents/research-agent';
 import { weatherAgent } from './agents/weather-agent';
 import { weatherWorkflow } from './workflows/weather-workflow';
 
+const storage = new LibSQLStore({
+  id: 'mastra-storage',
+  // stores observability, scores, ... into persistent file storage
+  url: 'file:./mastra.db',
+});
+
+const memory = new Memory({
+  storage,
+});
+
 export const mastra = new Mastra({
   workflows: { weatherWorkflow },
-  agents: { researchAgent, weatherAgent },
-  storage: new LibSQLStore({
-    id: 'mastra-storage',
-    // stores observability, scores, ... into persistent file storage
-    url: 'file:./mastra.db',
-  }),
+  agents: { researchAgent, weatherAgent, localMemoryAgent },
+  storage,
+  memory: { default: memory },
   logger: new PinoLogger({
     name: 'Mastra',
     level: 'info',
