@@ -10,7 +10,14 @@ See [Mastra Skills section](#mastra-skills) for loading instructions.
 
 ## Project Overview
 
-This is a **Mastra** project written in TypeScript. Mastra is a framework for building AI-powered applications and agents with a modern TypeScript stack.
+This is a **Mastra** project written in TypeScript - your **Agent Forge** for building production-ready AI agents.
+
+**Purpose:**
+- **Template + Runtime**: Starter template AND forge for your own agents
+- **Production hardened**: Testing, scripts, and monitoring baked in
+- **Reusable patterns**: Pre-built structures for common agent types
+
+Mastra is a framework for building AI-powered applications and agents with a modern TypeScript stack.
 
 ## Commands
 
@@ -40,7 +47,7 @@ bun run build
 
 ## Project Structure
 
-Folders organize your agent's resources, like agents, tools, and workflows.
+### Core folders
 
 | Folder                 | Description                                                                                                                              |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,6 +58,13 @@ Folders organize your agent's resources, like agents, tools, and workflows.
 | `src/mastra/mcp`       | (Optional) Implement custom MCP servers to share your tools with external agents                                                         |
 | `src/mastra/scorers`   | (Optional) Define scorers for evaluating agent performance over time                                                                     |
 | `src/mastra/public`    | (Optional) Contents are copied into the `.build/output` directory during the build process, making them available for serving at runtime |
+
+### Test & scripts
+
+| Folder      | Description                                                                 |
+| ----------- | --------------------------------------------------------------------------- |
+| `tests/`    | Agent, workflow, and tool tests using Bun's built-in test runner            |
+| `scripts/`  | Utility scripts for scaffolding, deployment, and data operations            |
 
 ### Top-level files
 

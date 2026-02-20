@@ -1,0 +1,7 @@
+import { describe, expect, test } from 'bun:test';
+
+describe('Agent tests', () => {
+  test('placeholder test', () => {
+    expect(true).toBe(true);
+  });
+});

@@ -1,0 +1,4 @@
+[test]
+root = "./tests"
+coverage = true
+setupFiles = ["./tests/setup.ts"]

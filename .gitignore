@@ -26,3 +26,16 @@ lerna-debug.log*
 
 # misc
 .DS_Store
+
+# build
+dist/
+.build/
+
+# test
+coverage/
+
+# mastra
+.mastra/
+*.db
+*.db-shm
+*.db-wal
