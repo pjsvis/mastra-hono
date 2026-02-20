@@ -46,3 +46,23 @@ Instead of scattering `@ts-ignore` or `any` throughout the codebase to accommoda
 **Heuristic: The session that writes the code cannot approve the code.**
 
 Implemented via the `td` CLI, we strictly enforce that the agent or user session that begins a task and creates a handoff cannot be the one to approve it. This creates a natural architectural boundary that forces code to be auditable, readable, and contextually complete before it can be merged.
+## 4. Pipeline Resiliency & Idempotency
+
+**Heuristic: Data pipelines should be repeatable, verifiable, and resume-able.**
+
+Data extraction, processing, or general workflows (pipelines) are prone to partial failures. The design of these systems must expect and plan for failure rather than simply crashing mid-run.
+
+### Key Practices:
+- **The Result/Option Pattern (Pipeline Edition):** Just as tools return `{ result, error }`, pipeline steps should process data without crashing. The output of a pipeline run should naturally result in a "pile of things that worked" and a "pile of things that failed". You don't need to overreact to failures—just log what happened and move the failed items to the failure pile.
+- **Idempotency via Hashing:** Make operations so they can be run multiple times without causing duplicate side-effects. Use content hashing or deterministic IDs so that if a pipeline crashes halfway through, rerunning it naturally skips over already-processed items.
+- **Resuming State:** Leverage tools like `td` (for tracking the meta-state of work) or simple file markers so pipelines just pick up where they left off. 
+
+## 5. Intermediate Artifacts & JSONL
+
+**Heuristic: Emitting intermediate artifacts allows for better debugging and CLI composition.**
+
+Don't build monolithic pipelines where data enters point A and only exits at point Z. 
+
+### Why?
+- **Extraction Points:** Identify clear extraction points where data can be dumped to disk. This allows you to manually verify the state of data halfway through a process, and prevents having to re-run expensive early steps if a later step fails.
+- **The Power of JSONL:** `JSONL` (JSON Lines) is our preferred format for these artifacts. It allows you to process or tail massive datasets line-by-line without loading entire arrays into memory. It also enables us to heavily utilize CLI tools like `jq` and `fzf` to map, filter, and inspect intermediate data effortlessly during development.
