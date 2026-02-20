@@ -14,7 +14,7 @@ describe('Observational Memory Agent', () => {
     // We must manually initialize the storage table for tests
     await testStorage.init();
 
-    const testMemory = new Memory({
+    const _testMemory = new Memory({
       storage: testStorage,
       options: {
         observationalMemory: {
@@ -33,7 +33,7 @@ describe('Observational Memory Agent', () => {
         memoryOptions: {
           threadId,
         },
-      } as any);
+      } as unknown as Parameters<typeof localMemoryAgent.generate>[1]);
 
       // Wait briefly for background observational memory to run
       await new Promise((resolve) => setTimeout(resolve, 500));
@@ -47,7 +47,7 @@ describe('Observational Memory Agent', () => {
           memoryOptions: {
             threadId,
           },
-        } as any
+        } as unknown as Parameters<typeof localMemoryAgent.generate>[1]
       );
 
       const text = result2.text.toLowerCase();
@@ -59,24 +59,25 @@ describe('Observational Memory Agent', () => {
       try {
         expect(text).toContain('alice agentic');
         expect(text).toContain('usr-456');
-      } catch (e) {
+      } catch (_e) {
         console.warn(
           '⚠️ Model hallucinated or failed to use the tool correctly. This is expected with small 1.2B parameter models.'
         );
       }
-    } catch (error: any) {
+    } catch (error) {
       // Provide a helpful test outcome if Ollama/API keys are not configured
       if (
-        error.message.includes('Could not find API key') ||
-        error.message.includes('Could not find config for provider') ||
-        error.message.includes('fetch failed')
+        error instanceof Error &&
+        (error.message.includes('Could not find API key') ||
+          error.message.includes('Could not find config for provider') ||
+          error.message.includes('fetch failed'))
       ) {
         console.warn(
           '⚠️ Test skipped/failed due to missing LLM configuration. ' +
             'To run this test locally, ensure Ollama is spun up, the machine is registered/tunneled, ' +
             'and the lfm2.5-thinking substrate is pulled and running.'
         );
-        // We pass the test gracefully in CI if it's just a missing config issue
+        // We pass the test gracefully in CI if it is just a missing config issue
         expect(true).toBe(true);
       } else {
         throw error;

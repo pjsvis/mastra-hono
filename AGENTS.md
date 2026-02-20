@@ -4,6 +4,15 @@
 
 Run td usage --new-session at conversation start (or after /clear). This tells you what to work on next.
 
+### Session Boundaries (Required)
+- **Start of session:** `td usage --new-session`
+- **End of session:** `td handoff <issue-id> --done ... --remaining ... --decision ... --uncertain ...`
+
+### Session End Checklist (Required)
+- [ ] Run `td handoff` before you say “done” or end the session
+- [ ] Include done / remaining / decision / uncertain
+- [ ] Submit `td review <issue-id>` only after a handoff is recorded
+
 Sessions are automatic (based on terminal/agent context). Optional:
 - td session "name" to label the current session
 - td session --new to force a new session in the same context

@@ -47,3 +47,6 @@ export const mastra = new Mastra({
     },
   }),
 });
+
+export const agentIds = ['researchAgent', 'weatherAgent', 'localMemoryAgent'] as const;
+export type AgentId = (typeof agentIds)[number];

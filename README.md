@@ -11,6 +11,11 @@ bun run dev
 
 Open http://localhost:3000
 
+## Dev Setup (macOS + Zed)
+See `docs/dev-setup-macos-zed.md` for a step-by-step setup guide.
+
+**TD reminder:** Do not end a session without a recorded `td handoff`.
+
 ## Agents
 
 ### Research Agent (`research-agent`)
