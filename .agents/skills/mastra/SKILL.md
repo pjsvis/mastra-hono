@@ -146,7 +146,7 @@ Always use `"provider/model-name"`:
 
 4. **Test in Studio**
    ```bash
-   npm run dev  # http://localhost:4111
+   bun run dev  # http://localhost:4111
    ```
 
 ## Resources
