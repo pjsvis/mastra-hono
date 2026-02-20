@@ -6,9 +6,6 @@ import { webSearchTool } from '@src/mastra/tools/web-search-tool';
 async function execTool(tool: any, params: any) {
   // biome-ignore lint/suspicious/noExplicitAny: generic test helper
   const result = await tool.execute?.(params, {} as any);
-  if (result && typeof result === 'object' && 'error' in result) {
-    throw new Error((result as { message: string }).message);
-  }
   // biome-ignore lint/suspicious/noExplicitAny: generic test helper
   return result as any;
 }
@@ -81,21 +78,21 @@ describe('Calculator Tool', () => {
   });
 
   test('should handle division by zero', async () => {
-    await expect(
-      execTool(calculatorTool, {
-        expression: '1 / 0',
-      })
-    ).rejects.toThrow();
+    const result = await execTool(calculatorTool, {
+      expression: '1 / 0',
+    });
+
+    expect(result.error).toBe('Calculation resulted in an invalid number');
   });
 
   test('should sanitize invalid characters', async () => {
-    // Invalid chars get stripped, leaving valid expression
-    // "2 + hello" becomes "2 + " which is invalid JavaScript, so it should throw
-    await expect(
-      execTool(calculatorTool, {
-        expression: '2 + hello', // 'hello' gets stripped
-      })
-    ).rejects.toThrow('Unexpected token');
+    // "2 + hello" becomes "2 + " which is invalid JavaScript, so it should return an error
+    const result = await execTool(calculatorTool, {
+      expression: '2 + hello', // 'hello' gets stripped
+    });
+
+    expect(result.error).toBeDefined();
+    expect(result.error).toContain('Failed to calculate');
   });
 });
 

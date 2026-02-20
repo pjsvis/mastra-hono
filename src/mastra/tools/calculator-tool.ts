@@ -13,22 +13,26 @@ export const calculatorTool = createTool({
       ),
   }),
   outputSchema: z.object({
-    result: z.number(),
-    expression: z.string(),
+    result: z.number().optional(),
+    expression: z.string().optional(),
+    error: z.string().optional(),
   }),
   execute: async (inputData) => {
     return await calculate(inputData.expression);
   },
 });
 
-const calculate = async (expression: string): Promise<{ result: number; expression: string }> => {
+const calculate = async (
+  expression: string
+): Promise<{ result?: number; expression?: string; error?: string }> => {
   // Sanitize input - only allow safe characters (including spaces)
   const sanitized = expression.replace(/[^0-9+\-*/().^sqrt ]/g, '');
 
   if (!sanitized.trim()) {
-    throw new Error(
-      'Invalid expression. Only numbers and basic operators (+, -, *, /, ^, sqrt, parentheses) are allowed.'
-    );
+    return {
+      error:
+        'Invalid expression. Only numbers and basic operators (+, -, *, /, ^, sqrt, parentheses) are allowed.',
+    };
   }
 
   try {
@@ -40,7 +44,7 @@ const calculate = async (expression: string): Promise<{ result: number; expressi
     const result = Function(`"use strict"; return (${jsExpression})`)();
 
     if (typeof result !== 'number' || !Number.isFinite(result)) {
-      throw new Error('Calculation resulted in an invalid number');
+      return { error: 'Calculation resulted in an invalid number' };
     }
 
     return {
@@ -48,8 +52,8 @@ const calculate = async (expression: string): Promise<{ result: number; expressi
       expression: sanitized,
     };
   } catch (error) {
-    throw new Error(
-      `Failed to calculate: ${error instanceof Error ? error.message : 'Unknown error'}`
-    );
+    return {
+      error: `Failed to calculate: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    };
   }
 };
