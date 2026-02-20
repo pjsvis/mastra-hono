@@ -22,10 +22,10 @@ export const calculatorTool = createTool({
 });
 
 const calculate = async (expression: string): Promise<{ result: number; expression: string }> => {
-  // Sanitize input - only allow safe characters
-  const sanitized = expression.replace(/[^0-9+\-*/().^sqrt]/g, '');
+  // Sanitize input - only allow safe characters (including spaces)
+  const sanitized = expression.replace(/[^0-9+\-*/().^sqrt ]/g, '');
 
-  if (!sanitized || sanitized !== expression) {
+  if (!sanitized.trim()) {
     throw new Error(
       'Invalid expression. Only numbers and basic operators (+, -, *, /, ^, sqrt, parentheses) are allowed.'
     );

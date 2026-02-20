@@ -1,5 +1,7 @@
 import { createStep, createWorkflow } from '@mastra/core/workflows';
+import * as R from 'remeda';
 import { z } from 'zod';
+import { to } from '../../utils/to';
 
 const forecastSchema = z.object({
   date: z.string(),
@@ -45,40 +47,66 @@ const fetchWeather = createStep({
     }
 
     const geocodingUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(inputData.city)}&count=1`;
-    const geocodingResponse = await fetch(geocodingUrl);
-    const geocodingData = (await geocodingResponse.json()) as {
-      results: { latitude: number; longitude: number; name: string }[];
-    };
+    const [geoErr, geocodingResponse] = await to(fetch(geocodingUrl));
+    if (geoErr || !geocodingResponse.ok) {
+      throw new Error(
+        `Failed to fetch location: ${geoErr?.message || geocodingResponse?.statusText}`
+      );
+    }
 
-    if (!geocodingData.results?.[0]) {
+    const [geoParseErr, geocodingData] = await to(
+      geocodingResponse.json() as Promise<{
+        results: { latitude: number; longitude: number; name: string }[];
+      }>
+    );
+
+    if (geoParseErr || !geocodingData?.results?.[0]) {
       throw new Error(`Location '${inputData.city}' not found`);
     }
 
     const { latitude, longitude, name } = geocodingData.results[0];
 
     const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=precipitation,weathercode&timezone=auto,&hourly=precipitation_probability,temperature_2m`;
-    const response = await fetch(weatherUrl);
-    const data = (await response.json()) as {
-      current: {
-        time: string;
-        precipitation: number;
-        weathercode: number;
-      };
-      hourly: {
-        precipitation_probability: number[];
-        temperature_2m: number[];
-      };
-    };
+    const [weatherErr, response] = await to(fetch(weatherUrl));
+    if (weatherErr || !response.ok) {
+      throw new Error(`Failed to fetch weather: ${weatherErr?.message || response?.statusText}`);
+    }
+
+    const [weatherParseErr, data] = await to(
+      response.json() as Promise<{
+        current: {
+          time: string;
+          precipitation: number;
+          weathercode: number;
+        };
+        hourly: {
+          precipitation_probability: number[];
+          temperature_2m: number[];
+        };
+      }>
+    );
+
+    if (weatherParseErr || !data) {
+      throw new Error('Failed to parse weather data');
+    }
+
+    // Using remeda for data pipelines instead of imperative logic
+    const maxTemp =
+      R.pipe(data.hourly.temperature_2m, R.firstBy([(temp: number) => temp, 'desc'])) ?? 0;
+
+    const minTemp =
+      R.pipe(data.hourly.temperature_2m, R.firstBy([(temp: number) => temp, 'asc'])) ?? 0;
+
+    const precipitationChance =
+      R.pipe(data.hourly.precipitation_probability, R.firstBy([(prob: number) => prob, 'desc'])) ??
+      0;
 
     const forecast = {
       date: new Date().toISOString(),
-      maxTemp: Math.max(...data.hourly.temperature_2m),
-      minTemp: Math.min(...data.hourly.temperature_2m),
+      maxTemp,
+      minTemp,
       condition: getWeatherCondition(data.current.weathercode),
-      precipitationChance: data.hourly.precipitation_probability.reduce(
-        (acc, curr) => Math.max(acc, curr),
-        0
-      ),
+      precipitationChance,
       location: name,
     };
 
@@ -147,12 +175,18 @@ const planActivities = createStep({
 
       Maintain this exact formatting for consistency, using the emoji and section headers as shown.`;
 
-    const response = await agent.stream([
-      {
-        role: 'user',
-        content: prompt,
-      },
-    ]);
+    const [streamErr, response] = await to(
+      agent.stream([
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ])
+    );
+
+    if (streamErr || !response) {
+      throw new Error(`Failed to plan activities: ${streamErr?.message}`);
+    }
 
     let activitiesText = '';
 
