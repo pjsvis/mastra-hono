@@ -1,7 +1,12 @@
 import { Agent } from '@mastra/core/agent';
 import { Memory } from '@mastra/memory';
+import { createOllama } from 'ollama-ai-provider-v2';
 import { calculatorTool } from '../tools/calculator-tool';
 import { webSearchTool } from '../tools/web-search-tool';
+
+const ollama = createOllama({
+  baseURL: 'http://localhost:11434/api',
+});
 
 export const researchAgent = new Agent({
   id: 'research-agent',
@@ -25,7 +30,7 @@ You have access to the following tools:
 - calculatorTool: For mathematical calculations
 - webSearchTool: For searching the web and getting current information
 `,
-  model: 'ollama/lfm2.5-thinking',
+  model: ollama('lfm2.5-thinking'),
   tools: { calculatorTool, webSearchTool },
   memory: new Memory(),
 });
