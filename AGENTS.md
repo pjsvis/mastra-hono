@@ -27,10 +27,12 @@ We follow a strict **Brief-to-Task** lifecycle:
 
 5. **The Approve**: Once the PR is merged, the human (or a senior agent) runs `td approve <issue-id>` to mark it as **DONE** and close the local lifecycle.
 
-### Cleanup & Tidying (Required)
-- **Worktree Removal**: After a task is approved/closed, delete the worktree to keep the forge clean: `git worktree remove <path>`.
-- **Branch Deletion**: Delete local branches once they are merged into `main`.
-- **ZOMBIE Prevention**: Never leave "in_progress" tasks that are not actually being worked on. If you stop halfway, run `td unfocus` and `td block` if waiting for input.
+### Cleanup & Tidying (The Ephemeral Forge)
+The local development environment is a temporary **Forge**, not a permanent home. Once `finish` is run:
+- **Automatic Unfocus**: The task is automatically detached from your session.
+- **Immediate Cleanup**: Move back to `main` immediately. Do not leave "dangling" task branches.
+- **Sovereign Review**: Any further feedback from the PR should be treated as a *new* session or a re-checkout.
+- **Worktree Removal**: Delete the worktree/branch as soon as the PR is confirmed live.
 
 ### The "Map of Knowledge" (Description)
 The task `description` field in `td` is used as a high-visibility context map. It follows a strict format for easy jumping:

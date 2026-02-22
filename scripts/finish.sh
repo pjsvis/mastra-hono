@@ -118,9 +118,13 @@ if [ "$BRANCH_NAME" != "main" ] && [ "$BRANCH_NAME" != "HEAD" ]; then
                > /dev/null 2>&1 || echo "ℹ️ PR already exists or updated via push."
 fi
 
+td unfocus
+
 echo "✅ Task $CURRENT_ISSUE complete. Status: REVIEWABLE"
+echo "🧠 Session detached. The Forge is ready for the next mission."
 echo ""
-echo "🔥 NEXT STEPS FOR HUMAN:"
+echo "🔥 NEXT STEPS FOR HUMAN (The Ephemeral Forge):"
 echo "1. Review the PR on GitHub (Sovereign Cloud Audit is running)."
 echo "2. Once satisfied, run 'td approve $CURRENT_ISSUE' to mark as DONE."
-echo "3. Cleanup: 'git worktree remove ...' and delete the local branch."
+echo "3. Cleanup: Run 'git checkout main' and 'git branch -D $BRANCH_NAME'."
+echo "   (If in a worktree: 'cd .. && git worktree remove <path>')"
