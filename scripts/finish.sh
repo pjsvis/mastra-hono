@@ -71,19 +71,22 @@ echo "🗺 Updating task context map..."
 NEW_DESC=$(td show "$CURRENT_ISSUE" --json | jq -r '.description' | grep "^Brief:")
 
 # Add Debrief
-NEW_DESC="$NEW_DESC"$'\n'"Debrief: $DEBRIEF_FILE"
+NEW_DESC="${NEW_DESC}
+Debrief: ${DEBRIEF_FILE}"
 
 # Add Test Plan if found
 if [ -n "$HUMAN_TEST" ]; then
   for ht in $HUMAN_TEST; do
-    NEW_DESC="$NEW_DESC"$'\n'"Test-Plan: $ht"
+    NEW_DESC="${NEW_DESC}
+Test-Plan: ${ht}"
   done
 fi
 
 # Add Playbooks if found
 if [ -n "$NEW_PLAYBOOK" ]; then
   for pb in $NEW_PLAYBOOK; do
-    NEW_DESC="$NEW_DESC"$'\n'"Playbook: $pb"
+    NEW_DESC="${NEW_DESC}
+Playbook: ${pb}"
   done
 fi
 
