@@ -66,7 +66,30 @@ if [ -n "$HUMAN_TEST" ]; then
   done
 fi
 
-# 5. Final Handoff & Review
+# 5. Logical Context Map (Update Description with structured links)
+echo "🗺 Updating task context map..."
+NEW_DESC=$(td show "$CURRENT_ISSUE" --json | jq -r '.description' | grep "^Brief:")
+
+# Add Debrief
+NEW_DESC="$NEW_DESC"$'\n'"Debrief: $DEBRIEF_FILE"
+
+# Add Test Plan if found
+if [ -n "$HUMAN_TEST" ]; then
+  for ht in $HUMAN_TEST; do
+    NEW_DESC="$NEW_DESC"$'\n'"Test-Plan: $ht"
+  done
+fi
+
+# Add Playbooks if found
+if [ -n "$NEW_PLAYBOOK" ]; then
+  for pb in $NEW_PLAYBOOK; do
+    NEW_DESC="$NEW_DESC"$'\n'"Playbook: $pb"
+  done
+fi
+
+td update "$CURRENT_ISSUE" --description "$NEW_DESC"
+
+# 6. Final Handoff & Review
 echo "📦 Performing final automated handoff..."
 td handoff "$CURRENT_ISSUE" \
   --done "Automated completion verified by lint/typecheck/tests." \

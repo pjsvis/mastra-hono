@@ -32,6 +32,15 @@ We follow a strict **Brief-to-Task** lifecycle:
 - **Branch Deletion**: Delete local branches once they are merged into `main`.
 - **ZOMBIE Prevention**: Never leave "in_progress" tasks that are not actually being worked on. If you stop halfway, run `td unfocus` and `td block` if waiting for input.
 
+### The "Map of Knowledge" (Description)
+The task `description` field in `td` is used as a high-visibility context map. It follows a strict format for easy jumping:
+- **Brief**: `briefs/my-brief.md`
+- **Debrief**: `debriefs/td-id.md`
+- **Test-Plan**: `tests/human/td-id-verification.md`
+- **Playbook**: `playbooks/my-pattern.md`
+
+This ensure that any agent (or human) focusing on the task has immediate access to the entire documentation stack.
+
 Sessions are automatic (based on terminal/agent context). Optional:
 - td session "name" to label the current session
 - td session --new to force a new session in the same context

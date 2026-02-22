@@ -31,9 +31,8 @@ if [ -z "$TD_ID" ]; then
 
   echo "Forging new td task for: $TITLE..."
   
-  # Create the issue and capture the ID
-  # Output of td create is usually "✓ Created td-xxxxxx: Title"
-  RAW_OUTPUT=$(td create "$TITLE" --type task --description "Implemented based on $SELECTED_BRIEF")
+  # Create the issue with a structured description
+  RAW_OUTPUT=$(td create "$TITLE" --type task --description "Brief: $SELECTED_BRIEF")
   TD_ID=$(echo "$RAW_OUTPUT" | grep -o 'td-[a-z0-9]\{6\}')
 
   if [ -z "$TD_ID" ]; then
