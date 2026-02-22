@@ -46,7 +46,7 @@ echo "📝 Synthesizing debrief..."
 
 # 4. Logical Artifact Recording
 echo "🔗 Linking artifacts to $CURRENT_ISSUE..."
-td link "$CURRENT_ISSUE" "$DEBRIEF_FILE" --role reference
+td link "$CURRENT_ISSUE" "$DEBRIEF_FILE" --role debrief
 
 # Optional: If a new playbook was created (detected by changes in playbooks/ file)
 NEW_PLAYBOOK=$(git diff --name-only main | grep "playbooks/" | grep -v "biome-standards.md")

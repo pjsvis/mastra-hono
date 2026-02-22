@@ -42,8 +42,10 @@ if [ -z "$TD_ID" ]; then
     exit 1
   fi
 
-  # Link back to the brief
-  # Prepend the ID to the file
+  # Link the brief as an artifact
+  td link "$TD_ID" "$SELECTED_BRIEF" --role brief
+  
+  # Link back to the brief (internal metadata)
   TEMP=$(mktemp)
   echo "TD-ID: $TD_ID" > "$TEMP"
   cat "$SELECTED_BRIEF" >> "$TEMP"

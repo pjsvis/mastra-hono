@@ -23,7 +23,14 @@ We follow a strict **Brief-to-Task** lifecycle:
    - Runs all verification checks (Lint + Types + Tests).
    - Generates a **Debrief** automatically from session logs.
    - Links the Debrief and any new **Playbooks** to the `td` ticket.
-   - Performs a final `td handoff` and pushes the branch to trigger the **Sovereign Cloud Review**.
+   - Performs a final `td handoff`, pushes the branch, and creates a **GitHub PR**.
+
+5. **The Approve**: Once the PR is merged, the human (or a senior agent) runs `td approve <issue-id>` to mark it as **DONE** and close the local lifecycle.
+
+### Cleanup & Tidying (Required)
+- **Worktree Removal**: After a task is approved/closed, delete the worktree to keep the forge clean: `git worktree remove <path>`.
+- **Branch Deletion**: Delete local branches once they are merged into `main`.
+- **ZOMBIE Prevention**: Never leave "in_progress" tasks that are not actually being worked on. If you stop halfway, run `td unfocus` and `td block` if waiting for input.
 
 Sessions are automatic (based on terminal/agent context). Optional:
 - td session "name" to label the current session
