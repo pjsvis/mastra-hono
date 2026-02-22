@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Pre-commit hook for Mastra Hono
+# Delegated to package.json for easier maintenance
+
+set -e
+
+echo "🔍 Running pre-commit checks..."
+
+# Run the precommit script from package.json
+bun run precommit || {
+  echo "❌ Pre-commit checks failed."
+  exit 1
+}
+
+echo "✅ All pre-commit checks passed!"

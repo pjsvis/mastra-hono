@@ -2,17 +2,20 @@ import { describe, expect, test } from 'bun:test';
 import { calculatorTool } from '@src/mastra/tools/calculator-tool';
 import { webSearchTool } from '@src/mastra/tools/web-search-tool';
 
+/**
+ * Helper to execute tools in tests without manual context mocking
+ */
 // biome-ignore lint/suspicious/noExplicitAny: generic test helper
-async function execTool(tool: any, params: any) {
-  // biome-ignore lint/suspicious/noExplicitAny: generic test helper
-  const result = await tool.execute?.(params, {} as any);
-  // biome-ignore lint/suspicious/noExplicitAny: generic test helper
-  return result as any;
+async function execTool<TInput, TOutput>(tool: any, params: TInput): Promise<TOutput> {
+  // biome-ignore lint/suspicious/noExplicitAny: context is usually any in tests
+  const result = await tool.execute(params, {} as any);
+  return result as TOutput;
 }
 
 describe('Calculator Tool', () => {
   test('should evaluate simple addition', async () => {
-    const result = await execTool(calculatorTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(calculatorTool, {
       expression: '2 + 2',
     });
 
@@ -21,7 +24,8 @@ describe('Calculator Tool', () => {
   });
 
   test('should evaluate subtraction', async () => {
-    const result = await execTool(calculatorTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(calculatorTool, {
       expression: '10 - 3',
     });
 
@@ -29,7 +33,8 @@ describe('Calculator Tool', () => {
   });
 
   test('should evaluate multiplication', async () => {
-    const result = await execTool(calculatorTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(calculatorTool, {
       expression: '6 * 7',
     });
 
@@ -37,7 +42,8 @@ describe('Calculator Tool', () => {
   });
 
   test('should evaluate division', async () => {
-    const result = await execTool(calculatorTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(calculatorTool, {
       expression: '100 / 4',
     });
 
@@ -45,7 +51,8 @@ describe('Calculator Tool', () => {
   });
 
   test('should handle complex expressions', async () => {
-    const result = await execTool(calculatorTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(calculatorTool, {
       expression: 'sqrt(16) * 3',
     });
 
@@ -53,7 +60,8 @@ describe('Calculator Tool', () => {
   });
 
   test('should handle exponents', async () => {
-    const result = await execTool(calculatorTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(calculatorTool, {
       expression: '2 ^ 8',
     });
 
@@ -61,7 +69,8 @@ describe('Calculator Tool', () => {
   });
 
   test('should handle parentheses', async () => {
-    const result = await execTool(calculatorTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(calculatorTool, {
       expression: '(10 - 2) / 4',
     });
 
@@ -69,7 +78,8 @@ describe('Calculator Tool', () => {
   });
 
   test('should handle mixed operations', async () => {
-    const result = await execTool(calculatorTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(calculatorTool, {
       expression: '2 + 3 * 4',
     });
 
@@ -78,7 +88,8 @@ describe('Calculator Tool', () => {
   });
 
   test('should handle division by zero', async () => {
-    const result = await execTool(calculatorTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(calculatorTool, {
       expression: '1 / 0',
     });
 
@@ -87,7 +98,8 @@ describe('Calculator Tool', () => {
 
   test('should sanitize invalid characters', async () => {
     // "2 + hello" becomes "2 + " which is invalid JavaScript, so it should return an error
-    const result = await execTool(calculatorTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(calculatorTool, {
       expression: '2 + hello', // 'hello' gets stripped
     });
 
@@ -98,7 +110,8 @@ describe('Calculator Tool', () => {
 
 describe('Web Search Tool', () => {
   test('should return search results', async () => {
-    const result = await execTool(webSearchTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(webSearchTool, {
       query: 'TypeScript programming',
       limit: 3,
     });
@@ -110,7 +123,8 @@ describe('Web Search Tool', () => {
   });
 
   test('should respect limit parameter', async () => {
-    const result = await execTool(webSearchTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(webSearchTool, {
       query: 'test query',
       limit: 2,
     });
@@ -119,7 +133,8 @@ describe('Web Search Tool', () => {
   });
 
   test('should handle empty results gracefully', async () => {
-    const result = await execTool(webSearchTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(webSearchTool, {
       query: 'xyzabc123notreal',
       limit: 5,
     });
@@ -131,7 +146,8 @@ describe('Web Search Tool', () => {
 
   test('should include query in response', async () => {
     const query = 'test search';
-    const result = await execTool(webSearchTool, {
+    // biome-ignore lint/suspicious/noExplicitAny: test cast
+    const result = await execTool<any, any>(webSearchTool, {
       query,
       limit: 1,
     });

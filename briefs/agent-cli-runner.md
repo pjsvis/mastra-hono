@@ -47,4 +47,5 @@ src/cli/
 - [ ] The CLI supports a `run` command that executes a single prompt and exits (Unix philosophy).
 - [ ] The CLI supports a `chat` command that initiates a multi-turn REPL loop.
 - [ ] Both commands support a `--model` flag that successfully overrides the default model defined in the agent's TypeScript file.
+- [ ] We should support local and clpoud models using Ollama and remote models using OpenRouter 
 - [ ] The interactive `chat` mode uses CharmBracelet tools (or similar TUI paradigms) to provide visual feedback (spinners) during LLM generation.

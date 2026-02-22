@@ -1,53 +1,50 @@
-{
-  "version": "1",
-  "tasks": [
-    {
-      "label": "Dev: bun run dev",
-      "command": "bun",
-      "args": ["run", "dev"],
-      "cwd": ".",
-      "use_new_terminal": true,
-      "reveal": "always"
-    },
-    {
-      "label": "Build: bun run build",
-      "command": "bun",
-      "args": ["run", "build"],
-      "cwd": ".",
-      "use_new_terminal": true,
-      "reveal": "always"
-    },
-    {
-      "label": "Start: bun run start",
-      "command": "bun",
-      "args": ["run", "start"],
-      "cwd": ".",
-      "use_new_terminal": true,
-      "reveal": "always"
-    },
-    {
-      "label": "Test: bun run test",
-      "command": "bun",
-      "args": ["run", "test"],
-      "cwd": ".",
-      "use_new_terminal": true,
-      "reveal": "always"
-    },
-    {
-      "label": "Check: bun run check",
-      "command": "bun",
-      "args": ["run", "check"],
-      "cwd": ".",
-      "use_new_terminal": true,
-      "reveal": "always"
-    },
-    {
-      "label": "Precommit: bun run precommit",
-      "command": "bun",
-      "args": ["run", "precommit"],
-      "cwd": ".",
-      "use_new_terminal": true,
-      "reveal": "always"
-    }
-  ]
-}
+[
+  {
+    "label": "Dev: bun run dev",
+    "command": "bun",
+    "args": ["run", "dev"],
+    "cwd": ".",
+    "use_new_terminal": true,
+    "reveal": "always"
+  },
+  {
+    "label": "Build: bun run build",
+    "command": "bun",
+    "args": ["run", "build"],
+    "cwd": ".",
+    "use_new_terminal": true,
+    "reveal": "always"
+  },
+  {
+    "label": "Start: bun run start",
+    "command": "bun",
+    "args": ["run", "start"],
+    "cwd": ".",
+    "use_new_terminal": true,
+    "reveal": "always"
+  },
+  {
+    "label": "Test: bun run test",
+    "command": "bun",
+    "args": ["run", "test"],
+    "cwd": ".",
+    "use_new_terminal": true,
+    "reveal": "always"
+  },
+  {
+    "label": "Check: bun run check",
+    "command": "bun",
+    "args": ["run", "check"],
+    "cwd": ".",
+    "use_new_terminal": true,
+    "reveal": "always"
+  },
+  {
+    "label": "Precommit: bun run precommit",
+    "command": "bun",
+    "args": ["run", "precommit"],
+    "cwd": ".",
+    "use_new_terminal": true,
+    "reveal": "always"
+  }
+]

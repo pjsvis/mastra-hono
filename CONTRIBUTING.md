@@ -40,16 +40,25 @@ bun run format
 # Type check only
 bun run typecheck
 
-# Run all checks (lint + typecheck)
+# Run all checks (lint check + typecheck)
 bun run check
 
-# Pre-commit check (lint + typecheck + tests)
+# Pre-commit suite (lint write + typecheck)
 bun run precommit
+
+# Full verification (lint check + typecheck + tests)
+bun run verify
 ```
 
 ## Pre-commit Hook
 
-A pre-commit hook is installed automatically. To bypass when needed:
+A pre-commit hook is installed automatically to keep the codebase healthy without being a bottleneck. It runs:
+1. `biome check --write`: Automatically formats and fixes common lint issues.
+2. `tsc --noEmit`: Ensures type-safety across the project.
+
+**Note**: Heavy tests are excluded from the pre-commit hook to keep it fast. You should run `bun run verify` before pushing to a remote branch.
+
+To bypass when needed:
 
 ```bash
 git commit --no-verify
