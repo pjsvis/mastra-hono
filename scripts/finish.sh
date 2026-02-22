@@ -48,12 +48,21 @@ echo "📝 Synthesizing debrief..."
 echo "🔗 Linking artifacts to $CURRENT_ISSUE..."
 td link "$CURRENT_ISSUE" "$DEBRIEF_FILE" --role debrief
 
-# Optional: If a new playbook was created (detected by changes in playbooks/ file)
+# Optional: If a new playbook was created
 NEW_PLAYBOOK=$(git diff --name-only main | grep "playbooks/" | grep -v "biome-standards.md")
 if [ -n "$NEW_PLAYBOOK" ]; then
   for pb in $NEW_PLAYBOOK; do
     td link "$CURRENT_ISSUE" "$pb" --role reference
     echo "✅ Recorded new playbook: $pb"
+  done
+fi
+
+# Optional: If a human test plan was created
+HUMAN_TEST=$(git diff --name-only main | grep "tests/human/" | grep "$CURRENT_ISSUE")
+if [ -n "$HUMAN_TEST" ]; then
+  for ht in $HUMAN_TEST; do
+    td link "$CURRENT_ISSUE" "$ht" --role test-plan
+    echo "✅ Recorded human test plan: $ht"
   done
 fi
 
