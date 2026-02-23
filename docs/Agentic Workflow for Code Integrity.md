@@ -1,95 +1,84 @@
-This report outlines the "Symmetric Mentation" workflow designed to unify your local high-velocity development environment with **GitHub's 2026 Agentic Infrastructure**. By integrating **SideCar/td** with **GitHub Agentic Workflows (GHAW)** and **ntfy**, we bridge the gap between local action and repository-wide integrity.
+# Agentic Workflow for Code Integrity
 
-## ---
+This document defines the **Symmetric Mentation** workflow: fast local development paired with rigorous, automated review in CI. It separates execution from verification and uses secure notifications for human-in-the-loop decisions.
 
-**1\. Workflow Architecture Report**
+---
 
-The goal is to maintain a high-quality **Mentation Bridge**. Local agents focus on "Gumption" (executing code), while Cloud agents focus on "Sovereignty" (verifying against project standards).
+## 1. Workflow Architecture
+
+Local agents focus on execution. Cloud agents focus on verification.
 
 | Layer | Component | Operational Role |
-| :---- | :---- | :---- |
-| **Local Action** | **SideCar \+ td** | High-velocity task tracking and TUI monitoring. td acts as the persistent local "memory" for the agent. |
-| **Haptic Link** | **ntfy.sh** | Real-time "Action Required" push notifications to your iPhone. Acts as a low-latency bridge for Human-in-the-Loop (HITL) moments. |
-| **Cloud Audit** | **GHAW** | Natural language-driven CI/CD. It performs the sovereign code review on PRs according to your AGENTS.md and review.md. |
-| **Isolation** | **Git Worktrees** | Physical folder isolation for each task. Prevents agents from polluting global state while working on modular features. |
+| --- | --- | --- |
+| Local Action | SideCar + td | High-velocity task tracking with durable local state. |
+| Haptic Link | ntfy | Real-time human notifications on success/failure. |
+| Cloud Audit | GHAW | Automated PR review against `AGENTS.md` and `review.md`. |
+| Isolation | Git Worktrees | Dedicated worktrees per task to avoid cross-contamination. |
 
-## ---
+---
 
-**2\. Infrastructure Setup Instructions**
+## 2. Infrastructure Setup
 
-### **Phase 1: Local Tooling & Comms**
+### Phase 1: Local Tooling & Communications
 
-1. **Install GHAW CLI Extension:** \* In your terminal, run: gh extension install github/gh-aw.  
-2. **Configure ntfy on Mac & iPhone:**  
-   * **iPhone:** Install the **ntfy** app and subscribe to a private topic (e.g., pjsvis-mastra-hono).  
-   * **Mac:** Add this helper to your .zshrc or .bashrc:  
-     Bash  
-     function notify() { curl \-d "$1" ntfy.sh/pjsvis-mastra-hono; }
+1. **Install GHAW CLI extension**
+   - Run: `gh extension install github/gh-aw`
 
-3. **Setup local td:**  
-   * Ensure the td CLI is installed and initialize a local DB for the project: td init \--name mastra-hono.
+2. **Configure ntfy (Mac + iPhone)**
+   - iPhone: install the `ntfy` app and subscribe to a **private** topic.
+   - Mac: add a helper function (use a private topic or token).
 
-### **Phase 2: Repository Configuration**
+3. **Initialize td**
+   - Run: `td init --name mastra-hono`
 
-1. **Initialize GHAW in project root:** \* Run gh aw init. This creates the .github/workflows/ directory for your agentic Markdown files.  
-2. **Configure GitHub Secrets:**  
-   * Add GITHUB\_COPILOT\_TOKEN (or CLAUDE\_TOKEN) to your repo secrets. This is required for GHAW to authenticate its cloud-based reviewer.  
-3. **Connect ntfy to GitHub Actions:**  
-   * Store your ntfy URL as a secret (e.g., NTFY\_URL) so GHAW can "poke" your phone on PR failures.
+### Phase 2: Repository Configuration
 
-## ---
+1. **Initialize GHAW**
+   - Run: `gh aw init`
 
-**3\. Artefacts & Placement**
+2. **Configure GitHub secrets**
+   - Add a `GITHUB_COPILOT_TOKEN` (or equivalent) to repo secrets for GHAW.
 
-To ensure **Workflow Durability**, place these files in the **mastra-hono** project root.
+3. **Secure ntfy usage**
+   - Store the ntfy URL as a secret (e.g., `NTFY_URL`) and reference it in workflows.
 
-### **A. AGENTS.md (The Repo Constitution)**
+---
 
-**Placement:** /AGENTS.md
+## 3. Artifacts & Placement
 
-This file defines the coding standards, library preferences (Hono/Mastra specifics), and boundaries for *all* agents.
+| Artifact | Path | Purpose |
+| --- | --- | --- |
+| `AGENTS.md` | `/AGENTS.md` | Source-of-truth standards and coding patterns. |
+| `review.md` | `/.github/workflows/review.md` | GHAW review instructions. |
+| `CL.json` | `/root/conceptual-lexicon.json` | Domain lexicon for agent alignment. |
 
-* **Include:** Mandatory TypeScript usage, tsc \--noEmit gates, and Mastra tool-definition patterns.
+After editing `review.md`, recompile the lock file:
+- Run: `gh aw compile`
 
-### **B. review.md (The Cloud Reviewer)**
+---
 
-**Placement:** .github/workflows/review.md
+## 4. Operational Loop
 
-This is a GHAW file. It contains the instructions for the GitHub Agent.
+1. **Start Task**
+   - Create and start a task in `td`.
+2. **Local Execution**
+   - Implement changes in a dedicated worktree.
+3. **Sovereign Gate**
+   - Push the branch; GHAW runs review automation.
+4. **Haptic Feedback**
+   - ntfy notifies success/failure so you can act immediately.
 
-Markdown
+---
 
-\---  
-on: pull*\_request*  
-*permissions:*   
-  *contents: read*  
-  *pull-requests: write*  
-*\---*  
-*\# PR Review Agent*  
-*Review this PR for alignment with Mastra-Hono standards.*  
-*\- Ensure all Hono routes have appropriate middleware.*  
-*\- Verify Mastra agents are registered correctly in the orchestrator.*  
-*\- If errors are found, notify via ntfy: \`curl \-d "PR Failed" ${{ secrets.NTFY\_*URL }}\`
+## 5. Security & Reliability Notes
 
-* **Compile Step:** After creating this file, you **must** run gh aw compile to generate the .lock.yml file.
+- **Avoid public ntfy topics.** Use private topics or tokens.
+- **Keep `tsc --noEmit` authoritative.** Linting complements type checks, not replaces them.
+- **Don’t suppress CI errors.** Surface real failures to avoid false “success” states.
 
-### **C. CL.json (Contextual Lexicon)**
+---
 
-**Placement:** /root/conceptual-lexicon.json
+## 6. Quick Reference
 
-Sync the provided **v1.79 Lexicon** here. It ensures the agent understands terms like "Mentation" and "Gumption" during local work sessions.
-
-## ---
-
-**4\. Operational Loop**
-
-1. **Start Task:** td start "Add /chat route to Hono" in a new worktree.  
-2. **Local Mentation:** Use your local agent (Claude/Cursor) to build. It uses the CL.json for persona alignment.  
-3. **Sovereign Gate:** Push your branch. The GitHub Agent triggers the review.md workflow.  
-4. **Haptic Feedback:** If the review fails or passes, **ntfy** pings your iPhone. You can instantly see if you need to "Mentate" further or if you're ready to merge.
-
-### **Ctx Opinion**
-
-Converting **Mastra-Hono** first is a "High-Gumption" choice. Mastra is inherently designed for complex agentic workflows, so it will "play nice" with GHAW's infrastructure. By delegating the final audit to GitHub, you free up local cognitive resources—no more checking if the agent missed a type definition; the cloud agent will catch it and tap your pocket via ntfy.
-
-**Would you like me to generate the first AGENTS.md draft specifically for Mastra-Hono, incorporating the TypeScript gates and tool schemas?**
+- Local verification: `bun run check`
+- Create/refresh GHAW lock file: `gh aw compile`

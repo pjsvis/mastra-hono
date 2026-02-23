@@ -10,7 +10,13 @@ if [ ! -d "$BRIEF_DIR" ]; then
 fi
 
 # 1. Pick a brief using gum
-SELECTED_BRIEF=$(ls "$BRIEF_DIR"/*.md | gum filter --placeholder "Select a brief to forge into a task...")
+BRIEF_FILES=("$BRIEF_DIR"/*.md)
+if [ "${#BRIEF_FILES[@]}" -eq 1 ] && [ "${BRIEF_FILES[0]}" = "$BRIEF_DIR/*.md" ]; then
+  echo "❌ Error: No briefs found in $BRIEF_DIR."
+  exit 1
+fi
+
+SELECTED_BRIEF=$(printf '%s\n' "${BRIEF_FILES[@]}" | gum filter --placeholder "Select a brief to forge into a task...")
 
 if [ -z "$SELECTED_BRIEF" ]; then
   echo "Operation cancelled."
@@ -30,10 +36,10 @@ if [ -z "$TD_ID" ]; then
   fi
 
   echo "Forging new td task for: $TITLE..."
-  
+
   # Create the issue with a structured description
   RAW_OUTPUT=$(td create "$TITLE" --type task --description "Brief: $SELECTED_BRIEF")
-  TD_ID=$(echo "$RAW_OUTPUT" | grep -o 'td-[a-z0-9]\{6\}')
+  TD_ID=$(echo "$RAW_OUTPUT" | grep -o 'td-[a-z0-9]\+')
 
   if [ -z "$TD_ID" ]; then
     echo "❌ Error: Failed to create td issue."
@@ -43,13 +49,13 @@ if [ -z "$TD_ID" ]; then
 
   # Link the brief as an artifact
   td link "$TD_ID" "$SELECTED_BRIEF" --role brief
-  
+
   # Link back to the brief (internal metadata)
   TEMP=$(mktemp)
   echo "TD-ID: $TD_ID" > "$TEMP"
   cat "$SELECTED_BRIEF" >> "$TEMP"
   mv "$TEMP" "$SELECTED_BRIEF"
-  
+
   echo "✅ Linked $SELECTED_BRIEF to $TD_ID"
 else
   echo "ℹ️ Brief already linked to $TD_ID"

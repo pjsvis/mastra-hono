@@ -27,8 +27,8 @@ Read the `/AGENTS.md` file in the repository to understand our current tech stac
 ## Step 3: Notification & Action
 - **Failure**: If the audit finds regressions or style violations:
   - Post a detailed comment on the PR explaining the issues.
-  - Notify the human developer via the Haptic Link: `curl -d "Mastra-Hono Audit Failed: ${GITHUB_PR_URL}" ntfy.sh/ctx-mastra-hono-pjs`
+  - Notify the human developer via the Haptic Link: `curl -d "Mastra-Hono Audit Failed: ${GITHUB_PR_URL}" "${{ secrets.NTFY_URL }}"`
   - Fail the check.
 - **Success**: If all checks pass:
   - Approve the PR.
-  - Notify the human developer: `curl -d "Mastra-Hono Audit Passed: ${GITHUB_PR_URL}" ntfy.sh/ctx-mastra-hono-pjs`
+  - Notify the human developer: `curl -d "Mastra-Hono Audit Passed: ${GITHUB_PR_URL}" "${{ secrets.NTFY_URL }}"`

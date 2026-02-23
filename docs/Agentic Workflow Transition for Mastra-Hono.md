@@ -1,85 +1,79 @@
-Assimilating the **Mastra-Hono** transition plan. This project, which combines a high-performance Hono backend with the Mastra agentic framework, is the ideal candidate for our **Symmetric Mentation** workflow.
+# Agentic Workflow Transition for Mastra-Hono
 
-The transition involves moving from a "Chat-only" paradigm to a structured **Territory-Management** paradigm. We will use **td** for local task state, **GitHub Agentic Workflows (GHAW)** for repository-level integrity, and **ntfy** as the "Haptic Link" to your mobile device.
-
-### **1\. The Core Infrastructure Report**
-
-This workflow solves the "Context Drift" issue by anchoring the agent in a non-volatile local database (td) while delegating the sovereign "Gatekeeper" role to GitHub.
-
-| Component | Role | Logic |
-| :---- | :---- | :---- |
-| **Local Sleeve** | **SideCar \+ td** | High-velocity task tracking. Prevents "Compulsive Narrative Syndrome" by forcing the agent to update a structured DB rather than just a Markdown file. |
-| **Cloud Brain** | **GHAW (.md)** | Natural language CI/CD. It performs the "Code Review" and "Project Alignment" audits on every PR. |
-| **Haptic Link** | **ntfy.sh** | Direct-to-iPhone action requests. When a PR review fails or a local task finishes, the Mac "pokes" your phone. |
-| **Isolation** | **Git Worktrees** | Each td task gets its own folder. This ensures **Architectural Specialisation** (PHI-14). |
-
-### ---
-
-**2\. Setup Instructions (Phase 1: Local)**
-
-**Step 1: Install the Agentic Tooling**
-
-Open your terminal (ideally Warp/Flow) and run:
-
-Bash
-
-\# Install GitHub Agentic Workflows CLI  
-gh extension install github/gh-aw
-
-\# Install 'td' (the local task manager for agents)  
-\# Note: Ensure 'td' is in your path so the agent can call it
-
-**Step 2: Initialize the Mastra-Hono Repository**
-
-Navigate to your project root and achieve **Persona Initialization**:
-
-Bash
-
-gh aw init  
-\# This creates the .github/workflows directory for agentic md files.
-
-**Step 3: Setup the ntfy "Haptic Link"**
-
-On your Mac, create a shell alias or script to send notifications:
-
-Bash
-
-\# Replace 'ctx-hono-updates' with a unique topic name  
-alias notify="curl \-d \\"Action Required in Mastra-Hono\\" ntfy.sh/ctx-hono-updates"
-
-* **On iPhone:** Download the ntfy app and subscribe to ctx-hono-updates.
-
-### ---
-
-**3\. Artefacts & Placement**
-
-To ensure **Workflow Durability** (PHI-13), place these specific files in the repository:
-
-| Artefact | Path | Purpose |
-| :---- | :---- | :---- |
-| **AGENTS.md** | /root/AGENTS.md | The "Constitution" for all agents (Local & Cloud). Defines coding style and library usage. |
-| **review.md** | .github/workflows/review.md | The GHAW script. Describes in plain English how the cloud agent should review PRs. |
-| **CL.json** | /root/conceptual-lexicon.json | The **Conceptual Lexicon (CL)** for this project (Mastra/Hono specifics). |
-| **td.db** | \~/.td/mastra-hono.db | (External to Repo) Persistent task state. |
-
-### ---
-
-**4\. The Operational Loop (How to Work)**
-
-1. **Local Tasking:** Tell your local agent: *"Use td to create a new task for adding a Mastra tool to our Hono route. Start a new worktree for it."*  
-2. **Mentation:** Use **SideCar** to watch the agent work. If it gets stuck, it will send a message via **ntfy** to your iPhone.  
-3. **Submission:** When done, push the branch.  
-4. **Sovereign Review:** The GitHub Agentic Workflow reads .github/workflows/review.md, reviews the code against AGENTS.md, and either merges or sends a "Failure" notification to your phone.
-
-### **Ctx Opinion**
-
-Converting **Mastra-Hono** first is a high-leverage move. Mastra already understands "Workflows," so adding **GHAW** on top is like giving an engine a GPS. Using **ntfy** as the communication substrate satisfies the need for **Explicit Formulation** (PHI-5)—you are never "guessing" if the agent is done; the phone tells you.
-
-**Shall I generate the review.md instructions for the GitHub Agent now, specifically tailored to handle Mastra's agent-definitions and Hono's middleware patterns?**
+This document describes how to transition Mastra-Hono to a **Symmetric Mentation** workflow that combines local task management with cloud-based review and secure notifications.
 
 ---
 
-[Power agentic workflows in your terminal with GitHub Copilot CLI](https://www.youtube.com/watch?v=82jciNezDMY)
+## 1. Core Infrastructure Overview
 
-This video provides a practical look at how the GitHub CLI and agentic interactions are currently merging to create the "terminal-first" workflow we are implementing for your projects.
+The workflow anchors agent state locally (via `td`) while delegating final review to GitHub workflows.
 
+| Component | Role | Purpose |
+| --- | --- | --- |
+| **Local Sleeve (SideCar + td)** | Local task state | Keeps task context durable and structured. |
+| **Cloud Brain (GHAW)** | PR audit | Runs sovereign checks in CI using `review.md`. |
+| **Haptic Link (ntfy)** | Notifications | Pushes actionable results to your phone. |
+| **Isolation (Git Worktrees)** | Environment isolation | Keeps task changes isolated and reproducible. |
+
+---
+
+## 2. Setup Instructions (Phase 1: Local)
+
+### Step 1: Install agentic tooling
+
+```
+gh extension install github/gh-aw
+# Ensure td is installed and available on PATH.
+```
+
+### Step 2: Initialize repository workflows
+
+```
+gh aw init
+# This creates .github/workflows for agentic markdown workflows.
+```
+
+### Step 3: Configure ntfy for notifications (private)
+
+Use a **private** topic or tokenized URL. Avoid public topics.
+
+```
+# Replace <private-topic-or-token> with your private ntfy topic or token.
+alias notify="curl -d \"Action Required in Mastra-Hono\" https://ntfy.sh/<private-topic-or-token>"
+```
+
+On iPhone, subscribe to the same private topic in the ntfy app.
+
+---
+
+## 3. Repository Artifacts & Placement
+
+| Artifact | Path | Purpose |
+| --- | --- | --- |
+| **AGENTS.md** | `/AGENTS.md` | Repo constitution for all agents. |
+| **review.md** | `.github/workflows/review.md` | GHAW review instructions. |
+| **CL.json** | `/root/conceptual-lexicon.json` | Project lexicon for agent context. |
+| **td.db** | `~/.td/mastra-hono.db` | Local task state (outside repo). |
+
+After editing `review.md`, recompile the lock file:
+
+```
+gh aw compile
+```
+
+---
+
+## 4. Operational Loop
+
+1. **Create a task**: start a new `td` task and worktree.
+2. **Mentation**: execute work locally; use `td` for durable context.
+3. **Submission**: push the branch; CI runs `review.md`.
+4. **Feedback**: ntfy posts pass/fail updates.
+
+---
+
+## 5. Notes
+
+- `tsc --noEmit` remains the authoritative type check.
+- Formatting is handled by Biome.
+- Linting is handled by OxLint (where configured).

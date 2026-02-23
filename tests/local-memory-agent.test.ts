@@ -1,8 +1,7 @@
 import { describe, expect, test } from 'bun:test';
-import { Agent } from '@mastra/core/agent';
+import { rm } from 'node:fs/promises';
 import { LibSQLStore } from '@mastra/libsql';
-import { Memory } from '@mastra/memory';
-import { mockApiTool } from '@src/mastra/tools/mock-api-tool';
+import { createLocalMemoryAgent } from '@src/mastra/agents/local-memory-agent';
 import { createOllama } from 'ollama-ai-provider-v2';
 
 describe('Local Observational Memory Agent', () => {
@@ -14,38 +13,23 @@ describe('Local Observational Memory Agent', () => {
     const model = ollama('lfm2.5-thinking');
 
     // 1. Setup isolated test storage
+    const dbPath = `./test-memory-learning-${Date.now()}.db`;
     const testStorage = new LibSQLStore({
       id: 'test-memory-storage',
-      url: 'file:./test-memory-learning.db',
+      url: `file:${dbPath}`,
     });
 
     await testStorage.init();
 
-    // 2. Setup Memory with hyper-aggressive observation threshold for tests
-    const testMemory = new Memory({
-      storage: testStorage,
-      options: {
-        observationalMemory: {
-          model,
-          observation: {
-            messageTokens: 10, // Trigger observation almost immediately
-          },
-        },
-      },
-    });
-
-    // 3. Create a fresh agent instance for the test
-    const testAgent = new Agent({
-      id: 'test-learning-agent',
-      name: 'Test Learning Agent',
-      instructions:
-        'You are a technical assistant. Use the mockApiTool to fetch user data. IMPORTANT: If a tool returns an error, learn from it and fix your request in the next attempt.',
+    // 2. Create a fresh agent instance aligned with production config
+    const testAgent = createLocalMemoryAgent({
       model,
-      tools: { mockApiTool },
-      memory: testMemory,
+      storage: testStorage,
+      observationTokens: 10, // Trigger observation almost immediately
     });
 
     const threadId = `test-thread-${Date.now()}`;
+    let success = false;
 
     try {
       console.log('--- Attempt 1: Triggering failure ---');
@@ -77,7 +61,7 @@ describe('Local Observational Memory Agent', () => {
 
       // We expect the agent to have used the USR- prefix or at least mentioned Alice Agentic
       // Note: With 1.2B models, we check for 'usr-456' as a sign of successful learning
-      const success = responseText.includes('usr-456') || responseText.includes('alice agentic');
+      success = responseText.includes('usr-456') || responseText.includes('alice agentic');
 
       if (!success) {
         console.warn(
@@ -85,20 +69,21 @@ describe('Local Observational Memory Agent', () => {
         );
       }
 
-      // Assert that we reached this point without catastrophic failure
-      expect(true).toBe(true);
+      expect(success).toBe(true);
     } catch (error) {
       if (
         error instanceof Error &&
         (error.message.includes('fetch failed') || error.message.includes('API key'))
       ) {
         console.warn('⚠️ LLM is likely not reachable. Skipping assertion.');
-      } else {
-        throw error;
+        return;
       }
+
+      throw error;
     } finally {
       // Cleanup: Wait a bit for async tasks to finish
       await new Promise((resolve) => setTimeout(resolve, 1000));
+      await rm(dbPath, { force: true });
     }
   }, 180000); // 3 minute timeout
 });

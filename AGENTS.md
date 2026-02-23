@@ -12,6 +12,10 @@ Run `tdn` (aliased to `td usage --new-session`) at the absolute start of every c
 - **End of session:** `td handoff <issue-id> --done ... --remaining ... --decision ... --uncertain ...`
 
 ### Session End Checklist (Required)
+- [ ] Run `td handoff` before you say “done” or end the session
+- [ ] Include done / remaining / decision / uncertain
+- [ ] Submit `td review <issue-id>` only after a handoff is recorded
+
 ## The Forge Lifecycle (Mandatory Workflow)
 
 We follow a strict **Brief-to-Task** lifecycle:
@@ -41,7 +45,7 @@ The task `description` field in `td` is used as a high-visibility context map. I
 - **Test-Plan**: `tests/human/td-id-verification.md`
 - **Playbook**: `playbooks/my-pattern.md`
 
-This ensure that any agent (or human) focusing on the task has immediate access to the entire documentation stack.
+This ensures that any agent (or human) focusing on the task has immediate access to the entire documentation stack.
 
 Sessions are automatic (based on terminal/agent context). Optional:
 - td session "name" to label the current session

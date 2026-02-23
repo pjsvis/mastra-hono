@@ -51,19 +51,21 @@ td link "$CURRENT_ISSUE" "$DEBRIEF_FILE" --role debrief
 # Optional: If a new playbook was created
 NEW_PLAYBOOK=$(git diff --name-only main | grep "playbooks/" | grep -v "biome-standards.md")
 if [ -n "$NEW_PLAYBOOK" ]; then
-  for pb in $NEW_PLAYBOOK; do
+  while IFS= read -r pb; do
+    [ -z "$pb" ] && continue
     td link "$CURRENT_ISSUE" "$pb" --role reference
     echo "✅ Recorded new playbook: $pb"
-  done
+  done <<< "$NEW_PLAYBOOK"
 fi
 
 # Optional: If a human test plan was created
 HUMAN_TEST=$(git diff --name-only main | grep "tests/human/" | grep "$CURRENT_ISSUE")
 if [ -n "$HUMAN_TEST" ]; then
-  for ht in $HUMAN_TEST; do
+  while IFS= read -r ht; do
+    [ -z "$ht" ] && continue
     td link "$CURRENT_ISSUE" "$ht" --role test-plan
     echo "✅ Recorded human test plan: $ht"
-  done
+  done <<< "$HUMAN_TEST"
 fi
 
 # 5. Logical Context Map (Update Description with structured links)
@@ -76,18 +78,20 @@ Debrief: ${DEBRIEF_FILE}"
 
 # Add Test Plan if found
 if [ -n "$HUMAN_TEST" ]; then
-  for ht in $HUMAN_TEST; do
+  while IFS= read -r ht; do
+    [ -z "$ht" ] && continue
     NEW_DESC="${NEW_DESC}
 Test-Plan: ${ht}"
-  done
+  done <<< "$HUMAN_TEST"
 fi
 
 # Add Playbooks if found
 if [ -n "$NEW_PLAYBOOK" ]; then
-  for pb in $NEW_PLAYBOOK; do
+  while IFS= read -r pb; do
+    [ -z "$pb" ] && continue
     NEW_DESC="${NEW_DESC}
 Playbook: ${pb}"
-  done
+  done <<< "$NEW_PLAYBOOK"
 fi
 
 td update "$CURRENT_ISSUE" --description "$NEW_DESC"
@@ -106,16 +110,30 @@ td review "$CURRENT_ISSUE"
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 if [ "$BRANCH_NAME" != "main" ] && [ "$BRANCH_NAME" != "HEAD" ]; then
   echo "📤 Pushing branch $BRANCH_NAME..."
-  git push origin "$BRANCH_NAME"
-  
+  git push origin "$BRANCH_NAME" || {
+    echo "❌ Error: Failed to push branch $BRANCH_NAME."
+    exit 1
+  }
+
   # 7. Create GitHub PR
   echo "🔀 Creating GitHub PR..."
   ISSUE_TITLE=$(td query "id = '$CURRENT_ISSUE'" -o json | jq -r '.[0].title')
-  gh pr create --title "[$CURRENT_ISSUE] $ISSUE_TITLE" \
+  PR_OUTPUT=$(gh pr create --title "[$CURRENT_ISSUE] $ISSUE_TITLE" \
                --body-file "$DEBRIEF_FILE" \
                --base main \
-               --head "$BRANCH_NAME" \
-               > /dev/null 2>&1 || echo "ℹ️ PR already exists or updated via push."
+               --head "$BRANCH_NAME" 2>&1)
+  PR_STATUS=$?
+  if [ $PR_STATUS -ne 0 ]; then
+    if echo "$PR_OUTPUT" | grep -qi "already exists"; then
+      echo "ℹ️ PR already exists or updated via push."
+    else
+      echo "❌ Error: Failed to create PR."
+      echo "$PR_OUTPUT"
+      exit 1
+    fi
+  else
+    echo "$PR_OUTPUT"
+  fi
 fi
 
 td unfocus
