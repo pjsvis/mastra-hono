@@ -47,13 +47,31 @@ Place at `.github/workflows/review.md`. Define:
 ### C. `conceptual-lexicon.json`
 Sync the latest Lexicon (`v1.79+`) to ensure agent persona alignment across local and cloud environments.
 
-## 4. The Development Loop
+## 4. The Canonical Workflow Loop (Delivery + Review Agents)
 
+This is the end-to-end, canonical loop using the tools we already have.
+
+### Phase A — Delivery Agent (Build + PR)
 1.  **Identify**: Run `td usage --new-session` to see the work territory.
 2.  **Forge**: Run `bun run forge` to pick a Brief and link it to a Task.
-3.  **Implement**: The local agent refers to `AGENTS.md`. **If confused, it runs `bun run ask "..."` to ping the developer.**
-4.  **Finish**: Run `bun run finish`. It auto-checks quality, auto-generates a Debrief, links artifacts, and triggers the Cloud Audit.
-5.  **Resolve**: If the PR fails, the developer gets an `ntfy` poke.
+3.  **Implement**: The local agent follows `AGENTS.md`. **If confused, it runs `bun run ask "..."` to ping the developer.**
+4.  **Local Verify**: Run `bun run check`.
+5.  **Finish**: Run `bun run finish`. It auto-checks quality, auto-generates a Debrief, links artifacts, and triggers the Cloud Audit.
+6.  **Handoff**: Ensure a `td handoff` is recorded before ending the session.
+
+### Phase B — Review Agent (PR Health Gate)
+1.  **Inspect PRs**: Use `gh` to list open PRs and check status + review comments.
+2.  **Fix & Push**: Address actionable issues (CI failures, CodeRabbit comments), then push updates.
+3.  **Re-check**: Re-run `bun run check` until the PR is clean.
+4.  **TD Approval Gate**: Once the PR is clean and review-ready, run:
+    ```bash
+    td reviewable
+    td approve <issue-id>
+    ```
+
+### Phase C — Human Merge + Tidy
+1.  **Merge** the PR in GitHub.
+2.  **Cleanup** the task in `td` (final tidy-up and closeout).
 
 ## 5. Deployment Heuristics
 

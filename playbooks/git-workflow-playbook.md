@@ -38,14 +38,20 @@ td handoff <issue-id> \
 
 ## 3. Reviews & Merging
 
-We enforce a strict separation between implementation and approval.
+We enforce a strict separation between implementation, automated review, and approval.
 
 1. **Submit for Review:** Once your work in the workspace is complete, and your tests pass, run:
    ```bash
    td review <issue-id>
    ```
-2. **Merge Workflow:** Use Sidecar's merge workflow by pressing `m` in the Workspaces plugin to commit, push, create a PR, and optionally clean up the worktree.
-3. **Approval:** A different session (a human or another agent instance) must review the PR, run `td reviewable`, and execute `td approve <issue-id>`.
+2. **Create PR:** Use Sidecar's merge workflow by pressing `m` in the Workspaces plugin to commit, push, create a PR, and optionally clean up the worktree.
+3. **Review Agent Gate:** A separate agent session inspects the PR for failing checks and unresolved review comments, fixes issues, and pushes updates until the PR is clean.
+4. **Approval (TD):** After the PR is clear for merge, the review agent updates the task state by running:
+   ```bash
+   td reviewable
+   td approve <issue-id>
+   ```
+5. **Human Merge + Tidy:** The human in the loop merges the PR and performs final TD cleanup.
 
 ## 4. Resolving Conflicts
 If you encounter biome or type issues preventing a commit:
