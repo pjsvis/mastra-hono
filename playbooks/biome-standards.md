@@ -1,13 +1,16 @@
 # Biome Standards Playbook
 
-This playbook defines our standards for using Biome as our core linting, formatting, and code quality engine.
+This playbook defines our standards for using **Biome (formatting)** and **OxLint (linting)** together without overlap, plus TypeScript for authoritative type checking.
 
-## 1. Proactive Fixing
+## 1. Proactive Fixing (Formatting vs Linting)
 
-We prefer tools that fix code rather than just complaining about it.
+We separate responsibilities to avoid overlap and conflicting rules.
 
-- **Primary Command**: Use `bun run lint` (which runs `biome check --write`).
-- **Hook Strategy**: Our pre-commit hooks use `--write`. The goal is to ensure the code in the repository is clean, not to block the developer for minor styling differences.
+- **Formatter**: Biome is the source of truth for formatting.
+  - Primary command: `bun run lint` (runs `biome check --write`)
+- **Linter**: OxLint is the source of truth for linting.
+  - Primary command: `bun run lint:ox` (read-only)
+  - Optional autofix: `bun run lint:ox:fix`
 
 ## 2. Handling "any" (noExplicitAny)
 
@@ -30,11 +33,21 @@ While we strive for type safety, we recognize that in tests and generic helpers 
 
 ## 4. The "Scripts Lab" Exception
 
-Experimental code that doesn't need to meet production quality standards should live in `scripts/lab/`. This directory is explicitly excluded from Biome and TypeScript checks in `biome.json` and `tsconfig.json`.
+Experimental code that doesn't need to meet production quality standards should live in `scripts/lab/`. This directory is explicitly excluded from Biome and TypeScript checks in `biome.json` and `tsconfig.json`. If needed, add matching ignore patterns for OxLint so all tools agree.
 
 ## 5. Pre-commit vs. CI
 
-- **Pre-commit**: Light and fast. Includes formatting, linting (auto-fixing), and basic type-checking.
-- **CI / Verify**: Comprehensive. Includes the full suite of `check` (lint check without write) and `test`.
+- **Pre-commit**: Light and fast. Runs formatting (`bun run lint`) and basic type checking (`bun run typecheck`).
+- **CI / Verify**: Comprehensive. Runs `bun run check` (Biome format check + OxLint + `tsc --noEmit`) and `bun run test`.
 
 When in doubt, run `bun run verify` before pushing to ensure the full pipeline will pass.
+
+## 6. OxLint Responsibilities (Best-Practice Baseline)
+
+- **OxLint is the lint engine.** Enable `typescript` and `import` plugins as the default baseline.
+- **Avoid stylistic overlap.** Keep OxLint style rules off and let Biome handle formatting.
+- **Type checking remains `tsc --noEmit`.** tsgo-backed linting complements `tsc` but does not replace it.
+
+Recommended baseline:
+- OxLint categories: correctness (error), suspicious (warn), perf (warn), style (off)
+- Biome linter: disabled

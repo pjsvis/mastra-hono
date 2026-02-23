@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "env": {
+    "builtin": true
+  },
+  "plugins": ["typescript", "import"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn",
+    "style": "off"
+  },
+  "rules": {},
+  "ignorePatterns": ["dist/**", "coverage/**", ".mastra/**"]
+}
