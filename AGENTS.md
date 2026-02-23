@@ -135,7 +135,7 @@ Top-level files define how your Mastra project is configured, built, and connect
 | File                  | Description                                                                                                       |
 | --------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `src/mastra/index.ts` | Central entry point where you configure and initialize Mastra.                                                    |
-| `.env.example`        | Template for environment variables - copy and rename to `.env` to add your secret [model provider](/models) keys. |
+| `.env.example`        | Deprecated for secrets. Use Skate (`skate set ...`) and load via `src/lib/secrets.ts` at runtime.                 |
 | `package.json`        | Defines project metadata, dependencies, and available npm scripts.                                                |
 | `tsconfig.json`       | Configures TypeScript options such as path aliases, compiler settings, and build output.                          |
 

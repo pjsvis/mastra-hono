@@ -8,6 +8,7 @@ import {
   Observability,
   SensitiveDataFilter,
 } from '@mastra/observability';
+import { getSkateSecret } from '../lib/secrets';
 import { localMemoryAgent } from './agents/local-memory-agent';
 import { researchAgent } from './agents/research-agent';
 import { weatherAgent } from './agents/weather-agent';
@@ -22,6 +23,13 @@ const storage = new LibSQLStore({
 const memory = new Memory({
   storage,
 });
+
+const secretKeys = ['ANTHROPIC_API_KEY', 'OPENAI_API_KEY', 'GROQ_API_KEY'] as const;
+for (const key of secretKeys) {
+  if (!process.env[key]) {
+    process.env[key] = getSkateSecret(key);
+  }
+}
 
 export const mastra = new Mastra({
   workflows: { weatherWorkflow },
