@@ -17,7 +17,7 @@ echo "📤 Sending question to Human via ntfy..."
 echo "⏳ Waiting for response on your iPhone..."
 echo "🔗 Answer Topic: https://ntfy.sh/$ANS_TOPIC"
 
-# 1. Send question with 'view' actions (URLs) 
+# 1. Send question with 'view' actions (URLs)
 # These are more reliable on iOS than 'http' POST actions.
 # Clicking them opens a URL that triggers the publish event.
 curl -s \
@@ -29,20 +29,28 @@ curl -s \
   "https://ntfy.sh/$BASE_TOPIC" > /dev/null
 
 # 2. Wait for the answer
-# We poll for exactly 1 message. 
+# We poll for exactly 1 message.
 # We use a loop to handle potential connection timeouts or empty responses.
+MAX_WAIT=300
+ELAPSED=0
 RESPONSE=""
-while [ -z "$RESPONSE" ]; do
+while [ -z "$RESPONSE" ] && [ "$ELAPSED" -lt "$MAX_WAIT" ]; do
   # Poll blocks until a message arrives or times out after 60s
-  RAW_RESPONSE=$(curl -s "https://ntfy.sh/$ANS_TOPIC/raw?poll=1")
-  
+  RAW_RESPONSE=$(curl -s --max-time 30 "https://ntfy.sh/$ANS_TOPIC/raw?poll=1")
+
   # Check if response is empty or contains error (like the 'since' error we saw before)
   if [[ "$RAW_RESPONSE" == "Yes" ]] || [[ "$RAW_RESPONSE" == "No" ]]; then
     RESPONSE="$RAW_RESPONSE"
   fi
   # Optional: sleep 1 to avoid tight loop on errors
   sleep 1
+  ELAPSED=$((ELAPSED + 1))
 done
+
+if [ -z "$RESPONSE" ]; then
+  echo "⏰ Timed out waiting for human response."
+  exit 2
+fi
 
 echo ""
 echo "📥 Received response: $RESPONSE"

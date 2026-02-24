@@ -36,7 +36,7 @@ Implement a utility to bridge the system's "Stuff" (the CLI output) into "Things
 
 ```typescript
 // src/lib/secrets.ts
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 
 /**
  * Fetches a secret from Skate.
@@ -45,7 +45,7 @@ import { execSync } from 'node:child_process';
 export function getSkateSecret(key: string): string {
   try {
     // We use the standard key name directly
-    return execSync(`skate get ${key}`).toString().trim();
+    return execFileSync('skate', ['get', key]).toString().trim();
   } catch (error) {
     console.error(`[Skate Error] Could not retrieve ${key}. Ensure it is set via 'skate set'.`);
     throw new Error(`Missing Required Secret: ${key}`);

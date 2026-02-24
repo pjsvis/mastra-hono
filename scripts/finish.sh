@@ -34,10 +34,10 @@ echo "📝 Synthesizing debrief..."
   echo ""
   echo "## Key Achievements"
   # Try to extract logs from the query system
-  td query "id = '$CURRENT_ISSUE'" -o json | jq -r '.[0].logs[] | "- " + .message' 2>/dev/null || echo "- Completed objectives defined in brief."
+  td query "id = '$CURRENT_ISSUE'" -o json | jq -r '.[0].logs[] | select(.type != "secret") | select((.message | test("(?i)api[_-]?key|token|secret|password")) | not) | "- " + .message' 2>/dev/null || echo "- Completed objectives defined in brief."
   echo ""
   echo "## Decisions & Heuristics"
-  td query "id = '$CURRENT_ISSUE'" -o json | jq -r '.[0].logs[] | select(.type == "decision") | "- " + .message' 2>/dev/null || echo "- Followed standard Mastra-Hono architecture."
+  td query "id = '$CURRENT_ISSUE'" -o json | jq -r '.[0].logs[] | select(.type == "decision") | select((.message | test("(?i)api[_-]?key|token|secret|password")) | not) | "- " + .message' 2>/dev/null || echo "- Followed standard Mastra-Hono architecture."
   echo ""
   echo "## Metadata"
   echo "- **Status**: Automated Closure"
@@ -70,7 +70,7 @@ fi
 
 # 5. Logical Context Map (Update Description with structured links)
 echo "🗺 Updating task context map..."
-NEW_DESC=$(td show "$CURRENT_ISSUE" --json | jq -r '.description' | grep "^Brief:")
+NEW_DESC=$(td show "$CURRENT_ISSUE" --json | jq -r '.description // ""')
 
 # Add Debrief
 NEW_DESC="${NEW_DESC}

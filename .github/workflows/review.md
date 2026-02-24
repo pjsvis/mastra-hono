@@ -25,10 +25,11 @@ Read the `/AGENTS.md` file in the repository to understand our current tech stac
 4.  **Linting**: Run `bun run lint:check` to ensure code style consistency.
 
 ## Step 3: Notification & Action
+Note: Do not use GitHub secrets expressions like `${{ secrets.* }}` in this file; use plain environment placeholders (e.g., `$NTFY_URL`) only.
 - **Failure**: If the audit finds regressions or style violations:
   - Post a detailed comment on the PR explaining the issues.
-  - Notify the human developer via the Haptic Link: `curl -d "Mastra-Hono Audit Failed: ${GITHUB_PR_URL}" "${{ secrets.NTFY_URL }}"`
+  - Notify the human developer via the Haptic Link: `curl -d "Mastra-Hono Audit Failed: ${GITHUB_PR_URL}" "$NTFY_URL"`
   - Fail the check.
 - **Success**: If all checks pass:
   - Approve the PR.
-  - Notify the human developer: `curl -d "Mastra-Hono Audit Passed: ${GITHUB_PR_URL}" "${{ secrets.NTFY_URL }}"`
+  - Notify the human developer: `curl -d "Mastra-Hono Audit Passed: ${GITHUB_PR_URL}" "$NTFY_URL"`
