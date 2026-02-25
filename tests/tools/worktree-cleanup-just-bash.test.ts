@@ -1,32 +1,32 @@
-import { describe, expect, test } from "bun:test";
-import { Bash } from "just-bash";
+import { describe, expect, test } from 'bun:test';
+import { Bash } from 'just-bash';
 
 type WorktreeEntry = {
   path: string;
   branch?: string;
 };
 
-const DEFAULT_PROTECTED_BRANCHES = ["main", "master"];
+const DEFAULT_PROTECTED_BRANCHES = ['main', 'master'];
 
 const parseWorktreeListPorcelain = (output: string): WorktreeEntry[] => {
   const entries: WorktreeEntry[] = [];
   let current: WorktreeEntry | undefined;
 
-  for (const rawLine of output.split("\n")) {
+  for (const rawLine of output.split('\n')) {
     const line = rawLine.trim();
     if (!line) continue;
 
-    if (line.startsWith("worktree ")) {
-      current = { path: line.slice("worktree ".length).trim() };
+    if (line.startsWith('worktree ')) {
+      current = { path: line.slice('worktree '.length).trim() };
       entries.push(current);
       continue;
     }
 
-    if (line.startsWith("branch ") && current) {
-      const ref = line.slice("branch ".length).trim();
-      if (ref === "(detached)") continue;
-      if (ref.startsWith("refs/heads/")) {
-        current.branch = ref.slice("refs/heads/".length);
+    if (line.startsWith('branch ') && current) {
+      const ref = line.slice('branch '.length).trim();
+      if (ref === '(detached)') continue;
+      if (ref.startsWith('refs/heads/')) {
+        current.branch = ref.slice('refs/heads/'.length);
       }
     }
   }
@@ -39,9 +39,7 @@ const computeCleanupActions = (params: {
   worktrees: WorktreeEntry[];
   protectedBranches?: string[];
 }) => {
-  const protectedBranches = new Set(
-    params.protectedBranches ?? DEFAULT_PROTECTED_BRANCHES,
-  );
+  const protectedBranches = new Set(params.protectedBranches ?? DEFAULT_PROTECTED_BRANCHES);
   const merged = params.mergedBranches.filter((b) => !protectedBranches.has(b));
   const mergedSet = new Set(merged);
 
@@ -54,8 +52,8 @@ const computeCleanupActions = (params: {
   return { worktreesToRemove, branchesToDelete };
 };
 
-describe("worktree cleanup parsing (just-bash)", () => {
-  test("parses porcelain output and computes cleanup actions", async () => {
+describe('worktree cleanup parsing (just-bash)', () => {
+  test('parses porcelain output and computes cleanup actions', async () => {
     const bash = new Bash();
 
     const result = await bash.exec(`
@@ -81,18 +79,18 @@ EOF
     const worktrees = parseWorktreeListPorcelain(result.stdout);
 
     const { worktreesToRemove, branchesToDelete } = computeCleanupActions({
-      mergedBranches: ["feature/123", "bugfix/7", "main"],
+      mergedBranches: ['feature/123', 'bugfix/7', 'main'],
       worktrees,
     });
 
     expect(worktreesToRemove).toEqual([
-      "/repo/.worktrees/feature-123",
-      "/repo/.worktrees/bugfix-7",
+      '/repo/.worktrees/feature-123',
+      '/repo/.worktrees/bugfix-7',
     ]);
-    expect(branchesToDelete).toEqual(["bugfix/7", "feature/123"]);
+    expect(branchesToDelete).toEqual(['bugfix/7', 'feature/123']);
   });
 
-  test("ignores detached worktrees and leaves unmerged branches alone", async () => {
+  test('ignores detached worktrees and leaves unmerged branches alone', async () => {
     const bash = new Bash();
 
     const result = await bash.exec(`
@@ -114,31 +112,31 @@ EOF
     const worktrees = parseWorktreeListPorcelain(result.stdout);
 
     const { worktreesToRemove, branchesToDelete } = computeCleanupActions({
-      mergedBranches: ["feature/old"],
+      mergedBranches: ['feature/old'],
       worktrees,
     });
 
     expect(worktreesToRemove).toEqual([]);
-    expect(branchesToDelete).toEqual(["feature/old"]);
+    expect(branchesToDelete).toEqual(['feature/old']);
   });
 
-  test("supports custom protected branches list", () => {
+  test('supports custom protected branches list', () => {
     const worktrees: WorktreeEntry[] = [
-      { path: "/repo", branch: "trunk" },
-      { path: "/repo/.worktrees/feature-x", branch: "feature/x" },
+      { path: '/repo', branch: 'trunk' },
+      { path: '/repo/.worktrees/feature-x', branch: 'feature/x' },
     ];
 
     const { worktreesToRemove, branchesToDelete } = computeCleanupActions({
-      mergedBranches: ["trunk", "feature/x"],
+      mergedBranches: ['trunk', 'feature/x'],
       worktrees,
-      protectedBranches: ["trunk"],
+      protectedBranches: ['trunk'],
     });
 
-    expect(worktreesToRemove).toEqual(["/repo/.worktrees/feature-x"]);
-    expect(branchesToDelete).toEqual(["feature/x"]);
+    expect(worktreesToRemove).toEqual(['/repo/.worktrees/feature-x']);
+    expect(branchesToDelete).toEqual(['feature/x']);
   });
 
-  test("dry-run mode shows starting state and ending state preview", async () => {
+  test('dry-run mode shows starting state and ending state preview', async () => {
     const bash = new Bash();
 
     // Set up initial state
@@ -165,7 +163,7 @@ EOF
     const startingWorktrees = parseWorktreeListPorcelain(setupResult.stdout);
 
     // Simulate merged branches
-    const mergedBranches = ["main", "feature/a", "feature/b"];
+    const mergedBranches = ['main', 'feature/a', 'feature/b'];
 
     const { worktreesToRemove, branchesToDelete } = computeCleanupActions({
       mergedBranches,
@@ -178,26 +176,21 @@ EOF
     expect(startingWorktrees.filter((wt) => !wt.branch)).toHaveLength(1);
 
     // Verify cleanup actions
-    expect(worktreesToRemove).toEqual([
-      "/repo/.worktrees/feature-a",
-      "/repo/.worktrees/feature-b",
-    ]);
-    expect(branchesToDelete).toEqual(["feature/a", "feature/b"]);
+    expect(worktreesToRemove).toEqual(['/repo/.worktrees/feature-a', '/repo/.worktrees/feature-b']);
+    expect(branchesToDelete).toEqual(['feature/a', 'feature/b']);
 
     // Simulate ending state after cleanup
-    const endingWorktrees = startingWorktrees.filter(
-      (wt) => !worktreesToRemove.includes(wt.path),
-    );
+    const endingWorktrees = startingWorktrees.filter((wt) => !worktreesToRemove.includes(wt.path));
 
     // Verify ending state
     expect(endingWorktrees).toHaveLength(2);
     expect(endingWorktrees.map((wt) => wt.path)).toEqual([
-      "/repo",
-      "/repo/.worktrees/detached-keep",
+      '/repo',
+      '/repo/.worktrees/detached-keep',
     ]);
   });
 
-  test("full workflow: identify, preview, and cleanup merged worktrees", async () => {
+  test('full workflow: identify, preview, and cleanup merged worktrees', async () => {
     const bash = new Bash();
 
     // Simulate git branch --merged output
@@ -208,9 +201,9 @@ EOF
 * current-feature"`);
 
     const mergedBranches = mergedOutput.stdout
-      .split("\n")
+      .split('\n')
       .map((l) => l.trim())
-      .filter((l) => l && !l.startsWith("*"));
+      .filter((l) => l && !l.startsWith('*'));
 
     // Simulate git worktree list --porcelain output
     const worktreeOutput = await bash.exec(`
@@ -246,20 +239,20 @@ EOF
     });
 
     // Verify correct identification
-    expect(branchesToDelete).toEqual(["feature/x", "feature/y", "feature/z"]);
+    expect(branchesToDelete).toEqual(['feature/x', 'feature/y', 'feature/z']);
     expect(worktreesToRemove).toEqual([
-      "/repo/.worktrees/feature-x",
-      "/repo/.worktrees/feature-y",
-      "/repo/.worktrees/feature-z",
+      '/repo/.worktrees/feature-x',
+      '/repo/.worktrees/feature-y',
+      '/repo/.worktrees/feature-z',
     ]);
 
     // Verify unmerged worktree is preserved
-    const unmergedWt = worktrees.find((wt) => wt.branch === "feature/unmerged");
+    const unmergedWt = worktrees.find((wt) => wt.branch === 'feature/unmerged');
     expect(unmergedWt).toBeDefined();
     expect(worktreesToRemove).not.toContain(unmergedWt?.path);
   });
 
-  test("handles edge case: no merged branches to clean", async () => {
+  test('handles edge case: no merged branches to clean', async () => {
     const bash = new Bash();
 
     const worktreeOutput = await bash.exec(`
@@ -277,7 +270,7 @@ EOF
     const worktrees = parseWorktreeListPorcelain(worktreeOutput.stdout);
 
     const { worktreesToRemove, branchesToDelete } = computeCleanupActions({
-      mergedBranches: ["main"],
+      mergedBranches: ['main'],
       worktrees,
     });
 
@@ -285,74 +278,74 @@ EOF
     expect(branchesToDelete).toEqual([]);
   });
 
-  test("handles edge case: all branches merged", async () => {
+  test('handles edge case: all branches merged', async () => {
     const worktrees: WorktreeEntry[] = [
-      { path: "/repo", branch: "main" },
-      { path: "/repo/.worktrees/feat-1", branch: "feature/1" },
-      { path: "/repo/.worktrees/feat-2", branch: "feature/2" },
-      { path: "/repo/.worktrees/feat-3", branch: "feature/3" },
+      { path: '/repo', branch: 'main' },
+      { path: '/repo/.worktrees/feat-1', branch: 'feature/1' },
+      { path: '/repo/.worktrees/feat-2', branch: 'feature/2' },
+      { path: '/repo/.worktrees/feat-3', branch: 'feature/3' },
     ];
 
     const { worktreesToRemove, branchesToDelete } = computeCleanupActions({
-      mergedBranches: ["main", "feature/1", "feature/2", "feature/3"],
+      mergedBranches: ['main', 'feature/1', 'feature/2', 'feature/3'],
       worktrees,
     });
 
     expect(worktreesToRemove).toHaveLength(3);
     expect(branchesToDelete).toHaveLength(3);
-    expect(branchesToDelete).toEqual(["feature/1", "feature/2", "feature/3"]);
+    expect(branchesToDelete).toEqual(['feature/1', 'feature/2', 'feature/3']);
   });
 
-  test("preserves worktrees for branches not in merged list", async () => {
+  test('preserves worktrees for branches not in merged list', async () => {
     const worktrees: WorktreeEntry[] = [
-      { path: "/repo", branch: "main" },
-      { path: "/repo/.worktrees/merged", branch: "feature/merged" },
-      { path: "/repo/.worktrees/active-1", branch: "feature/active-1" },
-      { path: "/repo/.worktrees/active-2", branch: "feature/active-2" },
+      { path: '/repo', branch: 'main' },
+      { path: '/repo/.worktrees/merged', branch: 'feature/merged' },
+      { path: '/repo/.worktrees/active-1', branch: 'feature/active-1' },
+      { path: '/repo/.worktrees/active-2', branch: 'feature/active-2' },
     ];
 
     const { worktreesToRemove, branchesToDelete } = computeCleanupActions({
-      mergedBranches: ["main", "feature/merged"],
+      mergedBranches: ['main', 'feature/merged'],
       worktrees,
     });
 
-    expect(worktreesToRemove).toEqual(["/repo/.worktrees/merged"]);
-    expect(branchesToDelete).toEqual(["feature/merged"]);
+    expect(worktreesToRemove).toEqual(['/repo/.worktrees/merged']);
+    expect(branchesToDelete).toEqual(['feature/merged']);
 
     // Verify active worktrees are not marked for removal
-    expect(worktreesToRemove).not.toContain("/repo/.worktrees/active-1");
-    expect(worktreesToRemove).not.toContain("/repo/.worktrees/active-2");
+    expect(worktreesToRemove).not.toContain('/repo/.worktrees/active-1');
+    expect(worktreesToRemove).not.toContain('/repo/.worktrees/active-2');
   });
 
-  test("handles worktrees with special characters in branch names", async () => {
+  test('handles worktrees with special characters in branch names', async () => {
     const worktrees: WorktreeEntry[] = [
-      { path: "/repo", branch: "main" },
-      { path: "/repo/.worktrees/feat-with-dash", branch: "feature/with-dash" },
+      { path: '/repo', branch: 'main' },
+      { path: '/repo/.worktrees/feat-with-dash', branch: 'feature/with-dash' },
       {
-        path: "/repo/.worktrees/feat_with_underscore",
-        branch: "feature/with_underscore",
+        path: '/repo/.worktrees/feat_with_underscore',
+        branch: 'feature/with_underscore',
       },
       {
-        path: "/repo/.worktrees/feat/with/slash",
-        branch: "feature/with/slash",
+        path: '/repo/.worktrees/feat/with/slash',
+        branch: 'feature/with/slash',
       },
     ];
 
     const { worktreesToRemove, branchesToDelete } = computeCleanupActions({
       mergedBranches: [
-        "main",
-        "feature/with-dash",
-        "feature/with_underscore",
-        "feature/with/slash",
+        'main',
+        'feature/with-dash',
+        'feature/with_underscore',
+        'feature/with/slash',
       ],
       worktrees,
     });
 
     expect(worktreesToRemove).toHaveLength(3);
     expect(branchesToDelete).toEqual([
-      "feature/with-dash",
-      "feature/with/slash",
-      "feature/with_underscore",
+      'feature/with-dash',
+      'feature/with/slash',
+      'feature/with_underscore',
     ]);
   });
 });
