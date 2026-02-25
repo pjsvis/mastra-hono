@@ -6,7 +6,7 @@ description: Task management standards for AI agents using the td CLI for planni
 # TD Agent Playbook
 
 ## Purpose
-This playbook defines how AI agents must use the `td` CLI as structured external memory to ensure continuity across sessions, clear accountability, and reliable review workflows.
+This playbook defines how AI agents must use the `td` CLI as structured external memory to ensure continuity across sessions, clear accountability, and reliable review workflows. For Nushell-based structured querying, see `playbooks/nushell-agent-playbook.md`.
 
 ## Core Principles
 1. **Tasks before work**: Never start implementation without a task.
