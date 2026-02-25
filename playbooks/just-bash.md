@@ -71,3 +71,76 @@ export const safeShellTool = createTool({
 - **Persistence:** The filesystem persists across `exec()` calls on the same `Bash` instance.
 - **Isolation:** Use a new `Bash` instance for unrelated tasks to ensure a clean state.
 - **Limits:** Always set `executionLimits` when running untrusted or complex scripts.
+- **Testing:** Use just-bash to test shell logic safely before running on the host system.
+
+## Real-World Example: Worktree Cleanup
+
+A common workflow pattern is testing git operations in a sandbox before running them on your actual repository. Here's how we use just-bash to test worktree cleanup logic:
+
+### The Problem
+After merging PRs, we need to safely remove worktrees for merged branches while:
+- Preserving the main branch
+- Leaving unmerged branches alone
+- Not touching detached worktrees
+
+### Testing Strategy
+We use just-bash to simulate git output and verify our parsing logic works correctly:
+
+```typescript
+import { Bash } from "just-bash";
+
+const bash = new Bash();
+
+// Simulate git worktree list --porcelain output
+const result = await bash.exec(`
+cat <<'EOF'
+worktree /repo
+HEAD 1111111111111111111111111111111111111111
+branch refs/heads/main
+
+worktree /repo/.worktrees/feature-123
+HEAD 2222222222222222222222222222222222222222
+branch refs/heads/feature/123
+
+worktree /repo/.worktrees/detached
+HEAD 3333333333333333333333333333333333333333
+branch (detached)
+EOF'
+`);
+
+// Parse and validate cleanup logic
+const worktrees = parseWorktreeListPorcelain(result.stdout);
+const { worktreesToRemove, branchesToDelete } = computeCleanupActions({
+  mergedBranches: ["main", "feature/123"],
+  worktrees,
+});
+
+console.log("Would remove:", worktreesToRemove);
+console.log("Would delete:", branchesToDelete);
+```
+
+### Key Benefits
+- **Safety:** Test parsing logic without touching actual worktrees
+- **Reproducibility:** Heredoc fixtures provide consistent test data
+- **Speed:** In-memory execution is faster than real git operations
+- **Coverage:** Easy to test edge cases (detached, special characters, empty state)
+
+### When to Use This Pattern
+Use just-bash for testing any shell logic that involves:
+- Parsing structured output (e.g., `git --porcelain`, `jq` results)
+- File manipulation or path operations
+- Complex conditionals or loops
+- Operations that would be dangerous to test on live data
+
+### Production Execution
+After validating logic with just-bash, the actual cleanup script runs on the host system with a `--dry-run` flag:
+
+```bash
+# Preview what would be cleaned
+./scripts/worktree-cleanup.sh --dry-run
+
+# Execute the cleanup
+./scripts/worktree-cleanup.sh --execute
+```
+
+This two-phase approach (sandbox test → dry-run → execute) provides maximum safety for destructive operations.
