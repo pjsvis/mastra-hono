@@ -45,6 +45,7 @@ We enforce a strict separation between implementation, automated review, and app
    td review <issue-id>
    ```
 2. **Create PR:** Use Sidecar's merge workflow by pressing `m` in the Workspaces plugin to commit, push, create a PR, and optionally clean up the worktree.
+   **Worktree retention policy:** Keep the worktree **until the PR is approved** to avoid reinstalling dependencies during review updates. Delete the worktree **immediately after merge/approval**.
 3. **Review Agent Gate:** A separate agent session inspects the PR for failing checks and unresolved review comments, fixes issues, and pushes updates until the PR is clean.
 4. **Approval (TD):** After the PR is clear for merge, the review agent updates the task state by running:
    ```bash
