@@ -1,0 +1,12 @@
+{
+  "version": "1.79",
+  "project": "mastra-hono",
+  "terms": {
+    "Gumption": "The local high-velocity execution energy of an agent focusing on task completion.",
+    "Sovereignty": "The cloud-based verification and auditing process that ensures project integrity.",
+    "Mentation": "The process of AI reasoning and memory management, specifically bridging context windows.",
+    "Symmetric Mentation": "The workflow splitting responsibility between local 'Gumption' and cloud 'Sovereignty'.",
+    "Haptic Link": "The real-time notification bridge between the development environment and the developer's mobile device (via ntfy).",
+    "Territory Management": "The shift from linear chat interactions to structured task-based development using the 'td' CLI."
+  }
+}

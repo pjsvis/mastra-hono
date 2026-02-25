@@ -12,12 +12,17 @@
     "clean": "rm -rf dist coverage .mastra",
     "lint": "biome check --write",
     "lint:check": "biome check",
+    "lint:ox": "oxlint",
+    "lint:ox:fix": "oxlint --fix",
     "format": "biome format --write",
     "format:check": "biome format",
     "typecheck": "tsc --noEmit",
-    "check": "biome check && tsc --noEmit",
+    "check": "biome check && oxlint && tsc --noEmit",
     "precommit": "bun run lint && bun run typecheck",
-    "verify": "bun run check && bun run test"
+    "verify": "bun run check && bun run test",
+    "forge": "bash scripts/forge.sh",
+    "finish": "bash scripts/finish.sh",
+    "ask": "bash scripts/ask.sh"
   },
   "dependencies": {
     "@mastra/core": "^1.4.0",
@@ -36,6 +41,7 @@
   "devDependencies": {
     "@biomejs/biome": "^2.4.3",
     "@types/bun": "^1.2.0",
+    "oxlint": "^1.50.0",
     "typescript": "^5.8.3"
   }
 }

@@ -61,15 +61,17 @@ td handoff td-abc123 \
 ```
 
 ### 6) Review Workflow Separation
-The implementation session must not approve its own work.
-```/dev/null/placeholder.sh#L1-8
+The implementation session must not approve its own work. A separate review agent inspects the PR, resolves issues, and only then approves the task in `td`.
+```/dev/null/placeholder.sh#L1-12
 # Submit your work for review
 td review <issue-id>
 
-# In a different session:
+# In a different session (review agent):
 td reviewable
 td context <issue-id>
 td files <issue-id>
+# Inspect PR checks + review comments, fix issues, push updates
+# When PR is clean and ready to merge:
 td approve <issue-id>
 td reject <issue-id> --reason "Missing tests"
 ```
@@ -100,12 +102,37 @@ td handoff <issue-id> \
 ```
 
 ### D) Review
-```/dev/null/placeholder.sh#L1-5
+```/dev/null/placeholder.sh#L1-7
 td review <issue-id>
 # Reviewer (separate session):
+td reviewable
 td context <issue-id>
+# Inspect PR checks + review comments, fix issues, push updates
 td approve <issue-id>
 ```
+
+### Review Agent Checklist (GH API)
+- Pull review comments (line-level):
+  ```/dev/null/placeholder.sh#L1-1
+  gh api repos/<owner>/<repo>/pulls/<pr_number>/comments
+  ```
+- Pull review summaries:
+  ```/dev/null/placeholder.sh#L1-1
+  gh api repos/<owner>/<repo>/pulls/<pr_number>/reviews
+  ```
+- Pull general PR comments:
+  ```/dev/null/placeholder.sh#L1-1
+  gh api repos/<owner>/<repo>/issues/<pr_number>/comments
+  ```
+- Filter unresolved CodeRabbit items:
+  ```/dev/null/placeholder.sh#L1-1
+  gh api repos/<owner>/<repo>/pulls/<pr_number>/comments --jq 'map(select(.body | contains("Addressed") | not))'
+  ```
+- Once all actionable items are resolved and checks are green:
+  ```/dev/null/placeholder.sh#L1-2
+  td reviewable
+  td approve <issue-id>
+  ```
 
 ## Querying State
 ```/dev/null/placeholder.sh#L1-4

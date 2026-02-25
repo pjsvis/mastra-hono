@@ -23,8 +23,8 @@ if (command === 'agent') {
   process.exit(1);
 }
 
-async function handleAgentCommand(args: string[]): Promise<void> {
-  const subcommand = args[0];
+async function handleAgentCommand(argv: string[]): Promise<void> {
+  const subcommand = argv[0];
 
   if (!subcommand) {
     console.error('Usage: bun run cli agent <run|chat> <agentId> [options]');
@@ -32,9 +32,9 @@ async function handleAgentCommand(args: string[]): Promise<void> {
   }
 
   if (subcommand === 'run') {
-    await handleRunCommand(args.slice(1));
+    await handleRunCommand(argv.slice(1));
   } else if (subcommand === 'chat') {
-    await handleChatCommand(args.slice(1));
+    await handleChatCommand(argv.slice(1));
   } else {
     console.error(`Unknown agent subcommand: ${subcommand}`);
     console.error('Usage: bun run cli agent <run|chat> <agentId> [options]');
@@ -42,9 +42,9 @@ async function handleAgentCommand(args: string[]): Promise<void> {
   }
 }
 
-async function handleRunCommand(args: string[]): Promise<void> {
+async function handleRunCommand(argv: string[]): Promise<void> {
   const { values, positionals } = parseArgs({
-    args,
+    args: argv,
     options: {
       prompt: {
         type: 'string',
@@ -91,9 +91,9 @@ async function handleRunCommand(args: string[]): Promise<void> {
   }
 }
 
-async function handleChatCommand(args: string[]): Promise<void> {
+async function handleChatCommand(argv: string[]): Promise<void> {
   const { values, positionals } = parseArgs({
-    args,
+    args: argv,
     options: {
       model: {
         type: 'string',

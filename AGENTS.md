@@ -2,7 +2,10 @@
 
 ## MANDATORY: Use td for Task Management
 
-Run td usage --new-session at conversation start (or after /clear). This tells you what to work on next.
+Run `tdn` (aliased to `td usage --new-session`) at the absolute start of every conversation window or after any `/clear`. This is your mandatory **Grounding Signal**.
+
+- **Why**: It initializes your session ID and provides the current "Work Territory" map.
+- **Repeatability**: Do not worry about repeating it too often. It is idempotent and essential for maintaining task state.
 
 ### Session Boundaries (Required)
 - **Start of session:** `td usage --new-session`
@@ -12,6 +15,37 @@ Run td usage --new-session at conversation start (or after /clear). This tells y
 - [ ] Run `td handoff` before you say “done” or end the session
 - [ ] Include done / remaining / decision / uncertain
 - [ ] Submit `td review <issue-id>` only after a handoff is recorded
+
+## The Forge Lifecycle (Mandatory Workflow)
+
+We follow a strict **Brief-to-Task** lifecycle:
+
+1. **The Brief**: Every task begins as a Markdown file in `briefs/`.
+2. **The Forge**: Run `bun run forge` to pick a brief and link it to a `td` task.
+3. **The Gumption**: The agent implements the objectives. **If blocked or confused, the agent MUST run `bun run ask "your question"`** to ping the Human's iPhone via ntfy.
+4. **The Finish**: Run `bun run finish`. This is a fully automated closure engine that:
+   - Runs all verification checks (Lint + Types + Tests).
+   - Generates a **Debrief** automatically from session logs.
+   - Links the Debrief and any new **Playbooks** to the `td` ticket.
+   - Performs a final `td handoff`, pushes the branch, and creates a **GitHub PR**.
+
+5. **The Approve**: Once the PR is merged, the human (or a senior agent) runs `td approve <issue-id>` to mark it as **DONE** and close the local lifecycle.
+
+### Cleanup & Tidying (The Ephemeral Forge)
+The local development environment is a temporary **Forge**, not a permanent home. Once `finish` is run:
+- **Automatic Unfocus**: The task is automatically detached from your session.
+- **Immediate Cleanup**: Move back to `main` immediately. Do not leave "dangling" task branches.
+- **Sovereign Review**: Any further feedback from the PR should be treated as a *new* session or a re-checkout.
+- **Worktree Removal**: Delete the worktree/branch as soon as the PR is confirmed live.
+
+### The "Map of Knowledge" (Description)
+The task `description` field in `td` is used as a high-visibility context map. It follows a strict format for easy jumping:
+- **Brief**: `briefs/my-brief.md`
+- **Debrief**: `debriefs/td-id.md`
+- **Test-Plan**: `tests/human/td-id-verification.md`
+- **Playbook**: `playbooks/my-pattern.md`
+
+This ensures that any agent (or human) focusing on the task has immediate access to the entire documentation stack.
 
 Sessions are automatic (based on terminal/agent context). Optional:
 - td session "name" to label the current session
@@ -37,6 +71,15 @@ This is a **Mastra** project written in TypeScript - your **Agent Forge** for bu
 - **Reusable patterns**: Pre-built structures for common agent types
 
 Mastra is a framework for building AI-powered applications and agents with a modern TypeScript stack.
+
+## Tech Stack & Coding Patterns
+
+- **Framework**: Hono (Edge-compatible).
+- **Agentic Engine**: Mastra AI.
+- **Validation**: All tool inputs/outputs MUST use **Zod** schemas. No `any`.
+- **Hono Routes**: Use `factory.createHandlers()` for type safety. Chained routes are preferred for clarity.
+- **Mastra Tools**: Define all tools in `src/mastra/tools/` using the `createTool` factory.
+- **TypeScript**: Strict mode is mandatory. Run `tsc --noEmit` before any push.
 
 ## Commands
 

@@ -1,87 +1,89 @@
 import { describe, expect, test } from 'bun:test';
+import { rm } from 'node:fs/promises';
 import { LibSQLStore } from '@mastra/libsql';
-import { Memory } from '@mastra/memory';
-import { localMemoryAgent } from '@src/mastra/agents/local-memory-agent';
+import { createLocalMemoryAgent } from '@src/mastra/agents/local-memory-agent';
+import { createOllama } from 'ollama-ai-provider-v2';
 
-describe('Observational Memory Agent', () => {
-  test('agent should learn from mock API errors via observational memory', async () => {
-    // 1. Create isolated DB storage and Memory instance for testing
+describe('Local Observational Memory Agent', () => {
+  test('agent should learn from tool errors and adapt via memory', async () => {
+    const ollama = createOllama({
+      baseURL: 'http://localhost:11434/api',
+    });
+
+    const model = ollama('lfm2.5-thinking');
+
+    // 1. Setup isolated test storage
+    const dbPath = `./test-memory-learning-${Date.now()}.db`;
     const testStorage = new LibSQLStore({
       id: 'test-memory-storage',
-      url: 'file:./test-memory.db',
+      url: `file:${dbPath}`,
     });
 
-    // We must manually initialize the storage table for tests
     await testStorage.init();
 
-    const _testMemory = new Memory({
+    // 2. Create a fresh agent instance aligned with production config
+    const testAgent = createLocalMemoryAgent({
+      model,
       storage: testStorage,
-      options: {
-        observationalMemory: {
-          enabled: true,
-          // Use default Gemini flash for testing since Ollama may not be running in CI
-        },
-      },
+      observationTokens: 10, // Trigger observation almost immediately
     });
 
-    const threadId = 'test-learning-thread-1';
+    const threadId = `test-thread-${Date.now()}`;
+    let success = false;
 
     try {
-      // First attempt: Ask the agent to fetch user "123".
-      // Expectation: The agent will use "123" directly. The tool will return a validation error.
-      await localMemoryAgent.generate('Fetch the data for user "123". Use the mockApiTool.', {
-        memoryOptions: {
-          threadId,
+      console.log('--- Attempt 1: Triggering failure ---');
+      // Request without prefix - will fail
+      const result1 = await testAgent.generate('Fetch data for user 123.', {
+        memory: {
+          thread: threadId,
+          resource: 'test-user',
         },
-      } as unknown as Parameters<typeof localMemoryAgent.generate>[1]);
+      });
 
-      // Wait briefly for background observational memory to run
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      console.log('Agent Response 1:', result1.text);
 
-      // Second attempt: Ask the agent to fetch user "456".
-      // Expectation: The agent should recall the error from observational memory,
-      // realize it must prefix with "USR-", and successfully fetch "USR-456".
-      const result2 = await localMemoryAgent.generate(
-        'Fetch the data for user "456". Use the mockApiTool.',
-        {
-          memoryOptions: {
-            threadId,
-          },
-        } as unknown as Parameters<typeof localMemoryAgent.generate>[1]
-      );
+      // Wait for background observation to process the failure
+      console.log('⏳ Waiting for Observational Memory to digest the error...');
+      await new Promise((resolve) => setTimeout(resolve, 5000));
 
-      const text = result2.text.toLowerCase();
+      console.log('--- Attempt 2: Testing recall ---');
+      // Request another user - should now use the USR- prefix from memory
+      const result2 = await testAgent.generate('Now fetch data for user 456.', {
+        memory: {
+          thread: threadId,
+          resource: 'test-user',
+        },
+      });
 
-      // It should have successfully fetched the prefixed user,
-      // but small local models (1.2B) might hallucinate or fail the tool call.
-      // We will assert on it, but catch the assertion error to prevent CI flakiness
-      // while still proving the architecture works.
-      try {
-        expect(text).toContain('alice agentic');
-        expect(text).toContain('usr-456');
-      } catch (_e) {
+      const responseText = result2.text.toLowerCase();
+      console.log('Agent Response 2:', responseText);
+
+      // We expect the agent to have used the USR- prefix as a sign of successful learning
+      success = responseText.includes('usr-456');
+
+      if (!success) {
         console.warn(
-          '⚠️ Model hallucinated or failed to use the tool correctly. This is expected with small 1.2B parameter models.'
+          '⚠️ Learning check failed. Model might be too small for complex memory recall in one turn.'
         );
       }
+
+      expect(success).toBe(true);
     } catch (error) {
-      // Provide a helpful test outcome if Ollama/API keys are not configured
       if (
         error instanceof Error &&
-        (error.message.includes('Could not find API key') ||
-          error.message.includes('Could not find config for provider') ||
-          error.message.includes('fetch failed'))
+        (error.message.includes('fetch failed') || error.message.includes('API key'))
       ) {
-        console.warn(
-          '⚠️ Test skipped/failed due to missing LLM configuration. ' +
-            'To run this test locally, ensure Ollama is spun up, the machine is registered/tunneled, ' +
-            'and the lfm2.5-thinking substrate is pulled and running.'
-        );
-        // We pass the test gracefully in CI if it is just a missing config issue
-        expect(true).toBe(true);
-      } else {
-        throw error;
+        console.warn('⚠️ LLM is likely not reachable. Skipping assertion.');
+        return;
       }
+
+      throw error;
+    } finally {
+      // Cleanup: Remove WAL/SHM companions
+      await rm(dbPath, { force: true });
+      await rm(`${dbPath}-wal`, { force: true });
+      await rm(`${dbPath}-shm`, { force: true });
     }
-  }, 120000); // 120 second timeout for local LLM test
+  }, 180000); // 3 minute timeout
 });
