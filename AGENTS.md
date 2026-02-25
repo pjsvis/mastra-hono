@@ -107,6 +107,10 @@ In order to build a production-ready server, run the `build` script:
 bun run build
 ```
 
+## Environment Tools
+
+- `nu` (Nushell) is available for structured data ingestion and loads its PATH/rigging aliases from `~/.config/nushell/env.nu` and `~/.config/nushell/config.nu`. The `station-status` command resolves the focused task via `td current --json` + `td list --json` (no direct DB access required). See `docs/nushell-agent-usage.md` for the full agent workflow guide and `playbooks/nushell-agent-playbook.md` for operational rules.
+
 ## Project Structure
 
 ### Core folders
