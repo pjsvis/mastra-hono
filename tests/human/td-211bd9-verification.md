@@ -189,6 +189,82 @@ git worktree add --detach ../test-detached HEAD~1
 git worktree remove ../test-detached
 ```
 
+### C. Test Safety: Uncommitted Changes
+```bash
+# Create a branch and worktree
+git branch test/with-changes
+git worktree add ../test-with-changes test/with-changes
+
+# Make uncommitted changes in the worktree
+cd ../test-with-changes
+echo "TODO: implement this" >> src/example.ts
+git status
+cd ../mastra-hono
+
+# Merge branch to main (simulating merged PR)
+git merge test/with-changes --no-edit
+
+# Run cleanup - SHOULD FAIL with uncommitted changes error
+./scripts/worktree-cleanup.sh --dry-run
+
+# Expected: Error message about uncommitted changes
+# The cleanup should be aborted to prevent data loss
+
+# Cleanup
+git worktree remove ../test-with-changes
+git branch -D test/with-changes
+```
+
+### D. Test Safety: Unpushed Commits
+```bash
+# Create a branch and worktree
+git branch test/local-commits
+git worktree add ../test-local-commits test/local-commits
+
+# Make local commits but don't push
+cd ../test-local-commits
+echo "local change" > local-file.txt
+git add local-file.txt
+git commit -m "Local change not pushed"
+cd ../mastra-hono
+
+# Merge branch to main (simulating merged PR)
+git merge test/local-commits --no-edit
+
+# Run cleanup - SHOULD FAIL with unpushed commits error
+./scripts/worktree-cleanup.sh --dry-run
+
+# Expected: Error message about unpushed commits
+# The cleanup should be aborted to prevent data loss
+
+# Cleanup
+git worktree remove ../test-local-commits
+git branch -D test/local-commits
+```
+
+### E. Test Force Override
+```bash
+# Create a worktree with uncommitted changes
+git branch test/force-test
+git worktree add ../test-force-test test/force-test
+cd ../test-force-test
+echo "test" > force-test.txt
+cd ../mastra-hono
+
+# Merge branch to main
+git merge test/force-test --no-edit
+
+# Regular cleanup should fail
+./scripts/worktree-cleanup.sh --execute
+
+# Force cleanup should succeed (DANGEROUS!)
+./scripts/worktree-cleanup.sh --execute --force
+
+# Cleanup
+git worktree remove ../test-force-test
+git branch -D test/force-test
+```
+
 ## 8. Why This Matters
 
 This human test ensures:
@@ -198,7 +274,36 @@ This human test ensures:
 - **Usability**: The script provides clear, actionable feedback
 - **Reliability**: The cleanup completes without errors or side effects
 
-## 9. Integration with Just-Bash
+## 9. Safety Mechanisms
+
+The script includes multiple safety layers to prevent accidental data loss:
+
+### Uncommitted Changes Detection
+- Scans each worktree for modified files before deletion
+- Checks: `git diff HEAD`, `git diff --cached`, untracked files
+- **Prevents**: Losing work in progress when worktrees are cleaned
+- **Scenario**: You merge a PR, then continue working in the same worktree
+
+### Unpushed Commits Detection  
+- Checks if branches have commits not on remote
+- Compares: `git log origin/branch..branch`
+- **Prevents**: Losing local-only commits when branches are deleted
+- **Scenario**: You merge a PR, then realize you need to make more changes
+
+### Interactive Confirmation
+- Requires explicit user confirmation before destructive actions
+- Shows: Complete list of what will be deleted
+- Can be bypassed with: `--no-confirm` or `--force`
+- **Prevents**: Accidental execution of cleanup
+- **Scenario**: You run cleanup by mistake or misread the dry-run output
+
+### Force Override
+- Advanced flag: `--force` to skip all safety checks
+- **Purpose**: For experienced users who know exactly what they're doing
+- **Warning**: DANGEROUS - can lead to data loss if misused
+- **Best Practice**: Only use `--force` when you're 100% certain
+
+## 10. Integration with Just-Bash
 
 The automated tests in `tests/tools/worktree-cleanup-just-bash.test.ts` use just-bash to validate the parsing logic before it runs on the host system. This provides:
 
@@ -209,7 +314,37 @@ The automated tests in `tests/tools/worktree-cleanup-just-bash.test.ts` use just
 
 The two-phase approach (just-bash test → dry-run → execute) provides maximum safety for destructive operations.
 
-## 10. Success Indicators
+## 11. Lessons Learned
+
+This worktree cleanup system was developed after identifying several common failure modes:
+
+### The Problem
+Users frequently merge PRs and then continue working in the same worktree:
+1. Merge PR to main
+2. Continue development in the worktree
+3. Run cleanup script to tidy up
+4. **LOSE ALL UNPUSHED CHANGES**
+
+### Common Scenarios
+- **Post-merge development**: You merge a PR but realize you need one more fix
+- **Local iteration**: You make several commits locally before pushing
+- **Interrupted workflow**: You merge a PR, then get distracted and continue work later
+- **Multiple PRs**: You merge one PR, then work on another in the same worktree
+
+### Safety-First Approach
+The safety mechanisms address these scenarios:
+1. **Detection**: Identify uncommitted/unpushed work before deletion
+2. **Prevention**: Abort cleanup if safety issues are found
+3. **Confirmation**: Require explicit human approval
+4. **Override**: Allow force mode for experienced users (with warnings)
+
+### Best Practices
+- **After merging PR**: Immediately move back to main and clean up worktree
+- **Before cleanup**: Review dry-run output carefully
+- **Continuing work**: Create a new worktree/branch for new work
+- **Force mode**: Only use when you're 100% certain
+
+## 12. Success Indicators
 
 The worktree cleanup script is production-ready when:
 
@@ -219,5 +354,10 @@ The worktree cleanup script is production-ready when:
 ✅ No stale references remain in `.git/worktrees/`  
 ✅ The script provides clear, actionable feedback  
 ✅ Edge cases (special characters, empty state) are handled  
+✅ Safety checks prevent uncommitted/unpushed data loss  
+✅ Interactive confirmation catches accidental deletions  
+✅ Force mode works but is clearly documented as dangerous  
 
 If any test fails, it indicates a bug in the cleanup logic that could lead to accidental data loss in production.
+
+The safety mechanisms ensure that even in edge cases, users are protected from common failure modes that lead to data loss.

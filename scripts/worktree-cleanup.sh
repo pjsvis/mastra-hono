@@ -3,9 +3,10 @@
 # worktree-cleanup.sh - Safely remove merged PR worktrees and branches
 #
 # Usage:
-#   ./scripts/worktree-cleanup.sh              # Show what would be cleaned (dry-run)
+#   ./scripts/worktree-cleanup.sh              # Show what would be cleaned (dry-run with confirmation)
 #   ./scripts/worktree-cleanup.sh --dry-run   # Explicit dry-run
-#   ./scripts/worktree-cleanup.sh --execute    # Actually perform cleanup
+#   ./scripts/worktree-cleanup.sh --execute    # Perform cleanup with safety checks and confirmation
+#   ./scripts/worktree-cleanup.sh --force     # Skip safety checks (USE WITH CAUTION)
 #
 # This script:
 # 1. Lists all worktrees (via git worktree list --porcelain)
@@ -28,6 +29,8 @@ NC='\033[0m' # No Color
 # Configuration
 PROTECTED_BRANCHES=("main" "master")
 DRY_RUN=true
+FORCE=false
+CONFIRM=true
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -40,14 +43,25 @@ while [[ $# -gt 0 ]]; do
       DRY_RUN=true
       shift
       ;;
+    --force)
+      FORCE=true
+      CONFIRM=false
+      shift
+      ;;
+    --no-confirm)
+      CONFIRM=false
+      shift
+      ;;
     --help|-h)
-      echo "Usage: $0 [--execute|--dry-run]"
+      echo "Usage: $0 [--execute|--dry-run] [--force] [--no-confirm]"
       echo ""
       echo "Safely remove merged PR worktrees and branches."
       echo ""
       echo "Options:"
-      echo "  --execute    Actually perform cleanup (default: dry-run)"
+      echo "  --execute    Perform cleanup with safety checks and confirmation (default: dry-run)"
       echo "  --dry-run    Show what would be done (default)"
+      echo "  --force      Skip safety checks for uncommitted/unpushed changes (DANGEROUS)"
+      echo "  --no-confirm Skip interactive confirmation"
       echo "  --help, -h   Show this help message"
       exit 0
       ;;
@@ -64,6 +78,45 @@ info() { echo -e "${BLUE}ℹ${NC} $1"; }
 success() { echo -e "${GREEN}✓${NC} $1"; }
 warning() { echo -e "${YELLOW}⚠${NC} $1"; }
 error() { echo -e "${RED}✗${NC} $1"; }
+
+# Safety check functions
+has_uncommitted_changes() {
+  local wt_path=$1
+  pushd "$wt_path" > /dev/null 2>&1
+  if ! git diff --quiet HEAD; then
+    popd > /dev/null 2>&1
+    return 0
+  fi
+  if ! git diff --cached --quiet; then
+    popd > /dev/null 2>&1
+    return 0
+  fi
+  if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+    popd > /dev/null 2>&1
+    return 0
+  fi
+  popd > /dev/null 2>&1
+  return 1
+}
+
+has_unpushed_commits() {
+  local branch=$1
+  local unpushed
+
+  # Check if remote branch exists
+  if ! git rev-parse --verify "origin/$branch" > /dev/null 2>&1; then
+    # No remote branch, consider all commits as unpushed
+    return 0
+  fi
+
+  # Check if local branch is ahead of remote
+  unpushed=$(git log "origin/$branch..$branch" --oneline 2>/dev/null || true)
+  if [ -n "$unpushed" ]; then
+    return 0
+  fi
+
+  return 1
+}
 
 # Ensure we're in a git repo
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
@@ -241,13 +294,85 @@ git worktree list | while read -r line; do
 done
 
 # ============================================
-# STEP 5: Execute cleanup (if not dry-run)
+# STEP 5: Safety Checks (before execution)
+# ============================================
+if ! $DRY_RUN; then
+  echo ""
+  echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+  echo -e "${BLUE}SAFETY CHECKS${NC}"
+  echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+  echo ""
+
+  # Check for uncommitted changes in worktrees
+  SAFETY_ISSUES=false
+  for wt_info in $WORKTREES_TO_REMOVE; do
+    WT_PATH="${wt_info%%:*}"
+    WT_BRANCH="${wt_info##*:}"
+
+    if has_uncommitted_changes "$WT_PATH"; then
+      error "Worktree for $WT_BRANCH has uncommitted changes"
+      echo "  Path: $WT_PATH"
+      SAFETY_ISSUES=true
+    fi
+  done
+
+  # Check for unpushed commits on branches
+  for branch in $BRANCHES_TO_DELETE; do
+    if has_unpushed_commits "$branch"; then
+      error "Branch $branch has unpushed commits"
+      echo "  Run: git log origin/$branch..$branch to see unpushed commits"
+      SAFETY_ISSUES=true
+    fi
+  done
+
+  if $SAFETY_ISSUES; then
+    echo ""
+    error "Safety checks failed. Use --force to override (DANGEROUS)"
+    exit 1
+  fi
+
+  echo ""
+  success "All safety checks passed"
+fi
+
+# ============================================
+# STEP 6: Execute cleanup (if not dry-run)
 # ============================================
 if ! $DRY_RUN; then
   echo ""
   echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
   echo -e "${BLUE}EXECUTING CLEANUP${NC}"
   echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+  echo ""
+
+  # Show what will be deleted
+  if [ -n "$WORKTREES_TO_REMOVE" ] || [ -n "$BRANCHES_TO_DELETE" ]; then
+    echo -e "${YELLOW}About to delete:${NC}"
+    if [ -n "$WORKTREES_TO_REMOVE" ]; then
+      for wt_info in $WORKTREES_TO_REMOVE; do
+        WT_PATH="${wt_info%%:*}"
+        WT_BRANCH="${wt_info##*:}"
+        echo "  Worktree: $WT_PATH (branch: $WT_BRANCH)"
+      done
+    fi
+    if [ -n "$BRANCHES_TO_DELETE" ]; then
+      for branch in $BRANCHES_TO_DELETE; do
+        echo "  Branch: $branch"
+      done
+    fi
+  fi
+
+  # Interactive confirmation
+  if $CONFIRM; then
+    echo ""
+    read -p "Continue? [y/N] " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      info "Aborted by user"
+      exit 0
+    fi
+  fi
+
   echo ""
 
   # Remove worktrees
