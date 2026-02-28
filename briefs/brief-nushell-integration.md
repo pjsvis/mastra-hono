@@ -37,15 +37,12 @@ Nushell requires an `env.nu` file to see our rigging. Create or update the `env.
 ```nushell
 # Define the Rigging Path
 $env.PATH = (
-    $env.PATH | split row (char esep) 
+    $env.PATH | split row (char esep)
     | append '/usr/local/bin'
     | append ($env.HOME | path join '.bun' 'bin')
     | append ($env.HOME | path join '.local' 'bin')
     | uniq
 )
-
-# Export Critical Identifiers
-$env.TD_DB_PATH = ($env.PWD | path join '.todos' 'db.sqlite')
 
 ```
 
@@ -61,9 +58,16 @@ alias tdu = td usage --new-session
 alias tdl = td list
 alias skg = skate get
 
-# Custom Sensory Command: Query the active station
+# Custom Sensory Command: Query the active station (JSON-only, no DB access)
 def station-status [] {
-    open $env.TD_DB_PATH | query db "select * from issues where focused = 1"
+    let focused = (td current --json | from json | get focused.issue.id?)
+    if $focused == null {
+        return []
+    }
+    td list --json
+        | from json
+        | where id == $focused
+        | first
 }
 
 ```
@@ -75,6 +79,10 @@ The agent must verify that the **Sensory Tier** can see the **Rigging**.
 ```bash
 # Test command
 nu -c "station-status | to json"
+
+# Validate JSON shapes (debug)
+nu -c "td current --json | from json | to json"
+nu -c "td list --json | from json | first | to json"
 
 ```
 

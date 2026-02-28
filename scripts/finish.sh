@@ -3,7 +3,7 @@
 # finish.sh: Automated Closure, Debriefing, and Sovereign Submission
 
 # 1. Get current active issue
-CURRENT_ISSUE=$(td usage -q | grep -E "Working on:|FOCUSED ISSUE:" | head -n 1 | sed -E 's/.*(Working on:|FOCUSED ISSUE:) ([^ ]+).*/\2/' | tr -d '"')
+CURRENT_ISSUE=$(nu -c "td current --json | from json | get focused.issue.id? | default ''")
 
 if [ -z "$CURRENT_ISSUE" ]; then
   echo "❌ Error: No active issue found."
@@ -34,10 +34,24 @@ echo "📝 Synthesizing debrief..."
   echo ""
   echo "## Key Achievements"
   # Try to extract logs from the query system
-  td query "id = '$CURRENT_ISSUE'" -o json | jq -r '.[0].logs[] | select(.type != "secret") | select((.message | test("(?i)api[_-]?key|token|secret|password")) | not) | "- " + .message' 2>/dev/null || echo "- Completed objectives defined in brief."
+  nu -c "td query \"id = '$CURRENT_ISSUE'\" -o json
+    | from json
+    | first
+    | get logs
+    | where type != 'secret'
+    | where { |it| ($it.message | str contains --regex '(?i)api[_-]?key|token|secret|password') == false }
+    | each { |it| $\"- ($it.message)\" }
+    | str join (char nl)" 2>/dev/null || echo "- Completed objectives defined in brief."
   echo ""
   echo "## Decisions & Heuristics"
-  td query "id = '$CURRENT_ISSUE'" -o json | jq -r '.[0].logs[] | select(.type == "decision") | select((.message | test("(?i)api[_-]?key|token|secret|password")) | not) | "- " + .message' 2>/dev/null || echo "- Followed standard Mastra-Hono architecture."
+  nu -c "td query \"id = '$CURRENT_ISSUE'\" -o json
+    | from json
+    | first
+    | get logs
+    | where type == 'decision'
+    | where { |it| ($it.message | str contains --regex '(?i)api[_-]?key|token|secret|password') == false }
+    | each { |it| $\"- ($it.message)\" }
+    | str join (char nl)" 2>/dev/null || echo "- Followed standard Mastra-Hono architecture."
   echo ""
   echo "## Metadata"
   echo "- **Status**: Automated Closure"
@@ -70,7 +84,7 @@ fi
 
 # 5. Logical Context Map (Update Description with structured links)
 echo "🗺 Updating task context map..."
-NEW_DESC=$(td show "$CURRENT_ISSUE" --json | jq -r '.description // ""')
+NEW_DESC=$(nu -c "td show \"$CURRENT_ISSUE\" --json | from json | get description? | default ''")
 
 # Add Debrief
 NEW_DESC="${NEW_DESC}
@@ -117,7 +131,7 @@ if [ "$BRANCH_NAME" != "main" ] && [ "$BRANCH_NAME" != "HEAD" ]; then
 
   # 7. Create GitHub PR
   echo "🔀 Creating GitHub PR..."
-  ISSUE_TITLE=$(td query "id = '$CURRENT_ISSUE'" -o json | jq -r '.[0].title')
+  ISSUE_TITLE=$(nu -c "td query \"id = '$CURRENT_ISSUE'\" -o json | from json | first | get title")
   PR_OUTPUT=$(gh pr create --title "[$CURRENT_ISSUE] $ISSUE_TITLE" \
                --body-file "$DEBRIEF_FILE" \
                --base main \

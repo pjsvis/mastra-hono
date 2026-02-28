@@ -4,6 +4,15 @@ import { LibSQLStore } from '@mastra/libsql';
 import { createLocalMemoryAgent } from '@src/mastra/agents/local-memory-agent';
 import { createOllama } from 'ollama-ai-provider-v2';
 
+// Helper to timeout a promise
+const withTimeout = <T>(promise: Promise<T>, ms: number, label: string): Promise<T> =>
+  Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms)
+    ),
+  ]);
+
 describe('Local Observational Memory Agent', () => {
   test('agent should learn from tool errors and adapt via memory', async () => {
     const ollama = createOllama({
@@ -33,13 +42,17 @@ describe('Local Observational Memory Agent', () => {
 
     try {
       console.log('--- Attempt 1: Triggering failure ---');
-      // Request without prefix - will fail
-      const result1 = await testAgent.generate('Fetch data for user 123.', {
-        memory: {
-          thread: threadId,
-          resource: 'test-user',
-        },
-      });
+      // Request without prefix - will fail (with 60s timeout)
+      const result1 = await withTimeout(
+        testAgent.generate('Fetch data for user 123.', {
+          memory: {
+            thread: threadId,
+            resource: 'test-user',
+          },
+        }),
+        60000,
+        'First generate call'
+      );
 
       console.log('Agent Response 1:', result1.text);
 
@@ -48,13 +61,17 @@ describe('Local Observational Memory Agent', () => {
       await new Promise((resolve) => setTimeout(resolve, 5000));
 
       console.log('--- Attempt 2: Testing recall ---');
-      // Request another user - should now use the USR- prefix from memory
-      const result2 = await testAgent.generate('Now fetch data for user 456.', {
-        memory: {
-          thread: threadId,
-          resource: 'test-user',
-        },
-      });
+      // Request another user - should now use the USR- prefix from memory (with 60s timeout)
+      const result2 = await withTimeout(
+        testAgent.generate('Now fetch data for user 456.', {
+          memory: {
+            thread: threadId,
+            resource: 'test-user',
+          },
+        }),
+        60000,
+        'Second generate call'
+      );
 
       const responseText = result2.text.toLowerCase();
       console.log('Agent Response 2:', responseText);
@@ -72,9 +89,11 @@ describe('Local Observational Memory Agent', () => {
     } catch (error) {
       if (
         error instanceof Error &&
-        (error.message.includes('fetch failed') || error.message.includes('API key'))
+        (error.message.includes('fetch failed') ||
+          error.message.includes('API key') ||
+          error.message.includes('timed out'))
       ) {
-        console.warn('⚠️ LLM is likely not reachable. Skipping assertion.');
+        console.warn('⚠️ LLM is likely not reachable or too slow. Skipping assertion.');
         return;
       }
 

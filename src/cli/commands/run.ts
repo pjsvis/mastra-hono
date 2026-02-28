@@ -1,56 +1,91 @@
 import { spawn } from 'node:child_process';
+import { defineCommand } from 'citty';
 import { type AgentId, agentIds, mastra } from '../../mastra/index';
 
-interface RunOptions {
-  agent: AgentId;
-  prompt: string;
-  model?: string;
-}
+export const runCommand = defineCommand({
+  meta: {
+    name: 'run',
+    description: 'Execute a single prompt and exit',
+  },
+  args: {
+    agent: {
+      type: 'positional',
+      required: true,
+      description: `The agent ID to use (${agentIds.join(', ')})`,
+    },
+    prompt: {
+      type: 'string',
+      description: 'The prompt to send to the agent',
+      alias: 'p',
+      required: true,
+    },
+    model: {
+      type: 'string',
+      description: 'Override the default model (e.g., openai/gpt-4o)',
+      alias: 'm',
+    },
+  },
+  async run({ args }) {
+    const agentId = args.agent as AgentId;
+    const { prompt, model } = args;
 
-export async function runCommand(options: RunOptions): Promise<void> {
-  const { agent: agentId, prompt, model } = options;
+    // Validate agent ID
+    if (!agentIds.includes(agentId)) {
+      console.error(`❌ Error: Unknown agent ID "${agentId}"`);
+      console.error(`Available agents: ${agentIds.join(', ')}`);
+      process.exit(1);
+    }
 
-  // Get the agent from mastra instance
-  const agent = mastra.getAgent(agentId);
+    // Validate prompt
+    if (!prompt) {
+      console.error('❌ Error: --prompt is required');
+      process.exit(1);
+    }
 
-  if (!agent) {
-    const availableAgents = agentIds.join(', ');
-    throw new Error(`Agent "${agentId}" not found. Available agents: ${availableAgents}`);
-  }
+    // Get the agent from mastra instance
+    const agent = mastra.getAgent(agentId);
 
-  // Model override
-  const agentToUse = agent;
-  if (model) {
-    agentToUse.model = model;
-  }
+    if (!agent) {
+      console.error(`❌ Agent "${agentId}" not found.`);
+      process.exit(1);
+    }
 
-  // Show thinking indicator using gum spin
-  // We use a dummy command that we kill once generation is complete
-  const spinner = spawn(
-    'gum',
-    ['spin', '--spinner', 'dot', '--title', 'Thinking...', '--', 'sleep', '10000'],
-    { stdio: 'inherit' }
-  );
+    // Model override
+    const agentToUse = agent;
+    if (model) {
+      agentToUse.model = model;
+    }
 
-  // Generate response
-  const start = Date.now();
-  let result: Awaited<ReturnType<typeof agentToUse.generate>>;
-  try {
-    result = await agentToUse.generate(prompt);
-  } finally {
+    // Show thinking indicator using gum spin
+    const spinner = spawn(
+      'gum',
+      ['spin', '--spinner', 'dot', '--title', 'Thinking...', '--', 'sleep', '10000'],
+      { stdio: 'inherit' }
+    );
+
+    // Generate response
+    const start = Date.now();
+    let result: Awaited<ReturnType<typeof agentToUse.generate>>;
+    try {
+      result = await agentToUse.generate(prompt);
+    } catch (error) {
+      spinner.kill();
+      process.stdout.write('\r\x1b[K');
+      throw error;
+    }
+
     // Stop the spinner
     spinner.kill();
-    // Move to next line after spinner is gone
-    process.stdout.write('\r\x1b[K'); // Clear the line
-  }
-  const duration = ((Date.now() - start) / 1000).toFixed(1);
+    process.stdout.write('\r\x1b[K');
 
-  console.log(`done (${duration}s)`);
-  console.log();
+    const duration = ((Date.now() - start) / 1000).toFixed(1);
+    console.log(`done (${duration}s)`);
+    console.log();
 
-  // Render response with glow if available
-  await renderMarkdown(result.text);
-}
+    // Render response with glow if available
+    await renderMarkdown(result.text);
+  },
+});
 
 /**
  * Render markdown using glow if available, otherwise plain text

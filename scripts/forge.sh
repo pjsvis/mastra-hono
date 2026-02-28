@@ -26,11 +26,11 @@ fi
 echo "Selected: $SELECTED_BRIEF"
 
 # 2. Check for existing TD-ID
-TD_ID=$(grep -o "TD-ID: td-[a-z0-9]\+" "$SELECTED_BRIEF" | head -n 1 | cut -d' ' -f2)
+TD_ID=$(nu -c "open \"$SELECTED_BRIEF\" | lines | find 'TD-ID:' | first | split row ' ' | get 1? | default ''")
 
 if [ -z "$TD_ID" ]; then
   # 3. Create new td issue
-  TITLE=$(grep "^# " "$SELECTED_BRIEF" | head -n 1 | sed 's/# Brief: //;s/# //')
+  TITLE=$(nu -c "open \"$SELECTED_BRIEF\" | lines | where { |line| $line | str starts-with '# ' } | first | str replace '# Brief: ' '' | str replace '# ' '' | default ''")
   if [ -z "$TITLE" ]; then
     TITLE=$(basename "$SELECTED_BRIEF" .md)
   fi

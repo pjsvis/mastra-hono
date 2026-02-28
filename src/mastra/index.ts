@@ -9,6 +9,7 @@ import {
   SensitiveDataFilter,
 } from '@mastra/observability';
 import { getSkateSecret } from '../lib/secrets';
+import { edinburghProtocolAgent } from './agents/edinburgh-protocol-agent';
 import { localMemoryAgent } from './agents/local-memory-agent';
 import { researchAgent } from './agents/research-agent';
 import { weatherAgent } from './agents/weather-agent';
@@ -33,7 +34,7 @@ for (const key of secretKeys) {
 
 export const mastra = new Mastra({
   workflows: { weatherWorkflow },
-  agents: { researchAgent, weatherAgent, localMemoryAgent },
+  agents: { edinburghProtocolAgent, localMemoryAgent, researchAgent, weatherAgent },
   storage,
   memory: { default: memory },
   logger: new PinoLogger({
@@ -56,5 +57,10 @@ export const mastra = new Mastra({
   }),
 });
 
-export const agentIds = ['researchAgent', 'weatherAgent', 'localMemoryAgent'] as const;
+export const agentIds = [
+  'edinburghProtocolAgent',
+  'localMemoryAgent',
+  'researchAgent',
+  'weatherAgent',
+] as const;
 export type AgentId = (typeof agentIds)[number];
