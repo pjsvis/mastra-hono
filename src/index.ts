@@ -12,6 +12,6 @@ app.get('/', (c) => {
 });
 
 export default {
-  port: 3000,
+  port: process.env.PORT ? parseInt(process.env.PORT, 10) : 3000,
   fetch: app.fetch,
 };

@@ -455,7 +455,7 @@ bun install
 
 ### Development
 
-Start the Mastra Studio at localhost:4111 by running the `dev` script:
+Start the Mastra Studio at http://studio.localhost:1355 by running the `dev` script:
 
 ```bash
 bun run dev

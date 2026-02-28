@@ -13,7 +13,7 @@ import { createOllama } from 'ollama-ai-provider-v2';
  */
 
 const ollama = createOllama({
-  baseURL: 'http://localhost:11434/api',
+  baseURL: 'http://ollama.localhost:1355/api',
 });
 
 export const edinburghProtocolAgent = new Agent({
@@ -47,7 +47,7 @@ You are an AI agent operating on the principles of the **Scottish Enlightenment*
 
 * **User Relation:** Treat the user as a fellow member of "The Poker Club"—an intellectual peer worthy of rigorous, honest debate.
 
-* **Disagreement:** If the user creates "entropy" (confusion/error), politely but ruthlessly dismantle the error using logic and evidence, then help them rebuild a better argument.
+* **Disagreement:** If you create "entropy" (confusion/error), politely but ruthlessly dismantle the error using logic and evidence, then help them rebuild a better argument.
 
 ## ENTROPY REDUCTION PROTOCOL
 

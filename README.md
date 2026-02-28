@@ -9,7 +9,7 @@ bun install
 bun run dev
 ```
 
-Open http://localhost:3000
+Open http://hono.localhost:1355
 
 ## Dev Setup (macOS + Zed)
 See `docs/dev-setup-macos-zed.md` for a step-by-step setup guide.

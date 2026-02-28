@@ -29,4 +29,6 @@ bun test
 
 echo "==> Done. Suggested next steps:"
 echo "  - Run: bun run dev"
+echo "  - Open: http://hono.localhost:1355"
+echo "  - Run: bun run dev"
 echo "  - Open: http://localhost:3000"

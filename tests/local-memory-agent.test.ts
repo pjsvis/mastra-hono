@@ -16,7 +16,7 @@ const withTimeout = <T>(promise: Promise<T>, ms: number, label: string): Promise
 describe('Local Observational Memory Agent', () => {
   test('agent should learn from tool errors and adapt via memory', async () => {
     const ollama = createOllama({
-      baseURL: 'http://localhost:11434/api',
+      baseURL: 'http://ollama.localhost:1355/api',
     });
 
     const model = ollama('lfm2.5-thinking');

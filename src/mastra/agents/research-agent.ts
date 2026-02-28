@@ -5,7 +5,7 @@ import { calculatorTool } from '../tools/calculator-tool';
 import { webSearchTool } from '../tools/web-search-tool';
 
 const ollama = createOllama({
-  baseURL: 'http://localhost:11434/api',
+  baseURL: 'http://ollama.localhost:1355/api',
 });
 
 export const researchAgent = new Agent({
