@@ -11,6 +11,18 @@ description: A lexicon for folding structured data into deterministic shapes. Pr
 
 The Origami Protocol is a **lexicon for data folding** — transforming structured data into predictable shapes without losing information. Like origami, we start with a single sheet (raw data) and fold it into forms that reveal different aspects.
 
+## The Mantra
+
+```
+JSON → fold → DONE
+```
+
+If you have structured data (JSON, JSONL, YAML), apply an origami fold. Then you're done.
+
+**Same base, multiple forms.**
+
+The Origami Protocol is a **lexicon for data folding** — transforming structured data into predictable shapes without losing information. Like origami, we start with a single sheet (raw data) and fold it into forms that reveal different aspects.
+
 ## Core Principle
 
 ```
