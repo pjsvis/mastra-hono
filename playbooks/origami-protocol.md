@@ -28,6 +28,51 @@ Every fold is:
 
 ---
 
+## Prerequisite: JSON or Nothing
+
+The origami protocol only works when data flows through structured formats. If a tool doesn't produce JSON, JSONL, or YAML, you can't origami.
+
+```
+Tool Output
+    ↓
+    ├─→ Has --json? → from json → Fold
+    ├─→ Has --jsonl? → from jsonl → Fold
+    ├─→ Has --yaml? → from yaml → Fold
+    └─→ Neither → Standard output (can't origami)
+```
+
+### Supported Input Formats
+
+| Format | Nushell Command | Example |
+|--------|-----------------|---------|
+| **JSON** | `from json` | `echo '{"a":1}' | from json` |
+| **JSONL** | `from jsonl` | `echo '{"a":1}\n{"a":2}' | from jsonl` |
+| **YAML** | `from yaml` | `echo 'a: 1' | from yaml` |
+
+### The Check
+
+Before applying origami:
+
+```bash
+# Does this tool have JSON output?
+<tool> --help | grep -i json
+
+# Can I verify it?
+<tool> --json | head -c 200
+```
+
+If yes → origami available.
+If no → use standard tools.
+
+---
+
+## The Folds
+- **Deterministic** — same input → same output
+- **Reversible** — data is transformed, not destroyed
+- **Composable** — folds can be chained
+
+---
+
 ## The Folds
 
 ### 1. Flat Fold → `table`
