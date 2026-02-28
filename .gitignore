@@ -41,3 +41,4 @@ coverage/
 *.db-wal
 .todos/
 .agents/skills/mastra-fix-biome-issues/
+.mastracode/
