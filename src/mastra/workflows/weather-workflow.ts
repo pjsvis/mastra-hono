@@ -1,5 +1,5 @@
 import { createStep, createWorkflow } from '@mastra/core/workflows';
-import * as R from 'remeda';
+
 import { z } from 'zod';
 import { to } from '../../utils/to';
 
@@ -90,16 +90,9 @@ const fetchWeather = createStep({
       throw new Error('Failed to parse weather data');
     }
 
-    // Using remeda for data pipelines instead of imperative logic
-    const maxTemp =
-      R.pipe(data.hourly.temperature_2m, R.firstBy([(temp: number) => temp, 'desc'])) ?? 0;
-
-    const minTemp =
-      R.pipe(data.hourly.temperature_2m, R.firstBy([(temp: number) => temp, 'asc'])) ?? 0;
-
-    const precipitationChance =
-      R.pipe(data.hourly.precipitation_probability, R.firstBy([(prob: number) => prob, 'desc'])) ??
-      0;
+    const maxTemp = Math.max(...data.hourly.temperature_2m);
+    const minTemp = Math.min(...data.hourly.temperature_2m);
+    const precipitationChance = Math.max(...data.hourly.precipitation_probability);
 
     const forecast = {
       date: new Date().toISOString(),
