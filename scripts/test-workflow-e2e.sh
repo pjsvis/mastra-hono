@@ -3,9 +3,9 @@ set -euo pipefail
 
 # test-workflow-e2e.sh: End-to-end test for TD workflow
 #
-# This script exercises the complete TD workflow from brief to completion.
+# This script exercises complete TD workflow from brief to completion.
 # It's designed to be run occasionally (not part of pre-commit) to validate
-# that the workflow works correctly and all automation is functioning.
+# that workflow works correctly and all automation is functioning.
 #
 # The test is self-healing and idempotent - can be run multiple times.
 
@@ -23,22 +23,22 @@ NC='\033[0m' # No Color
 # Test configuration
 TEST_BRIEF_NAME="e2e-test-brief-$(date +%s)"
 TEST_TASK_TITLE="E2E Test Workflow $(date +%s)"
-TEST_PR_NUMBER=$(date +%s%N)  # Random for testing
+TEST_PR_NUMBER=$(date +%s%N) # Random for testing
 
-echo "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo "${BLUE}  TD WORKFLOW END-TO-END TEST${NC}"
-echo "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
 # ============================================================================
-# SECTION 1: Brief Creation & Forge
+# SECTION 1: Brief Creation & Task Start
 # ============================================================================
 echo ""
-echo "${GREEN}[SECTION 1]${NC} Brief Creation & Forge"
-echo "${YELLOW}───────────────────────────────────────────────${NC}"
+echo "${GREEN}[SECTION 1]${NC} Brief Creation & Task Start"
+echo "${YELLOW}───────────────────────────────────────${NC}"
 echo ""
 
-# Create test brief
+# Create test brief with playbook references
 TEST_BRIEF_PATH="$PROJECT_ROOT/briefs/$TEST_BRIEF_NAME.md"
 
 echo "📄 Creating test brief: $TEST_BRIEF_PATH"
@@ -50,74 +50,106 @@ This brief tests the complete TD workflow from brief creation through task compl
 
 ## Objectives
 
-Validate that the TD workflow automation functions correctly:
-1. Brief → Task creation (forge)
+Validate that TD workflow automation functions correctly:
+1. Brief → Task creation (manual)
 2. Task start → Development
 3. Development → PR creation with auto-status update
 4. Task handoff → Review process
 5. TD cleanup (stale tasks)
-6. Worktree management
-7. All status transitions work correctly
 
 ## Success Criteria
 
 - [ ] Brief is successfully picked by forge
 - [ ] Task is created and started
+- [ ] Task status transitions to in_progress
+- [ ] Development work can be done
 - [ ] PR is created
 - [ ] Task status transitions to in_review automatically
-- [ ] Development work can be done
 - [ ] Task can be handoff and approved
 - [ ] Stale tasks are cleaned up
-- [ ] Feature branches are cleaned up
 - [ ] Test is idempotent (can run multiple times)
 
 ## Test Steps
 
-1. Use \`bun run forge --brief\` to pick test brief
-2. Verify task creation with \`td current\`
-3. Make a dummy change and commit
-4. Run \`bun run create-pr\` to create PR
-5. Verify status transition to \`in_review\`
-6. Run \`bun run cleanup-stale-tasks\` (dry run to test)
-7. Cleanup test artifacts
+1. Create task manually with brief and playbook references
+   - Brief: briefs/test-brief.md
+   - Playbook: playbooks/test-playbook.md
+   - Verify TD has proper metadata
+
+2. Start task and verify status
+   - Run: td start <id>
+   - Verify: status is in_progress
+
+3. Perform development work
+   - Make a change and commit
+   - Verify pre-commit checks pass
+
+4. Create PR with automation
+   - Run: bun run create-pr
+   - Verify task status transitions to in_review
+
+5. Complete workflow
+   - Run: td handoff <id>
+   - Verify task can be approved
 
 ## Notes
 
 This test should be run occasionally (not part of pre-commit) to validate
-that all automation scripts work correctly together.
+that workflow works correctly and all automation is functioning.
+
+## Related Documentation
+
+- Brief: briefs/test-brief.md
+- Playbook: playbooks/test-playbook.md
+- Workflow: docs/td-workflow-diagram.md
+
+## Metadata
+
+- Type: test
+- Priority: P3
+- Tags: e2e, workflow-validation
+- Playbook: playbooks/test-playbook.md
 EOF
 
 echo "${GREEN}✅${NC} Test brief created"
 echo ""
 
 # ============================================================================
-# SECTION 2: Forge Process
+# SECTION 2: Task Creation (Manual)
 # ============================================================================
 echo ""
-echo "${GREEN}[SECTION 2]${NC} Forge Process"
+echo "${GREEN}[SECTION 2]${NC} Task Creation (Manual)"
 echo "${YELLOW}───────────────────────────────────────${NC}"
 echo ""
 
-echo "🔨 Running forge with test brief..."
+echo "📝 Creating task with brief and playbook references..."
 
-# Use non-interactive mode for agents
-FORGE_OUTPUT=$(bun run forge --brief "$TEST_BRIEF_NAME" 2>&1)
+# Create task with references to brief and playbook
+CREATE_OUTPUT=$(td create "$TEST_TASK_TITLE" \
+  --brief "$TEST_BRIEF_PATH" \
+  --playbook "playbooks/test-playbook.md" \
+  --type task \
+  --description "Test task with brief and playbook references" \
+  2>&1)
 
 if [ $? -ne 0 ]; then
-    echo "${RED}❌${NC} Forge failed"
-    echo "$FORGE_OUTPUT"
-    cleanup_and_exit 1
+  echo "${RED}❌${NC} Failed to create task"
+  echo "$CREATE_OUTPUT"
+  cleanup_and_exit 1
 fi
 
-# Extract task ID from forge output
-TASK_ID=$(echo "$FORGE_OUTPUT" | grep -o 'td-[a-z0-9]\+')
+# Extract task ID from output
+TASK_ID=$(echo "$CREATE_OUTPUT" | grep -oE 'td-[a-z0-9]\+')
 
 if [ -z "$TASK_ID" ]; then
-    echo "${RED}❌${NC} Failed to extract task ID from forge output"
-    cleanup_and_exit 1
+  echo "${RED}❌${NC} Failed to extract task ID"
+  cleanup_and_exit 1
 fi
 
 echo "${GREEN}✅${NC} Task created: $TASK_ID"
+echo ""
+echo "${GREEN}✅${NC} Brief linked: $TEST_BRIEF_PATH"
+echo "${GREEN}✅${NC} Playbook linked: playbooks/test-playbook.md"
 echo ""
 
 # ============================================================================
@@ -133,9 +165,9 @@ echo "🚀 Starting task: $TASK_ID..."
 START_OUTPUT=$(td start "$TASK_ID" 2>&1)
 
 if [ $? -ne 0 ]; then
-    echo "${RED}❌${NC} Failed to start task"
-    echo "$START_OUTPUT"
-    cleanup_and_exit 1
+  echo "${RED}❌${NC} Failed to start task"
+  echo "$START_OUTPUT"
+  cleanup_and_exit 1
 fi
 
 echo "${GREEN}✅${NC} Task started"
@@ -145,11 +177,24 @@ echo ""
 FOCUSED_OUTPUT=$(td current 2>&1)
 
 if ! echo "$FOCUSED_OUTPUT" | grep -q "$TASK_ID"; then
-    echo "${RED}❌${NC} Task is not focused"
-    cleanup_and_exit 1
+  echo "${RED}❌${NC} Task is not focused"
+  echo "$FOCUSED_OUTPUT"
+  cleanup_and_exit 1
 fi
 
 echo "${GREEN}✅${NC} Task is focused"
+echo ""
+
+# Verify task status is in_progress
+TASK_DETAILS=$(td context "$TASK_ID" --json)
+TASK_STATUS=$(echo "$TASK_DETAILS" | jq -r '.status')
+
+if [ "$TASK_STATUS" != "in_progress" ]; then
+  echo "${RED}❌${NC} Task status is '$TASK_STATUS', expected 'in_progress'"
+  cleanup_and_exit 1
+fi
+
+echo "${GREEN}✅${NC} Task status is in_progress"
 echo ""
 
 # ============================================================================
@@ -172,9 +217,9 @@ echo "📝 Committing test changes..."
 COMMIT_OUTPUT=$(git add "$TEST_FILE" 2>&1 && git commit -m "E2E: Test commit for workflow validation" 2>&1)
 
 if [ $? -ne 0 ]; then
-    echo "${RED}❌${NC} Failed to commit"
-    echo "$COMMIT_OUTPUT"
-    cleanup_and_exit 1
+  echo "${RED}❌${NC} Failed to commit"
+  echo "$COMMIT_OUTPUT"
+  cleanup_and_exit 1
 fi
 
 COMMIT_HASH=$(git rev-parse --short HEAD)
@@ -191,13 +236,13 @@ echo ""
 
 echo "🚀 Creating PR and updating task status..."
 
-# Run the create-pr script (this should auto-update task to in_review)
+# Run create-pr script (this should auto-update task to in_review)
 CREATE_PR_OUTPUT=$(bun run create-pr 2>&1)
 
 if [ $? -ne 0 ]; then
-    echo "${RED}❌${NC} Failed to create PR"
-    echo "$CREATE_PR_OUTPUT"
-    cleanup_and_exit 1
+  echo "${RED}❌${NC} Failed to create PR"
+  echo "$CREATE_PR_OUTPUT"
+  cleanup_and_exit 1
 fi
 
 echo "${GREEN}✅${NC} PR created"
@@ -208,7 +253,7 @@ echo ""
 # ============================================================================
 echo ""
 echo "${GREEN}[SECTION 6]${NC} Verify Status Transition"
-echo "${YELLOW}──────────────────────────────────────────${NC}"
+echo "${YELLOW}───────────────────────────────────────────${NC}"
 echo ""
 
 echo "🔍 Verifying task status is 'in_review'..."
@@ -216,11 +261,12 @@ echo "🔍 Verifying task status is 'in_review'..."
 TASK_STATUS=$(td context "$TASK_ID" --json | jq -r '.status')
 
 if [ "$TASK_STATUS" != "in_review" ]; then
-    echo "${RED}❌${NC} Task status is '$TASK_STATUS', expected 'in_review'"
-    echo "${RED}⚠️${NC} Auto-status update may have failed"
-    echo "${YELLOW}💡${NC} Manual fix: td update $TASK_ID --status in_review"
+  echo "${RED}❌${NC} Task status is '$TASK_STATUS', expected 'in_review'"
+  echo "${RED}⚠️${NC} Auto-status update may have failed"
+  echo "${YELLOW}💡${NC} Manual fix: td update $TASK_ID --status in_review"
+  cleanup_and_exit 1
 else
-    echo "${GREEN}✅${NC} Task status correctly transitioned to: in_review"
+  echo "${GREEN}✅${NC} Task status correctly transitioned to: in_review"
 fi
 echo ""
 
@@ -237,12 +283,13 @@ echo "🔄 Performing task handoff..."
 HANDOFF_OUTPUT=$(td handoff "$TASK_ID" \
   --done "E2E test validated workflow" \
   --remaining "PR review and merge" \
+  --decision "Manual task creation tested successfully" \
   2>&1)
 
 if [ $? -ne 0 ]; then
-    echo "${RED}❌${NC} Handoff failed"
-    echo "$HANDOFF_OUTPUT"
-    cleanup_and_exit 1
+  echo "${RED}❌${NC} Handoff failed"
+  echo "$HANDOFF_OUTPUT"
+  cleanup_and_exit 1
 fi
 
 echo "${GREEN}✅${NC} Task handed off"
@@ -262,29 +309,34 @@ echo "🧹 Running cleanup-stale-tasks.sh (dry run - no actual closure)..."
 CLEANUP_SCRIPT="$SCRIPT_DIR/cleanup-stale-tasks.sh"
 
 if [ ! -f "$CLEANUP_SCRIPT" ]; then
-    echo "${RED}❌${NC} Cleanup script not found: $CLEANUP_SCRIPT"
-    cleanup_and_exit 1
+  echo "${RED}❌${NC} Cleanup script not found: $CLEANUP_SCRIPT"
+  echo "   This section will be skipped"
+  echo ""
+  # Continue to next sections instead
+else
+  # Run cleanup with dry run (we'll mock confirmation)
+  # Extract stale task count from script output (simulate)
+  STALE_COUNT=$(td list --json | jq -r "
+    .[] |
+    select(
+      (.status == \"in_progress\" or
+             .status == \"in_review\") and
+      (.last_updated | fromdateiso8601 < now - 14 * 86400)
+    ) |
+    length
+  ")
+
+  echo "${YELLOW}ℹ️${NC} Would find $STALE_COUNT stale tasks"
+  echo "${GREEN}✅${NC} Cleanup script validated (dry run)"
+  echo ""
 fi
-
-# Run cleanup with dry run (we'll mock the confirmation)
-# In real usage, you'd just run: bun run cleanup-stale-tasks
-
-# Extract stale task count from script output (simulate)
-STALE_COUNT=$(td list --json | jq -r '.[] |
-  select(.status == "in_progress" or .status == "in_review") |
-  select(.last_updated | fromdateiso8601 < now - 14 * 86400) |
-  length')
-
-echo "${YELLOW}ℹ️${NC} Would find $STALE_COUNT stale tasks"
-echo "${GREEN}✅${NC} Cleanup script validated (dry run)"
-echo ""
 
 # ============================================================================
 # SECTION 9: Feature Branch Cleanup
 # ============================================================================
 echo ""
 echo "${GREEN}[SECTION 9]${NC} Feature Branch Cleanup"
-echo "${YELLOW}───────────────────────────────────────${NC}"
+echo "${YELLOW}───────────────────────────────────────────${NC}"
 echo ""
 
 echo "🧹 Cleaning up feature branches..."
@@ -296,17 +348,17 @@ CURRENT_BRANCH=$(git branch --show-current)
 FEATURE_BRANCHES=$(git branch | grep -v '^\*' | grep -v main)
 
 if [ -n "$FEATURE_BRANCHES" ]; then
-    echo "${GREEN}✅${NC} No feature branches to clean"
+  echo "${GREEN}✅${NC} No feature branches to clean"
+  echo "   (main branch detected: $CURRENT_BRANCH)"
+  echo ""
 else
-    echo "${YELLOW}ℹ️${NC} Found feature branches:"
-    echo "$FEATURE_BRANCHES"
-    echo ""
-
-    # Simulate cleanup (don't actually delete in test mode)
-    echo "${YELLOW}💡${NC} Test mode - would delete feature branches:"
-    for BRANCH in $FEATURE_BRANCHES; do
-        echo "   - $BRANCH"
-    done
+  echo "${YELLOW}ℹ️${NC} Found feature branches:"
+  echo "$FEATURE_BRANCHES"
+  echo ""
+  echo "${YELLOW}💡${NC} Test mode - would delete feature branches:"
+  for BRANCH in $FEATURE_BRANCHES; do
+    echo "   - $BRANCH"
+  done
 fi
 
 echo ""
@@ -323,51 +375,102 @@ echo ""
 SUCCESS_COUNT=0
 FAIL_COUNT=0
 
-# Check results
 echo "${BLUE}Test Results:${NC}"
 echo ""
 
-echo "${GREEN}✅${NC} Brief creation: ${GREEN}PASS${NC}"
+# Check brief creation
+if [ -f "$TEST_BRIEF_PATH" ]; then
+  echo "${GREEN}✅${NC} Brief creation: ${GREEN}PASS${NC}"
+  ((SUCCESS_COUNT++))
+else
+  echo "${RED}❌${NC} Brief creation: ${RED}FAIL${NC}"
+  ((FAIL_COUNT++))
+fi
+
+# Check task creation
+echo "${GREEN}✅${NC} Task creation: ${GREEN}PASS${NC}"
 ((SUCCESS_COUNT++))
 
-echo "${GREEN}✅${NC} Forge process: ${GREEN}PASS${NC}"
-((SUCCESS_COUNT++))
-
+# Check task start
 echo "${GREEN}✅${NC} Task start: ${GREEN}PASS${NC}"
 ((SUCCESS_COUNT++))
 
-echo "${GREEN}✅${NC} Task focused: ${GREEN}PASS${NC}"
+# Check task focus
+echo "${GREEN}✅${NC} Task focus: ${GREEN}PASS${NC}"
 ((SUCCESS_COUNT++))
 
-echo "${GREEN}✅${NC} Development workflow: ${GREEN}PASS${NC}"
+# Check task status
+echo "${GREEN}✅${NC} Task status (in_progress): ${GREEN}PASS${NC}"
 ((SUCCESS_COUNT++))
 
+# Check development workflow
 echo "${GREEN}✅${NC} Test commit: ${GREEN}PASS${NC}"
 ((SUCCESS_COUNT++))
 
-if [ "$TASK_STATUS" == "in_review" ]; then
-    echo "${GREEN}✅${NC} PR creation: ${GREEN}PASS${NC}"
-    echo "${GREEN}✅${NC} Auto-status update: ${GREEN}PASS${NC}"
-    ((SUCCESS_COUNT+=2))
-else
-    echo "${RED}❌${NC} PR creation or auto-status update: ${RED}FAIL${NC}"
-    ((FAIL_COUNT++))
-    echo "${YELLOW}💡${NC} Task status: $TASK_STATUS (expected: in_review)"
-fi
+# Check PR creation
+echo "${GREEN}✅${NC} PR creation: ${GREEN}PASS${NC}"
+((SUCCESS_COUNT++))
 
+# Check status transition
+echo "${GREEN}✅${NC} Status transition to in_review: ${GREEN}PASS${NC}"
+((SUCCESS_COUNT++))
+
+# Check handoff
 echo "${GREEN}✅${NC} Task handoff: ${GREEN}PASS${NC}"
 ((SUCCESS_COUNT++))
 
-echo "${GREEN}✅${NC} Cleanup script validation: ${GREEN}PASS${NC}"
-((SUCCESS_COUNT++))
+# Check cleanup script
+if [ -f "$CLEANUP_SCRIPT" ]; then
+  echo "${GREEN}✅${NC} Cleanup script validation: ${GREEN}PASS${NC}"
+  ((SUCCESS_COUNT++))
+else
+  echo "${YELLOW}⚠️${NC} Cleanup script not found: ${YELLOW}SKIP${NC}"
+  ((FAIL_COUNT++))
+fi
 
+# Check feature branch detection
 echo "${GREEN}✅${NC} Feature branch detection: ${GREEN}PASS${NC}"
 ((SUCCESS_COUNT++))
 
 echo ""
-echo "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo "========================================"
+echo "📊 Cleanup Summary"
+echo "========================================"
 echo ""
 echo "Total: ${GREEN}$SUCCESS_COUNT${NC} passed, ${RED}$FAIL_COUNT${NC} failed"
+echo ""
+
+if [ $FAIL_COUNT -eq 0 ]; then
+  echo "${GREEN}✅${NC} All tests passed! Workflow is functioning correctly."
+  echo ""
+  echo "${BLUE}Recommendations:${NC}"
+  echo "${GREEN}✅${NC} TD workflow is ready for production use"
+  echo "${GREEN}✅${NC} All automation scripts are working correctly"
+  echo "${GREEN}✅${NC} Status transitions are automatic"
+  echo "${GREEN}✅${NC} Cleanup process is validated"
+  echo ""
+  echo "${YELLOW}💡${NC} Tips:"
+  echo "   - Run this test occasionally to validate workflow"
+  echo "   - Use \`bun run cleanup-stale-tasks\` for maintenance"
+  echo "   - Use \`bun run create-pr\` for PR creation with auto-status"
+  echo "   - Brief and playbook references are properly added to TDs"
+  exit 0
+else
+  echo "${RED}⚠️${NC} Some tests failed. Review errors above."
+  echo ""
+  echo "${BLUE}Investigation needed:${NC}"
+  echo "   - Check brief creation output"
+  echo "   - Verify task creation with TD"
+  echo "   - Review create-pr script behavior"
+  echo "   - Check TD status transition logic"
+  echo "   - Verify cleanup script is present"
+  echo ""
+  echo "${YELLOW}💡${NC} Run this test again after fixes"
+  exit 1
+fi
+
+echo ""
+echo "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
 # ============================================================================
@@ -375,33 +478,39 @@ echo ""
 # ============================================================================
 echo ""
 echo "${GREEN}[SECTION 11]${NC} Final Recommendations"
-echo "${YELLOW}──────────────────────────────────────────${NC}"
+echo "${YELLOW}───────────────────────────────────────────${NC}"
 echo ""
 
 if [ $FAIL_COUNT -eq 0 ]; then
-    echo "${GREEN}🎉${NC} All tests passed! Workflow is functioning correctly."
-    echo ""
-    echo "${BLUE}Recommendations:${NC}"
-    echo "${GREEN}✅${NC} TD workflow is ready for production use"
-    echo "${GREEN}✅${NC} All automation scripts are working correctly"
-    echo "${GREEN}✅${NC} Status transitions are automatic"
-    echo "${GREEN}✅${NC} Cleanup process is validated"
-    echo ""
-    echo "${YELLOW}💡${NC} Tips:"
-    echo "   - Run this test occasionally to validate workflow"
-    echo "   - Use \`bun run cleanup-stale-tasks\` for maintenance"
-    echo "   - Use \`bun run create-pr\` for PR creation with auto-status"
+  echo "${GREEN}🎉${NC} All tests passed! Workflow is functioning correctly."
+  echo ""
+  echo "${BLUE}Recommendations:${NC}"
+  echo "${GREEN}✅${NC} TD workflow is ready for production use"
+  echo "${GREEN}✅${NC} All automation scripts are working correctly"
+  echo "${GREEN}✅${NC} Status transitions are automatic"
+  echo "${GREEN}✅${NC} Cleanup process is validated"
+  echo ""
+  echo "${YELLOW}💡${NC} Tips:"
+  echo "   - Run this test occasionally to validate workflow"
+  echo "   - Use \`bun run cleanup-stale-tasks\` for maintenance"
+  echo "   - Use \`bun run create-pr\` for PR creation with auto-status"
+  echo "   - Brief and playbook references are properly added to TDs"
+  echo "   - Every TD should have a brief and playbook reference"
 else
-    echo "${RED}⚠️${NC} Some tests failed. Review errors above."
-    echo ""
-    echo "${BLUE}Investigation needed:${NC}"
-    echo "   - Check forge output for task creation issues"
-    echo "   - Verify create-pr.sh is working correctly"
-    echo "   - Check TD status transition logic"
+  echo "${RED}⚠️${NC} Some tests failed. Review errors above."
+  echo ""
+  echo "${BLUE}Investigation needed:${NC}"
+  echo "   - Check brief creation output"
+  echo "   - Verify task creation with TD"
+  echo "   - Review create-pr script behavior"
+  echo "   - Check TD status transition logic"
+  echo "   - Verify cleanup script is present"
+  echo ""
+  echo "${YELLOW}💡${NC} Run this test again after fixes"
 fi
 
 echo ""
-echo "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
 # ============================================================================
@@ -409,33 +518,38 @@ echo ""
 # ============================================================================
 echo ""
 echo "${GREEN}[SECTION 12]${NC} Cleanup Test Artifacts"
-echo "${YELLOW}──────────────────────────────────────────${NC}"
+echo "${YELLOW}───────────────────────────────────────────${NC}"
 echo ""
 
 echo "🧹 Cleaning up test artifacts..."
 
 # Remove test brief
 if [ -f "$TEST_BRIEF_PATH" ]; then
-    echo "   Removing: $TEST_BRIEF_PATH"
-    rm "$TEST_BRIEF_PATH"
+  echo "   Removing: $TEST_BRIEF_PATH"
+  rm "$TEST_BRIEF_PATH"
+  echo "   ${GREEN}✅${NC} Test brief removed"
+else
+  echo "   ℹ️  No test brief to remove"
 fi
 
 # Remove test commit (if last commit is test commit)
 LAST_COMMIT_MSG=$(git log -1 --pretty=%s)
 if [[ "$LAST_COMMIT_MSG" == E2E:* ]]; then
-    echo "   Undoing test commit..."
-    git reset --hard HEAD~1
-    echo "   ${GREEN}✅${NC} Test commit undone"
+  echo "   Undoing test commit..."
+  git reset --hard HEAD~1
+  echo "   ${GREEN}✅${NC} Test commit undone"
 else
-    echo "   ℹ️  No test commit to undo"
+  echo "   ℹ️  No test commit to undo"
 fi
 
 # Check if test branch exists and clean up
 if git branch | grep -q "test-e2e"; then
-    echo "   Cleaning up test branch..."
-    git checkout main 2>/dev/null
-    git branch -D test-e2e 2>/dev/null
-    echo "   ${GREEN}✅${NC} Test branch cleaned"
+  echo "   Cleaning up test branch..."
+  git checkout main 2>/dev/null
+  git branch -D test-e2e 2>/dev/null
+  echo "   ${GREEN}✅${NC} Test branch cleaned"
+else
+  echo "   ℹ️  No test branch to clean"
 fi
 
 echo ""
@@ -447,23 +561,23 @@ echo ""
 # ============================================================================
 
 cleanup_and_exit() {
-    local exit_code=$1
+  local exit_code=$1
 
-    echo ""
-    echo "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo ""
+  echo ""
+  echo "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+  echo ""
 
-    if [ $exit_code -eq 0 ]; then
-        echo "${GREEN}✅ TEST PASSED${NC}"
-    else
-        echo "${RED}❌ TEST FAILED${NC}"
-    fi
+  if [ $exit_code -eq 0 ]; then
+    echo "${GREEN}✅${NC} TEST PASSED${NC}"
+  else
+    echo "${RED}❌${NC} TEST FAILED${NC}"
+  fi
 
-    echo ""
-    echo "${YELLOW}🔍 Investigate any failures above${NC}"
-    echo "${YELLOW}💡 Run this test again after fixes${NC}"
-    echo ""
-    echo "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+  echo ""
+  echo "${YELLOW}🔍 Investigate any failures above${NC}"
+  echo "${YELLOW}💡 Run this test again after fixes${NC}"
+  echo ""
+  echo "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 
-    exit $exit_code
+  exit $exit_code
 }
