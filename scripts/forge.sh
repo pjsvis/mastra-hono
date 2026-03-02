@@ -9,18 +9,58 @@ if [ ! -d "$BRIEF_DIR" ]; then
   exit 1
 fi
 
-# 1. Pick a brief using gum
-BRIEF_FILES=("$BRIEF_DIR"/*.md)
-if [ "${#BRIEF_FILES[@]}" -eq 1 ] && [ "${BRIEF_FILES[0]}" = "$BRIEF_DIR/*.md" ]; then
-  echo "❌ Error: No briefs found in $BRIEF_DIR."
-  exit 1
-fi
+# Parse arguments
+BRIEF_PATH=""
+NON_INTERACTIVE=false
 
-SELECTED_BRIEF=$(printf '%s\n' "${BRIEF_FILES[@]}" | gum filter --placeholder "Select a brief to forge into a task...")
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    --brief|-b)
+      BRIEF_PATH="$2"
+      NON_INTERACTIVE=true
+      shift 2
+      ;;
+    *)
+      echo "❌ Unknown option: $1"
+      echo "Usage: $0 [--brief BRIEF_FILE]"
+      exit 1
+      ;;
+  esac
+done
 
-if [ -z "$SELECTED_BRIEF" ]; then
-  echo "Operation cancelled."
-  exit 0
+# 1. Pick a brief
+if [ "$NON_INTERACTIVE" = true ]; then
+  # Non-interactive mode: use specified brief
+  if [ -z "$BRIEF_PATH" ]; then
+    echo "❌ Error: --brief requires a file path"
+    echo "Usage: $0 [--brief BRIEF_FILE]"
+    exit 1
+  fi
+
+  if [[ "$BRIEF_PATH" != /* ]]; then
+    BRIEF_PATH="$BRIEF_DIR/$BRIEF_PATH"
+  fi
+
+  if [ ! -f "$BRIEF_PATH" ]; then
+    echo "❌ Error: Brief file not found: $BRIEF_PATH"
+    exit 1
+  fi
+
+  SELECTED_BRIEF="$BRIEF_PATH"
+else
+  # Interactive mode: use gum to select
+  BRIEF_FILES=("$BRIEF_DIR"/*.md)
+  if [ "${#BRIEF_FILES[@]}" -eq 1 ] && [ "${BRIEF_FILES[0]}" = "$BRIEF_DIR/*.md" ]; then
+    echo "❌ Error: No briefs found in $BRIEF_DIR."
+    exit 1
+  fi
+
+  SELECTED_BRIEF=$(printf '%s\n' "${BRIEF_FILES[@]}" | gum filter --placeholder "Select a brief to forge into a task...")
+
+  if [ -z "$SELECTED_BRIEF" ]; then
+    echo "Operation cancelled."
+    exit 0
+  fi
 fi
 
 echo "Selected: $SELECTED_BRIEF"
