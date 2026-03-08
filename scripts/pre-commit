@@ -1,3 +1,11 @@
+<file_path>
+mastra-hono/scripts/pre-commit
+</file_path>
+
+<edit_description>
+Make pre-commit script executable
+</edit_description>
+
 #!/usr/bin/env bash
 # Pre-commit hook for Mastra Hono
 # Delegated to package.json for easier maintenance
