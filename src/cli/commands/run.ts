@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process';
 import { defineCommand } from 'citty';
 import { type AgentId, agentIds, mastra } from '../../mastra/index';
+import { cleanThinking } from '../../utils/thinking-filter';
 
 export const runCommand = defineCommand({
   meta: {
@@ -83,7 +84,8 @@ export const runCommand = defineCommand({
     console.log();
 
     // Render response with glow if available
-    await renderMarkdown(result.text);
+    const cleanedText = cleanThinking(result.text);
+    await renderMarkdown(cleanedText);
   },
 });
 

@@ -2,6 +2,7 @@ import { spawn } from 'node:child_process';
 import { createInterface } from 'node:readline';
 import { defineCommand } from 'citty';
 import { type AgentId, agentIds, mastra } from '../../mastra/index';
+import { cleanThinking } from '../../utils/thinking-filter';
 
 export const chatCommand = defineCommand({
   meta: {
@@ -103,7 +104,8 @@ export const chatCommand = defineCommand({
           console.log();
 
           // Render response with glow if available
-          await renderMarkdown(result.text);
+          const cleanedText = cleanThinking(result.text);
+          await renderMarkdown(cleanedText);
         } catch (error) {
           console.error(`\n❌ Error: ${error instanceof Error ? error.message : error}`);
         }

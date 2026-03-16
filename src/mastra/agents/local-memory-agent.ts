@@ -8,7 +8,7 @@ const ollama = createOllama({
   baseURL: 'http://localhost:11434/api',
 });
 
-export const localMemoryModel = ollama('lfm2.5-thinking');
+export const localMemoryModel = ollama('qwen3.5:latest');
 
 export const localMemoryAgentConfig = {
   name: 'Local Memory Agent',
