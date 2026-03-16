@@ -16,27 +16,38 @@ Run `tdn` (aliased to `td usage --new-session`) at the absolute start of every c
 - [ ] Include done / remaining / decision / uncertain
 - [ ] Submit `td review <issue-id>` only after a handoff is recorded
 
-## The Forge Lifecycle (Mandatory Workflow)
+## The Manual Task Lifecycle
 
-We follow a strict **Brief-to-Task** lifecycle:
+We follow a **Manual Brief-to-Task** workflow:
 
-1. **The Brief**: Every task begins as a Markdown file in `briefs/`.
-2. **The Forge**: Run `bun run forge` to pick a brief and link it to a `td` task.
-3. **The Gumption**: The agent implements the objectives. **If blocked or confused, the agent MUST run `bun run ask "your question"`** to ping the Human's iPhone via ntfy.
-4. **The Finish**: Run `bun run finish`. This is a fully automated closure engine that:
-   - Runs all verification checks (Lint + Types + Tests).
-   - Generates a **Debrief** automatically from session logs.
-   - Links the Debrief and any new **Playbooks** to the `td` ticket.
-   - Performs a final `td handoff`, pushes the branch, and creates a **GitHub PR**.
+1. **The Brief**: Create or select a Markdown brief in `briefs/`.
+2. **The Task**: Manually create a task with `td create` and link it to the brief:
+   ```bash
+   td create "Task Title" \
+     --brief "briefs/my-brief.md" \
+     --playbook "playbooks/my-playbook.md" \
+     --description "Brief: briefs/my-brief.md"
+   ```
+3. **The Development**: 
+   - Start the task with `td start <task-id>`
+   - Implement the objectives. **If blocked or confused, run `bun run ask "your question"`** to ping the Human's iPhone via ntfy.
+4. **The PR**: When ready, create a PR with `bun run create-pr`. This automatically:
+   - Creates the GitHub PR
+   - Updates the task status to `in_review`
+   - Links the PR to the task
+5. **The Finish**: Run `bun run finish`. This automated closure engine:
+   - Runs all verification checks (Lint + Types + Tests)
+   - Generates a **Debrief** automatically from session logs
+   - Links the Debrief and any new **Playbooks** to the task
+   - Performs a final `td handoff` and creates the **GitHub PR** (if not already created)
+6. **The Approve**: Once the PR is merged, run `td approve <task-id>` to mark it as **DONE** and close the local lifecycle.
 
-5. **The Approve**: Once the PR is merged, the human (or a senior agent) runs `td approve <issue-id>` to mark it as **DONE** and close the local lifecycle.
-
-### Cleanup & Tidying (The Ephemeral Forge)
-The local development environment is a temporary **Forge**, not a permanent home. Once `finish` is run:
-- **Automatic Unfocus**: The task is automatically detached from your session.
-- **Immediate Cleanup**: Move back to `main` immediately. Do not leave "dangling" task branches.
-- **Sovereign Review**: Any further feedback from the PR should be treated as a *new* session or a re-checkout.
-- **Worktree Removal**: Delete the worktree/branch as soon as the PR is confirmed live.
+### Cleanup & Tidying (The Ephemeral Workspace)
+The local development environment is a temporary workspace, not a permanent home. Once `finish` is run:
+- **Automatic Unfocus**: The task is automatically detached from your session
+- **Immediate Cleanup**: Move back to `main` immediately. Do not leave "dangling" task branches
+- **Sovereign Review**: Any further feedback from the PR should be treated as a *new* session or a re-checkout
+- **Worktree Removal**: Delete the worktree/branch as soon as the PR is confirmed live
 
 ### The "Map of Knowledge" (Description)
 The task `description` field in `td` is used as a high-visibility context map. It follows a strict format for easy jumping:
@@ -66,7 +77,7 @@ See [Mastra Skills section](#mastra-skills) for loading instructions.
 This is a **Mastra** project written in TypeScript - your **Agent Forge** for building production-ready AI agents.
 
 **Purpose:**
-- **Template + Runtime**: Starter template AND forge for your own agents
+- **Template + Runtime**: Starter template for your own agents
 - **Production hardened**: Testing, scripts, and monitoring baked in
 - **Reusable patterns**: Pre-built structures for common agent types
 

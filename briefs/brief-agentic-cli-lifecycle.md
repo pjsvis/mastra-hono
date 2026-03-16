@@ -1,3 +1,4 @@
+TD-ID: td-9ebf17
 To optimize a CLI tool for agentic use (specifically for the **Ctx** persona or similar sub-agents), a single `--help` parameter is typically **insufficient** for high-reliability automation. While human users navigate via discovery, agents operate most effectively when they can retrieve targeted, structured metadata without parsing a "wall of text".
 
 Applying the principles of **Conceptual Entropy Reduction** and **Factored Design**, here is the recommended hierarchy for agent-integrated CLI help:

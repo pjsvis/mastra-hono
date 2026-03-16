@@ -20,9 +20,9 @@
     "check": "biome check && oxlint && tsc --noEmit",
     "precommit": "bun run lint && bun run typecheck",
     "verify": "bun run check && bun run test",
-    "forge": "bash scripts/forge.sh",
     "finish": "bash scripts/finish.sh",
     "ask": "bash scripts/ask.sh",
+    "status": "bash scripts/station-status.sh",
     "env:setup": "bash scripts/setup-mastra-env.sh",
     "env:export": "bash scripts/export-mastra-env.sh"
   },
