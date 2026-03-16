@@ -2,6 +2,7 @@
 
 import { defineCommand, runMain } from 'citty';
 import { agentCommand } from './commands/agent';
+import { taskCommand } from './commands/task';
 
 const main = defineCommand({
   meta: {
@@ -11,6 +12,7 @@ const main = defineCommand({
   },
   subCommands: {
     agent: agentCommand,
+    task: taskCommand,
   },
 });
 

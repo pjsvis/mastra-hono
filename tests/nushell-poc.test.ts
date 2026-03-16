@@ -1,7 +1,10 @@
 // mastra-hono/tests/nushell-poc.test.ts
 import { beforeAll, describe, expect, test } from 'bun:test';
+import { existsSync } from 'node:fs';
 import { $ } from 'bun';
 import { SKIP_NUSHELL } from './config';
+
+const BRIEF_DIR = './briefs';
 
 beforeAll(async () => {
   // Source the alias definitions once before running tests

@@ -42,3 +42,4 @@ coverage/
 .todos/
 .agents/skills/mastra-fix-biome-issues/
 .mastracode/
+nu/project-shortcuts.nu
