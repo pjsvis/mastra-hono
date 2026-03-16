@@ -22,7 +22,11 @@
     "verify": "bun run check && bun run test",
     "finish": "bash scripts/finish.sh",
     "ask": "bash scripts/ask.sh",
-    "status": "bash scripts/station-status.sh",
+    "status": "bun cli task status",
+    "tdl": "bun cli task list",
+    "tdu": "bun cli task usage",
+    "td-open": "bun cli task open",
+    "td-review": "bun cli task review",
     "env:setup": "bash scripts/setup-mastra-env.sh",
     "env:export": "bash scripts/export-mastra-env.sh"
   },

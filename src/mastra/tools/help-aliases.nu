@@ -1,15 +1,5 @@
 # help-aliases.nu
 # This file provides a self‑documenting help system for the Nushell alias set.
-# It mirrors the style of the Citty CLI builder package, offering a `help` alias
-# that lists all available shortcuts, their usage, and a brief description.
-#
-# Usage:
-#   help
-#   help <alias>
-#
-# The help information is stored in a table (`help-table`) that can be filtered
-# or displayed as a formatted table. The `help` alias is defined at the end of
-# the file.
 
 # ----------------------------------------------------------------------
 # 1. Define the help table
@@ -36,33 +26,33 @@ export def help-table [] {
     {alias: "td-commits-json", command: "git log --pretty=format:'{\\\"hash\\\":\\\"%H\\\",\\\"message\\\":\\\"%s\\\"}'", description: "Show commits as JSON objects."},
     {alias: "td-branch-json", command: "git branch --show-current | json", description: "Show current branch as JSON."}
   ]
-
-  # Convert the table to a NuShell table for pretty printing
-  $table | from json
+  $table
 }
 
 # ----------------------------------------------------------------------
-# 2. Define the help alias
+# 2. Define the help command
 # ----------------------------------------------------------------------
-export def help [alias: string?] {
-  if $alias {
+export def help-mastra [alias?] {
+  if $alias != null {
     # Show help for a specific alias
     let entry = (help-table | where alias == $alias)
-    if $entry != [] {
-      echo $"Alias: $entry.alias"
-      echo $"Command: $entry.command"
-      echo $"Description: $entry.description"
+    if ($entry | is-not-empty) {
+      let e = ($entry | first)
+      print $"Alias: ($e.alias)"
+      print $"Command: ($e.command)"
+      print $"Description: ($e.description)"
     } else {
-      echo $"No help entry found for alias '$alias'."
+      print $"No help entry found for alias '($alias)'."
     }
   } else {
     # Show list of all aliases
-    echo "Available Nushell shortcuts:"
+    print "Available Nushell shortcuts:"
     help-table | select alias command description | sort-by alias | table
   }
 }
 
 # ----------------------------------------------------------------------
-# 3. Register the help alias in the global namespace
+# 3. Register the help alias
 # ----------------------------------------------------------------------
-alias help = "help"
+# Note: Renamed to help-mastra to avoid conflict with built-in help
+alias h-mastra = help-mastra

@@ -1,49 +1,15 @@
-#!/usr/bin/env bun
-/**
- * Nushell POC Test Suite
- *
- * Tests the nu -c commands used in forge.sh and finish.sh
- * to validate feasibility of Nushell integration.
- */
-
-import { describe, expect, test } from 'bun:test';
+// mastra-hono/tests/nushell-poc.test.ts
+import { beforeAll, describe, expect, test } from 'bun:test';
 import { existsSync } from 'node:fs';
 import { $ } from 'bun';
 import { SKIP_NUSHELL } from './config';
 
 const BRIEF_DIR = './briefs';
 
-// =============================================================================
-// DISPLAY PALETTE
-// =============================================================================
-// The limited palette of output formats for structured data.
-//
-// Usage: nu -c "<command> | to <format>"
-// =============================================================================
-
-/**
- * Display palette commands for td data
- * These provide deterministic, mutually readable output
- */
-const palette = {
-  /** Table view - human readable overview */
-  table: (cmd: string) => `nu -c "${cmd} | table"`,
-
-  /** Compact key-value view - focused task summary */
-  compact: (cmd: string) => `nu -c "${cmd} | select id title status priority | table -e"`,
-
-  /** CSV export - for spreadsheets */
-  csv: (cmd: string) => `nu -c "${cmd} | to csv -n"`,
-
-  /** HTML table - for web rendering */
-  html: (cmd: string) => `nu -c "${cmd} | to html"`,
-
-  /** NUON - Nushell-native format */
-  nuon: (cmd: string) => `nu -c "${cmd} | to nuon"`,
-
-  /** Pretty JSON - structured debugging */
-  json: (cmd: string) => `nu -c "${cmd} | to json -r"`,
-};
+beforeAll(async () => {
+  // Source the alias definitions once before running tests
+  await $`nu -c "source \"$(pwd)/src/mastra/tools/nushell-aliases.nu\"`.text();
+});
 
 if (!SKIP_NUSHELL) {
   describe('Nushell Integration POC', () => {
