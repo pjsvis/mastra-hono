@@ -55,3 +55,11 @@ export def td-commits-json [] {
 export def td-branch-json [] {
   { branch: (git branch --show-current) }
 }
+
+# Git summary function for test suite
+export def git-summary [] {
+  let commits = (git log --oneline --decorate --graph | length)
+  let branch = (git branch --show-current)
+  let status = (git status --short | length)
+  { commits: $commits, branch: $branch, status: $status }
+}
