@@ -13,7 +13,7 @@ import { createOllama } from 'ollama-ai-provider-v2';
  */
 
 const ollama = createOllama({
-  baseURL: 'http://ollama.localhost:1355/api',
+  baseURL: 'http://localhost:11434/api',
 });
 
 export const edinburghProtocolAgent = new Agent({
