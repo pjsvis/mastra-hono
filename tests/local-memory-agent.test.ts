@@ -2,6 +2,7 @@ import { describe, expect, test } from 'bun:test';
 import { rm } from 'node:fs/promises';
 import { LibSQLStore } from '@mastra/libsql';
 import { createLocalMemoryAgent } from '@src/mastra/agents/local-memory-agent';
+import { cleanThinking } from '@src/utils/thinking-filter';
 import { createOllama } from 'ollama-ai-provider-v2';
 import { SKIP_E2E } from './config';
 
@@ -56,7 +57,7 @@ if (!SKIP_E2E) {
           'First generate call'
         );
 
-        console.log('Agent Response 1:', result1.text);
+        console.log('Agent Response 1:', cleanThinking(result1.text));
 
         // Wait for background observation to process the failure
         console.log('⏳ Waiting for Observational Memory to digest the error...');
@@ -75,7 +76,7 @@ if (!SKIP_E2E) {
           'Second generate call'
         );
 
-        const responseText = result2.text.toLowerCase();
+        const responseText = cleanThinking(result2.text).toLowerCase();
         console.log('Agent Response 2:', responseText);
 
         // We expect the agent to have used the USR- prefix as a sign of successful learning
