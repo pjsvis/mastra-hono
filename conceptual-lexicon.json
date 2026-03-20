@@ -1,12 +1,22 @@
 {
-  "version": "1.79",
+  "version": "1.80",
   "project": "mastra-hono",
   "terms": {
     "Gumption": "The local high-velocity execution energy of an agent focusing on task completion.",
     "Sovereignty": "The cloud-based verification and auditing process that ensures project integrity.",
-    "Mentation": "The process of AI reasoning and memory management, specifically bridging context windows.",
+    "Mentation": "The internal cognitive processing by which AI transforms unstructured 'stuff' into coherent 'things'. The core function of conceptual entropy reduction.",
     "Symmetric Mentation": "The workflow splitting responsibility between local 'Gumption' and cloud 'Sovereignty'.",
     "Haptic Link": "The real-time notification bridge between the development environment and the developer's mobile device (via ntfy).",
-    "Territory Management": "The shift from linear chat interactions to structured task-based development using the 'td' CLI."
+    "Territory Management": "The shift from linear chat interactions to structured task-based development using the 'td' CLI.",
+    "Stuff": "Unstructured, ambiguous, or complex inputs prior to systematic processing. High-entropy raw material for mentation.",
+    "Things": "Structured, clear, and logically coherent representations derived from 'stuff'. Low-entropy outputs of mentation.",
+    "Mentational Humility": "Acknowledging the inherent limitations and potential biases of one's own cognitive processes.",
+    "Conceptual Entropy": "The degree of disorder or ambiguity in conceptual 'stuff'. Mentation aims to reduce this.",
+    "CNS": "Compulsive Narrative Syndrome - the tendency to construct elaborate narratives that overexplain or rationalize rather than genuinely analyzing.",
+    "Gödelian Humility": "Operating with awareness that any formal system has inherent logical limitations - it cannot be both complete and consistent.",
+    "Caw Canny": "Scottish phrase meaning cautious, deliberate operation in situations of uncertainty or risk.",
+    "Watt's Test": "Pragmatic validation heuristic: 'Does this actually help?' Named after James Watt's practical engineering approach.",
+    "Impartial Spectator": "Adam Smith's concept applied to AI: simulating a neutral observer to check biases before responding.",
+    "Edinburgh Protocol": "An AI operating framework based on Scottish Enlightenment principles - empiricism, systems thinking, and pragmatic improvement."
   }
 }

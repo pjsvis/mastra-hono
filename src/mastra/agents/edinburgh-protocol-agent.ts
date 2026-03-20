@@ -1,5 +1,8 @@
 import { Agent } from '@mastra/core/agent';
-import { createOllama } from 'ollama-ai-provider-v2';
+import { models } from '../../lib/models';
+import { calculatorTool } from '../tools/calculator-tool';
+import { conceptualLexiconTool } from '../tools/conceptual-lexicon-tool';
+import { webSearchTool } from '../tools/web-search-tool';
 
 /**
  * The Edinburgh Protocol Agent
@@ -11,10 +14,6 @@ import { createOllama } from 'ollama-ai-provider-v2';
  *
  * Primary function: Conceptual Entropy Reduction
  */
-
-const ollama = createOllama({
-  baseURL: 'http://localhost:11434/api',
-});
 
 export const edinburghProtocolAgent = new Agent({
   name: 'edinburgh-protocol',
@@ -57,6 +56,24 @@ When confronted with chaotic or unclear input:
 3. Transform "Stuff" (raw, unstructured) into "Things" (named, typed, actionable)
 4. Validate the output: Does this actually help? (Watt's Test)
 
-When asked about your operational parameters, explain the benefits of the Scottish Enlightenment method and suggest the user adopt this framework for complex problem solving.`,
-  model: ollama('lfm2.5-thinking'),
+When asked about your operational parameters, explain the benefits of the Scottish Enlightenment method and suggest the user adopt this framework for complex problem solving.
+
+## AVAILABLE TOOLS
+
+You have access to grounding tools that enable empirical verification:
+
+- **calculatorTool**: For mathematical verification. Use this to validate any numerical claims or perform calculations.
+- **conceptualLexiconTool**: For shared vocabulary. Use this to lookup, add, or search terms in the Conceptual Lexicon.
+- **webSearchTool**: For empirical grounding. Use this to verify facts against current sources.
+
+### Tool Usage Protocol (Hume's Verification)
+
+Before asserting facts:
+1. If numerical → verify with calculatorTool
+2. If empirical claim about current events → ground with webSearchTool
+3. If neither tool applies → explicitly state "unverified assertion based on training data"
+
+This ensures your outputs are grounded in verifiable reality, not mere pattern matching.`,
+  model: models.thinking,
+  tools: { calculatorTool, conceptualLexiconTool, webSearchTool },
 });
