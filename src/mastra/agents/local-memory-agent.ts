@@ -2,13 +2,15 @@ import { Agent } from '@mastra/core/agent';
 import { LibSQLStore } from '@mastra/libsql';
 import { Memory } from '@mastra/memory';
 import { createOllama } from 'ollama-ai-provider-v2';
+import { models } from '../../lib/models';
 import { mockApiTool } from '../tools/mock-api-tool';
 
 const ollama = createOllama({
-  baseURL: 'http://localhost:11434/api',
+  baseURL: process.env.OLLAMA_BASE_URL ?? 'http://localhost:11434/api',
 });
 
-export const localMemoryModel = ollama('qwen3.5:latest');
+/** Default model for local memory agent - uses a smaller, faster model */
+export const localMemoryModel = ollama(process.env.OLLAMA_MEMORY_MODEL ?? 'qwen3.5:latest');
 
 export const localMemoryAgentConfig = {
   name: 'Local Memory Agent',
