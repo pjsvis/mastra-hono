@@ -13,6 +13,7 @@ import { edinburghProtocolAgent } from './agents/edinburgh-protocol-agent';
 import { localMemoryAgent } from './agents/local-memory-agent';
 import { researchAgent } from './agents/research-agent';
 import { weatherAgent } from './agents/weather-agent';
+import { mentationWorkflow } from './workflows/mentation-workflow';
 import { weatherWorkflow } from './workflows/weather-workflow';
 
 const storage = new LibSQLStore({
@@ -33,7 +34,7 @@ for (const key of secretKeys) {
 }
 
 export const mastra = new Mastra({
-  workflows: { weatherWorkflow },
+  workflows: { mentationWorkflow, weatherWorkflow },
   agents: { edinburghProtocolAgent, localMemoryAgent, researchAgent, weatherAgent },
   storage,
   memory: { default: memory },
