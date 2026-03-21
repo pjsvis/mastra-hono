@@ -1,14 +1,45 @@
 ---
-name: cli-design
-description: Design patterns and standards for building CLI tools in the Mastra-Hono project.
-allowed-tools: Bash(node), Bash(bun)
+date: 2026-03-21
+tags: [playbook, cli, design, citty, typescript, bun, command-line]
+agent: local-ai
+environment: development
+version: 1.0
+last_updated: 2026-03-21
 ---
 
 # CLI Design Playbook
 
 ## Purpose
+This playbook defines the design patterns and standards for building CLI tools in the Mastra-Hono project, ensuring consistency, type safety, and maintainability. It provides guidelines for using the citty framework and ensures that all CLI tools follow a consistent structure and user experience.
 
-This playbook defines the design patterns and standards for building CLI tools in the Mastra-Hono project, ensuring consistency, type safety, and maintainability.
+**Core Philosophy:** Use declarative command structures with citty for complex CLIs, and native `util.parseArgs` for simple tools. Prioritize type safety, clear help text, and consistent error handling.
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Table of Contents](#table-of-contents)
+- [Technology Stack](#technology-stack)
+- [When to Use citty vs Native `util.parseArgs`](#when-to-use-citty-vs-native-utilparseargs)
+- [Mandatory Directives](#mandatory-directives)
+  - [Command Structure](#command-structure)
+  - [Arg Definition Pattern](#arg-definition-pattern)
+  - [Handler Structure](#handler-structure)
+  - [Error Handling](#error-handling)
+  - [Output Formatting](#output-formatting)
+  - [Help Text Quality](#help-text-quality)
+- [Integration Patterns](#integration-patterns)
+  - [Pattern 1: Subcommand Delegation](#pattern-1-subcommand-delegation)
+  - [Pattern 2: Shared Arguments](#pattern-2-shared-arguments)
+  - [Pattern 3: External Tool Integration](#pattern-3-external-tool-integration)
+- [Testing CLI Commands](#testing-cli-commands)
+- [Type Safety Requirements](#type-safety-requirements)
+- [Performance Considerations](#performance-considerations)
+- [Migration from `util.parseArgs`](#migration-from-utilparseargs)
+- [Dependencies](#dependencies)
+- [Compliance Checklist](#compliance-checklist)
+- [Best Practices](#best-practices)
+- [Common Pitfalls](#common-pitfalls)
+- [References](#references)
 
 ## Technology Stack
 
@@ -29,7 +60,7 @@ This playbook defines the design patterns and standards for building CLI tools i
 
 ## Mandatory Directives
 
-### 1. Command Structure
+### Command Structure
 
 Define a clear hierarchy using nested `defineCommand` calls:
 
@@ -51,7 +82,13 @@ const main = defineCommand({
 runMain(main);
 ```
 
-### 2. Arg Definition Pattern
+**Why this matters:**
+- Clear command hierarchy
+- Auto-generated help for all commands
+- Type-safe argument handling
+- Consistent structure across all CLI tools
+
+### Arg Definition Pattern
 
 Always use descriptive arg definitions with types and aliases:
 
@@ -87,7 +124,14 @@ const myCommand = defineCommand({
 });
 ```
 
-### 3. Handler Structure
+**Best practices:**
+- Use descriptive names for arguments
+- Provide clear descriptions
+- Use aliases for common flags
+- Mark required arguments explicitly
+- Use appropriate types (positional, string, boolean)
+
+### Handler Structure
 
 Keep handlers clean and focused:
 
@@ -107,7 +151,13 @@ async run({ args }) {
 }
 ```
 
-### 4. Error Handling
+**Why this structure:**
+- Clear separation of concerns
+- Early validation prevents wasted work
+- Error handling is explicit
+- Easy to test and maintain
+
+### Error Handling
 
 Use exit codes consistently:
 
@@ -118,7 +168,15 @@ Use exit codes consistently:
 | `2` | Missing required argument |
 | `127` | Command not found |
 
-### 5. Output Formatting
+**Implementation:**
+```typescript
+if (!isValidAgent(agentId)) {
+  console.error(`❌ Error: Unknown agent ID "${agentId}"`);
+  process.exit(1);
+}
+```
+
+### Output Formatting
 
 Use emoji prefixes for consistent UX:
 
@@ -129,7 +187,13 @@ console.warn(`⚠️ Warning: ${message}`);
 console.info(`ℹ️ Info: ${message}`);
 ```
 
-### 6. Help Text Quality
+**Why emoji prefixes:**
+- Visual distinction at a glance
+- Consistent user experience
+- Easy to scan output
+- Industry-standard convention
+
+### Help Text Quality
 
 Ensure every command has:
 
@@ -145,6 +209,12 @@ args: {
   },
 }
 ```
+
+**Guidelines:**
+- Keep descriptions concise (one sentence)
+- Explain what the argument does
+- Mention valid values if applicable
+- Use active voice
 
 ## Integration Patterns
 
@@ -166,6 +236,12 @@ export const agentCommand = defineCommand({
 });
 ```
 
+**Benefits:**
+- Modular command structure
+- Easy to add new subcommands
+- Clear separation of concerns
+- Better code organization
+
 ### Pattern 2: Shared Arguments
 
 Export reusable arg definitions:
@@ -183,6 +259,12 @@ args: {
   model: modelArg,
 }
 ```
+
+**Benefits:**
+- Consistent argument definitions
+- Single source of truth
+- Easy to update across commands
+- Type-safe reuse
 
 ### Pattern 3: External Tool Integration
 
@@ -204,6 +286,12 @@ try {
 }
 ```
 
+**Best practices:**
+- Always clean up external processes
+- Use try/finally for cleanup
+- Handle process termination gracefully
+- Clear spinner output on completion
+
 ## Testing CLI Commands
 
 Test commands in isolation:
@@ -220,6 +308,13 @@ bun run cli agent run --help
 bun run cli agent run  # Should error: missing agent ID
 ```
 
+**What to test:**
+- Help text generation
+- Argument validation
+- Error handling
+- Subcommand routing
+- Exit codes
+
 ## Type Safety Requirements
 
 1. All args must be typed (citty handles this automatically)
@@ -230,11 +325,23 @@ bun run cli agent run  # Should error: missing agent ID
    ```
 3. Use `const` assertions for shared arg definitions
 
+**Why type safety matters:**
+- Catches errors at compile time
+- Improves IDE autocomplete
+- Reduces runtime errors
+- Makes code more maintainable
+
 ## Performance Considerations
 
 - citty is ~5KB - minimal bundle impact
 - Lazy loading: subcommands only load their imports
 - Bun's fast startup keeps CLI snappy
+
+**Optimization tips:**
+- Use lazy imports for subcommands
+- Avoid heavy initialization in command definitions
+- Keep handlers lightweight
+- Use async operations for long-running tasks
 
 ## Migration from `util.parseArgs`
 
@@ -244,6 +351,37 @@ bun run cli agent run  # Should error: missing agent ID
 4. Convert validation logic to the `run` function
 5. Wire up in parent via `subCommands`
 6. Remove manual `parseArgs` calls and routing
+
+**Example migration:**
+
+**Before (util.parseArgs):**
+```typescript
+const args = parseArgs({
+  args: process.argv.slice(2),
+  options: {
+    agent: { type: 'string' },
+    prompt: { type: 'string' },
+  },
+});
+
+if (args.agent === 'run') {
+  // Handle run command
+}
+```
+
+**After (citty):**
+```typescript
+const runCommand = defineCommand({
+  meta: { name: 'run', description: 'Execute a prompt' },
+  args: {
+    agent: { type: 'positional', required: true },
+    prompt: { type: 'string', required: true },
+  },
+  async run({ args }) {
+    // Handle run command
+  },
+});
+```
 
 ## Dependencies
 
@@ -268,3 +406,165 @@ bun run cli agent run  # Should error: missing agent ID
 - [ ] Business validation in `run` function
 - [ ] Proper exit codes used
 - [ ] Error messages use emoji prefixes
+
+## Best Practices
+
+### 1. Keep Commands Focused
+
+Each command should do one thing well. If a command becomes too complex, consider splitting it into subcommands.
+
+**Good:**
+```typescript
+const runCommand = defineCommand({
+  meta: { name: 'run', description: 'Execute a single prompt' },
+  // ... focused implementation
+});
+```
+
+**Bad:**
+```typescript
+const agentCommand = defineCommand({
+  meta: { name: 'agent', description: 'Do everything' },
+  // ... complex implementation with multiple modes
+});
+```
+
+### 2. Use Descriptive Names
+
+Use clear, descriptive names for commands and arguments.
+
+**Good:**
+```typescript
+args: {
+  'model': { type: 'string', description: 'Override the default model' },
+}
+```
+
+**Bad:**
+```typescript
+args: {
+  'm': { type: 'string', description: 'Model' },
+}
+```
+
+### 3. Provide Clear Error Messages
+
+Error messages should be actionable and helpful.
+
+**Good:**
+```typescript
+console.error(`❌ Error: Unknown agent ID "${agentId}". Available agents: ${agentIds.join(', ')}`);
+```
+
+**Bad:**
+```typescript
+console.error('Error');
+```
+
+### 4. Test Help Text
+
+Always test the generated help text to ensure it's clear and helpful.
+
+```bash
+bun run cli --help
+bun run cli agent --help
+bun run cli agent run --help
+```
+
+### 5. Use Exit Codes Consistently
+
+Follow the exit code conventions to ensure proper integration with other tools.
+
+```typescript
+process.exit(0);  // Success
+process.exit(1);  // Error
+process.exit(2);  // Missing argument
+```
+
+## Common Pitfalls
+
+### Pitfall 1: Not Using `required: true`
+
+**Problem:** Optional arguments that should be required.
+
+**Solution:** Mark required arguments explicitly.
+
+```typescript
+// Bad
+args: {
+  agent: { type: 'positional' },
+}
+
+// Good
+args: {
+  agent: { type: 'positional', required: true },
+}
+```
+
+### Pitfall 2: Missing Descriptions
+
+**Problem:** Arguments without descriptions make help text unclear.
+
+**Solution:** Always provide descriptions.
+
+```typescript
+// Bad
+args: {
+  model: { type: 'string' },
+}
+
+// Good
+args: {
+  model: { type: 'string', description: 'Override the default model' },
+}
+```
+
+### Pitfall 3: Inconsistent Exit Codes
+
+**Problem:** Using random exit codes.
+
+**Solution:** Follow the standard exit code conventions.
+
+```typescript
+// Bad
+process.exit(42);
+
+// Good
+process.exit(1);  // General error
+```
+
+### Pitfall 4: Not Cleaning Up External Processes
+
+**Problem:** External processes left running after command completion.
+
+**Solution:** Always clean up in finally blocks.
+
+```typescript
+// Bad
+const spinner = spawn('gum', ['spin']);
+await doWork();
+spinner.kill();
+
+// Good
+const spinner = spawn('gum', ['spin']);
+try {
+  await doWork();
+} finally {
+  spinner.kill();
+}
+```
+
+## References
+
+- [citty Documentation](https://github.com/unjs/citty) – CLI framework by UnJS
+- [Node.js util.parseArgs](https://nodejs.org/api/util.html#utilparseargsconfig) – Native argument parsing
+- [Bun Documentation](https://bun.sh/docs) – Bun runtime documentation
+- [Loading Process Playbook](./loading-process-playbook.md) – Two-step loading process pattern
+- [Mastra Agent Playbook](./mastra-agent-playbook.md) – Mastra-specific patterns
+- [Agentic SDLC Playbook](./agentic-sdlc.md) – Agent-assisted development practices
+
+---
+
+**Version:** 1.0  
+**Last Updated:** 2026-03-21  
+**Maintained by:** Mastra Development Team

@@ -18,7 +18,6 @@ This playbook provides a complete guide for setting up **Nushell (nu)** as your 
 
 - [Purpose](#purpose)
 - [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Project Shortcuts](#project-shortcuts)
@@ -31,30 +30,6 @@ This playbook provides a complete guide for setting up **Nushell (nu)** as your 
 - [Examples](#examples)
 - [References](#references)
 
-## Loading Process
-
-The actual loading instructions are now centralized in `LOADING_PROCESS.md` at the project root.
-
-### How to Use
-
-Add this line to the top of your playbook (after frontmatter):
-
-```nu
-source "$(pwd)/LOADING_PROCESS.md"
-```
-
-This will include the loading process instructions in your playbook without duplication.
-
-### Why Centralize?
-
-- **Single source of truth** – One file to maintain instead of 27
-- **Easy updates** – Change `LOADING_PROCESS.md` when the loading process evolves
-- **Consistency** – All playbooks use the same loading process
-- **Reduced duplication** – No need to repeat instructions in every playbook
-
-### Quick Reference
-
-For the actual loading instructions, see `LOADING_PROCESS.md` in the project root.
 ## Installation
 
 ### System Requirements

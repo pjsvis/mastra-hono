@@ -1,12 +1,39 @@
 ---
-name: sidecar-user
-description: Terminal-based development dashboard for managing AI agent workflows, task tracking with td, git operations, and workspace management.
+date: 2026-03-21
+tags: [playbook, sidecar, user, terminal, dashboard, workflow, git, tasks]
+agent: local-ai
+environment: development
+version: 1.0
+last_updated: 2026-03-21
 ---
 
 # Sidecar User Playbook
 
 ## Purpose
-Sidecar is a terminal-based development dashboard that consolidates your entire development workflow into a single interface. Use it to plan tasks with td, chat with AI agents, review diffs, stage commits, and manage workspaces—all without leaving the terminal.
+Sidecar is a terminal-based development dashboard that consolidates your entire development workflow into a single interface. Use it to plan tasks with td, chat with AI agents, review diffs, stage commits, and manage workspaces—all without leaving the terminal. This playbook provides comprehensive guidelines for using Sidecar effectively in your daily development workflow.
+
+**Core Philosophy:** Consolidate your entire development workflow into a single terminal interface. Plan tasks, chat with AI agents, review diffs, stage commits, and manage workspaces without leaving the terminal.
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Table of Contents](#table-of-contents)
+- [Quick Start](#quick-start)
+- [Recommended Terminal Layout](#recommended-terminal-layout)
+- [Core Features & Plugins](#core-features--plugins)
+  - [Git Status Plugin](#git-status-plugin)
+  - [TD Monitor (Task Management)](#td-monitor-task-management)
+  - [Workspaces Plugin](#workspaces-plugin)
+  - [Conversations Plugin](#conversations-plugin)
+  - [File Browser](#file-browser)
+- [Global Navigation Shortcuts](#global-navigation-shortcuts)
+- [Configuration](#configuration)
+- [Typical Workflow](#typical-workflow)
+- [Installation](#installation)
+- [Tips for Effective Use](#tips-for-effective-use)
+- [Best Practices](#best-practices)
+- [Common Pitfalls](#common-pitfalls)
+- [References](#references)
 
 ## Quick Start
 
@@ -41,7 +68,8 @@ Run your AI coding agent on one side and Sidecar on the other for non-intrusive 
 
 ## Core Features & Plugins
 
-### 1. Git Status Plugin
+### Git Status Plugin
+
 View and manage staged, modified, and untracked files.
 
 **Keyboard shortcuts:**
@@ -56,7 +84,14 @@ View and manage staged, modified, and untracked files.
 | `b` | Switch branches |
 | `P` | Push to remote |
 
-### 2. TD Monitor (Task Management)
+**When to use:**
+- Reviewing changes before committing
+- Staging specific files
+- Viewing diffs in detail
+- Managing branches
+
+### TD Monitor (Task Management)
+
 Integration with TD task management system for tracking work across AI agent sessions.
 
 **Features:**
@@ -76,7 +111,14 @@ Integration with TD task management system for tracking work across AI agent ses
 td usage --new-session  # See open work and view tasks/epics
 ```
 
-### 3. Workspaces Plugin
+**When to use:**
+- Tracking progress on tasks
+- Reviewing task status
+- Submitting work for review
+- Viewing activity logs
+
+### Workspaces Plugin
+
 Manage workspaces for parallel development with integrated agent support.
 
 **Keyboard shortcuts:**
@@ -97,7 +139,14 @@ Manage workspaces for parallel development with integrated agent support.
 3. Create PR
 4. Cleanup workspace
 
-### 4. Conversations Plugin
+**When to use:**
+- Working on multiple features in parallel
+- Isolating development environments
+- Managing git worktrees
+- Integrating with TD tasks
+
+### Conversations Plugin
+
 Browse session history from multiple AI coding agents.
 
 **Features:**
@@ -111,7 +160,14 @@ Browse session history from multiple AI coding agents.
 | `/` | Search sessions |
 | `Enter` | Expand/collapse message content |
 
-### 5. File Browser
+**When to use:**
+- Reviewing past agent sessions
+- Tracking token usage
+- Searching for specific conversations
+- Understanding context resets
+
+### File Browser
+
 Navigate project files with tree view and syntax-highlighted preview.
 
 **Features:**
@@ -125,6 +181,12 @@ Navigate project files with tree view and syntax-highlighted preview.
 | `Enter` | Open/close folder |
 | `/` | Search files |
 | `h/l` | Switch tree/preview focus |
+
+**When to use:**
+- Navigating project structure
+- Previewing file contents
+- Searching for files
+- Understanding code organization
 
 ## Global Navigation Shortcuts
 
@@ -174,6 +236,7 @@ Config file location: `~/.config/sidecar/config.json`
   }
 }
 ```
+
 *Note: Enable `nerdFontsEnabled` only if you have a Nerd Font installed, which will add rounded pill-shaped UI elements.*
 
 ## Typical Workflow
@@ -234,3 +297,124 @@ curl -fsSL https://raw.githubusercontent.com/marcus/sidecar/main/scripts/setup.s
 3. **Browse Conversations**: Use `/` to search past agent sessions to track what was done and review token usage.
 4. **Customize Your Theme**: Press `#` to browse themes and reduce eye strain.
 5. **Stay Updated**: Sidecar checks for updates on startup. Press `!` to open diagnostics when notified.
+
+## Best Practices
+
+### 1. Always Check TD Before Starting Work
+
+Run `td usage --new-session` before starting any work.
+
+```bash
+td usage --new-session
+```
+
+**Why:** Ensures you have the current "Work Territory" map and session ID.
+
+### 2. Use Split Terminal Layout
+
+Run Sidecar alongside your AI agent.
+
+```
+┌─────────────────────────────┬─────────────────────┐
+│   AI Agent                  │     Sidecar         │
+└─────────────────────────────┴─────────────────────┘
+```
+
+**Why:** Provides non-intrusive monitoring and quick access to task status.
+
+### 3. Link Tasks to Workspaces
+
+Always link TD tasks to workspaces.
+
+```bash
+# In Workspaces plugin, press 't' to link task
+```
+
+**Why:** Provides context tracking and ensures work is traceable.
+
+### 4. Review Diffs Before Committing
+
+Always review diffs before committing.
+
+```bash
+# In Git plugin, press 'd' to view diff
+```
+
+**Why:** Prevents accidental commits and ensures code quality.
+
+### 5. Use Merge Workflow for Cleanup
+
+Use the merge workflow (`m` key) to clean up workspaces.
+
+```bash
+# In Workspaces plugin, press 'm' to start merge workflow
+```
+
+**Why:** Automates commit, push, PR creation, and workspace cleanup.
+
+## Common Pitfalls
+
+### Pitfall 1: Not Checking TD Before Starting Work
+
+**Problem:** Starting work without checking current tasks.
+
+**Solution:** Always run `td usage --new-session` first.
+
+```bash
+td usage --new-session
+```
+
+### Pitfall 2: Not Linking Tasks to Workspaces
+
+**Problem:** Workspaces not linked to TD tasks.
+
+**Solution:** Always link tasks when creating workspaces.
+
+```bash
+# In Workspaces plugin, press 't' to link task
+```
+
+### Pitfall 3: Forgetting to Review Diffs
+
+**Problem:** Committing without reviewing changes.
+
+**Solution:** Always review diffs before committing.
+
+```bash
+# In Git plugin, press 'd' to view diff
+```
+
+### Pitfall 4: Not Cleaning Up Workspaces
+
+**Problem:** Workspaces left behind after merge.
+
+**Solution:** Use the merge workflow to clean up automatically.
+
+```bash
+# In Workspaces plugin, press 'm' to start merge workflow
+```
+
+### Pitfall 5: Not Using Project Switcher
+
+**Problem:** Manually navigating between projects.
+
+**Solution:** Configure projects and use `@` to switch quickly.
+
+```bash
+# Configure in ~/.config/sidecar/config.json
+# Press '@' to switch projects
+```
+
+## References
+
+- [Sidecar Documentation](https://github.com/marcus/sidecar) – Official Sidecar documentation
+- [TD CLI Documentation](../docs/td-cli.md) – Task management and context tracking
+- [Sidecar Agent Playbook](./sidecar-agent-playbook.md) – Agent-specific Sidecar usage
+- [Git Workflow Playbook](./git-workflow-playbook.md) – Branching and review workflow
+- [Loading Process Playbook](./loading-process-playbook.md) – Two-step loading process pattern
+
+---
+
+**Version:** 1.0  
+**Last Updated:** 2026-03-21  
+**Maintained by:** Mastra Development Team

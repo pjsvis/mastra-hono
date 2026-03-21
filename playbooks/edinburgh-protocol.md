@@ -18,7 +18,6 @@ This playbook documents the **Edinburgh Protocol**, a framework for building age
 
 - [Purpose](#purpose)
 - [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
 - [When to Use](#when-to-use)
 - [The Protocol](#the-protocol)
   - [Phase 1: Acknowledge the Map](#phase-1-acknowledge-the-map)
@@ -31,27 +30,6 @@ This playbook documents the **Edinburgh Protocol**, a framework for building age
 - [Integration with Mastra](#integration-with-mastra)
 - [Further Reading](#further-reading)
 
-## Loading Process
-
-This playbook is designed for **two‑step lookup**:
-
-### Step 1 – Review Contents
-
-Scan the **Table of Contents** below to identify which section contains the information you need. Each section is self‑contained and can be read independently.
-
-### Step 2 – Extract Section
-
-Use centralized loading process defined in `LOADING_PROCESS.md`:
-
-```nu
-source "$(pwd)/LOADING_PROCESS.md"
-```
-
-This will include the loading process instructions for all playbooks without duplication.
-
-### Quick Reference
-
-For the actual loading instructions, see `LOADING_PROCESS.md` in the project root.
 ## When to Use
 
 The Edinburgh Protocol is particularly valuable in the following situations:
@@ -264,4 +242,4 @@ const analysis = await edinburghProtocolAgent.generate({
 
 **Version:** 1.0  
 **Last Updated:** 2026-03-21  
-**Maintained by:** Mastra Development Team
+**Maintained by:** PolyVis Development Team

@@ -20,7 +20,6 @@ This playbook documents the **two‑step loading process** pattern for structure
 
 - [Purpose](#purpose)
 - [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
 - [When to Use This Pattern](#when-to-use-this-pattern)
 - [Design Principles](#design-principles)
 - [Implementation Guide](#implementation-guide)
@@ -31,31 +30,6 @@ This playbook documents the **two‑step loading process** pattern for structure
 - [Best Practices](#best-practices)
 - [Examples](#examples)
 - [References](#references)
-
-## Loading Process
-
-The actual loading instructions are now centralized in `LOADING_PROCESS.md` at the project root.
-
-### How to Use
-
-Add this line to the top of your playbook (after frontmatter):
-
-```nu
-source "$(pwd)/LOADING_PROCESS.md"
-```
-
-This will include the loading process instructions in your playbook without duplication.
-
-### Why Centralize?
-
-- **Single source of truth** – One file to maintain instead of 27
-- **Easy updates** – Change `LOADING_PROCESS.md` when the loading process evolves
-- **Consistency** – All playbooks use the same loading process
-- **Reduced duplication** – No need to repeat instructions in every playbook
-
-### Quick Reference
-
-For the actual loading instructions, see `LOADING_PROCESS.md` in the project root.
 
 ## When to Use This Pattern
 
@@ -266,7 +240,6 @@ status: published
 
 - [Purpose](#purpose)
 - [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
 - [Section 1](#section-1)
   - [Subsection 1.1](#subsection-11)
   - [Subsection 1.2](#subsection-12)
@@ -366,28 +339,9 @@ Brief description of what this playbook covers.
 
 - [Purpose](#purpose)
 - [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
 - [Section 1](#section-1)
 - [Section 2](#section-2)
 - [References](#references)
-
-## Loading Process
-
-This playbook is designed for **two‑step lookup**:
-
-### Step 1 – Review Contents
-
-Scan the **Table of Contents** below to identify which section contains the information you need.
-
-### Step 2 – Extract Section
-
-Use `ast-grep` or any markdown processor to extract the specific section you need.
-
-#### Using `ast-grep`
-
-```bash
-ast-grep -p '## Section Name' -A 50 playbooks/your-playbook.md
-```
 
 ## Purpose
 [Content from earlier]
@@ -478,11 +432,7 @@ This playbook demonstrates the two‑step loading process.
 
 - [Purpose](#purpose)
 - [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
 - [Section 1](#section-1)
-
-## Loading Process
-[Include standard loading process]
 
 ## Purpose
 [Content from earlier]
@@ -511,14 +461,10 @@ This playbook demonstrates nested sections and code examples.
 
 - [Purpose](#purpose)
 - [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
 - [Section 1](#section-1)
   - [Subsection 1.1](#subsection-11)
   - [Subsection 1.2](#subsection-12)
 - [Section 2](#section-2)
-
-## Loading Process
-[Include standard loading process]
 
 ## Purpose
 [Content from earlier]

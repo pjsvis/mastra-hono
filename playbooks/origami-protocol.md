@@ -1,9 +1,44 @@
----
-name: origami-protocol
-description: A lexicon for folding structured data into deterministic shapes. Provides shorthand for structuring data and debugging ingestion pipelines.
+date: 2026-03-21
+tags: [playbook, origami, protocol, data-folding, nushell, structured-data, transformation]
+agent: local-ai
+environment: development
+version: 1.0
+last_updated: 2026-03-21
 ---
 
-# The Origami Protocol
+# Origami Protocol Playbook
+
+## Purpose
+The Origami Protocol is a **lexicon for data folding** — transforming structured data into predictable shapes without losing information. Like origami, we start with a single sheet (raw data) and fold it into forms that reveal different aspects. This playbook provides comprehensive guidelines for using the origami protocol to structure, transform, and debug data ingestion pipelines.
+
+**Core Philosophy:** Same base, multiple forms. JSON → fold → DONE. If you have structured data (JSON, JSONL, YAML), apply an origami fold. Then you're done.
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Table of Contents](#table-of-contents)
+- [Philosophy](#philosophy)
+- [The Mantra](#the-mantra)
+- [Core Principle](#core-principle)
+- [Prerequisite: JSON or Nothing](#prerequisite-json-or-nothing)
+- [The Folds](#the-folds)
+  - [Flat Fold → `table`](#flat-fold--table)
+  - [Stacked Fold → `table -e`](#stacked-fold--table--e)
+  - [Rolled Fold → `csv`](#rolled-fold--csv)
+  - [Nested Fold → `nuon`](#nested-fold--nuon)
+  - [Pressed Fold → `json`](#pressed-fold--json)
+  - [Wrapped Fold → `html`](#wrapped-fold--html)
+- [Debugging Ingestion Pipelines](#debugging-ingestion-pipelines)
+  - [The Fold Debug Pattern](#the-fold-debug-pattern)
+  - [Fold Selection by Pipeline Stage](#fold-selection-by-pipeline-stage)
+  - [Common Pipeline Debug Commands](#common-pipeline-debug-commands)
+- [The Origami Grammar](#the-origami-grammar)
+- [Catalog: When to Use Which Fold](#catalog-when-to-use-which-fold)
+- [Entropy Reduction](#entropy-reduction)
+- [Integration with Edinburgh Protocol](#integration-with-edinburgh-protocol)
+- [Best Practices](#best-practices)
+- [Common Pitfalls](#common-pitfalls)
+- [References](#references)
 
 ## Philosophy
 
@@ -19,10 +54,6 @@ JSON → fold → DONE
 
 If you have structured data (JSON, JSONL, YAML), apply an origami fold. Then you're done.
 
-**Same base, multiple forms.**
-
-The Origami Protocol is a **lexicon for data folding** — transforming structured data into predictable shapes without losing information. Like origami, we start with a single sheet (raw data) and fold it into forms that reveal different aspects.
-
 ## Core Principle
 
 ```
@@ -37,8 +68,6 @@ Every fold is:
 - **Deterministic** — same input → same output
 - **Reversible** — data is transformed, not destroyed
 - **Composable** — folds can be chained
-
----
 
 ## Prerequisite: JSON or Nothing
 
@@ -76,18 +105,9 @@ Before applying origami:
 If yes → origami available.
 If no → use standard tools.
 
----
-
-## The Folds
-- **Deterministic** — same input → same output
-- **Reversible** — data is transformed, not destroyed
-- **Composable** — folds can be chained
-
----
-
 ## The Folds
 
-### 1. Flat Fold → `table`
+### Flat Fold → `table`
 
 Reveals overview. Best for scanning multiple records.
 
@@ -106,9 +126,7 @@ nu -c "td list --json | from json | table"
 
 **Best for:** Quick scan, human overview, terminal display
 
----
-
-### 2. Stacked Fold → `table -e`
+### Stacked Fold → `table -e`
 
 Reveals key-value. Best for single-record focus.
 
@@ -128,9 +146,7 @@ nu -c "td current --json | from json | get focused.issue | select id title statu
 
 **Best for:** Focused task, status summary, compact reference
 
----
-
-### 3. Rolled Fold → `csv`
+### Rolled Fold → `csv`
 
 Reveals exportable form. Best for spreadsheets and data transfer.
 
@@ -145,9 +161,7 @@ td-ca5306,Evaluate Nushell integration opportunities,in_progress,chore,P2,0,...
 
 **Best for:** Export, spreadsheets, external tools
 
----
-
-### 4. Nested Fold → `nuon`
+### Nested Fold → `nuon`
 
 Reveals structure that chains. Best for piping to other nu commands.
 
@@ -162,9 +176,7 @@ nu -c "td list --json | from json | to nuon"
 
 **Best for:** Chaining transforms, Nushell-native processing, data pipelines
 
----
-
-### 5. Pressed Fold → `json`
+### Pressed Fold → `json`
 
 Reveals full structure. Best for debugging and API interop.
 
@@ -184,9 +196,7 @@ nu -c "td current --json | from json | to json -r"
 
 **Best for:** Debugging, API payloads, full inspection
 
----
-
-### 6. Wrapped Fold → `html`
+### Wrapped Fold → `html`
 
 Reveals renderable form. Best for web display.
 
@@ -200,8 +210,6 @@ nu -c "td list --json | from json | to html"
 ```
 
 **Best for:** Web rendering, email, documentation
-
----
 
 ## Debugging Ingestion Pipelines
 
@@ -254,8 +262,6 @@ curl -s https://api.com/data | from json | first | to json -r
 curl -s https://api.com/data | from json | first | columns | table
 ```
 
----
-
 ## The Origami Grammar
 
 ### Command Pattern
@@ -293,8 +299,6 @@ td current --json | from json | get focused.issue | to json -r
 td list --json | from json | where priority == "P2" | to nuon
 ```
 
----
-
 ## Catalog: When to Use Which Fold
 
 | Scenario | Fold | Reason |
@@ -307,8 +311,6 @@ td list --json | from json | where priority == "P2" | to nuon
 | **Share in email** | `html` | Rendered view |
 | **Pipeline stage inspection** | `nuon` | Chain transforms |
 | **Count/verify** | `table` | Aggregate view |
-
----
 
 ## Entropy Reduction
 
@@ -329,8 +331,6 @@ Raw Tool Output (Stuff)
     Agent/Human consumes predictable structure
 ```
 
----
-
 ## Integration with Edinburgh Protocol
 
 The Origami Protocol is the **display layer** of the Edinburgh Protocol:
@@ -341,13 +341,168 @@ The Origami Protocol is the **display layer** of the Edinburgh Protocol:
 
 When agents output in origami folds, verification becomes trivial.
 
----
+## Best Practices
 
-## Reference
+### 1. Always Start with JSON
 
-### Quick Reference Card
+Before applying origami, ensure your data is in a structured format.
 
+```bash
+# Good
+td list --json | from json | table
+
+# Bad (no structure)
+td list | table  # May fail or produce unexpected output
 ```
+
+**Why:** Origami requires structured data to work reliably.
+
+### 2. Choose the Right Fold for the Task
+
+Select the fold that matches your use case.
+
+```bash
+# Overview
+td list --json | from json | table
+
+# Focused
+td current --json | from json | get focused.issue | table -e
+
+# Export
+td list --json | from json | to csv -n
+```
+
+**Why:** Different folds reveal different aspects of the data.
+
+### 3. Chain Transforms Before Folding
+
+Apply transformations before the final fold.
+
+```bash
+# Good
+td list --json | from json | where status == "in_progress" | select id title | table
+
+# Bad (folding too early)
+td list --json | from json | table | where status == "in_progress"
+```
+
+**Why:** Transforms work better on structured data than on formatted output.
+
+### 4. Use `nuon` for Chaining
+
+Use `nuon` when passing data between nu commands.
+
+```bash
+# Good
+td list --json | from json | to nuon | my-custom-command
+
+# Bad
+td list --json | from json | table | my-custom-command
+```
+
+**Why:** `nuon` preserves structure for further processing.
+
+### 5. Debug with Multiple Folds
+
+Use different folds to inspect data at different stages.
+
+```bash
+# Stage 1: Verify structure
+curl -s https://api.com/data | from json | to json -r
+
+# Stage 2: Check counts
+curl -s https://api.com/data | from json | length
+
+# Stage 3: Sample data
+curl -s https://api.com/data | from json | first | table
+```
+
+**Why:** Different folds reveal different information.
+
+## Common Pitfalls
+
+### Pitfall 1: Forgetting to Parse JSON
+
+**Problem:** Trying to fold raw text output.
+
+```bash
+# Bad
+td list | table  # May fail
+
+# Good
+td list --json | from json | table
+```
+
+**Solution:** Always use `from json` (or `from jsonl`, `from yaml`) first.
+
+### Pitfall 2: Folding Too Early
+
+**Problem:** Applying folds before transformations.
+
+```bash
+# Bad
+td list --json | from json | table | where status == "in_progress"
+
+# Good
+td list --json | from json | where status == "in_progress" | table
+```
+
+**Solution:** Apply transforms before the final fold.
+
+### Pitfall 3: Using Wrong Fold for Task
+
+**Problem:** Using `table` when you need exportable data.
+
+```bash
+# Bad (for export)
+td list --json | from json | table > export.txt
+
+# Good (for export)
+td list --json | from json | to csv -n > export.csv
+```
+
+**Solution:** Choose the fold that matches your use case.
+
+### Pitfall 4: Not Verifying Input Structure
+
+**Problem:** Assuming JSON output without verification.
+
+```bash
+# Bad
+<tool> --json | from json | table  # May fail if not JSON
+
+# Good
+<tool> --json | head -c 200  # Verify first
+<tool> --json | from json | table
+```
+
+**Solution:** Always verify that tools produce structured output.
+
+### Pitfall 5: Ignoring Null Values
+
+**Problem:** Null values causing unexpected behavior.
+
+```bash
+# Check for nulls
+curl -s https://api.com/data | from json | where field == null | length
+
+# Filter out nulls
+curl -s https://api.com/data | from json | where field != null | table
+```
+
+**Solution:** Explicitly handle null values in your transforms.
+
+## References
+
+- [Nushell Documentation](https://www.nushell.sh/) – Official Nushell documentation
+- [Edinburgh Protocol Playbook](./edinburgh-protocol.md) – Decision-making under uncertainty
+- [Nushell Agent Playbook](./nushell-agent-playbook.md) – Nushell integration for task state
+- [Loading Process Playbook](./loading-process-playbook.md) – Two-step loading process pattern
+- [Design Heuristics Playbook](./design-heuristics.md) – Architectural and design principles
+
+## Quick Reference
+
+```bash
 # Overview
 td list --json | from json | table
 
@@ -364,8 +519,14 @@ td show <id> --json | from json | to json -r
 td list --json | from json | to nuon
 ```
 
-### Environment
+## Environment
 
 - **Requires:** `nu` (Nushell)
 - **Data source:** Any JSON-producing CLI (`td`, `curl`, `jq`, etc.)
 - **Platform:** macOS, Linux, WSL
+
+---
+
+**Version:** 1.0  
+**Last Updated:** 2026-03-21  
+**Maintained by:** Mastra Development Team
