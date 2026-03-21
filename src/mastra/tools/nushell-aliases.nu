@@ -17,7 +17,8 @@ alias td-clean = git clean -fdx
 
 # Focused task snapshot
 export def station-status [] {
-  td current --json | from json | get focused.issue
+  let current = td current --json | from json
+  $current.ready_to_start | first | default {}
 }
 
 # Task filters
