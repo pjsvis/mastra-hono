@@ -43,3 +43,10 @@ coverage/
 .agents/skills/mastra-fix-biome-issues/
 .mastracode/
 nu/project-shortcuts.nu
+.sidecar/
+.sidecar-agent
+.sidecar-task
+.sidecar-pr
+.sidecar-start.sh
+.sidecar-base
+.td-root
