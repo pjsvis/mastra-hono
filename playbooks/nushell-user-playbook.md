@@ -1,34 +1,68 @@
 ---
-date: 2026-03-21
-tags: [playbook, nushell, cli, workflow, productivity, automation, installation]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+id: PB-017
+title: "Nushell User Playbook"
+role: "Orchestrate"
+infrastructure: [nushell]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Nushell User Playbook
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Installation](#installation)
+  - [System Requirements](#system-requirements)
+  - [Installation Methods](#installation-methods)
+  - [Verification](#verification)
+- [Configuration](#configuration)
+  - [Config File Location](#config-file-location)
+  - [Locate Configuration Files](#locate-configuration-files)
+  - [Edit Configuration](#edit-configuration)
+  - [Basic Config Structure](#basic-config-structure)
+  - [Environment Variables](#environment-variables)
+- [Project Shortcuts](#project-shortcuts)
+  - [Manual Sourcing](#manual-sourcing)
+  - [Persistent Sourcing (Global)](#persistent-sourcing-global)
+  - [Available Aliases](#available-aliases)
+  - [Help Command](#help-command)
+- [Automated Deployment](#automated-deployment)
+  - [Deployment Script: `scripts/setup-nushell.nu`](#deployment-script-`scriptssetup-nushellnu`)
+- [Multi-Shell Access](#multi-shell-access)
+  - [Available Commands](#available-commands)
+  - [Via Mastra CLI](#via-mastra-cli)
+  - [Cross-Shell Compatibility](#cross-shell-compatibility)
+- [Usage Guide](#usage-guide)
+  - [Everyday Shortcuts](#everyday-shortcuts)
+- [Daily Workflow](#daily-workflow)
+  - [Morning Routine](#morning-routine)
+  - [During Development](#during-development)
+  - [End of Day](#end-of-day)
+- [Troubleshooting](#troubleshooting)
+  - [Common Issues](#common-issues)
+  - [Debugging](#debugging)
+- [Best Practices](#best-practices)
+  - [1. Use Structured Data](#1-use-structured-data)
+  - [2. Leverage Type Safety](#2-leverage-type-safety)
+  - [3. Keep Functions Small](#3-keep-functions-small)
+  - [4. Document Your Code](#4-document-your-code)
+  - [5. Use Meaningful Names](#5-use-meaningful-names)
+  - [6. Test Your Aliases](#6-test-your-aliases)
+- [Examples](#examples)
+  - [Example 1: Task Dashboard](#example-1-task-dashboard)
+  - [Example 2: Git Summary](#example-2-git-summary)
+  - [Example 3: File Analyzer](#example-3-file-analyzer)
+- [References](#references)
+  - [Official Documentation](#official-documentation)
+  - [Project Documentation](#project-documentation)
+  - [Related Playbooks](#related-playbooks)
 
 ## Purpose
 This playbook provides a complete guide for setting up **Nushell (nu)** as your primary or auxiliary shell for interacting with the Mastra-Hono project. It covers installation, configuration patterns, automated deployment of project shortcuts, and daily workflows. The goal is to help developers become productive with Nushell quickly and leverage its power for structured data manipulation and automation.
 
 **Core Philosophy:** Nushell is a **modern, type‑safe shell** that treats data as structured values (tables, records, lists) rather than raw text. This makes it ideal for working with JSON, APIs, and complex data pipelines.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Project Shortcuts](#project-shortcuts)
-- [Automated Deployment](#automated-deployment)
-- [Multi-Shell Access](#multi-shell-access)
-- [Usage Guide](#usage-guide)
-- [Daily Workflow](#daily-workflow)
-- [Troubleshooting](#troubleshooting)
-- [Best Practices](#best-practices)
-- [Examples](#examples)
-- [References](#references)
 
 ## Installation
 

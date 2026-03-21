@@ -1,38 +1,76 @@
-date: 2026-03-21
-tags: [playbook, agentic-integrity, symmetric-mentation, workflow, review, automation, best-practices]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+---
+id: PB-001
+title: "Agentic Integrity Playbook"
+role: "Review | Orchestrate"
+infrastructure: [td, gh-aw, ntfy]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Agentic Integrity Playbook
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Prerequisites](#prerequisites)
+  - [Required Tools](#required-tools)
+  - [Infrastructure Requirements](#infrastructure-requirements)
+  - [Verification](#verification)
+- [Infrastructure Setup](#infrastructure-setup)
+  - [Local "Gumption" Layer](#local-"gumption"-layer)
+  - [Cloud "Sovereignty" Layer](#cloud-"sovereignty"-layer)
+- [Artefact Generation](#artefact-generation)
+  - [A. `AGENTS.md` (The Constitution)](#a-`agentsmd`-the-constitution)
+- [Tech Stack](#tech-stack)
+- [Mandatory Library Patterns](#mandatory-library-patterns)
+- [Coding Standards](#coding-standards)
+- [Forbidden Actions](#forbidden-actions)
+- [Purpose](#purpose)
+- [Tech Stack](#tech-stack)
+- [Mandatory Library Patterns](#mandatory-library-patterns)
+- [Coding Standards](#coding-standards)
+- [Forbidden Actions](#forbidden-actions)
+  - [B. `review.md` (The Cloud Reviewer)](#b-`reviewmd`-the-cloud-reviewer)
+- [Review Instructions](#review-instructions)
+  - [Validation Steps](#validation-steps)
+- [Notification Logic](#notification-logic)
+- [Purpose](#purpose)
+- [Review Instructions](#review-instructions)
+  - [Validation Steps](#validation-steps)
+  - [Success Criteria](#success-criteria)
+- [Notification Logic](#notification-logic)
+- [Failure Handling](#failure-handling)
+  - [C. `conceptual-lexicon.json`](#c-`conceptual-lexiconjson`)
+- [The Canonical Workflow Loop](#the-canonical-workflow-loop)
+  - [Phase A — Delivery Agent (Build + PR)](#phase-a-—-delivery-agent-build-+-pr)
+  - [Phase B — Review Agent (PR Health Gate)](#phase-b-—-review-agent-pr-health-gate)
+  - [Phase C — Human Merge + Tidy](#phase-c-—-human-merge-+-tidy)
+- [Deployment Heuristics](#deployment-heuristics)
+  - [Start with Mastra-Hono](#start-with-mastra-hono)
+  - [Fail Fast](#fail-fast)
+  - [Human in the Loop](#human-in-the-loop)
+- [Best Practices](#best-practices)
+  - [1. Always Start with `td usage --new-session`](#1-always-start-with-`td-usage---new-session`)
+  - [2. Use `bun run ask` for Clarification](#2-use-`bun-run-ask`-for-clarification)
+  - [3. Run `bun run check` Before Committing](#3-run-`bun-run-check`-before-committing)
+  - [4. Perform Handoffs Before Context Window Ends](#4-perform-handoffs-before-context-window-ends)
+  - [5. Keep Worktrees Until Approval](#5-keep-worktrees-until-approval)
+  - [6. Use Descriptive Commit Messages](#6-use-descriptive-commit-messages)
+  - [7. Test Edge Cases](#7-test-edge-cases)
+  - [8. Document Decisions](#8-document-decisions)
+- [Common Pitfalls](#common-pitfalls)
+  - [Pitfall 1: Skipping Pre-Commit Checks](#pitfall-1-skipping-pre-commit-checks)
+  - [Pitfall 2: Not Performing Handoffs](#pitfall-2-not-performing-handoffs)
+  - [Pitfall 3: Ignoring Review Feedback](#pitfall-3-ignoring-review-feedback)
+  - [Pitfall 4: Deleting Worktrees Too Early](#pitfall-4-deleting-worktrees-too-early)
+  - [Pitfall 5: Spamming Notifications](#pitfall-5-spamming-notifications)
+- [References](#references)
 
 ## Purpose
 This playbook outlines how to replicate the "Agentic Integrity" workflow in any new or existing project. It is based on the **Symmetric Mentation** principle: splitting high-velocity execution from sovereign auditing. This ensures that agents can work quickly while maintaining quality through automated review processes.
 
 **Core Philosophy:** Separate delivery (local execution) from review (cloud auditing) to maintain both velocity and integrity in agentic development workflows.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Prerequisites](#prerequisites)
-- [Infrastructure Setup](#infrastructure-setup)
-  - [Local "Gumption" Layer](#local-gumption-layer)
-  - [Cloud "Sovereignty" Layer](#cloud-sovereignty-layer)
-- [Artefact Generation](#artefact-generation)
-  - [AGENTS.md (The Constitution)](#agentsmd-the-constitution)
-  - [review.md (The Cloud Reviewer)](#reviewmd-the-cloud-reviewer)
-  - [conceptual-lexicon.json](#conceptual-lexiconjson)
-- [The Canonical Workflow Loop](#the-canonical-workflow-loop)
-  - [Phase A — Delivery Agent (Build + PR)](#phase-a--delivery-agent-build--pr)
-  - [Phase B — Review Agent (PR Health Gate)](#phase-b--review-agent-pr-health-gate)
-  - [Phase C — Human Merge + Tidy](#phase-c--human-merge--tidy)
-- [Deployment Heuristics](#deployment-heuristics)
-- [Best Practices](#best-practices)
-- [Common Pitfalls](#common-pitfalls)
-- [References](#references)
 
 ## Prerequisites
 

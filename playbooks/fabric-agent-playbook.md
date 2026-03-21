@@ -1,26 +1,24 @@
-date: 2026-03-21
-tags: [playbook, fabric, agent, ai, patterns, code-analysis, documentation, cli]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+---
+id: PB-009
+title: "Fabric Agent Playbook"
+role: "Build"
+infrastructure: [fabric]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Fabric Agent Playbook
 
-## Purpose
-This playbook defines how AI agents should use the `fabric` CLI to enhance their capabilities with pre-built AI patterns for code analysis, content summarization, documentation generation, and more. It provides comprehensive guidelines for leveraging fabric's 250+ patterns to improve agent efficiency and output quality.
-
-**Core Philosophy:** Leverage existing fabric patterns instead of crafting similar prompts from scratch. Compose patterns with other tools for complex tasks, and always stream large inputs for better performance.
-
 ## Table of Contents
 
 - [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
 - [Core Principles](#core-principles)
 - [Mandatory Directives](#mandatory-directives)
+  - [1) Use Fabric for Repetitive AI Tasks](#1-use-fabric-for-repetitive-ai-tasks)
+  - [2) Always Stream Large Content](#2-always-stream-large-content)
+  - [3) Generate Documentation Systematically](#3-generate-documentation-systematically)
 - [Standard Workflows](#standard-workflows)
-  - [Code Review & Analysis](#code-review--analysis)
+  - [Code Review & Analysis](#code-review-&-analysis)
   - [Documentation Generation](#documentation-generation)
   - [Content Summarization](#content-summarization)
   - [Writing Enhancement](#writing-enhancement)
@@ -30,6 +28,7 @@ This playbook defines how AI agents should use the `fabric` CLI to enhance their
   - [With Documentation](#with-documentation)
   - [With Testing](#with-testing)
 - [Pattern Selection Guide](#pattern-selection-guide)
+  - [When to Use Which Pattern](#when-to-use-which-pattern)
 - [Advanced Usage](#advanced-usage)
   - [Chaining Patterns](#chaining-patterns)
   - [Context Management](#context-management)
@@ -39,15 +38,48 @@ This playbook defines how AI agents should use the `fabric` CLI to enhance their
   - [Code Analysis Flow](#code-analysis-flow)
   - [Documentation Generation Flow](#documentation-generation-flow)
   - [PR Review Flow](#pr-review-flow)
-- [Do / Don't](#do--dont)
+- [Do / Don't](#do--don't)
+  - [Do](#do)
+  - [Don't](#don't)
 - [Pattern Library Reference](#pattern-library-reference)
+  - [Most Useful for Agents](#most-useful-for-agents)
 - [Performance Considerations](#performance-considerations)
+  - [When to Stream](#when-to-stream)
+  - [Model Selection Strategy](#model-selection-strategy)
 - [Integration with Other Tools](#integration-with-other-tools)
+  - [With td (Task Management)](#with-td-task-management)
+  - [With GitHub CLI](#with-github-cli)
+  - [With Testing Tools](#with-testing-tools)
 - [Custom Pattern Creation for Agents](#custom-pattern-creation-for-agents)
+  - [Pattern Template](#pattern-template)
+  - [Example: PR Review Pattern](#example-pr-review-pattern)
+- [Summary](#summary)
+- [Issues Found](#issues-found)
+- [Suggestions](#suggestions)
+- [Approval Status](#approval-status)
 - [Troubleshooting](#troubleshooting)
+  - [Pattern Not Working as Expected](#pattern-not-working-as-expected)
+  - [Performance Issues](#performance-issues)
 - [Best Practices](#best-practices)
+  - [1. Always Check for Existing Patterns](#1-always-check-for-existing-patterns)
+  - [2. Stream Large Inputs](#2-stream-large-inputs)
+  - [3. Chain Patterns for Complex Workflows](#3-chain-patterns-for-complex-workflows)
+  - [4. Save Context for Multi-Turn Analysis](#4-save-context-for-multi-turn-analysis)
+  - [5. Document Pattern Usage](#5-document-pattern-usage)
+  - [6. Update Patterns Regularly](#6-update-patterns-regularly)
 - [Common Pitfalls](#common-pitfalls)
+  - [Pitfall 1: Writing Custom Prompts for Common Tasks](#pitfall-1-writing-custom-prompts-for-common-tasks)
+  - [Pitfall 2: Not Streaming Large Inputs](#pitfall-2-not-streaming-large-inputs)
+  - [Pitfall 3: Mixing Unrelated Patterns](#pitfall-3-mixing-unrelated-patterns)
+  - [Pitfall 4: Forgetting Model Selection](#pitfall-4-forgetting-model-selection)
+  - [Pitfall 5: Using Patterns for Code Execution](#pitfall-5-using-patterns-for-code-execution)
 - [References](#references)
+
+## Purpose
+This playbook defines how AI agents should use the `fabric` CLI to enhance their capabilities with pre-built AI patterns for code analysis, content summarization, documentation generation, and more. It provides comprehensive guidelines for leveraging fabric's 250+ patterns to improve agent efficiency and output quality.
+
+**Core Philosophy:** Leverage existing fabric patterns instead of crafting similar prompts from scratch. Compose patterns with other tools for complex tasks, and always stream large inputs for better performance.
+
 
 ## Core Principles
 

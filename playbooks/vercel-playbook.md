@@ -1,33 +1,43 @@
 ---
-date: 2026-03-21
-tags: [playbook, vercel, portless, just-bash, agent-browser, dev3000, json-render, tools, integration]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+id: PB-026
+title: "Vercel Labs Agentic Playbook"
+role: "Orchestrate"
+infrastructure: [hono, vercel]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Vercel Labs Agentic Playbook
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Core Tools](#core-tools)
+  - [Portless (`vercel-labs/portless`)](#portless-`vercel-labsportless`)
+  - [Just-Bash (`vercel-labs/just-bash`)](#just-bash-`vercel-labsjust-bash`)
+  - [Agent-Browser (`vercel-labs/agent-browser`)](#agent-browser-`vercel-labsagent-browser`)
+  - [Dev3000 (`vercel-labs/dev3000`)](#dev3000-`vercel-labsdev3000`)
+  - [JSON-Render (`vercel-labs/json-render`)](#json-render-`vercel-labsjson-render`)
+- [Strategic Integration with Mastra + Hono](#strategic-integration-with-mastra-+-hono)
+- [Best Practices](#best-practices)
+  - [1. Use Portless for All Local Services](#1-use-portless-for-all-local-services)
+  - [2. Wrap Shell Commands in Just-Bash](#2-wrap-shell-commands-in-just-bash)
+  - [3. Use Agent-Browser for Web Data](#3-use-agent-browser-for-web-data)
+  - [4. Use Dev3000 for Debugging](#4-use-dev3000-for-debugging)
+  - [5. Use JSON-Render for Rich UI](#5-use-json-render-for-rich-ui)
+- [Common Pitfalls](#common-pitfalls)
+  - [Pitfall 1: Not Using Portless](#pitfall-1-not-using-portless)
+  - [Pitfall 2: Running Shell Commands Directly](#pitfall-2-running-shell-commands-directly)
+  - [Pitfall 3: Not Using Agent-Browser](#pitfall-3-not-using-agent-browser)
+  - [Pitfall 4: Not Capturing Execution Traces](#pitfall-4-not-capturing-execution-traces)
+  - [Pitfall 5: Not Using JSON-Render](#pitfall-5-not-using-json-render)
+- [References](#references)
 
 ## Purpose
 This playbook outlines the integration of Vercel Labs' specialized tools into the `mastra-hono` ecosystem. These tools focus on providing stable environments, safe execution, and enhanced capabilities for AI agents. It provides comprehensive guidelines for leveraging Vercel Labs tools to enhance agent capabilities while maintaining security and reliability.
 
 **Core Philosophy:** Use Vercel Labs tools to provide stable environments, safe execution, and enhanced capabilities for AI agents. Integrate these tools with Mastra to create a powerful, secure, and reliable agent development workflow.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Core Tools](#core-tools)
-  - [Portless (`vercel-labs/portless`)](#portless-vercel-labsportless)
-  - [Just-Bash (`vercel-labs/just-bash`)](#just-bash-vercel-labsjust-bash)
-  - [Agent-Browser (`vercel-labs/agent-browser`)](#agent-browser-vercel-labsagent-browser)
-  - [Dev3000 (`vercel-labs/dev3000`)](#dev3000-vercel-labsdev3000)
-  - [JSON-Render (`vercel-labs/json-render`)](#json-render-vercel-labsjson-render)
-- [Strategic Integration with Mastra + Hono](#strategic-integration-with-mastra--hono)
-- [Best Practices](#best-practices)
-- [Common Pitfalls](#common-pitfalls)
-- [References](#references)
 
 ## Core Tools
 

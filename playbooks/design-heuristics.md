@@ -1,31 +1,55 @@
 ---
-date: 2026-03-21
-tags: [playbook, design, heuristics, architecture, patterns, best-practices]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+id: PB-007
+title: "Design Heuristics"
+role: "Build"
+infrastructure: [td]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Design Heuristics
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [The Result/Option Return Pattern](#the-resultoption-return-pattern)
+  - [Why?](#why)
+  - [Example](#example)
+  - [Benefits](#benefits)
+- [Type-Safety Strictness Zones](#type-safety-strictness-zones)
+  - [The `@src` Zone](#the-`@src`-zone)
+  - [The `tests` & `@scripts` Zone](#the-`tests`-&-`@scripts`-zone)
+  - [The `scripts/lab` Zone](#the-`scriptslab`-zone)
+- [Separation of Review & Implementation](#separation-of-review-&-implementation)
+  - [Implementation](#implementation)
+  - [Why this matters](#why-this-matters)
+- [Pipeline Resiliency & Idempotency](#pipeline-resiliency-&-idempotency)
+  - [Key Practices](#key-practices)
+  - [Benefits](#benefits)
+- [Intermediate Artifacts & JSONL](#intermediate-artifacts-&-jsonl)
+  - [Why?](#why)
+  - [Example](#example)
+  - [Benefits](#benefits)
+- [Best Practices](#best-practices)
+  - [1. Always Return Result Objects](#1-always-return-result-objects)
+  - [2. Respect Type-Safety Zones](#2-respect-type-safety-zones)
+  - [3. Separate Implementation from Review](#3-separate-implementation-from-review)
+  - [4. Design for Failure](#4-design-for-failure)
+  - [5. Emit Intermediate Artifacts](#5-emit-intermediate-artifacts)
+  - [6. Use JSONL for Large Datasets](#6-use-jsonl-for-large-datasets)
+- [Common Pitfalls](#common-pitfalls)
+  - [Pitfall 1: Throwing Exceptions from Tools](#pitfall-1-throwing-exceptions-from-tools)
+  - [Pitfall 2: Using `any` in Production Code](#pitfall-2-using-`any`-in-production-code)
+  - [Pitfall 3: Approving Own Code](#pitfall-3-approving-own-code)
+  - [Pitfall 4: Fragile Pipelines](#pitfall-4-fragile-pipelines)
+  - [Pitfall 5: No Intermediate Artifacts](#pitfall-5-no-intermediate-artifacts)
+- [References](#references)
 
 ## Purpose
 This document outlines the core architectural and design heuristics for the Mastra Agent Forge repository. While playbooks provide concrete workflows and step-by-step guides, these heuristics describe *why* and *how* we shape our systems. These principles guide our decision-making and ensure consistency across the codebase.
 
 **Core Philosophy:** Design systems that are resilient, maintainable, and agent-friendly. Prioritize graceful error handling, strict type safety in production, and clear separation of concerns.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [The Result/Option Return Pattern](#the-resultoption-return-pattern)
-- [Type-Safety Strictness Zones](#type-safety-strictness-zones)
-- [Separation of Review & Implementation](#separation-of-review--implementation)
-- [Pipeline Resiliency & Idempotency](#pipeline-resiliency--idempotency)
-- [Intermediate Artifacts & JSONL](#intermediate-artifacts--jsonl)
-- [Best Practices](#best-practices)
-- [Common Pitfalls](#common-pitfalls)
-- [References](#references)
 
 ## The Result/Option Return Pattern
 

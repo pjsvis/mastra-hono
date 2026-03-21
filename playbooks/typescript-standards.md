@@ -1,23 +1,17 @@
 ---
-date: 2026-03-21
-tags: [playbook, typescript, standards, patterns, bun, ai-friendly, type-safety]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+id: PB-025
+title: "TypeScript Standards Playbook"
+role: "Build"
+infrastructure: [bun, zod]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # TypeScript Standards Playbook
 
-## Purpose
-This playbook defines idiomatic TypeScript patterns used in the Mastra-Hono project. These patterns are selected for high type-safety, excellent developer experience (IDE autocomplete), and AI-maintainability. It provides comprehensive guidelines for writing TypeScript code that is both human-readable and AI-friendly.
-
-**Core Philosophy:** Write TypeScript that is type-safe, maintainable, and AI-friendly. Use explicit types, avoid `any`, prefer Zod for validation, and follow patterns that enhance IDE autocomplete and make code easier for AI agents to understand and modify.
-
 ## Table of Contents
 
 - [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
 - [Loose Autocomplete](#loose-autocomplete)
 - [Branded Types (Nominal Typing)](#branded-types-nominal-typing)
 - [Exhaustive Switches](#exhaustive-switches)
@@ -28,8 +22,23 @@ This playbook defines idiomatic TypeScript patterns used in the Mastra-Hono proj
   - [Path Resolution](#path-resolution)
 - [AI-Friendly Typing](#ai-friendly-typing)
 - [Best Practices](#best-practices)
+  - [1. Always Use Zod for Data Structures](#1-always-use-zod-for-data-structures)
+  - [2. Use Branded Types for IDs](#2-use-branded-types-for-ids)
+  - [3. Use Exhaustive Switches](#3-use-exhaustive-switches)
+  - [4. Use Result Pattern for Error Handling](#4-use-result-pattern-for-error-handling)
+  - [5. Use Explicit Return Types](#5-use-explicit-return-types)
 - [Common Pitfalls](#common-pitfalls)
+  - [Pitfall 1: Using `any` Instead of `unknown`](#pitfall-1-using-`any`-instead-of-`unknown`)
+  - [Pitfall 2: Not Using Branded Types for IDs](#pitfall-2-not-using-branded-types-for-ids)
+  - [Pitfall 3: Missing Exhaustive Switch Cases](#pitfall-3-missing-exhaustive-switch-cases)
+  - [Pitfall 4: Not Deriving Types from Zod Schemas](#pitfall-4-not-deriving-types-from-zod-schemas)
 - [References](#references)
+
+## Purpose
+This playbook defines idiomatic TypeScript patterns used in the Mastra-Hono project. These patterns are selected for high type-safety, excellent developer experience (IDE autocomplete), and AI-maintainability. It provides comprehensive guidelines for writing TypeScript code that is both human-readable and AI-friendly.
+
+**Core Philosophy:** Write TypeScript that is type-safe, maintainable, and AI-friendly. Use explicit types, avoid `any`, prefer Zod for validation, and follow patterns that enhance IDE autocomplete and make code easier for AI agents to understand and modify.
+
 
 ## Loose Autocomplete
 

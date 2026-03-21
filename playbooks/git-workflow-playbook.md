@@ -1,32 +1,45 @@
 ---
-date: 2026-03-21
-tags: [playbook, git, workflow, td, branching, review, sidecar, workspaces]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+id: PB-011
+title: "Git & TD Workflow Playbook"
+role: "Orchestrate"
+infrastructure: [td, git]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Git & TD Workflow Playbook
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Branching & Workspaces](#branching-&-workspaces)
+  - [Core Rules](#core-rules)
+  - [Why This Matters](#why-this-matters)
+- [The TD Flow](#the-td-flow)
+  - [Picking Up Work](#picking-up-work)
+  - [During Development](#during-development)
+  - [Context Handoffs](#context-handoffs)
+- [Reviews & Merging](#reviews-&-merging)
+  - [The Review Process](#the-review-process)
+  - [Why This Separation Matters](#why-this-separation-matters)
+- [Resolving Conflicts](#resolving-conflicts)
+  - [What NOT to Do](#what-not-to-do)
+  - [What TO Do](#what-to-do)
+  - [Common Issues and Solutions](#common-issues-and-solutions)
+- [Best Practices](#best-practices)
+  - [1. Always Link Workspaces to Tasks](#1-always-link-workspaces-to-tasks)
+  - [2. Perform Handoffs Before Context Window Ends](#2-perform-handoffs-before-context-window-ends)
+  - [3. Keep Worktrees Until Approval](#3-keep-worktrees-until-approval)
+  - [4. Never Skip Quality Checks](#4-never-skip-quality-checks)
+  - [5. Log Decisions Explicitly](#5-log-decisions-explicitly)
+  - [6. Test Before Submitting for Review](#6-test-before-submitting-for-review)
+- [References](#references)
 
 ## Purpose
 This playbook defines our expected workflow for branching, using Sidecar workspaces, and managing task reviews using the `td` CLI. It provides a systematic approach to parallel development, context management, and code review processes.
 
 **Core Philosophy:** Maintain clean separation between implementation, automated review, and approval while preserving context across sessions and agents.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Branching & Workspaces](#branching--workspaces)
-- [The TD Flow](#the-td-flow)
-  - [Picking Up Work](#picking-up-work)
-  - [During Development](#during-development)
-  - [Context Handoffs](#context-handoffs)
-- [Reviews & Merging](#reviews--merging)
-- [Resolving Conflicts](#resolving-conflicts)
-- [Best Practices](#best-practices)
-- [References](#references)
 
 ## Branching & Workspaces
 

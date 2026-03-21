@@ -27,6 +27,10 @@
     "tdu": "bun cli task usage",
     "td-open": "bun cli task open",
     "td-review": "bun cli task review",
+    "pb": "bash scripts/pb.sh",
+    "pb:index": "bun run scripts/pb-index.ts",
+    "create-pr": "bash scripts/create-pr.sh",
+    "cleanup-stale-tasks": "bash scripts/cleanup-stale-tasks.sh",
     "env:setup": "bash scripts/setup-mastra-env.sh",
     "env:export": "bash scripts/export-mastra-env.sh"
   },

@@ -1,22 +1,17 @@
-date: 2026-03-21
-tags: [playbook, td, agent, task-management, workflow, review, handoff]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+---
+id: PB-022
+title: "TD Agent Playbook"
+role: "Build"
+infrastructure: [td]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # TD Agent Playbook
 
-## Purpose
-This playbook defines how AI agents must use the `td` CLI as structured external memory to ensure continuity across sessions, clear accountability, and reliable review workflows. For Nushell-based structured querying, see `playbooks/nushell-agent-playbook.md`.
-
-**Core Philosophy:** Tasks before work. Never start implementation without a task. Record key decisions and blockers in `td` logs. Every session must end with a `td handoff`. The implementation session cannot approve its own work.
-
 ## Table of Contents
 
 - [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
 - [Core Principles](#core-principles)
 - [Mandatory Directives](#mandatory-directives)
   - [Mandatory Session Check](#mandatory-session-check)
@@ -32,16 +27,33 @@ This playbook defines how AI agents must use the `td` CLI as structured external
   - [Review](#review)
   - [Review Agent Checklist (GH API)](#review-agent-checklist-gh-api)
 - [Querying State](#querying-state)
-- [Parallel Sessions: Build + Review](#parallel-sessions-build--review)
-  - [Session A — Build Agent](#session-a--build-agent)
-  - [Session B — Review Agent (Separate Session)](#session-b--review-agent-separate-session)
+- [Parallel Sessions: Build + Review](#parallel-sessions-build-+-review)
+  - [Session A — Build Agent](#session-a-—-build-agent)
+  - [Session B — Review Agent (Separate Session)](#session-b-—-review-agent-separate-session)
   - [Practical Setup](#practical-setup)
-- [Do / Don't]((#do--dont)
+- [Do / Don't](#do--don't)
+  - [Do](#do)
+  - [Don't](#don't)
 - [Session End Checklist](#session-end-checklist)
 - [Summary Checklist](#summary-checklist)
 - [Best Practices](#best-practices)
+  - [1. Always Start with Session Check](#1-always-start-with-session-check)
+  - [2. Create Tasks Before Starting Work](#2-create-tasks-before-starting-work)
+  - [3. Log Decisions Explicitly](#3-log-decisions-explicitly)
+  - [4. Always Perform Handoffs](#4-always-perform-handoffs)
+  - [5. Never Approve Your Own Work](#5-never-approve-your-own-work)
 - [Common Pitfalls](#common-pitfalls)
+  - [Pitfall 1: Starting Work Without a Task](#pitfall-1-starting-work-without-a-task)
+  - [Pitfall 2: Forgetting Handoffs](#pitfall-2-forgetting-handoffs)
+  - [Pitfall 3: Approving Own Code](#pitfall-3-approving-own-code)
+  - [Pitfall 4: Not Logging Decisions](#pitfall-4-not-logging-decisions)
 - [References](#references)
+
+## Purpose
+This playbook defines how AI agents must use the `td` CLI as structured external memory to ensure continuity across sessions, clear accountability, and reliable review workflows. For Nushell-based structured querying, see `playbooks/nushell-agent-playbook.md`.
+
+**Core Philosophy:** Tasks before work. Never start implementation without a task. Record key decisions and blockers in `td` logs. Every session must end with a `td handoff`. The implementation session cannot approve its own work.
+
 
 ## Core Principles
 

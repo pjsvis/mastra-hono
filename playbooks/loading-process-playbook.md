@@ -1,13 +1,73 @@
 ---
-date: 2026-03-21
-tags: [playbook, documentation, process, workflow, best-practices, metadata, design-pattern]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+id: PB-013
+title: "Loading Process Playbook"
+role: "Orchestrate"
+infrastructure: [ast-grep]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Loading Process Playbook
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [When to Use This Pattern](#when-to-use-this-pattern)
+  - [Ideal Use Cases](#ideal-use-cases)
+  - [When NOT to Use This Pattern](#when-not-to-use-this-pattern)
+- [Design Principles](#design-principles)
+  - [1. Self‑Contained Sections](#1-self‑contained-sections)
+- [Section Name](#section-name)
+  - [Subsection 1](#subsection-1)
+  - [Subsection 2](#subsection-2)
+- [Section Name](#section-name)
+  - [2. Hierarchical Structure](#2-hierarchical-structure)
+  - [3. Anchor Links](#3-anchor-links)
+- [Section Name](#section-name)
+  - [4. Frontmatter Metadata](#4-frontmatter-metadata)
+  - [5. Progressive Disclosure](#5-progressive-disclosure)
+- [Implementation Guide](#implementation-guide)
+  - [Step 1: Create Frontmatter](#step-1-create-frontmatter)
+  - [Step 2: Add Title and Purpose](#step-2-add-title-and-purpose)
+- [Purpose](#purpose)
+  - [Step 3: Create Table of Contents](#step-3-create-table-of-contents)
+- [Frontmatter Metadata](#frontmatter-metadata)
+  - [Required Fields](#required-fields)
+  - [Optional Fields](#optional-fields)
+  - [Example Frontmatter](#example-frontmatter)
+  - [Best Practices](#best-practices)
+  - [Example Structure](#example-structure)
+- [Section Extraction](#section-extraction)
+  - [Using `ast-grep`](#using-`ast-grep`)
+  - [Alternative Methods](#alternative-methods)
+- [Template](#template)
+- [Purpose](#purpose)
+- [Purpose](#purpose)
+- [Section 1](#section-1)
+  - [Subsection 1.1](#subsection-11)
+  - [Subsection 1.2](#subsection-12)
+- [Section 2](#section-2)
+- [References](#references)
+- [Best Practices](#best-practices)
+  - [1. Keep Sections Focused](#1-keep-sections-focused)
+  - [2. Use Examples](#2-use-examples)
+  - [3. Maintain Consistency](#3-maintain-consistency)
+  - [4. Update Regularly](#4-update-regularly)
+  - [5. Test Extraction](#5-test-extraction)
+- [Examples](#examples)
+  - [Example 1: Simple Playbook](#example-1-simple-playbook)
+- [Purpose](#purpose)
+- [Purpose](#purpose)
+- [Section 1](#section-1)
+  - [Example 2: Complex Playbook](#example-2-complex-playbook)
+- [Purpose](#purpose)
+- [Purpose](#purpose)
+- [Section 1](#section-1)
+  - [Subsection 1.1](#subsection-11)
+  - [Subsection 1.2](#subsection-12)
+- [Section 2](#section-2)
+- [References](#references)
+- [References](#references)
 
 ## Purpose
 This playbook documents the **two‑step loading process** pattern for structured markdown documentation. It explains why this pattern exists, when to use it, how to implement it, and provides best practices for creating maintainable, discoverable documentation.
@@ -16,20 +76,6 @@ This playbook documents the **two‑step loading process** pattern for structure
 
 **Note:** The actual loading instructions are now centralized in `LOADING_PROCESS.md`. This playbook provides the rationale and implementation guidance for the pattern.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [When to Use This Pattern](#when-to-use-this-pattern)
-- [Design Principles](#design-principles)
-- [Implementation Guide](#implementation-guide)
-- [Frontmatter Metadata](#frontmatter-metadata)
-- [Table of Contents Structure](#table-of-contents-structure)
-- [Section Extraction](#section-extraction)
-- [Template](#template)
-- [Best Practices](#best-practices)
-- [Examples](#examples)
-- [References](#references)
 
 ## When to Use This Pattern
 
@@ -149,42 +195,6 @@ Brief description of what this playbook covers and why it exists.
 List all major sections with anchor links:
 
 ```markdown
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Section 1](#section-1)
-- [Section 2](#section-2)
-  - [Subsection 2.1](#subsection-21)
-- [Section 3](#section-3)
-```
-
-### Step 4: Add Loading Process Reference
-
-Include the centralized loading instructions:
-
-```nu
-source "$(pwd)/LOADING_PROCESS.md"
-```
-
-### Step 5: Write Self‑Contained Sections
-
-Each major section should:
-- Start with a brief description
-- Use subsections for organization
-- Include examples where appropriate
-- Be readable in isolation
-
-### Step 6: Test Extraction
-
-Verify that sections can be extracted correctly:
-
-```bash
-# Test extracting a section
-ast-grep -p '## Section Name' -A 50 playbooks/your-playbook.md
-
-# Verify the output is complete and readable
-```
 
 ## Frontmatter Metadata
 
@@ -236,18 +246,6 @@ status: published
 ### Example Structure
 
 ```markdown
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Section 1](#section-1)
-  - [Subsection 1.1](#subsection-11)
-  - [Subsection 1.2](#subsection-12)
-- [Section 2](#section-2)
-- [Section 3](#section-3)
-  - [Subsection 3.1](#subsection-31)
-- [References](#references)
-```
 
 ## Section Extraction
 
@@ -335,13 +333,6 @@ last_updated: YYYY-MM-DD
 ## Purpose
 Brief description of what this playbook covers.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Section 1](#section-1)
-- [Section 2](#section-2)
-- [References](#references)
 
 ## Purpose
 [Content from earlier]
@@ -428,11 +419,6 @@ last_updated: 2026-03-21
 ## Purpose
 This playbook demonstrates the two‑step loading process.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Section 1](#section-1)
 
 ## Purpose
 [Content from earlier]
@@ -457,14 +443,6 @@ last_updated: 2026-03-21
 ## Purpose
 This playbook demonstrates nested sections and code examples.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Section 1](#section-1)
-  - [Subsection 1.1](#subsection-11)
-  - [Subsection 1.2](#subsection-12)
-- [Section 2](#section-2)
 
 ## Purpose
 [Content from earlier]

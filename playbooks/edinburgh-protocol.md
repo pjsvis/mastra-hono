@@ -1,34 +1,42 @@
 ---
-date: 2026-03-21
-tags: [playbook, protocol, methodology, entropy, decision-making, scottish-enlightenment]
-agent: local-ai
-environment: development
-version: 1.1
-last_updated: 2026-03-21
+id: PB-008
+title: "Edinburgh Protocol Playbook"
+role: "Build | Orchestrate"
+infrastructure: [mastra]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Edinburgh Protocol Playbook
 
-## Purpose
-This playbook documents the **Edinburgh Protocol**, a framework for building agents and workflows that reduce conceptual entropy—transforming chaotic "Stuff" into structured "Things" through Scottish Enlightenment principles. It provides a systematic approach to handling uncertainty, making decisions under ambiguity, and analyzing complex system failures.
-
-**Core Philosophy:** Reduce conceptual entropy by acknowledging the difference between maps (your understanding) and territories (reality), measuring uncertainty explicitly, and applying appropriate analytical lenses based on entropy levels.
-
 ## Table of Contents
 
 - [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
 - [When to Use](#when-to-use)
 - [The Protocol](#the-protocol)
   - [Phase 1: Acknowledge the Map](#phase-1-acknowledge-the-map)
   - [Phase 2: Measure Entropy](#phase-2-measure-entropy)
   - [Phase 3: Apply the Appropriate Lens](#phase-3-apply-the-appropriate-lens)
   - [Phase 4: The Impartial Spectator](#phase-4-the-impartial-spectator)
-  - [Phase 5: Watt's Test](#phase-5-watts-test)
+  - [Phase 5: Watt's Test](#phase-5-watt's-test)
 - [Anti-Patterns](#anti-patterns)
+  - [What NOT to Do](#what-not-to-do)
+  - [What TO Do](#what-to-do)
 - [Quick Reference](#quick-reference)
 - [Integration with Mastra](#integration-with-mastra)
+  - [Agent](#agent)
+  - [Tool](#tool)
+  - [Example Usage](#example-usage)
 - [Further Reading](#further-reading)
+  - [Primary Sources](#primary-sources)
+  - [Secondary Sources](#secondary-sources)
+  - [Related Playbooks](#related-playbooks)
+
+## Purpose
+This playbook documents the **Edinburgh Protocol**, a framework for building agents and workflows that reduce conceptual entropy—transforming chaotic "Stuff" into structured "Things" through Scottish Enlightenment principles. It provides a systematic approach to handling uncertainty, making decisions under ambiguity, and analyzing complex system failures.
+
+**Core Philosophy:** Reduce conceptual entropy by acknowledging the difference between maps (your understanding) and territories (reality), measuring uncertainty explicitly, and applying appropriate analytical lenses based on entropy levels.
+
 
 ## When to Use
 

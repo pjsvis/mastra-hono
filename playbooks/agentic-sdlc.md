@@ -1,32 +1,70 @@
 ---
-date: 2026-03-21
-tags: [playbook, agentic-sdlc, software-development, agents, best-practices, tdd, context-management]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+id: PB-003
+title: "Agentic SDLC Playbook"
+role: "Orchestrate"
+infrastructure: [td, mastra]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Agentic SDLC Playbook
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Verifiable Goals (TDD as Agent Rails)](#verifiable-goals-tdd-as-agent-rails)
+  - [The Problem](#the-problem)
+  - [The Solution](#the-solution)
+  - [Practice](#practice)
+  - [Example](#example)
+  - [Benefits](#benefits)
+- [Context Density over Context Volume](#context-density-over-context-volume)
+  - [The Problem](#the-problem)
+  - [The Solution](#the-solution)
+  - [Practice](#practice)
+  - [Benefits](#benefits)
+- [Declarative State over Imperative Mutation](#declarative-state-over-imperative-mutation)
+  - [The Problem](#the-problem)
+  - [The Solution](#the-solution)
+  - [Practice](#practice)
+  - [Benefits](#benefits)
+- [The "Why" in Code Comments](#the-"why"-in-code-comments)
+  - [The Problem](#the-problem)
+  - [The Solution](#the-solution)
+  - [Practice](#practice)
+  - [Benefits](#benefits)
+- [Tool Chaining (The Unix Philosophy for Agents)](#tool-chaining-the-unix-philosophy-for-agents)
+  - [The Problem](#the-problem)
+  - [The Solution](#the-solution)
+  - [Practice](#practice)
+  - [Benefits](#benefits)
+- [Deterministic Environments](#deterministic-environments)
+  - [The Problem](#the-problem)
+  - [The Solution](#the-solution)
+  - [Practice](#practice)
+  - [Benefits](#benefits)
+- [Best Practices](#best-practices)
+  - [1. Always Write Tests First](#1-always-write-tests-first)
+  - [2. Keep Context Focused](#2-keep-context-focused)
+  - [3. Use Pure Functions](#3-use-pure-functions)
+  - [4. Document the "Why"](#4-document-the-"why")
+  - [5. Build Small Tools](#5-build-small-tools)
+  - [6. Enforce Deterministic Environments](#6-enforce-deterministic-environments)
+  - [7. Provide Clear Success Criteria](#7-provide-clear-success-criteria)
+  - [8. Review Agent Output](#8-review-agent-output)
+- [Common Pitfalls](#common-pitfalls)
+  - [Pitfall 1: Giving Open-Ended Instructions](#pitfall-1-giving-open-ended-instructions)
+  - [Pitfall 2: Overloading Context](#pitfall-2-overloading-context)
+  - [Pitfall 3: Ignoring Environment Issues](#pitfall-3-ignoring-environment-issues)
+  - [Pitfall 4: Not Testing Agent Output](#pitfall-4-not-testing-agent-output)
+  - [Pitfall 5: Building Monolithic Tools](#pitfall-5-building-monolithic-tools)
+- [References](#references)
 
 ## Purpose
 This playbook outlines heuristics for an Agentic Software Development Life Cycle (SDLC). As software development evolves to include autonomous and semi-autonomous AI agents, our practices must adapt to maximize their leverage. This document provides guidance on how to structure code, context, and workflows to enable effective agent-assisted development.
 
 **Core Philosophy:** Design software and workflows that align with how agents think and work. Agents excel at pattern matching, constraint satisfaction, and declarative reasoning. By structuring our code and processes accordingly, we can maximize agent effectiveness while maintaining quality and reliability.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Verifiable Goals (TDD as Agent Rails)](#verifiable-goals-tdd-as-agent-rails)
-- [Context Density over Context Volume](#context-density-over-context-volume)
-- [Declarative State over Imperative Mutation](#declarative-state-over-imperative-mutation)
-- [The "Why" in Code Comments]((#the-why-in-code-comments)
-- [Tool Chaining (The Unix Philosophy for Agents)](#tool-chaining-the-unix-philosophy-for-agents)
-- [Deterministic Environments]((#deterministic-environments)
-- [Best Practices](#best-practices)
-- [Common Pitfalls](#common-pitfalls)
-- [References](#references)
 
 ## Verifiable Goals (TDD as Agent Rails)
 

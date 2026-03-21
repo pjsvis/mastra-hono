@@ -1,35 +1,46 @@
 ---
-date: 2026-03-21
-tags: [playbook, mastra, agent, architecture, type-safety, patterns, best-practices]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+id: PB-015
+title: "Mastra Agent Playbook"
+role: "Build | Review"
+infrastructure: [mastra]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Mastra Agent Playbook
 
-## Purpose
-This playbook outlines the architectural patterns, heuristics, and type-safety rules for our Mastra Agent Forge repository. It provides guidelines for maintaining a robust, production-ready codebase while preserving space for experimentation.
-
-**Core Philosophy:** Maintain strict type-safety in production code while allowing flexibility in experimental zones. Balance structure with innovation.
-
 ## Table of Contents
 
 - [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
 - [Project Structure and Type-Safety Zones](#project-structure-and-type-safety-zones)
-  - [Strict Zone: `@src/`](#strict-zone-src)
-  - [Promotable Zone: `@scripts/` and `tests/`](#promotable-zone-scripts-and-tests)
-  - [Experimental Zone: `scripts/lab/`](#experimental-zone-scriptslab)
+  - [Strict Zone: `@src/`](#strict-zone-`@src`)
+  - [Promotable Zone: `@scripts/` and `tests/`](#promotable-zone-`@scripts`-and-`tests`)
+  - [Experimental Zone: `scripts/lab/`](#experimental-zone-`scriptslab`)
 - [Mastra Patterns](#mastra-patterns)
   - [Creating Tools](#creating-tools)
   - [Creating Agents](#creating-agents)
   - [Creating Workflows](#creating-workflows)
 - [Pre-Commit Expectations](#pre-commit-expectations)
 - [Best Practices](#best-practices)
+  - [1. Always Use Zod Schemas](#1-always-use-zod-schemas)
+  - [2. Keep Functions Focused](#2-keep-functions-focused)
+  - [3. Write Tests for Production Code](#3-write-tests-for-production-code)
+  - [4. Use Descriptive Names](#4-use-descriptive-names)
+  - [5. Handle Errors Gracefully](#5-handle-errors-gracefully)
+  - [6. Document Your Code](#6-document-your-code)
 - [Common Pitfalls](#common-pitfalls)
+  - [Pitfall 1: Using `any` Type](#pitfall-1-using-`any`-type)
+  - [Pitfall 2: Ignoring Type Errors](#pitfall-2-ignoring-type-errors)
+  - [Pitfall 3: Not Testing Edge Cases](#pitfall-3-not-testing-edge-cases)
+  - [Pitfall 4: Importing from Experimental Zone](#pitfall-4-importing-from-experimental-zone)
+  - [Pitfall 5: Skipping Pre-Commit Checks](#pitfall-5-skipping-pre-commit-checks)
 - [References](#references)
+
+## Purpose
+This playbook outlines the architectural patterns, heuristics, and type-safety rules for our Mastra Agent Forge repository. It provides guidelines for maintaining a robust, production-ready codebase while preserving space for experimentation.
+
+**Core Philosophy:** Maintain strict type-safety in production code while allowing flexibility in experimental zones. Balance structure with innovation.
+
 
 ## Project Structure and Type-Safety Zones
 

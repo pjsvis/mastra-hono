@@ -1,0 +1,362 @@
+[
+  {
+    "id": "PB-001",
+    "title": "Agentic Integrity Playbook",
+    "role": "Review | Orchestrate",
+    "infrastructure": [
+      "td",
+      "gh-aw",
+      "ntfy"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/agentic-integrity-playbook.md"
+  },
+  {
+    "id": "PB-002",
+    "title": "Agentic Integrity Retrofit Guide",
+    "role": "Orchestrate",
+    "infrastructure": [
+      "td",
+      "bun"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/agentic-retrofit.md"
+  },
+  {
+    "id": "PB-003",
+    "title": "Agentic SDLC Playbook",
+    "role": "Orchestrate",
+    "infrastructure": [
+      "td",
+      "mastra"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/agentic-sdlc.md"
+  },
+  {
+    "id": "PB-004",
+    "title": "AI-Friendly Code Patterns Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "bun"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/ai-friendly-code-patterns.md"
+  },
+  {
+    "id": "PB-005",
+    "title": "Biome Standards Playbook",
+    "role": "Build | Review",
+    "infrastructure": [
+      "biome"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/biome-standards.md"
+  },
+  {
+    "id": "PB-006",
+    "title": "CLI Design Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "bun"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/cli-design-playbook.md"
+  },
+  {
+    "id": "PB-007",
+    "title": "Design Heuristics",
+    "role": "Build",
+    "infrastructure": [
+      "td"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/design-heuristics.md"
+  },
+  {
+    "id": "PB-008",
+    "title": "Edinburgh Protocol Playbook",
+    "role": "Build | Orchestrate",
+    "infrastructure": [
+      "mastra"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/edinburgh-protocol.md"
+  },
+  {
+    "id": "PB-009",
+    "title": "Fabric Agent Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "fabric"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/fabric-agent-playbook.md"
+  },
+  {
+    "id": "PB-010",
+    "title": "Fabric User Playbook",
+    "role": "Orchestrate",
+    "infrastructure": [
+      "fabric"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/fabric-user-playbook.md"
+  },
+  {
+    "id": "PB-011",
+    "title": "Git & TD Workflow Playbook",
+    "role": "Orchestrate",
+    "infrastructure": [
+      "td",
+      "git"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/git-workflow-playbook.md"
+  },
+  {
+    "id": "PB-012",
+    "title": "Just-Bash Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "bash"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/just-bash.md"
+  },
+  {
+    "id": "PB-013",
+    "title": "Loading Process Playbook",
+    "role": "Orchestrate",
+    "infrastructure": [
+      "ast-grep"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/loading-process-playbook.md"
+  },
+  {
+    "id": "PB-014",
+    "title": "Local Memory Agents Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "mastra",
+      "ollama"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/local-memory-agents.md"
+  },
+  {
+    "id": "PB-015",
+    "title": "Mastra Agent Playbook",
+    "role": "Build | Review",
+    "infrastructure": [
+      "mastra"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/mastra-agent-playbook.md"
+  },
+  {
+    "id": "PB-016",
+    "title": "Nushell Agent Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "nushell"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/nushell-agent-playbook.md"
+  },
+  {
+    "id": "PB-017",
+    "title": "Nushell User Playbook",
+    "role": "Orchestrate",
+    "infrastructure": [
+      "nushell"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/nushell-user-playbook.md"
+  },
+  {
+    "id": "PB-018",
+    "title": "Origami Protocol Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "nushell"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/origami-protocol.md"
+  },
+  {
+    "id": "PB-019",
+    "title": "Secure Tool Design Playbook",
+    "role": "Build | Review",
+    "infrastructure": [
+      "mastra"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/secure-tool-design.md"
+  },
+  {
+    "id": "PB-020",
+    "title": "Sidecar Agent Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "sidecar",
+      "td"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/sidecar-agent-playbook.md"
+  },
+  {
+    "id": "PB-021",
+    "title": "Sidecar User Playbook",
+    "role": "Orchestrate",
+    "infrastructure": [
+      "sidecar"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/sidecar-user-playbook.md"
+  },
+  {
+    "id": "PB-022",
+    "title": "TD Agent Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "td"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/td-agent-playbook.md"
+  },
+  {
+    "id": "PB-023",
+    "title": "TD Skill Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "td"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/td-skill-playbook.md"
+  },
+  {
+    "id": "PB-024",
+    "title": "TD User Playbook",
+    "role": "Orchestrate",
+    "infrastructure": [
+      "td"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/td-user-playbook.md"
+  },
+  {
+    "id": "PB-025",
+    "title": "TypeScript Standards Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "bun",
+      "zod"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/typescript-standards.md"
+  },
+  {
+    "id": "PB-026",
+    "title": "Vercel Labs Agentic Playbook",
+    "role": "Orchestrate",
+    "infrastructure": [
+      "hono",
+      "vercel"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/vercel-playbook.md"
+  },
+  {
+    "id": "PB-027",
+    "title": "Visual Palette Playbook",
+    "role": "Build",
+    "infrastructure": [
+      "nushell"
+    ],
+    "last_updated": "2026-03-21",
+    "tags": [
+      "playbook"
+    ],
+    "path": "playbooks/visual-palette.md"
+  }
+]

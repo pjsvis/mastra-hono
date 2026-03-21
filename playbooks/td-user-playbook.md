@@ -1,48 +1,52 @@
-date: 2026-03-21
-tags: [playbook, td, user, task-management, workflow, handoff, review]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+---
+id: PB-024
+title: "TD User Playbook"
+role: "Orchestrate"
+infrastructure: [td]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # TD User Playbook
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Core Principles](#core-principles)
+- [Quick Start (Checklist)](#quick-start-checklist)
+  - [Session End Checklist (Required)](#session-end-checklist-required)
+- [Commands You'll Use Daily](#commands-you'll-use-daily)
+  - [Session Start](#session-start)
+  - [Create & Link Work](#create-&-link-work)
+  - [Focus & Progress](#focus-&-progress)
+  - [Handoff (Mandatory)](#handoff-mandatory)
+  - [Review Workflow](#review-workflow)
+- [Recommended Workflow](#recommended-workflow)
+  - [1) Plan](#1-plan)
+  - [2) Execute](#2-execute)
+  - [3) Handoff](#3-handoff)
+  - [4) Review & Merge](#4-review-&-merge)
+- [Example: Full Process (Command Line + AI Tools)](#example-full-process-command-line-+-ai-tools)
+  - [Start the session and pick work](#start-the-session-and-pick-work)
+  - [Launch your AI agent and set the task context](#launch-your-ai-agent-and-set-the-task-context)
+  - [Log decisions during development](#log-decisions-during-development)
+  - [Submit for review and handoff](#submit-for-review-and-handoff)
+  - [Reviewer session (separate session)](#reviewer-session-separate-session)
+- [Parallel Agents: Build + Review (Two Sessions)](#parallel-agents-build-+-review-two-sessions)
+  - [Session A — Build Agent](#session-a-—-build-agent)
+  - [Session B — Review Agent (Separate Session)](#session-b-—-review-agent-separate-session)
+  - [Practical Setup](#practical-setup)
+  - [Zed Session Scope Note](#zed-session-scope-note)
+- [Best Practices](#best-practices)
+- [Common Pitfalls](#common-pitfalls)
+- [Summary](#summary)
+- [References](#references)
 
 ## Purpose
 Use `td` as your persistent task system for planning, tracking, and handing off work across human and AI agent sessions. This playbook defines how you should start work, log decisions, hand off context, and submit/approve reviews.
 
 **Core Philosophy:** Start every session with visibility. Keep your session scoped to a single `td` issue whenever possible. Log decisions and blockers as your external memory and audit trail. Every session ends with a structured handoff to prevent lost context. The session that implements work must not approve it.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Core Principles](#core-principles)
-- [Quick Start (Checklist)](#quick-start-checklist)
-- [Commands You'll Use Daily](#commands-youll-use-daily)
-  - [Session Start](#session-start)
-  - [Create & Link Work](#create--link-work)
-  - [Focus & Progress](#focus--progress)
-  - [Handoff (Mandatory)](#handoff-mandatory)
-  - [Review Workflow](#review-workflow)
-- [Recommended Workflow](#recommended-workflow)
-  - [Plan](#plan)
-  - [Execute](#execute)
-  - [Handoff](#handoff)
-  - [Review & Merge](#review--merge)
-- [Example: Full Process (Command Line + AI Tools)](#example-full-process-command-line--ai-tools)
-  - [Start the session and pick work](#start-the-session-and-pick-work)
-  - [Launch your AI agent and set the task context](#launch-your-ai-agent-and-set-the-task-context)
-  - [Log decisions during development](#log-decisions-during-development)
-  - [Submit for review and handoff](#submit-for-review-and-handoff)
-  - [Reviewer session (separate session)](#reviewer-session-separate-session)
-- [Parallel Agents: Build + Review (Two Sessions)](#parallel-agents-build--review-two-sessions)
-  - [Session A — Build Agent](#session-a--build-agent)
-  - [Session B — Review Agent (Separate Session)](#session-b--review-agent-separate-session)
-  - [Practical Setup](#practical-setup)
-- [Best Practices](#best-practices)
-- [Common Pitfalls](#common-pitfalls)
-- [References](#references)
 
 ## Core Principles
 

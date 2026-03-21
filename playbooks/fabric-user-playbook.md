@@ -1,46 +1,70 @@
 ---
-date: 2026-03-21
-tags: [playbook, fabric, user, ai, patterns, cli, productivity, workflow]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+id: PB-010
+title: "Fabric User Playbook"
+role: "Orchestrate"
+infrastructure: [fabric]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Fabric User Playbook
+
+## Table of Contents
+
+- [Purpose](#purpose)
+- [Core Principles](#core-principles)
+- [Quick Start (Checklist)](#quick-start-checklist)
+- [Installation](#installation)
+  - [macOS/Linux (One-line installer)](#macoslinux-one-line-installer)
+  - [Verify Installation](#verify-installation)
+- [Configuration](#configuration)
+  - [Initial Setup](#initial-setup)
+  - [Add API Keys](#add-api-keys)
+  - [Update Patterns](#update-patterns)
+  - [List Available Resources](#list-available-resources)
+- [Common Usage Patterns](#common-usage-patterns)
+  - [Summarize Content](#summarize-content)
+  - [Extract Information](#extract-information)
+  - [Code Tasks](#code-tasks)
+  - [Writing & Content Creation](#writing-&-content-creation)
+  - [Analysis](#analysis)
+  - [YouTube Content](#youtube-content)
+- [Advanced Usage](#advanced-usage)
+  - [Chain Patterns Together](#chain-patterns-together)
+  - [Use Different Models](#use-different-models)
+  - [Save & Reuse Context](#save-&-reuse-context)
+  - [Output Options](#output-options)
+- [Pattern Discovery](#pattern-discovery)
+  - [Find the Right Pattern](#find-the-right-pattern)
+  - [Popular Patterns](#popular-patterns)
+- [Creating Custom Patterns](#creating-custom-patterns)
+  - [Pattern Structure](#pattern-structure)
+  - [Example: Custom Pattern](#example-custom-pattern)
+- [Integration Examples](#integration-examples)
+  - [Git Workflows](#git-workflows)
+  - [Note Taking](#note-taking)
+  - [Reading & Research](#reading-&-research)
+  - [Code Review](#code-review)
+- [Best Practices](#best-practices)
+  - [1. Start Simple](#1-start-simple)
+  - [2. Stream Long Content](#2-stream-long-content)
+  - [3. Chain Strategically](#3-chain-strategically)
+  - [4. Save Contexts](#4-save-contexts)
+  - [5. Version Patterns](#5-version-patterns)
+  - [6. Update Regularly](#6-update-regularly)
+- [Troubleshooting](#troubleshooting)
+  - [Common Issues](#common-issues)
+- [Tips & Tricks](#tips-&-tricks)
+  - [Aliases](#aliases)
+  - [Shell Functions](#shell-functions)
+  - [Keyboard Shortcuts (macOS)](#keyboard-shortcuts-macos)
+- [References](#references)
 
 ## Purpose
 Use `fabric` as your AI augmentation toolkit for everyday tasks. Fabric provides 250+ reusable AI patterns that can be piped into any workflow to summarize, analyze, extract, and transform content. This playbook provides comprehensive guidance for end-users to leverage fabric's capabilities effectively.
 
 **Core Philosophy:** Patterns over prompts. Use pre-built patterns instead of crafting prompts from scratch. Pipe everything through Unix workflows via stdin/stdout. Stream for speed and create custom patterns for repeated tasks.
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Core Principles](#core-principles)
-- [Quick Start (Checklist)](#quick-start-checklist)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Common Usage Patterns](#common-usage-patterns)
-  - [Summarize Content](#summarize-content)
-  - [Extract Information](#extract-information)
-  - [Code Tasks](#code-tasks)
-  - [Writing & Content Creation](#writing--content-creation)
-  - [Analysis](#analysis)
-  - [YouTube Content](#youtube-content)
-- [Advanced Usage](#advanced-usage)
-  - [Chain Patterns Together](#chain-patterns-together)
-  - [Use Different Models](#use-different-models)
-  - [Save & Reuse Context](#save--reuse-context)
-  - [Output Options](#output-options)
-- [Pattern Discovery](#pattern-discovery)
-- [Creating Custom Patterns](#creating-custom-patterns)
-- [Integration Examples](#integration-examples)
-- [Best Practices](#best-practices)
-- [Troubleshooting](#troubleshooting)
-- [Tips & Tricks](#tips--tricks)
-- [References](#references)
 
 ## Core Principles
 

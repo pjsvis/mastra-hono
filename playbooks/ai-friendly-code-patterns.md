@@ -1,34 +1,28 @@
 ---
-date: 2026-03-21
-tags: [playbook, ai-friendly, code-patterns, functional-programming, imperative, maintainability]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+id: PB-004
+title: "AI-Friendly Code Patterns Playbook"
+role: "Build"
+infrastructure: [bun]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # AI-Friendly Code Patterns Playbook
 
-## Purpose
-This playbook documents when to prefer imperative over functional programming for maximum AI agent maintainability. It provides guidelines for writing code that is both human-readable and AI-maintainable, based on empirical evidence from real-world experiments.
-
-**Core Philosophy:** Code patterns that are "clean" and "modern" for humans often become "opaque" and difficult for AI coding agents. Our goal is to write AI-maintainable code that works for both humans AND AI.
-
 ## Table of Contents
 
 - [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
 - [Executive Summary](#executive-summary)
 - [Case Study: Git Worktree Cleanup Implementation](#case-study-git-worktree-cleanup-implementation)
   - [The Experiment](#the-experiment)
   - [Human Readability Verdict](#human-readability-verdict)
   - [AI Agent Maintainability Verdict](#ai-agent-maintainability-verdict)
-    - [Why AI Agents Struggle with Functional Code](#why-ai-agents-struggle-with-functional-code)
 - [The Counterexample: await-to-js](#the-counterexample-await-to-js)
+  - [Why This Package Works Well](#why-this-package-works-well)
 - [Comparative Analysis](#comparative-analysis)
 - [Package Selection Guidelines](#package-selection-guidelines)
-  - [Keep (AI-Friendly)](#keep-ai-friendly)
-  - [Deprecate (AI-Unfriendly)](#deprecate-ai-unfriendly)
+  - [✅ Keep (AI-Friendly)](#✅-keep-ai-friendly)
+  - [❌ Deprecate (AI-Unfriendly)](#❌-deprecate-ai-unfriendly)
 - [Practical Guidelines for This Project](#practical-guidelines-for-this-project)
   - [When to Use Imperative Code](#when-to-use-imperative-code)
   - [When Functional Code is Acceptable](#when-functional-code-is-acceptable)
@@ -43,6 +37,12 @@ This playbook documents when to prefer imperative over functional programming fo
   - [For Package Selection](#for-package-selection)
 - [Conclusion](#conclusion)
 - [References](#references)
+
+## Purpose
+This playbook documents when to prefer imperative over functional programming for maximum AI agent maintainability. It provides guidelines for writing code that is both human-readable and AI-maintainable, based on empirical evidence from real-world experiments.
+
+**Core Philosophy:** Code patterns that are "clean" and "modern" for humans often become "opaque" and difficult for AI coding agents. Our goal is to write AI-maintainable code that works for both humans AND AI.
+
 
 ## Executive Summary
 

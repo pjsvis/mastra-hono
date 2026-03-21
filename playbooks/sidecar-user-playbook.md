@@ -1,26 +1,20 @@
 ---
-date: 2026-03-21
-tags: [playbook, sidecar, user, terminal, dashboard, workflow, git, tasks]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
+id: PB-021
+title: "Sidecar User Playbook"
+role: "Orchestrate"
+infrastructure: [sidecar]
+last_updated: "2026-03-21"
+tags: [playbook]
 ---
 
 # Sidecar User Playbook
 
-## Purpose
-Sidecar is a terminal-based development dashboard that consolidates your entire development workflow into a single interface. Use it to plan tasks with td, chat with AI agents, review diffs, stage commits, and manage workspaces—all without leaving the terminal. This playbook provides comprehensive guidelines for using Sidecar effectively in your daily development workflow.
-
-**Core Philosophy:** Consolidate your entire development workflow into a single terminal interface. Plan tasks, chat with AI agents, review diffs, stage commits, and manage workspaces without leaving the terminal.
-
 ## Table of Contents
 
 - [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
 - [Quick Start](#quick-start)
 - [Recommended Terminal Layout](#recommended-terminal-layout)
-- [Core Features & Plugins](#core-features--plugins)
+- [Core Features & Plugins](#core-features-&-plugins)
   - [Git Status Plugin](#git-status-plugin)
   - [TD Monitor (Task Management)](#td-monitor-task-management)
   - [Workspaces Plugin](#workspaces-plugin)
@@ -28,12 +22,36 @@ Sidecar is a terminal-based development dashboard that consolidates your entire 
   - [File Browser](#file-browser)
 - [Global Navigation Shortcuts](#global-navigation-shortcuts)
 - [Configuration](#configuration)
+  - [Example Configuration](#example-configuration)
 - [Typical Workflow](#typical-workflow)
+  - [1. Plan Phase](#1-plan-phase)
+  - [2. Development Phase](#2-development-phase)
+  - [3. Review & Commit Phase](#3-review-&-commit-phase)
+  - [4. Workspace Management](#4-workspace-management)
+  - [5. Merge Phase](#5-merge-phase)
 - [Installation](#installation)
+  - [macOS (Recommended)](#macos-recommended)
+  - [Linux / Other](#linux--other)
 - [Tips for Effective Use](#tips-for-effective-use)
 - [Best Practices](#best-practices)
+  - [1. Always Check TD Before Starting Work](#1-always-check-td-before-starting-work)
+  - [2. Use Split Terminal Layout](#2-use-split-terminal-layout)
+  - [3. Link Tasks to Workspaces](#3-link-tasks-to-workspaces)
+  - [4. Review Diffs Before Committing](#4-review-diffs-before-committing)
+  - [5. Use Merge Workflow for Cleanup](#5-use-merge-workflow-for-cleanup)
 - [Common Pitfalls](#common-pitfalls)
+  - [Pitfall 1: Not Checking TD Before Starting Work](#pitfall-1-not-checking-td-before-starting-work)
+  - [Pitfall 2: Not Linking Tasks to Workspaces](#pitfall-2-not-linking-tasks-to-workspaces)
+  - [Pitfall 3: Forgetting to Review Diffs](#pitfall-3-forgetting-to-review-diffs)
+  - [Pitfall 4: Not Cleaning Up Workspaces](#pitfall-4-not-cleaning-up-workspaces)
+  - [Pitfall 5: Not Using Project Switcher](#pitfall-5-not-using-project-switcher)
 - [References](#references)
+
+## Purpose
+Sidecar is a terminal-based development dashboard that consolidates your entire development workflow into a single interface. Use it to plan tasks with td, chat with AI agents, review diffs, stage commits, and manage workspaces—all without leaving the terminal. This playbook provides comprehensive guidelines for using Sidecar effectively in your daily development workflow.
+
+**Core Philosophy:** Consolidate your entire development workflow into a single terminal interface. Plan tasks, chat with AI agents, review diffs, stage commits, and manage workspaces without leaving the terminal.
+
 
 ## Quick Start
 
