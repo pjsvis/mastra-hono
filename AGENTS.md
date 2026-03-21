@@ -16,6 +16,13 @@ Run `tdn` (aliased to `td usage --new-session`) at the absolute start of every c
 - [ ] Include done / remaining / decision / uncertain
 - [ ] Submit `td review <issue-id>` only after a handoff is recorded
 
+## The Symmetric Mentation Principle
+
+This project operates on the principle of **Symmetric Mentation**: the deliberate split between high-velocity execution and sovereign auditing.
+
+- **Local (Gumption)**: AI agents (Claude/Cursor) focus on implementing features and fixing bugs. Task state is strictly managed via `td` to ensure continuity across context windows.
+- **Cloud (Sovereignty)**: GitHub Agentic Workflows (GHAW) act as the final gatekeeper, verifying that local work meets the project's standards via natural language audit logic.
+
 ## The Manual Task Lifecycle
 
 We follow a **Manual Brief-to-Task** workflow:

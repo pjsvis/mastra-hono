@@ -18,20 +18,21 @@ This brief defines the transition of the **mastra-hono** project to a "Symmetric
 ## Implementation Roadmap
 
 ### Phase 1: Infrastructure
-- [ ] **GHAW Initialization**: Run `gh aw init` to set up the agentic workflow directory.
-- [ ] **ntfy Connection**: Configure the `notify` alias on Mac and subscribe to the `ctx-mastra-hono-pjs` topic on iPhone.
-- [ ] **td Setup**: Initialize the task database if not already present.
+- [x] **GHAW Initialization**: Run `gh aw init` to set up the agentic workflow directory.
+- [x] **ntfy Connection**: Configure the `notify` alias on Mac and subscribe to the `ctx-mastra-hono-pjs` topic on iPhone.
+- [x] **td Setup**: Initialize the task database if not already present.
 
 ### Phase 2: Repository Artefacts
-- [ ] **AGENTS.md**: Update the project "Constitution" with Hono factory patterns and Mastra tool requirements.
-- [ ] **review.md**: Create the Sovereign Reviewer instructions for GHAW.
-- [ ] **conceptual-lexicon.json**: Sync the v1.79 lexicon to align agent personas.
+- [x] **AGENTS.md**: Update the project "Constitution" with Symmetric Mentation principle and manual workflow.
+- [x] **review.md**: Create the Sovereign Reviewer instructions for GHAW.
+- [x] **conceptual-lexicon.json**: Sync the v1.80 lexicon to align agent personas.
 
-## Operational Loop
-1.  **Initialize**: `td usage --new-session` to see current work.
-2.  **Forge**: `bun run forge` to link a Brief to a Task.
-3.  **Gumption**: Agent implements work. If stuck, uses `bun run ask` to request human input via iPhone.
-4.  **Finish**: `bun run finish` to auto-verify, auto-debrief, link artifacts, and trigger the Sovereign Audit.
+## Operational Loop (Manual)
+1.  **Initialize**: `td usage --new-session` to see current work territory.
+2.  **Task**: Create a task via `td create` linking to the brief in the `description`.
+3.  **Start**: `td start <id>` to focus the task.
+4.  **Gumption**: Implement work. Use `bun run ask` for human "haptic" feedback if blocked.
+5.  **Finish**: `bun run finish` to auto-verify, link artifacts, and submit for Sovereign Review.
 
 ## Ctx Opinion
 Implementing this workflow solves the "50 First Dates" context loss problem. It anchors the agent in deterministic local storage while leveraging the cloud for non-negotiable quality enforcement. This reduces cognitive load and turns the repository into a self-governing entity.
