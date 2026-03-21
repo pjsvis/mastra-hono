@@ -1,0 +1,72 @@
+# .mergify.yml: Integrated PR Queue & AI-Review Protocol
+# Implements "Atomic-to-Main" workflow with AI-staged approval gates.
+
+queue_rules:
+  - name: default
+    speculative_checks: 5 # Run CI on up to 5 PRs in parallel to prevent "The Rebase Race"
+    allow_inplace_checks: false
+    merge_conditions:
+      # AI-Specific Staged Gates
+      - "check-success=CodeRabbit"  # Wait for AI Reviewer (External Mentation)
+      - "check-success=Sovereign Review Agent" # Wait for GHAW Audit
+
+      # CI/CD protocols
+      - "check-success=Type Check"
+      - "check-success=Lint"
+      - "check-success=Test"
+
+      # Human Sanity Check
+      - "#approved-reviews-by>=1"
+
+  - name: high-priority
+    speculative_checks: 2
+    merge_conditions:
+      - "label=🚑 hotfix"
+      - "check-success=Sovereign Review Agent"
+      - "check-success=ci/tests"
+
+pull_request_rules:
+  - name: Auto-queue when AI and CI are Green
+    conditions:
+      - "check-success=CodeRabbit"
+      - "check-success=Sovereign Review Agent"
+      - "label!=work-in-progress"
+      - "label!=blocked"
+      - "base=main"
+    actions:
+      queue:
+        name: default
+        method: squash # Deductive Minimalism: Keep history clean
+        commit_message_template: |
+          {{ title }} (#{{ number }})
+
+          {{ body }}
+
+          ---
+          Review-Status: AI-Gated
+          Audit-ID: {{ id }}
+
+  - name: Trigger Hotfix Queue
+    conditions:
+      - "label=🚑 hotfix"
+      - "check-success=Sovereign Review Agent"
+    actions:
+      queue:
+        name: high-priority
+        method: merge # Preserving full context for emergency fixes
+
+  - name: Ask for human intervention on conflicts
+    conditions:
+      - "conflict"
+    actions:
+      comment:
+        message: "🚨 @{{ author }} this PR has conflicts. Please resolve them in your worktree."
+      label:
+        add: ["blocked"]
+
+  - name: Automatic label for documentation changes
+    conditions:
+      - "files~=^docs/|^playbooks/|^briefs/"
+    actions:
+      label:
+        add: ["documentation"]

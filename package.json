@@ -27,6 +27,7 @@
     "tdu": "bun cli task usage",
     "td-open": "bun cli task open",
     "td-review": "bun cli task review",
+    "td-worktree": "bash scripts/td-worktree.sh",
     "pb": "bash scripts/pb.sh",
     "pb:index": "bun run scripts/pb-index.ts",
     "create-pr": "bash scripts/create-pr.sh",

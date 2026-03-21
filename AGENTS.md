@@ -36,7 +36,8 @@ We follow a **Manual Brief-to-Task** workflow:
      --description "Brief: briefs/my-brief.md"
    ```
 3. **The Development**: 
-   - Start the task with `td start <task-id>`
+   - Start and isolate: `td start <task-id> && bun run td-worktree add <task-id>`
+   - Change directory: `cd ../<task-id> && bun install`
    - Implement the objectives. **If blocked or confused, run `bun run ask "your question"`** to ping the Human's iPhone via ntfy.
 4. **The PR**: When ready, create a PR with `bun run create-pr`. This automatically:
    - Creates the GitHub PR
@@ -54,12 +55,19 @@ The `scratchpad/` directory is a dedicated, git-ignored facility for agents to p
 - **Usage**: Feel free to create files here for your own reference or to pass state between tool calls if needed.
 - **Lifecycle**: Content in `scratchpad/` is transient. It is ignored by Git and will be removed when the worktree is deleted.
 
+## The Merge Queue (AI-Gated)
+
+We use **Mergify** to enforce an "Atomic-to-Main" workflow. PRs are not merged manually.
+
+1. **AI Review**: Upon PR creation, **CodeRabbit** and the **Sovereign Review Agent** (GHAW) audit the code.
+2. **Auto-Queue**: When AI reviews are positive and all CI checks (Lint, Type Check, Test) pass, Mergify automatically enqueues the PR.
+3. **Speculative Batching**: Mergify tests multiple PRs in parallel to prevent the "Rebase Race" and accelerate delivery.
+
 ### Cleanup & Tidying (The Ephemeral Workspace)
-The local development environment is a temporary workspace, not a permanent home. Once `finish` is run:
-- **Automatic Unfocus**: The task is automatically detached from your session
-- **Immediate Cleanup**: Move back to `main` immediately. Do not leave "dangling" task branches
-- **Sovereign Review**: Any further feedback from the PR should be treated as a *new* session or a re-checkout
-- **Worktree Removal**: Delete the worktree/branch as soon as the PR is confirmed live
+Once `finish` is run:
+- **Automatic Unfocus**: The task is detached from your session.
+- **Worktree Cleanup**: Run `bun run td-worktree cleanup <task-id>` to remove the worktree and local branch.
+- **Sovereign Review**: Any further feedback from the PR should be treated as a *new* session.
 
 ### The "Map of Knowledge" (Description)
 The task `description` field in `td` is used as a high-visibility context map. It follows a strict format for easy jumping:
