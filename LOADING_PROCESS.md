@@ -1,42 +1,15 @@
----
-date: 2026-03-21
-tags: [playbook, documentation, process, workflow, best-practices, metadata, design-pattern]
-agent: local-ai
-environment: development
-version: 1.0
-last_updated: 2026-03-21
----
-
-# Loading Process Playbook
+# Loading Process
 
 ## Purpose
-This playbook documents the **two‑step loading process** pattern for structured markdown documentation. It explains why this pattern exists, when to use it, how to implement it, and provides best practices for creating maintainable, discoverable documentation.
+This file provides **centralized loading instructions** for all playbooks in the Mastra project. It defines the current **two‑step loading process** pattern for structured markdown documentation.
 
 **Core Philosophy:** Documentation should be **discoverable** and **extractable** – users should be able to find what they need in seconds, not minutes.
 
-**Note:** The actual loading instructions are now centralized in `LOADING_PROCESS.md`. This playbook provides the rationale and implementation guidance for the pattern.
+## Version
+**Current Version:** 1.0  
+**Last Updated:** 2026-03-21
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
-- [When to Use This Pattern](#when-to-use-this-pattern)
-- [Design Principles](#design-principles)
-- [Implementation Guide](#implementation-guide)
-- [Frontmatter Metadata](#frontmatter-metadata)
-- [Table of Contents Structure](#table-of-contents-structure)
-- [Section Extraction](#section-extraction)
-- [Template](#template)
-- [Best Practices](#best-practices)
-- [Examples](#examples)
-- [References](#references)
-
-## Loading Process
-
-The actual loading instructions are now centralized in `LOADING_PROCESS.md` at the project root.
-
-### How to Use
+## How to Use This File
 
 Add this line to the top of your playbook (after frontmatter):
 
@@ -46,16 +19,50 @@ source "$(pwd)/LOADING_PROCESS.md"
 
 This will include the loading process instructions in your playbook without duplication.
 
-### Why Centralize?
+## The Loading Process
 
-- **Single source of truth** – One file to maintain instead of 27
-- **Easy updates** – Change `LOADING_PROCESS.md` when the loading process evolves
-- **Consistency** – All playbooks use the same loading process
-- **Reduced duplication** – No need to repeat instructions in every playbook
+This playbook is designed for **two‑step lookup**:
 
-### Quick Reference
+### Step 1 – Review Contents
 
-For the actual loading instructions, see `LOADING_PROCESS.md` in the project root.
+Scan the **Table of Contents** below to identify which section contains the information you need. Each section is self‑contained and can be read independently.
+
+### Step 2 – Extract Section
+
+Use `ast-grep` or any markdown processor to extract the specific section you need.
+
+#### Using `ast-grep` (recommended)
+
+```bash
+# Extract a specific section by heading
+ast-grep -p '## Section Name' -A 50 playbooks/your-playbook.md
+
+# Extract all code blocks in a section
+ast-grep -p '```bash' -A 10 playbooks/your-playbook.md
+
+# Extract a table
+ast-grep -p '| Column 1 | Column 2' -A 20 playbooks/your-playbook.md
+
+# Extract all checklists
+ast-grep -p '## Checklist' -A 30 playbooks/your-playbook.md
+```
+
+#### Alternative Extraction Methods
+
+**Simple grep:**
+```bash
+grep -A 30 "## Section Name" playbooks/your-playbook.md
+```
+
+**sed:**
+```bash
+sed -n '/## Section Name/,/^## /p' playbooks/your-playbook.md | head -n -1
+```
+
+**awk:**
+```bash
+awk '/## Section Name/,/^## [^#]/ {print}' playbooks/your-playbook.md | head -n -1
+```
 
 ## When to Use This Pattern
 
@@ -84,26 +91,6 @@ For the actual loading instructions, see `LOADING_PROCESS.md` in the project roo
 
 Each section should be **independently readable**. A user should be able to extract a single section and understand it without needing context from other sections.
 
-**Good:**
-```markdown
-## Section Name
-
-Brief description of what this section covers.
-
-### Subsection 1
-Content...
-
-### Subsection 2
-Content...
-```
-
-**Bad:**
-```markdown
-## Section Name
-
-(No description – user must read other sections to understand purpose)
-```
-
 ### 2. Hierarchical Structure
 
 Use **consistent heading levels** to create a clear hierarchy:
@@ -117,16 +104,9 @@ Use **consistent heading levels** to create a clear hierarchy:
 
 Every section in the table of contents should have a corresponding anchor link. GitHub automatically creates anchor links from headings by converting to lowercase and replacing spaces with hyphens.
 
-**Example:**
-```markdown
-## Section Name
-
-This section can be linked as: `#section-name`
-```
-
 ### 4. Frontmatter Metadata
 
-Include **version** and **last_updated** fields in frontmatter for tracking and maintenance:
+Include **version** and `last_updated` fields in frontmatter for tracking and maintenance:
 
 ```yaml
 ---
@@ -185,9 +165,9 @@ List all major sections with anchor links:
 - [Section 3](#section-3)
 ```
 
-### Step 4: Add Loading Process Reference
+### Step 4: Add Loading Process Section
 
-Include the centralized loading instructions:
+Include this file:
 
 ```nu
 source "$(pwd)/LOADING_PROCESS.md"
@@ -266,7 +246,6 @@ status: published
 
 - [Purpose](#purpose)
 - [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
 - [Section 1](#section-1)
   - [Subsection 1.1](#subsection-11)
   - [Subsection 1.2](#subsection-12)
@@ -344,76 +323,6 @@ sed -n '/## Section Name/,/^## /p' playbook.md | head -n -1
 awk '/## Section Name/,/^## [^#]/ {print}' playbook.md | head -n -1
 ```
 
-## Template
-
-```markdown
----
-date: YYYY-MM-DD
-tags:
-  - playbook
-  - documentation
-  - process
-version: 1.0
-last_updated: YYYY-MM-DD
----
-
-# Playbook Title
-
-## Purpose
-Brief description of what this playbook covers.
-
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
-- [Section 1](#section-1)
-- [Section 2](#section-2)
-- [References](#references)
-
-## Loading Process
-
-This playbook is designed for **two‑step lookup**:
-
-### Step 1 – Review Contents
-
-Scan the **Table of Contents** below to identify which section contains the information you need.
-
-### Step 2 – Extract Section
-
-Use `ast-grep` or any markdown processor to extract the specific section you need.
-
-#### Using `ast-grep`
-
-```bash
-ast-grep -p '## Section Name' -A 50 playbooks/your-playbook.md
-```
-
-## Purpose
-[Content from earlier]
-
-## Section 1
-
-Brief description of this section.
-
-### Subsection 1.1
-Content...
-
-### Subsection 1.2
-Content...
-
-## Section 2
-
-Brief description of this section.
-
-Content...
-
-## References
-
-- [Link 1](url)
-- [Link 2](url)
-```
-
 ## Best Practices
 
 ### 1. Keep Sections Focused
@@ -457,113 +366,38 @@ for section in "Section 1" "Section 2" "Section 3"; do
 done
 ```
 
-## Examples
+## Migration Guide
 
-### Example 1: Simple Playbook
+If your playbook currently has its own loading instructions, replace them with:
 
-```markdown
----
-date: 2026-03-21
-tags: [playbook, documentation]
-version: 1.0
-last_updated: 2026-03-21
----
-
-# Simple Playbook
-
-## Purpose
-This playbook demonstrates the two‑step loading process.
-
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
-- [Section 1](#section-1)
-
-## Loading Process
-[Include standard loading process]
-
-## Purpose
-[Content from earlier]
-
-## Section 1
-
-This is a simple section with one paragraph.
+```nu
+source "$(pwd)/LOADING_PROCESS.md"
 ```
 
-### Example 2: Complex Playbook
+This will include the centralized loading instructions without duplication.
 
-```markdown
----
-date: 2026-03-21
-tags: [playbook, documentation, process]
-version: 1.0
-last_updated: 2026-03-21
----
+## Benefits
 
-# Complex Playbook
+- **Single source of truth** – One file to maintain instead of 27
+- **Easy updates** – Change this file when the loading process evolves
+- **Consistency** – All playbooks use the same loading process
+- **Backward compatible** – Playbooks can opt in if they have special needs
+- **Reduced duplication** – No need to repeat instructions in every playbook
 
-## Purpose
-This playbook demonstrates nested sections and code examples.
+## Versioning
 
-## Table of Contents
+When this file changes, increment the version number:
 
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Loading Process](#loading-process)
-- [Section 1](#section-1)
-  - [Subsection 1.1](#subsection-11)
-  - [Subsection 1.2](#subsection-12)
-- [Section 2](#section-2)
+- **Major version (X.0)** – Breaking changes to the loading process
+- **Minor version (0.Y)** – Non-breaking changes or additions
 
-## Loading Process
-[Include standard loading process]
+## Related Documentation
 
-## Purpose
-[Content from earlier]
-
-## Section 1
-
-This section has multiple subsections.
-
-### Subsection 1.1
-
-Content for subsection 1.1.
-
-```bash
-# Example code
-echo "Hello, world!"
-```
-
-### Subsection 1.2
-
-Content for subsection 1.2.
-
-## Section 2
-
-This section has a table:
-
-| Column 1 | Column 2 |
-|----------|----------|
-| Value 1  | Value 2  |
-| Value 3  | Value 4  |
-```
-
-## References
-
-- [ast-grep Documentation](https://ast-grep.github.io/)
-- [Markdown Guide](https://www.markdownguide.org/)
-- [Git Playbook](./git-playbook.md)
-- [Debriefs Playbook](./debriefs-playbook.md)
-- [Two-Step Loading Process Playbook](./two-step-loading-playbook.md)
-
-## References
-
-- [Git Playbook](./git-playbook.md) – Comprehensive Git troubleshooting and best practices
-- [Debriefs Playbook](./debriefs-playbook.md) – Debrief creation and management guidelines
-- [Two-Step Loading Process Playbook](./two-step-loading-playbook.md) – Design pattern for structured documentation lookup
+- [Loading Process Playbook](./playbooks/loading-process-playbook.md) – Detailed explanation of the pattern
+- [Playbook Loading Process Tracker](./docs/playbook-loading-process-tracker.md) – Progress tracking for applying this pattern
 
 ---
 
-**Last Updated:** 2026-03-21
+**Version:** 1.0  
+**Last Updated:** 2026-03-21  
+**Maintained by:** Mastra Development Team

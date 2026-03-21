@@ -33,41 +33,28 @@ This playbook provides a complete guide for setting up **Nushell (nu)** as your 
 
 ## Loading Process
 
-This playbook is designed for **two‑step lookup**:
+The actual loading instructions are now centralized in `LOADING_PROCESS.md` at the project root.
 
-### Step 1 – Review Contents
+### How to Use
 
-Scan the **Table of Contents** below to identify which section contains the information you need. Each section is self‑contained and can be read independently.
+Add this line to the top of your playbook (after frontmatter):
 
-### Step 2 – Extract Section
-
-Use `ast-grep` or any markdown processor to extract the specific section you need.
-
-#### Using `ast-grep` (recommended)
-
-```bash
-# Extract the Installation section
-ast-grep -p '## Installation' -A 50 playbooks/nushell-user-playbook.md
-
-# Extract the Configuration section
-ast-grep -p '## Configuration' -A 50 playbooks/nushell-user-playbook.md
-
-# Extract code blocks from a section
-ast-grep -p '```bash' -A 10 playbooks/nushell-user-playbook.md
+```nu
+source "$(pwd)/LOADING_PROCESS.md"
 ```
 
-#### Alternative Extraction Methods
+This will include the loading process instructions in your playbook without duplication.
 
-**Simple grep:**
-```bash
-grep -A 30 "## Installation" playbooks/nushell-user-playbook.md
-```
+### Why Centralize?
 
-**sed:**
-```bash
-sed -n '/## Installation/,/^## /p' playbooks/nushell-user-playbook.md | head -n -1
-```
+- **Single source of truth** – One file to maintain instead of 27
+- **Easy updates** – Change `LOADING_PROCESS.md` when the loading process evolves
+- **Consistency** – All playbooks use the same loading process
+- **Reduced duplication** – No need to repeat instructions in every playbook
 
+### Quick Reference
+
+For the actual loading instructions, see `LOADING_PROCESS.md` in the project root.
 ## Installation
 
 ### System Requirements
