@@ -49,6 +49,11 @@ We follow a **Manual Brief-to-Task** workflow:
    - Performs a final `td handoff` and creates the **GitHub PR** (if not already created)
 6. **The Approve**: Once the PR is merged, run `td approve <task-id>` to mark it as **DONE** and close the local lifecycle.
 
+### Agent Scratchpad (Transient Data)
+The `scratchpad/` directory is a dedicated, git-ignored facility for agents to place temporary files, intermediate reasoning logs, or convenient artifacts.
+- **Usage**: Feel free to create files here for your own reference or to pass state between tool calls if needed.
+- **Lifecycle**: Content in `scratchpad/` is transient. It is ignored by Git and will be removed when the worktree is deleted.
+
 ### Cleanup & Tidying (The Ephemeral Workspace)
 The local development environment is a temporary workspace, not a permanent home. Once `finish` is run:
 - **Automatic Unfocus**: The task is automatically detached from your session

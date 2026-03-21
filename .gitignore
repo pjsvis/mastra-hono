@@ -50,3 +50,6 @@ nu/project-shortcuts.nu
 .sidecar-start.sh
 .sidecar-base
 .td-root
+
+# scratchpad
+scratchpad/

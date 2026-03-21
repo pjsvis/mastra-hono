@@ -11,8 +11,9 @@ This playbook is the **canonical workflow** and acts as the front door to suppor
 - **Visibility is centralized**: Sidecar is the live operational view.
 - **Work isolation is enforced**: each task gets a worktree.
 - **Local-first**: work happens locally; PRs are the only external handshake.
-- **Low-entropy artifacts**: every task yields a debrief; optional playbook updates.
-- **Clean exit**: worktrees are deleted after PR creation.
+- Low-entropy artifacts: every task yields a debrief; optional playbook updates.
+- Transient storage: use the `scratchpad/` folder for agent-convenient task files.
+- Clean exit: worktrees are deleted after PR creation.
 
 ---
 
@@ -82,7 +83,7 @@ td archived on merge
 - Implement changes in the worktree.
 - Keep changes focused; no scope creep.
 
-**Optional:** keep a local scratchpad if you expect a debrief.
+**Optional:** use the `scratchpad/` folder for transient task notes or data.
 
 ---
 
