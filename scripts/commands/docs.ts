@@ -31,17 +31,23 @@ export async function runDocsCommand(args: string[]) {
       stdio: 'inherit',
     });
 
+    let docmdExitCode = 0;
+
     await new Promise((resolve, reject) => {
       proc.on('close', (code) => {
-        if (code === 0) {
-          resolve(code);
-        } else {
-          console.log('\n⚠️  Docmd build completed with warnings');
-          resolve(code);
-        }
+        docmdExitCode = code ?? 0;
+        resolve(docmdExitCode);
       });
       proc.on('error', reject);
     });
+
+    // Only copy files if docmd succeeded
+    if (docmdExitCode !== 0) {
+      console.log('\n⚠️  Docmd build failed (exit code: ' + docmdExitCode + ')');
+      console.log('   Falling back to placeholder llms.txt...');
+      await generatePlaceholderLlms();
+      return;
+    }
 
     // Copy llms files to docs folder for agent access
     const siteLlms = resolve(join(import.meta.dir, '..', '..', 'docs-site', 'llms.txt'));
@@ -55,11 +61,14 @@ export async function runDocsCommand(args: string[]) {
       copyFileSync(siteLlmsFull, docsLlmsFull);
       console.log('\n✅ Documentation generated successfully');
       console.log('📄 llms.txt copied to docs/ folder');
+    } else {
+      console.log('\n⚠️  Docmd completed but llms.txt not found');
+      console.log('   Falling back to placeholder...');
+      await generatePlaceholderLlms();
     }
   } catch (error) {
     console.error('❌ Docmd build failed:', error);
     console.log('\n⚠️  Falling back to placeholder llms.txt');
-    console.log('   Reason: Docmd build encountered an error');
     await generatePlaceholderLlms();
   }
 }
