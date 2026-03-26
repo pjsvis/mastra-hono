@@ -1,59 +1,91 @@
-This brief establishes **Docmd** as the "Knowledge Sleeve" for the repository. By integrating it into our `dev-box` CLI, we ensure that documentation is never a secondary task, but a real-time reflection of our **Mentation** process.
+This **Consolidated Master Brief** serves as the single source of truth for the repository's architecture. It integrates the **Persona Stack**, **Tiered Type-Safety**, **Docmd Knowledge Sleeve**, and your **Root-Level Visibility** preference into a single executable mission.
 
 ---
 
-```markdown
----
-date: 2026-03-26
-tags: [documentation, docmd, dx, static-site, automation]
-agent: ctx-vs
-environment: local
----
+# Master Brief: Repository Architecture & Knowledge Sleeve
 
-# Brief: Instantiate Docmd Knowledge Sleeve
+**Date:** 2026-03-26
+**Agent:** `ctx-vs` (or current active agent)
+**Environment:** Local / Bun Runtime
+**Status:** [ ] UNINITIALIZED | [ ] IN-PROGRESS | [ ] COMPLETE
 
-**Objective:** Implement Docmd.io as the standardized documentation engine to house playbooks, briefs, and the conceptual lexicon, integrated directly into the `dev-box` CLI.
+## 1. Objective
+To instantiate a "Context-as-Code" environment where the AI persona (Ctx) is integrated through a specialized utility CLI (`dev-box`), a tiered safety model, and a high-density documentation sleeve (Docmd) that treats root-level playbooks as active infrastructure.
 
-- [ ] **Infrastructure:** Initialize Docmd in the `/docs` directory.
-- [ ] **CLI Integration:** Add a `docs` command to `scripts/dev.ts` to run the Docmd dev server.
-- [ ] **Content Migration:** Move existing playbooks into `/docs/playbooks`.
-- [ ] **AI-Optimization:** Configure the `llms.txt` generation to support future agentic ingestion.
+## 2. Structural Requirements (Root-Level Visibility)
+Maintain the following directory structure to ensure "Context is Code" is at the forefront of the mental space:
 
-## Key Actions Checklist:
-
-- [ ] **Setup:** Run `mkdir docs` and initialize with a basic `docmd.config.ts` (if required) or standard folder structure.
-- [ ] **Command Implementation:**
-    - Update `scripts/dev.ts` with a `docs` sub-command.
-    - Use `Bun.spawn(["npx", "@docmd/core", "dev"], { stdio: "inherit" })`.
-- [ ] **Organization:** Create the following structure:
-    - `/docs/briefs/` (Move this brief here after creation)
-    - `/docs/playbooks/` (TTS v2, Bun, CLI-Design, UI-Color)
-    - `/docs/lexicon/` (Conceptual Lexicon reference)
-- [ ] **Validation:** Run `bun scripts/dev.ts docs` and verify the sidebar correctly reflects the folder hierarchy.
-
-## Detailed Requirements / Visuals
-
-### Directory Architecture
 ```text
 /repo-root
-├── /src
-├── /scripts
-└── /docs
-    ├── index.md          # Project Overview
-    ├── briefs/           # Active and Archived Briefs
-    ├── playbooks/        # Tiered Type-Safety, UI Guidelines, etc.
-    └── lexicon.md        # Local instance of CL v1.79
+├── /briefs         # [NEW] Active and archived mission parameters
+├── /playbooks       # [NEW] TTS v2, UI-Color, CLI-Design, etc.
+├── /debriefs        # [NEW] Post-mortem analysis and entropy reduction
+├── /scripts         # Utility CLI (CITTY + Bun)
+│   ├── dev.ts       # Main Entry Point
+│   ├── /commands    # Formalized Tier 2 Utilities
+│   └── /lab         # Tier 1 "Stuff" (Experimental scripts)
+├── /src             # Tier 3 "Edifice" (Production Hono/Bun)
+└── /docs            # Docmd configuration and additional context
 ```
 
-### The AI-Sleeve (llms.txt)
-Ensure Docmd is configured to output `llms.txt`. This file acts as a high-density "map" for agents, satisfying **PHI-2 (Synergistic Collaboration)** by allowing me (or any other agent) to quickly "re-sync" with the project's state.
+## 3. Technology Stack & Tiered Type-Safety (TTS v2.0)
+| Tier | Location | Strictness | Patterns |
+| :--- | :--- | :--- | :--- |
+| **Tier 1: Sieve** | `/scripts/lab` | `// @ts-nocheck` | Rapid "Tree Climbing," exploratory logic. |
+| **Tier 2: Net** | `/scripts/commands` | Moderate | CITTY args, Type Guards, basic logging. |
+| **Tier 3: Edifice**| `/src` | `strict: true` | Branded Types, Discriminated Unions, Exhaustive Checks. |
 
-## Verification
-- Navigating to `localhost:3000` (or the Docmd default port) shows all playbooks with proper Markdown rendering.
-- The `llms.txt` file is accessible and contains a concatenated summary of the `/docs` folder.
+
+
+## 4. Key Actions Checklist
+
+### Phase A: The Utility Sleeve (dev-box)
+- [ ] **Setup:** Initialize `scripts/package.json` with `citty`, `pino`, and `@docmd/core`.
+- [ ] **Command Logic:** Implement `lab` (run raw scripts) and `docs` (run Docmd).
+- [ ] **Promotion Heuristic:** Update the `promote` command to generate TTS v2.0 boilerplate (discriminated unions and `never` default cases).
+
+### Phase B: The Knowledge Sleeve (Docmd)
+- [ ] **Config:** Create `docs/docmd.config.ts` to scan root directories (`/briefs`, `/playbooks`, `/debriefs`).
+- [ ] **AI Optimization:** Enable `llms.txt` and `llms-full.txt` to provide high-density search for agents.
+- [ ] **UI Integration:** Apply **UI-Color Playbook** colors (60-30-10 rule) to the Docmd theme.
+
+### Phase C: Context Migration
+- [ ] **Persist:** Move all recently generated playbooks (TTS v2.0, UI-Color, etc.) into the root `/playbooks` folder.
+- [ ] **Verify:** Run `bun scripts/dev.ts docs` and ensure the `llms.txt` correctly maps the root folders.
+
+## 5. Implementation Code Snippets
+
+### The Promotion Template (Tier 2 Scaffolding)
+```typescript
+const ttsTemplate = `
+// TIER 2 UTILITY: Promoted from /lab
+export default defineCommand({
+  run() {
+    type State = { status: "idle" } | { status: "error", msg: string };
+    const state: State = { status: "idle" };
+    switch(state.status) {
+      case "idle": return console.log("Success");
+      case "error": return console.error(state.msg);
+      default: { const _ex: never = state; return _ex; }
+    }
+  }
+});`;
 ```
+
+### The Docmd "Root-Scanning" Config
+```typescript
+export default defineConfig({
+  scanDirs: ["../briefs", "../playbooks", "../debriefs", "./"],
+  llms: { enabled: true, includeAll: true }
+});
+```
+
+
+
+## 6. Verification
+- **Agent Access:** Can the agent find `llms.txt` and describe the project's TTS tiers?
+- **CLI Performance:** Does `bun scripts/dev.ts lab hello` execute without type-errors?
+- **Visibility:** Are `/briefs` and `/playbooks` visible in the root during a standard `ls` command?
 
 ---
-
-### Next Step
-I have drafted the brief for the **Knowledge Sleeve**. Once you have persisted this to `docs/briefs/brief-init-docmd.md`, would you like me to provide the **updated `scripts/dev.ts` code block** that includes the new `docs` command?
+**Proceed with Implementation: [ ]**
