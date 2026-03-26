@@ -85,16 +85,16 @@
         Docmd Integration Notes
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7hki5k">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7hki5k"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7hki5k"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7hki5k" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -2350,25 +2350,12 @@ grep -l <span class="hljs-string">&quot;^## Table of Contents\|^## Contents\|^##
 sed -i <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-string">&#x27;/^## Table of Contents/,/^## /d&#x27;</span> playbooks/*.md
 </code></pre>
 <p><strong>Pattern to remove:</strong></p>
-<pre class="hljs"><code><span class="hljs-section">## Table of Contents</span>
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Section 1</span>](<span class="hljs-link">#section-1</span>)
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Section 2</span>](<span class="hljs-link">#section-2</span>)
-...
+<pre class="hljs"><code><span class="hljs-section">## Verification</span>
+<span class="hljs-bullet">-</span> [ ] Links in docmd sidebar work
+<span class="hljs-bullet">-</span> [ ] <span class="hljs-code">`llms.txt`</span> contains src documentation
+<span class="hljs-bullet">-</span> [ ] Loading process doc updated
+<span class="hljs-bullet">-</span> [ ] Manual TOCs removed from playbooks
 </code></pre>
-<h3 id="docmd-integration-notes-remaining-tasks-3-src-readme-links-done" class="docmd-heading"><a href="#docmd-integration-notes-remaining-tasks-3-src-readme-links-done" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. ✅ Src README Links (Done)</h3>
-<p>Docmd scans project root (<code>srcDir: &quot;.&quot;</code>) so <code>src/**/README.md</code> files automatically appear in:</p>
-<ul>
-<li>Sidebar navigation</li>
-<li><code>llms.txt</code> Source Documentation section</li>
-</ul>
-<p>No manual configuration needed.</p>
-<h2 id="docmd-integration-notes-verification" class="docmd-heading"><a href="#docmd-integration-notes-verification" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Verification</h2>
-<ul class="contains-task-list">
-<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Links in docmd sidebar work</li>
-<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> <code>llms.txt</code> contains src documentation</li>
-<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Loading process doc updated</li>
-<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Manual TOCs removed from playbooks</li>
-</ul>
 
                                       
                               </div>
@@ -2408,14 +2395,6 @@ sed -i <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-string">&
           <a href="#docmd-integration-notes-remaining-tasks-2-remove-toc-sections-from-playbooks" class="toc-link">2. 🗑️ Remove TOC Sections from Playbooks</a>
         </li>
       
-        <li class="toc-item toc-level-3">
-          <a href="#docmd-integration-notes-remaining-tasks-3-src-readme-links-done" class="toc-link">3. ✅ Src README Links (Done)</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#docmd-integration-notes-verification" class="toc-link">Verification</a>
-        </li>
-      
     </ul>
   </div>
 
@@ -2441,10 +2420,10 @@ sed -i <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-string">&
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7hki5k"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7hki5k" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7hki5k" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
@@ -2464,6 +2443,7 @@ sed -i <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-string">&
       </div>
   </div>
               
+<script>(function(){window.scrollTo(0,0)})();</script>
 </body>
 
 </html>

@@ -3796,19 +3796,6 @@ sed -i '' '/^## Table of Contents/,/^## /d' playbooks/*.md
 
 **Pattern to remove:**
 ```markdown
-## Table of Contents
-- [Section 1](#section-1)
-- [Section 2](#section-2)
-...
-```
-
-### 3. ✅ Src README Links (Done)
-Docmd scans project root (`srcDir: "."`) so `src/**/README.md` files automatically appear in:
-- Sidebar navigation
-- `llms.txt` Source Documentation section
-
-No manual configuration needed.
-
 ## Verification
 - [ ] Links in docmd sidebar work
 - [ ] `llms.txt` contains src documentation

@@ -68,6 +68,9 @@ async function buildDocs() {
       process.exit(1);
     }
 
+    // Post-process for scroll reset
+    await postProcessScrollReset();
+
     // Post-process llms files
     await postProcessLlms();
 
@@ -284,6 +287,56 @@ function findExports(dir: string, results: Export[] = []): Export[] {
     // Ignore permission errors
   }
 
+  return results;
+}
+
+/**
+ * Post-process generated HTML to ensure scroll position resets on navigation.
+ * Adds inline script to scroll to top on page load.
+ */
+async function postProcessScrollReset() {
+  const docsSiteDir = resolve(join(import.meta.dir, '..', '..', 'docs-site'));
+  const scrollResetScript = `<script>(function(){window.scrollTo(0,0)})();</script>`;
+
+  // Find all HTML files in docs-site
+  const htmlFiles = findHtmlFiles(docsSiteDir);
+  let processed = 0;
+
+  for (const file of htmlFiles) {
+    let content = readFileSync(file, 'utf8');
+
+    // Check if scroll reset already exists
+    if (content.includes('window.scrollTo(0,0)')) {
+      continue;
+    }
+
+    // Add scroll reset before </body>
+    if (content.includes('</body>')) {
+      content = content.replace('</body>', `${scrollResetScript}\n</body>`);
+      writeFileSync(file, content, 'utf8');
+      processed++;
+    }
+  }
+
+  if (processed > 0) {
+    console.log(`✅ Added scroll reset to ${processed} HTML files`);
+  }
+}
+
+function findHtmlFiles(dir: string, results: string[] = []): string[] {
+  try {
+    const entries = readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = join(dir, entry.name);
+      if (entry.isDirectory()) {
+        findHtmlFiles(fullPath, results);
+      } else if (entry.isFile() && entry.name.endsWith('.html')) {
+        results.push(fullPath);
+      }
+    }
+  } catch {
+    // Ignore permission errors
+  }
   return results;
 }
 
