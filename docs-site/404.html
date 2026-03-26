@@ -17,16 +17,16 @@
     
     
     <!-- 1. Core CSS -->
-    <link rel="stylesheet" href="/assets/css/docmd-main.css?v=mn7i21r2">
+    <link rel="stylesheet" href="/assets/css/docmd-main.css?v=mn7ie6yr">
     
     <!-- 2. Highlight.js (Theme aware) -->
     
-    <link rel="stylesheet" href="/assets/css/docmd-highlight-light.css?v=mn7i21r2" id="hljs-light" >
-    <link rel="stylesheet" href="/assets/css/docmd-highlight-dark.css?v=mn7i21r2" id="hljs-dark" disabled>
+    <link rel="stylesheet" href="/assets/css/docmd-highlight-light.css?v=mn7ie6yr" id="hljs-light" >
+    <link rel="stylesheet" href="/assets/css/docmd-highlight-dark.css?v=mn7ie6yr" id="hljs-dark" disabled>
 
     <!-- 3. Theme CSS -->
     
-    <link rel="stylesheet" href="/assets/css/docmd-theme-sky.css?v=mn7i21r2">
+    <link rel="stylesheet" href="/assets/css/docmd-theme-sky.css?v=mn7ie6yr">
     
 
     <!-- 4. Custom CSS -->
@@ -119,6 +119,10 @@
     <h2>Page Not Found</h2>
     <p>The page you are looking for does not exist or has been moved.</p>
     <a href="/" class="docmd-button">Return Home</a>
-<script>(function(){window.scrollTo(0,0)})();</script>
+<script>(function(){
+  window.scrollTo(0,0);
+  document.addEventListener('docmd:page-mounted',()=>window.scrollTo(0,0));
+  window.addEventListener('popstate',()=>window.scrollTo(0,0));
+})();</script>
 </body>
 </html>

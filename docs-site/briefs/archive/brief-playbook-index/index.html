@@ -85,16 +85,16 @@
         
       </title>
       
-        <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7i21r2">
+        <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7ie6yr">
         
-          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-light.css?v=mn7i21r2"
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-light.css?v=mn7ie6yr"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-dark.css?v=mn7i21r2"
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-dark.css?v=mn7ie6yr"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../../assets/css/docmd-theme-sky.css?v=mn7i21r2" >
+<link rel="stylesheet" href="../../../assets/css/docmd-theme-sky.css?v=mn7ie6yr" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -2505,10 +2505,10 @@ Would you like me to generate the <strong>YAML metadata blocks</strong> for each
 
                         </div>
             </div>
-            <script src="../../../assets/js/docmd-main.js?v=mn7i21r2"></script>
-            <script src="../../../assets/js/docmd-image-lightbox.js?v=mn7i21r2" ></script>
+            <script src="../../../assets/js/docmd-main.js?v=mn7ie6yr"></script>
+            <script src="../../../assets/js/docmd-image-lightbox.js?v=mn7ie6yr" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../../assets/js/docmd-search.js?v=mn7i21r2" ></script>
+<script src="../../../assets/js/docmd-search.js?v=mn7ie6yr" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
@@ -2528,7 +2528,11 @@ Would you like me to generate the <strong>YAML metadata blocks</strong> for each
       </div>
   </div>
               
-<script>(function(){window.scrollTo(0,0)})();</script>
+<script>(function(){
+  window.scrollTo(0,0);
+  document.addEventListener('docmd:page-mounted',()=>window.scrollTo(0,0));
+  window.addEventListener('popstate',()=>window.scrollTo(0,0));
+})();</script>
 </body>
 
 </html>

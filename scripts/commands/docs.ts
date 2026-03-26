@@ -292,11 +292,16 @@ function findExports(dir: string, results: Export[] = []): Export[] {
 
 /**
  * Post-process generated HTML to ensure scroll position resets on navigation.
- * Adds inline script to scroll to top on page load.
+ * Handles both full page loads and SPA navigation.
  */
 async function postProcessScrollReset() {
   const docsSiteDir = resolve(join(import.meta.dir, '..', '..', 'docs-site'));
-  const scrollResetScript = `<script>(function(){window.scrollTo(0,0)})();</script>`;
+  // Handle both full page load and SPA navigation (docmd:page-mounted event)
+  const scrollResetScript = `<script>(function(){
+  window.scrollTo(0,0);
+  document.addEventListener('docmd:page-mounted',()=>window.scrollTo(0,0));
+  window.addEventListener('popstate',()=>window.scrollTo(0,0));
+})();</script>`;
 
   // Find all HTML files in docs-site
   const htmlFiles = findHtmlFiles(docsSiteDir);
