@@ -7,7 +7,7 @@
  * - clean: Remove generated docs
  */
 
-import { existsSync, readdirSync, readFileSync, writeFileSync, rmSync } from 'fs';
+import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { join, resolve } from 'path';
 
 export async function runDocsCommand(args: string[]) {
@@ -255,14 +255,23 @@ function findExports(dir: string, results: Export[] = []): Export[] {
         const content = readFileSync(fullPath, 'utf8');
 
         // Match export statements
-        const exportMatches = content.matchAll(/(?:export|export\s+default)\s+(?:const|function|class|type|interface|enum)\s+(\w+)/g);
+        const exportMatches = content.matchAll(
+          /(?:export|export\s+default)\s+(?:const|function|class|type|interface|enum)\s+(\w+)/g
+        );
         for (const match of exportMatches) {
-          const type = match[0].includes('class') ? 'class' :
-                       match[0].includes('type') ? 'type' :
-                       match[0].includes('interface') ? 'interface' :
-                       match[0].includes('enum') ? 'enum' :
-                       match[0].includes('function') ? 'fn' :
-                       match[0].includes('default') ? 'default' : 'const';
+          const type = match[0].includes('class')
+            ? 'class'
+            : match[0].includes('type')
+              ? 'type'
+              : match[0].includes('interface')
+                ? 'interface'
+                : match[0].includes('enum')
+                  ? 'enum'
+                  : match[0].includes('function')
+                    ? 'fn'
+                    : match[0].includes('default')
+                      ? 'default'
+                      : 'const';
           results.push({
             file: fullPath,
             name: match[1],
@@ -344,7 +353,10 @@ function generateSourceDocMap(): string {
   const seenUrls = new Set<string>();
 
   for (const { path: filePath, title } of readmeFiles) {
-    let relativePath = filePath.replace(srcDir, '').replace(/\/README\.md$/i, '').replace(/\.md$/i, '');
+    let relativePath = filePath
+      .replace(srcDir, '')
+      .replace(/\/README\.md$/i, '')
+      .replace(/\.md$/i, '');
     if (relativePath === '') {
       relativePath = '/';
     } else if (!relativePath.startsWith('/')) {
@@ -364,10 +376,7 @@ function generateSourceDocMap(): string {
   return output;
 }
 
-function findReadmeFiles(
-  dir: string,
-  rootDir: string
-): Array<{ path: string; title: string }> {
+function findReadmeFiles(dir: string, rootDir: string): Array<{ path: string; title: string }> {
   const results: Array<{ path: string; title: string }> = [];
 
   try {
