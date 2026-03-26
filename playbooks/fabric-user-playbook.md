@@ -132,7 +132,7 @@ furl() { fabric -u "$1" -p summarize; }
 
 ## Setup
 
-**Installation & Configuration:** See [Playbook Setup Guide](../playbook-setup.md)
+**Installation & Configuration:** See [Playbook Setup Guide](./setup-playbook.md)
 
 Quick setup:
 ```bash
@@ -156,4 +156,4 @@ fabric --version
 ## See Also
 
 - [Fabric Agent Playbook](./fabric-agent-playbook.md) – Agent-specific usage
-- [Playbook Setup Guide](../playbook-setup.md) – Installation & configuration
+- [Playbook Setup Guide](./setup-playbook.md) – Installation & configuration

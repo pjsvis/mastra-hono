@@ -130,7 +130,7 @@ claude   # AI agent
 
 ## Setup
 
-**Installation & Configuration:** See [Playbook Setup Guide](../playbook-setup.md)
+**Installation & Configuration:** See [Playbook Setup Guide](./setup-playbook.md)
 
 Quick setup:
 ```bash
@@ -147,4 +147,4 @@ sidecar --version
 
 - [Sidecar Agent Playbook](./sidecar-agent-playbook.md) – Agent-specific usage
 - [Git Workflow Playbook](./git-workflow-playbook.md) – Git workflows
-- [Playbook Setup Guide](../playbook-setup.md) – Installation & configuration
+- [Playbook Setup Guide](./setup-playbook.md) – Installation & configuration

@@ -119,7 +119,7 @@ git worktree --version
 
 ## Setup
 
-**Installation & Configuration:** See [Playbook Setup Guide](../playbook-setup.md)
+**Installation & Configuration:** See [Playbook Setup Guide](./setup-playbook.md)
 
 ---
 
@@ -127,4 +127,4 @@ git worktree --version
 
 - [Git Workflow Playbook](./git-workflow-playbook.md) – Branching and PR workflow
 - [Loading Process Playbook](./loading-process-playbook.md) – Two-step loading pattern
-- [Playbook Setup Guide](../playbook-setup.md) – Tool installation
+- [Playbook Setup Guide](./setup-playbook.md) – Tool installation

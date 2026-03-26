@@ -130,7 +130,7 @@ $env.PATH = ($env.PATH | prepend "/usr/local/bin")
 
 ## Setup
 
-**Installation & Configuration:** See [Playbook Setup Guide](../playbook-setup.md)
+**Installation & Configuration:** See [Playbook Setup Guide](./setup-playbook.md)
 
 Quick setup:
 ```bash
@@ -150,4 +150,4 @@ nu scripts/setup-nushell.nu
 
 - [Nushell Agent Playbook](./nushell-agent-playbook.md) – Agent-specific usage
 - [Git Workflow Playbook](./git-workflow-playbook.md) – Git workflows
-- [Playbook Setup Guide](../playbook-setup.md) – Installation & configuration
+- [Playbook Setup Guide](./setup-playbook.md) – Installation & configuration
