@@ -53,16 +53,17 @@ Commands:
   promote <name>   Generate TTS v2.0 boilerplate
 
 Docs Subcommands:
-  docs build   Build static documentation
-  docs serve   Start dev server (live reload)
-  docs auto    Generate auto-documentation
-  docs clean   Remove generated docs
+  docs build       Build static documentation
+  docs serve       Start docmd dev server (live reload)
+  docs serve --static  Serve built docs-site locally
+  docs auto        Generate auto-documentation
+  docs clean       Remove generated docs
 
 Examples:
   bun scripts/dev.ts lab hello
   bun scripts/dev.ts docs build
-  bun scripts/dev.ts docs serve
-  bun scripts/dev.ts docs auto
+  bun scripts/dev.ts docs serve           # live reload dev
+  bun scripts/dev.ts docs serve --static  # view built docs
   bun scripts/dev.ts promote my-utility
 `);
 }

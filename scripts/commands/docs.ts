@@ -11,14 +11,14 @@ import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'fs
 import { join, resolve } from 'path';
 
 export async function runDocsCommand(args: string[]) {
-  const [subcommand] = args;
+  const [subcommand, ...subArgs] = args;
 
   switch (subcommand) {
     case 'build':
       await buildDocs();
       break;
     case 'serve':
-      await serveDocs();
+      await serveDocs(subArgs);
       break;
     case 'clean':
       await cleanDocs();
@@ -81,30 +81,59 @@ async function buildDocs() {
   }
 }
 
-async function serveDocs() {
-  console.log('🚀 Starting Docmd dev server...');
+async function serveDocs(args: string[]) {
+  const isStatic = args.includes('--static') || args.includes('-s');
+  const docsSiteDir = resolve(join(import.meta.dir, '..', '..', 'docs-site'));
+  const port = args.find((a) => /^\d+$/.test(a)) || '3000';
 
-  const configPath = resolve(join(import.meta.dir, '..', '..', 'docs', 'docmd.config.ts'));
+  if (isStatic) {
+    // Serve built static docs
+    if (!existsSync(docsSiteDir)) {
+      console.log('❌ docs-site not found. Run `docs build` first.');
+      process.exit(1);
+    }
 
-  if (!existsSync(configPath)) {
-    console.log('❌ Docmd config not found at:', configPath);
-    process.exit(1);
+    console.log(`📚 Serving static docs at http://localhost:${port}`);
+    console.log(`   Press Ctrl+C to stop\n`);
+
+    const { spawn } = await import('child_process');
+    const proc = spawn('bunx', ['serve', '.', '-l', port, '-c', '1'], {
+      cwd: docsSiteDir,
+      stdio: 'inherit',
+    });
+
+    proc.on('error', (error) => {
+      console.error('❌ Failed to start server:', error);
+      process.exit(1);
+    });
+
+    await new Promise(() => {});
+  } else {
+    // Start docmd dev server with live reload
+    console.log('🚀 Starting Docmd dev server (live reload)...\n');
+
+    const configPath = resolve(join(import.meta.dir, '..', '..', 'docs', 'docmd.config.ts'));
+
+    if (!existsSync(configPath)) {
+      console.log('❌ Docmd config not found at:', configPath);
+      process.exit(1);
+    }
+
+    const { spawn } = await import('child_process');
+
+    const proc = spawn('bunx', ['docmd', 'dev', '--config', configPath], {
+      cwd: resolve(join(import.meta.dir, '..', '..')),
+      stdio: 'inherit',
+    });
+
+    proc.on('error', (error) => {
+      console.error('❌ Failed to start dev server:', error);
+      process.exit(1);
+    });
+
+    // Keep process alive
+    await new Promise(() => {});
   }
-
-  const { spawn } = await import('child_process');
-
-  const proc = spawn('bunx', ['docmd', 'dev', '--config', configPath], {
-    cwd: resolve(join(import.meta.dir, '..', '..')),
-    stdio: 'inherit',
-  });
-
-  proc.on('error', (error) => {
-    console.error('❌ Failed to start dev server:', error);
-    process.exit(1);
-  });
-
-  // Keep process alive
-  await new Promise(() => {});
 }
 
 async function cleanDocs() {
