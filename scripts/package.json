@@ -1,0 +1,13 @@
+{
+  "name": "dev-box",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Utility CLI for dev-box commands",
+  "scripts": {
+    "dev": "bun run dev.ts"
+  },
+  "dependencies": {
+    "citty": "^0.2.1",
+    "pino": "^9.0.0"
+  }
+}
