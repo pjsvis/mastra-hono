@@ -1,17 +1,17 @@
 /**
  * Docs Command - Trigger Docmd documentation generation
- * 
+ *
  * Runs the docmd CLI to generate documentation and llms.txt
  */
 
-import { resolve, join } from 'path';
 import { existsSync } from 'fs';
+import { join, resolve } from 'path';
 
 export async function runDocsCommand(args: string[]) {
   console.log('📚 Generating documentation with Docmd...');
-  
+
   const configPath = resolve(join(import.meta.dir, '..', '..', 'docs', 'docmd.config.ts'));
-  
+
   // Check if docmd config exists
   if (!existsSync(configPath)) {
     console.log('⚠️  Docmd config not found at:', configPath);
@@ -25,12 +25,12 @@ export async function runDocsCommand(args: string[]) {
   try {
     // Run docmd CLI
     const { spawn } = await import('child_process');
-    
+
     const proc = spawn('bunx', ['docmd', 'build', '--config', configPath], {
       cwd: resolve(join(import.meta.dir, '..', '..')),
       stdio: 'inherit',
     });
-    
+
     await new Promise((resolve, reject) => {
       proc.on('close', (code) => {
         if (code === 0) {
@@ -42,13 +42,13 @@ export async function runDocsCommand(args: string[]) {
       });
       proc.on('error', reject);
     });
-    
+
     // Copy llms files to docs folder for agent access
     const distLlms = resolve(join(import.meta.dir, '..', '..', 'dist', 'llms.txt'));
     const distLlmsFull = resolve(join(import.meta.dir, '..', '..', 'dist', 'llms-full.txt'));
     const docsLlms = resolve(join(import.meta.dir, '..', '..', 'docs', 'llms.txt'));
     const docsLlmsFull = resolve(join(import.meta.dir, '..', '..', 'docs', 'llms-full.txt'));
-    
+
     if (existsSync(distLlms)) {
       const { copyFileSync } = await import('fs');
       copyFileSync(distLlms, docsLlms);
@@ -56,7 +56,6 @@ export async function runDocsCommand(args: string[]) {
       console.log('\n✅ Documentation generated successfully');
       console.log('📄 llms.txt copied to docs/ folder');
     }
-    
   } catch (error) {
     console.error('❌ Documentation generation failed:', error);
     console.log('   Falling back to placeholder generation...');
@@ -67,7 +66,7 @@ export async function runDocsCommand(args: string[]) {
 async function generatePlaceholderLlms() {
   const { writeFileSync } = await import('fs');
   const { resolve, join } = await import('path');
-  
+
   const docsDir = resolve(join(import.meta.dir, '..', '..', 'docs'));
 
   const llmsContent = `# LLMS - Root Level Visibility

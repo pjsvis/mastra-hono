@@ -35,6 +35,18 @@ Maintain the following directory structure to ensure "Context is Code" is at the
 | **Tier 2: Net** | `/scripts/commands` | Moderate | CITTY args, Type Guards, basic logging. |
 | **Tier 3: Edifice**| `/src` | `strict: true` | Branded Types, Discriminated Unions, Exhaustive Checks. |
 
+### ⚠️ Secret Management Constraint (Critical)
+
+**`.env` files are deprecated for secrets.** This project uses **Skate** as the approved identity-based secret store.
+
+| Approved Pattern | Prohibited Pattern |
+|-----------------|-------------------|
+| `skate set OLLAMA_API_KEY <key>` | Copying `.env.example` to `.env` |
+| `getSkateSecret('OLLAMA_API_KEY')` | Committing secrets to `.env` files |
+| See: `src/lib/secrets.ts` | See: `briefs/archive/brief-skate-powered-secrets.md` |
+
+**Rationale:** Skate enables **Worktree-Agile Security** - secrets follow your SSH identity, not the filesystem. This prevents credential drift across worktrees.
+
 
 
 ## 4. Key Actions Checklist
@@ -86,6 +98,7 @@ export default defineConfig({
 - **Agent Access:** Can the agent find `llms.txt` and describe the project's TTS tiers?
 - **CLI Performance:** Does `bun scripts/dev.ts lab hello` execute without type-errors?
 - **Visibility:** Are `/briefs` and `/playbooks` visible in the root during a standard `ls` command?
+- **Secret Boundary:** No `.env` files created; secrets loaded via `getSkateSecret()` from `src/lib/secrets.ts`
 
 ---
 **Proceed with Implementation: [ ]**
