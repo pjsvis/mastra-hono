@@ -292,16 +292,15 @@ function findExports(dir: string, results: Export[] = []): Export[] {
 
 /**
  * Post-process generated HTML to ensure scroll position resets on navigation.
- * Handles both full page loads and SPA navigation.
+ * Inject as first script in <head> to run before any other scripts.
  */
 async function postProcessScrollReset() {
   const docsSiteDir = resolve(join(import.meta.dir, '..', '..', 'docs-site'));
-  // Handle both full page load and SPA navigation (docmd:page-mounted event)
-  const scrollResetScript = `<script>(function(){
-  window.scrollTo(0,0);
-  document.addEventListener('docmd:page-mounted',()=>window.scrollTo(0,0));
-  window.addEventListener('popstate',()=>window.scrollTo(0,0));
-})();</script>`;
+  // Aggressive scroll reset - inject in <head> to run first
+  const scrollResetScript = `<script>window.scrollTo(0,0);
+document.addEventListener('click',function(){setTimeout(function(){window.scrollTo(0,0)},100)},false);
+window.addEventListener('popstate',function(){window.scrollTo(0,0)});
+new MutationObserver(function(){window.scrollTo(0,0)}).observe(document.body,{childList:true,subtree:true});</script>`;
 
   // Find all HTML files in docs-site
   const htmlFiles = findHtmlFiles(docsSiteDir);
@@ -315,9 +314,9 @@ async function postProcessScrollReset() {
       continue;
     }
 
-    // Add scroll reset before </body>
-    if (content.includes('</body>')) {
-      content = content.replace('</body>', `${scrollResetScript}\n</body>`);
+    // Add scroll reset at start of <head> (runs first)
+    if (content.includes('<head>')) {
+      content = content.replace('<head>', `<head>\n${scrollResetScript}`);
       writeFileSync(file, content, 'utf8');
       processed++;
     }
