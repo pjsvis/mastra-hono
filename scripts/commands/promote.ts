@@ -19,7 +19,8 @@ export async function runPromoteCommand(args: string[]) {
   }
 
   const safeName = name.replace(/[^a-zA-Z0-9-_]/g, '-').toLowerCase();
-  const commandsDir = resolve(join(import.meta.dir, '..'));
+  // Note: import.meta.dir is scripts/commands/, so files go to scripts/commands/<name>.ts
+  const commandsDir = resolve(import.meta.dir);
   const filePath = join(commandsDir, `${safeName}.ts`);
 
   if (existsSync(filePath)) {

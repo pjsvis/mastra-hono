@@ -19,14 +19,18 @@ export async function runLabCommand(args: string[]) {
     return;
   }
 
+  // Validate scriptName to prevent path traversal
+  const safePattern = /^[a-zA-Z0-9_-]+$/;
+  if (!safePattern.test(scriptName)) {
+    console.error(`❌ Invalid script name: ${scriptName}`);
+    console.log('   Script names must be alphanumeric, hyphens, or underscores only.');
+    process.exit(1);
+  }
+
   const scriptsDir = resolve(join(import.meta.dir, '..', 'lab'));
   const scriptPath = join(scriptsDir, `${scriptName}.ts`);
-  const indexPath = join(scriptsDir, 'index.ts');
 
-  // Try specific script, fallback to index
-  const targetPath = existsSync(scriptPath) ? scriptPath : indexPath;
-
-  if (!existsSync(targetPath)) {
+  if (!existsSync(scriptPath)) {
     console.error(`❌ Lab script not found: ${scriptName}`);
     console.log(`  Tried: ${scriptPath}`);
     process.exit(1);
@@ -36,12 +40,13 @@ export async function runLabCommand(args: string[]) {
 
   try {
     // Dynamically import and run the lab script
-    const labModule = await import(targetPath);
-    if (typeof labModule.default === 'function') {
-      await labModule.default({ args: rest });
-    } else {
-      console.log('Lab script loaded (no default export)');
+    const labModule = await import(scriptPath);
+    if (typeof labModule.default !== 'function') {
+      console.error(`❌ Lab script must export a function as default`);
+      console.log(`  Found: ${typeof labModule.default}`);
+      process.exit(1);
     }
+    await labModule.default({ args: rest });
     console.log('✅ Lab script completed');
   } catch (error) {
     console.error('❌ Lab script failed:', error);

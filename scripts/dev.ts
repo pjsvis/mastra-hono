@@ -15,8 +15,13 @@ import { runPromoteCommand } from './commands/promote.js';
 
 const main = async () => {
   const args = Bun.argv.slice(2); // Skip bun and script path
-  const command = args[0];
+  let command = args[0];
   const commandArgs = args.slice(1);
+
+  // Normalize help flags
+  if (command === '--help' || command === '-h') {
+    command = 'help';
+  }
 
   switch (command) {
     case 'lab':

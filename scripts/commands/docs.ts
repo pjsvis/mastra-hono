@@ -55,12 +55,16 @@ export async function runDocsCommand(args: string[]) {
     const docsLlms = resolve(join(import.meta.dir, '..', '..', 'docs', 'llms.txt'));
     const docsLlmsFull = resolve(join(import.meta.dir, '..', '..', 'docs', 'llms-full.txt'));
 
-    if (existsSync(siteLlms)) {
+    if (existsSync(siteLlms) && existsSync(siteLlmsFull)) {
       const { copyFileSync } = await import('fs');
       copyFileSync(siteLlms, docsLlms);
       copyFileSync(siteLlmsFull, docsLlmsFull);
       console.log('\n✅ Documentation generated successfully');
       console.log('📄 llms.txt copied to docs/ folder');
+    } else if (existsSync(siteLlms)) {
+      console.log('\n⚠️  llms-full.txt not found, copying llms.txt only');
+      const { copyFileSync } = await import('fs');
+      copyFileSync(siteLlms, docsLlms);
     } else {
       console.log('\n⚠️  Docmd completed but llms.txt not found');
       console.log('   Falling back to placeholder...');
