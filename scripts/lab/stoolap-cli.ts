@@ -5,7 +5,7 @@
  */
 
 import { Database } from "@stoolap/node";
-import { existsSync, mkdirSync } from "fs";
+import { existsSync } from "fs";
 import { join } from "path";
 
 const DATA_DIR = join(process.cwd(), "data");
@@ -68,6 +68,31 @@ async function run() {
       break;
     }
 
+    case "update": {
+      const key = process.argv[3];
+      const field = process.argv[4];
+      const value = process.argv.slice(5).join(" ");
+      
+      if (!key || !field || !value) {
+        console.error("Usage: stoolap-cli update <key> <field> <value>");
+        console.error("Fields: name, type, description, tags, version");
+        process.exit(1);
+      }
+      
+      const validFields = ["name", "type", "description", "tags", "version"];
+      if (!validFields.includes(field)) {
+        console.error(`Invalid field. Valid: ${validFields.join(", ")}`);
+        process.exit(1);
+      }
+      
+      await db.execute(
+        `UPDATE concepts SET ${field} = $1, updated_at = CURRENT_TIMESTAMP WHERE concept_key = $2`,
+        [value, key]
+      );
+      console.log(`✅ Updated: ${key}.${field} = "${value}"`);
+      break;
+    }
+
     case "delete": {
       const key = process.argv[3];
       if (!key) {
@@ -108,6 +133,7 @@ Commands:
   list              List all concepts
   add <key> <type> <name> [desc]   Add a concept
   get <key>         Get a concept
+  update <key> <field> <value>     Update a field
   delete <key>      Delete a concept
   log <key> <decision> [context]   Log a decision
   audit             Show recent audit log
