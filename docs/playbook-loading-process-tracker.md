@@ -128,6 +128,32 @@ ast-grep -p '## Section Name' -A 50 playbooks/playbook-name.md
 - [Loading Process Playbook](../playbooks/loading-process-playbook.md)
 - [Apply Loading Process Brief](../briefs/archive/apply-loading-process-to-playbooks.md)
 
+## ⚠️ DOCMD INTEGRATION NOTE (2026-03-26)
+
+The project now uses **Docmd** for documentation. This affects playbook maintenance:
+
+### Manual TOCs Should Be Removed
+Docmd automatically generates a Table of Contents sidebar. Manual `## Table of Contents` sections are **redundant** and should be removed.
+
+```bash
+# Find playbooks with TOC sections
+grep -l "## Table of Contents" playbooks/*.md
+
+# Remove TOC sections (between ## Table of Contents and next ## heading)
+```
+
+### Docmd Commands
+```bash
+bun scripts/dev.ts docs build   # Build static docs
+bun scripts/dev.ts docs serve  # Dev server with live reload
+bun scripts/dev.ts docs auto   # Generate TODO/export inventory
+```
+
+### Playbook Status Update Needed
+After removing manual TOCs, update this tracker:
+- Mark all playbooks as needing TOC removal
+- Update completion rate
+
 ---
 
 **Created:** 2026-03-21  
