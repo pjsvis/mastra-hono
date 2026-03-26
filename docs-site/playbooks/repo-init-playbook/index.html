@@ -10,10 +10,14 @@
 <html lang="en">
 
 <head>
-<script>window.scrollTo(0,0);
-document.addEventListener('click',function(){setTimeout(function(){window.scrollTo(0,0)},100)},false);
-window.addEventListener('popstate',function(){window.scrollTo(0,0)});
-new MutationObserver(function(){window.scrollTo(0,0)}).observe(document.body,{childList:true,subtree:true});</script>
+<style>html{scroll-behavior:auto!important}html:focus{outline:none}</style>
+<script>window.scrollTo({top:0,left:0});
+document.addEventListener('click',function(){setTimeout(function(){window.scrollTo({top:0,left:0})},200)},false);
+window.addEventListener('popstate',function(){window.scrollTo({top:0,left:0})});
+// Override docmd's SPA function scroll - use MutationObserver
+var sio=window.scrollTo.bind(window);
+window.scrollTo=function(){sio({top:0,left:0})};
+new MutationObserver(function(){window.scrollTo({top:0,left:0})}).observe(document.body,{attributes:true,childList:true,characterData:true,subtree:true});</script>
   <meta charset="UTF-8">
   <meta name="generator" content="docmd v0.5.x">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,16 +93,16 @@ new MutationObserver(function(){window.scrollTo(0,0)}).observe(document.body,{ch
         Repository Initialization &amp; Environment Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7iks4b">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7isbx8">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7iks4b"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7isbx8"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7iks4b"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7isbx8"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7iks4b" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7isbx8" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -2563,10 +2567,10 @@ git rebase main
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7iks4b"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7iks4b" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7isbx8"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7isbx8" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7iks4b" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7isbx8" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

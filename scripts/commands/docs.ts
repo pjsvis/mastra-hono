@@ -293,14 +293,22 @@ function findExports(dir: string, results: Export[] = []): Export[] {
 /**
  * Post-process generated HTML to ensure scroll position resets on navigation.
  * Inject as first script in <head> to run before any other scripts.
+ * Also inject CSS to force scroll behavior.
  */
 async function postProcessScrollReset() {
   const docsSiteDir = resolve(join(import.meta.dir, '..', '..', 'docs-site'));
+  
+  // CSS to force scroll to top
+  const scrollCSS = `<style>html{scroll-behavior:auto!important}html:focus{outline:none}</style>`;
+  
   // Aggressive scroll reset - inject in <head> to run first
-  const scrollResetScript = `<script>window.scrollTo(0,0);
-document.addEventListener('click',function(){setTimeout(function(){window.scrollTo(0,0)},100)},false);
-window.addEventListener('popstate',function(){window.scrollTo(0,0)});
-new MutationObserver(function(){window.scrollTo(0,0)}).observe(document.body,{childList:true,subtree:true});</script>`;
+  const scrollResetScript = `<script>window.scrollTo({top:0,left:0});
+document.addEventListener('click',function(){setTimeout(function(){window.scrollTo({top:0,left:0})},200)},false);
+window.addEventListener('popstate',function(){window.scrollTo({top:0,left:0})});
+// Override docmd's SPA function scroll - use MutationObserver
+var sio=window.scrollTo.bind(window);
+window.scrollTo=function(){sio({top:0,left:0})};
+new MutationObserver(function(){window.scrollTo({top:0,left:0})}).observe(document.body,{attributes:true,childList:true,characterData:true,subtree:true});</script>`;
 
   // Find all HTML files in docs-site
   const htmlFiles = findHtmlFiles(docsSiteDir);
@@ -314,9 +322,9 @@ new MutationObserver(function(){window.scrollTo(0,0)}).observe(document.body,{ch
       continue;
     }
 
-    // Add scroll reset at start of <head> (runs first)
+    // Add scroll CSS and script at start of <head>
     if (content.includes('<head>')) {
-      content = content.replace('<head>', `<head>\n${scrollResetScript}`);
+      content = content.replace('<head>', `<head>\n${scrollCSS}\n${scrollResetScript}`);
       writeFileSync(file, content, 'utf8');
       processed++;
     }
