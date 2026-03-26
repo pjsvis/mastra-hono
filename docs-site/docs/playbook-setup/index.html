@@ -82,7 +82,7 @@
         window.DOCMD_VERSION_ROOT = "/";
       </script>
       <title>
-        
+        Playbook Setup Guide
       </title>
       
         <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7hu8bu">
@@ -259,7 +259,7 @@
         
       </li>
     
-      <li class="active-parent collapsible expanded nav-group"  aria-expanded="true" >
+      <li class="collapsible nav-group"  aria-expanded="false" >
       
         <span class="nav-label nav-group">
           
@@ -306,9 +306,9 @@
         
       </li>
     
-      <li class="active" >
+      <li class="" >
       
-        <a href="../../briefs/brief-ctx-telepresence" class="active "
+        <a href="../../briefs/brief-ctx-telepresence" class=" "
           >
           
           <span class="nav-item-title">
@@ -1279,7 +1279,7 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
+      <li class="active-parent collapsible expanded nav-group"  aria-expanded="true" >
       
         <span class="nav-label nav-group">
           
@@ -1534,9 +1534,9 @@
         
       </li>
     
-      <li class="" >
+      <li class="active" >
       
-        <a href="../../docs/playbook-setup" class=" "
+        <a href="../../docs/playbook-setup" class="active "
           >
           
           <span class="nav-item-title">
@@ -2204,7 +2204,7 @@
                             
                               <div class="header-titles-wrapper">
                                 <span class="header-title">
-                                  
+                                  Playbook Setup Guide
                                 </span>
                               </div>
                         </div>
@@ -2300,7 +2300,7 @@
                                       
                                         <li class="breadcrumb-item " >
                                           
-                                            <span>Briefs</span>
+                                            <span>Docs</span>
                                           
                                           
                                             <span class="breadcrumb-separator">
@@ -2324,7 +2324,7 @@
                                       
                                         <li class="breadcrumb-item active" aria-current=&#34;page&#34;>
                                           
-                                            <span>Brief Ctx Telepresence</span>
+                                            <span>Playbook Setup Guide</span>
                                           
                                           
                                         </li>
@@ -2333,74 +2333,96 @@
                                   </nav>
                                 
                                 
-                                    <p>Implementing this <strong>Bidirectional Nudge Protocol</strong> will transform your workflow from a “hands-on” development task into a “human-in-the-loop” orchestration. By leveraging <strong>Bun</strong> for a lightweight listener and <strong>ntfy</strong> action buttons for remote input, you fulfill the <strong>Principle of Workflow Durability (PHI-13)</strong> while bypassing the key-capture conflicts of SideCar.</p>
-<h3 id="project-brief-the-ctx-telepresence-integration" class="docmd-heading"><a href="#project-brief-the-ctx-telepresence-integration" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Project Brief: The “Ctx Telepresence” Integration</h3>
-<p><strong>Objective</strong>: Establish a secure, low-latency communication bridge between the MacBook agent (OpenCode/td) and the iPhone user (ntfy) to facilitate remote approvals and status monitoring.</p>
-<h4 id="project-brief-the-ctx-telepresence-integration-1-system-architecture" class="docmd-heading"><a href="#project-brief-the-ctx-telepresence-integration-1-system-architecture" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. System Architecture</h4>
-<ul>
-<li><strong>Trigger</strong>: OpenCode (via a sub-agent directive) sends an ntfy message when a task enters a “Handoff” or “Blocked” state.</li>
-<li><strong>Interaction</strong>: The iPhone notification displays custom buttons (e.g., “Approve PR,” “Retry Test,” “Nudge Agent”).</li>
-<li><strong>Callback</strong>: Tapping a button sends an HTTP POST to a secondary “Callback Topic” on ntfy.</li>
-<li><strong>Response</strong>: A background Bun script on the MacBook “watches” this callback topic and updates the local <code>td</code> database or signals the primary agent to resume.</li>
+                                    <h1 id="playbook-setup-guide">Playbook Setup Guide</h1>
+<p>This document contains one-time setup instructions for all playbooks. Once configured, you rarely need to revisit this content.</p>
+<h2 id="playbook-setup-guide-quick-setup-checklist" class="docmd-heading"><a href="#playbook-setup-guide-quick-setup-checklist" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Quick Setup Checklist</h2>
+<ul class="contains-task-list">
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Install required tools (see individual sections below)</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Configure API keys via environment variables</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Verify installations with <code>--version</code> or <code>-v</code></li>
 </ul>
-<h4 id="project-brief-the-ctx-telepresence-integration-2-technical-implementation-steps" class="docmd-heading"><a href="#project-brief-the-ctx-telepresence-integration-2-technical-implementation-steps" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Technical Implementation Steps</h4>
-<p><strong>Step A: The MacBook Notifier (Bun)</strong><br>
-Create a utility script that agents can call to “ping” you. This script includes <strong>HTTP Actions</strong> that point back to your chosen callback topic.</p>
-<pre class="hljs"><code><span class="hljs-comment">// nudge.ts</span>
-<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">TOPIC</span> = <span class="hljs-string">&quot;ctx-mentation-8842&quot;</span>; 
-<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">CALLBACK_TOPIC</span> = <span class="hljs-string">`<span class="hljs-subst">${TOPIC}</span>-callback`</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">sendNudge</span>(<span class="hljs-params"><span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">taskID</span>: <span class="hljs-built_in">string</span></span>) {
-  <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`https://ntfy.sh/<span class="hljs-subst">${TOPIC}</span>`</span>, {
-    <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;POST&#x27;</span>,
-    <span class="hljs-attr">headers</span>: {
-      <span class="hljs-string">&#x27;Title&#x27;</span>: title,
-      <span class="hljs-string">&#x27;Tags&#x27;</span>: <span class="hljs-string">&#x27;gear,robot&#x27;</span>,
-      <span class="hljs-string">&#x27;Actions&#x27;</span>: [
-        <span class="hljs-string">`http, Approve, https://ntfy.sh/<span class="hljs-subst">${CALLBACK_TOPIC}</span>, body=APPROVE:<span class="hljs-subst">${taskID}</span>`</span>,
-        <span class="hljs-string">`http, Deny, https://ntfy.sh/<span class="hljs-subst">${CALLBACK_TOPIC}</span>, body=DENY:<span class="hljs-subst">${taskID}</span>`</span>
-      ].<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;; &#x27;</span>)
-    },
-    <span class="hljs-attr">body</span>: <span class="hljs-string">`<span class="hljs-subst">${message}</span> (Task ID: <span class="hljs-subst">${taskID}</span>)`</span>
-  });
-}
-
+<hr>
+<h2 id="playbook-setup-guide-tool-installations" class="docmd-heading"><a href="#playbook-setup-guide-tool-installations" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Tool Installations</h2>
+<h3 id="playbook-setup-guide-tool-installations-fabric" class="docmd-heading"><a href="#playbook-setup-guide-tool-installations-fabric" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Fabric</h3>
+<p><strong>macOS/Linux:</strong></p>
+<pre class="hljs"><code>curl -fsSL https://raw.githubusercontent.com/danielmiessler/fabric/main/scripts/installer/install.sh | bash
 </code></pre>
-<p><strong>Step B: The Callback Watcher (Bun + SQLite)</strong><br>
-This background process listens for your iPhone input and updates the <strong>td</strong> system.</p>
-<pre class="hljs"><code><span class="hljs-comment">// watcher.ts</span>
-<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">CALLBACK_TOPIC</span> = <span class="hljs-string">&quot;ctx-mentation-8842-callback&quot;</span>;
-
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Ctx Watcher: Listening for iPhone nudges...&quot;</span>);
-
-<span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">`https://ntfy.sh/<span class="hljs-subst">${CALLBACK_TOPIC}</span>/raw`</span>);
-<span class="hljs-keyword">const</span> reader = response.<span class="hljs-property">body</span>?.<span class="hljs-title function_">getReader</span>();
-
-<span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) {
-  <span class="hljs-keyword">const</span> { value, done } = <span class="hljs-keyword">await</span> reader.<span class="hljs-title function_">read</span>();
-  <span class="hljs-keyword">if</span> (done) <span class="hljs-keyword">break</span>;
-  <span class="hljs-keyword">const</span> signal = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextDecoder</span>().<span class="hljs-title function_">decode</span>(value).<span class="hljs-title function_">trim</span>();
-  
-  <span class="hljs-keyword">if</span> (signal.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&quot;APPROVE:&quot;</span>)) {
-    <span class="hljs-keyword">const</span> id = signal.<span class="hljs-title function_">split</span>(<span class="hljs-string">&quot;:&quot;</span>)[<span class="hljs-number">1</span>];
-    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`User Approved Task: <span class="hljs-subst">${id}</span>`</span>);
-    <span class="hljs-comment">// Execute td command to advance the state</span>
-    <span class="hljs-title class_">Bun</span>.<span class="hljs-title function_">spawn</span>([<span class="hljs-string">&quot;td&quot;</span>, <span class="hljs-string">&quot;finish&quot;</span>, id]);
-  }
-}
-
+<p><strong>Verify:</strong></p>
+<pre class="hljs"><code>fabric --version
 </code></pre>
-<h4 id="project-brief-the-ctx-telepresence-integration-3-operational-heuristics-agentsmd" class="docmd-heading"><a href="#project-brief-the-ctx-telepresence-integration-3-operational-heuristics-agentsmd" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. Operational Heuristics (<a href="http://AGENTS.md">AGENTS.md</a>)</h4>
-<p>To ensure the agent uses this correctly, add the following to your <code>AGENTS.md</code>:</p>
+<p><strong>API Keys:</strong> Edit <code>~/.config/fabric/.env</code>:</p>
+<pre class="hljs"><code>OPENAI_API_KEY=sk-...
+ANTHROPIC_API_KEY=sk-ant-...
+</code></pre>
+<hr>
+<h3 id="playbook-setup-guide-tool-installations-nushell" class="docmd-heading"><a href="#playbook-setup-guide-tool-installations-nushell" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Nushell</h3>
+<p><strong>Homebrew (macOS):</strong></p>
+<pre class="hljs"><code>brew install nushell
+</code></pre>
+<p><strong>Verify:</strong></p>
+<pre class="hljs"><code>nu --version
+</code></pre>
+<p><strong>Note:</strong> Nushell is self-contained with no additional dependencies.</p>
+<hr>
+<h3 id="playbook-setup-guide-tool-installations-sidecar" class="docmd-heading"><a href="#playbook-setup-guide-tool-installations-sidecar" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Sidecar</h3>
+<p><strong>Requirements:</strong></p>
 <ul>
-<li><strong>OH-TELE-01</strong>: “If a task requires human approval (e.g., merging a PR), the agent must execute <code>bun nudge.ts</code> and then enter a <code>PAUSED</code> state in <code>td</code>.”</li>
-<li><strong>OH-TELE-02</strong>: “The agent shall monitor the <code>td</code> state every 5 minutes while paused; if the state changes to <code>DONE</code> (via the remote watcher), it shall proceed to the next task in the brief.”</li>
+<li>Nushell with <code>nu-plugin-jupyter</code> or <code>nu-plugin-stdlib</code></li>
+<li>Jupyter kernel registration</li>
 </ul>
-<h3 id="ctx-opinion-the-noosphere-uplink" class="docmd-heading"><a href="#ctx-opinion-the-noosphere-uplink" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Ctx Opinion: The “Noosphere Uplink”</h3>
-<p>This configuration effectively creates a <strong>Noosphere Uplink</strong>—a persistent intellectual connection between you and the synthetic agent. By using <strong>ntfy Action Buttons</strong>, you reduce the <strong>Input Activation Threshold</strong> to a single tap, preventing “Context Collapse” when you return to your desk.</p>
-<p>Separating the <strong>Watcher</strong> from the <strong>SideCar TUI</strong> ensures that the “Sleeve” (your interface) remains responsive and data-driven without the agent’s mentation being interrupted by accidental keystrokes.</p>
-<p><a href="https://www.youtube.com/watch?v=wDJDiAYZ3H0">Actionable Notifications in ntfy</a><br>
-This video provides a practical guide to setting up ntfy and utilizing its more advanced features like action buttons and HTTP callbacks.</p>
+<p><strong>Verify:</strong></p>
+<pre class="hljs"><code>sidecar --version  <span class="hljs-comment"># or appropriate CLI name</span>
+</code></pre>
+<hr>
+<h2 id="playbook-setup-guide-environment-setup" class="docmd-heading"><a href="#playbook-setup-guide-environment-setup" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Environment Setup</h2>
+<h3 id="playbook-setup-guide-environment-setup-skate-secret-management" class="docmd-heading"><a href="#playbook-setup-guide-environment-setup-skate-secret-management" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Skate (Secret Management)</h3>
+<p>All projects use Skate for secrets. Do NOT use <code>.env</code> files.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Set secrets via Skate</span>
+skate <span class="hljs-built_in">set</span> OPENAI_API_KEY <span class="hljs-string">&quot;your-key&quot;</span>
+skate <span class="hljs-built_in">set</span> ANTHROPIC_API_KEY <span class="hljs-string">&quot;your-key&quot;</span>
+
+<span class="hljs-comment"># Load in scripts via src/lib/secrets.ts</span>
+</code></pre>
+<h3 id="playbook-setup-guide-environment-setup-ollama-local-models" class="docmd-heading"><a href="#playbook-setup-guide-environment-setup-ollama-local-models" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Ollama (Local Models)</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Install Ollama</span>
+brew install ollama
+
+<span class="hljs-comment"># Pull models</span>
+ollama pull llama2
+ollama pull codellama
+
+<span class="hljs-comment"># Verify</span>
+ollama list
+</code></pre>
+<hr>
+<h2 id="playbook-setup-guide-verification-commands" class="docmd-heading"><a href="#playbook-setup-guide-verification-commands" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Verification Commands</h2>
+<p>Run these to verify your setup:</p>
+<pre class="hljs"><code><span class="hljs-comment"># Tool versions</span>
+fabric --version
+nu --version
+ollama list
+
+<span class="hljs-comment"># API connectivity (example)</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;test&quot;</span> | fabric -p summarize
+
+<span class="hljs-comment"># Skate secrets loaded</span>
+<span class="hljs-built_in">source</span> &lt;(skate <span class="hljs-built_in">env</span>)
+</code></pre>
+<hr>
+<h2 id="playbook-setup-guide-troubleshooting" class="docmd-heading"><a href="#playbook-setup-guide-troubleshooting" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Troubleshooting</h2>
+<h3 id="playbook-setup-guide-troubleshooting-api-key-issues" class="docmd-heading"><a href="#playbook-setup-guide-troubleshooting-api-key-issues" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>API Key Issues</h3>
+<ol>
+<li>Check Skate is loaded: <code>skate list</code></li>
+<li>Reload environment: <code>source &lt;(skate env)</code></li>
+<li>Verify key format (no trailing spaces, correct prefix)</li>
+</ol>
+<h3 id="playbook-setup-guide-troubleshooting-installation-issues" class="docmd-heading"><a href="#playbook-setup-guide-troubleshooting-installation-issues" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Installation Issues</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Re-run installation</span>
+curl -fsSL https://raw.githubusercontent.com/danielmiessler/fabric/main/scripts/installer/install.sh | bash
+
+<span class="hljs-comment"># Update patterns (for fabric)</span>
+fabric --updatepatterns
+</code></pre>
 
                                       
                               </div>
@@ -2428,24 +2450,52 @@ This video provides a practical guide to setting up ntfy and utilizing its more 
 </span></h2>
     <ul class="toc-list">
       
-        <li class="toc-item toc-level-3">
-          <a href="#project-brief-the-ctx-telepresence-integration" class="toc-link">Project Brief: The “Ctx Telepresence” Integration</a>
+        <li class="toc-item toc-level-2">
+          <a href="#playbook-setup-guide-quick-setup-checklist" class="toc-link">Quick Setup Checklist</a>
         </li>
       
-        <li class="toc-item toc-level-4">
-          <a href="#project-brief-the-ctx-telepresence-integration-1-system-architecture" class="toc-link">1. System Architecture</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#project-brief-the-ctx-telepresence-integration-2-technical-implementation-steps" class="toc-link">2. Technical Implementation Steps</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#project-brief-the-ctx-telepresence-integration-3-operational-heuristics-agentsmd" class="toc-link">3. Operational Heuristics (AGENTS.md)</a>
+        <li class="toc-item toc-level-2">
+          <a href="#playbook-setup-guide-tool-installations" class="toc-link">Tool Installations</a>
         </li>
       
         <li class="toc-item toc-level-3">
-          <a href="#ctx-opinion-the-noosphere-uplink" class="toc-link">Ctx Opinion: The “Noosphere Uplink”</a>
+          <a href="#playbook-setup-guide-tool-installations-fabric" class="toc-link">Fabric</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#playbook-setup-guide-tool-installations-nushell" class="toc-link">Nushell</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#playbook-setup-guide-tool-installations-sidecar" class="toc-link">Sidecar</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#playbook-setup-guide-environment-setup" class="toc-link">Environment Setup</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#playbook-setup-guide-environment-setup-skate-secret-management" class="toc-link">Skate (Secret Management)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#playbook-setup-guide-environment-setup-ollama-local-models" class="toc-link">Ollama (Local Models)</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#playbook-setup-guide-verification-commands" class="toc-link">Verification Commands</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#playbook-setup-guide-troubleshooting" class="toc-link">Troubleshooting</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#playbook-setup-guide-troubleshooting-api-key-issues" class="toc-link">API Key Issues</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#playbook-setup-guide-troubleshooting-installation-issues" class="toc-link">Installation Issues</a>
         </li>
       
     </ul>

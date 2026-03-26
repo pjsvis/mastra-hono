@@ -76,6 +76,8 @@ Context-as-Code documentation for the PolyVis project
 - [Untitled](https://polyvis.local/docs/Mastra-Hono Symmetric Mentation Workflow/)
 - [Nushell Agent Usage Guide](https://polyvis.local/docs/nushell-agent-usage/)
 - [Playbook Loading Process Tracker](https://polyvis.local/docs/playbook-loading-process-tracker/)
+- [Playbook Setup Guide](https://polyvis.local/docs/playbook-setup/)
+  Installation and configuration prerequisites for all playbooks
 - [Qwen3.5:latest Model Evaluation - Extended Benchmark (v2)](https://polyvis.local/docs/qwen35-evaluation-02/)
 - [Qwen3.5:latest Model Evaluation Results](https://polyvis.local/docs/qwen35-evaluation/)
 - [Untitled](https://polyvis.local/docs/safe-agi/)

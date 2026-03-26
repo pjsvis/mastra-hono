@@ -85,16 +85,16 @@
         Fabric User Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7hki5k">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7hu8bu">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7hki5k"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7hu8bu"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7hki5k"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7hu8bu"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7hki5k" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7hu8bu" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -1536,6 +1536,22 @@
     
       <li class="" >
       
+        <a href="../../docs/playbook-setup" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Setup Guide
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
         <a href="../../docs/qwen35-evaluation-02" class=" "
           >
           
@@ -2318,580 +2334,146 @@
                                 
                                 
                                     <h1 id="fabric-user-playbook">Fabric User Playbook</h1>
-<h2 id="fabric-user-playbook-purpose" class="docmd-heading"><a href="#fabric-user-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
-<p>Use <code>fabric</code> as your AI augmentation toolkit for everyday tasks. Fabric provides 250+ reusable AI patterns that can be piped into any workflow to summarize, analyze, extract, and transform content. This playbook provides comprehensive guidance for end-users to leverage fabric’s capabilities effectively.</p>
-<p><strong>Core Philosophy:</strong> Patterns over prompts. Use pre-built patterns instead of crafting prompts from scratch. Pipe everything through Unix workflows via stdin/stdout. Stream for speed and create custom patterns for repeated tasks.</p>
-<h2 id="fabric-user-playbook-core-principles" class="docmd-heading"><a href="#fabric-user-playbook-core-principles" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Core Principles</h2>
-<ol>
-<li><strong>Patterns over prompts</strong>: Use pre-built patterns instead of crafting prompts from scratch.</li>
-<li><strong>Pipe everything</strong>: Fabric integrates into Unix workflows via stdin/stdout.</li>
-<li><strong>Stream for speed</strong>: Use <code>--stream</code> for real-time output.</li>
-<li><strong>Custom patterns</strong>: Create your own patterns for repeated tasks.</li>
-</ol>
-<h2 id="fabric-user-playbook-quick-start-checklist" class="docmd-heading"><a href="#fabric-user-playbook-quick-start-checklist" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Quick Start (Checklist)</h2>
-<ol>
-<li>Install fabric</li>
-<li>Configure API keys</li>
-<li>Update patterns</li>
-<li>Test with a simple pattern</li>
-<li>Explore available patterns</li>
-</ol>
-<h2 id="fabric-user-playbook-installation" class="docmd-heading"><a href="#fabric-user-playbook-installation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Installation</h2>
-<h3 id="fabric-user-playbook-installation-macoslinux-one-line-installer" class="docmd-heading"><a href="#fabric-user-playbook-installation-macoslinux-one-line-installer" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>macOS/Linux (One-line installer)</h3>
-<pre class="hljs"><code>curl -fsSL https://raw.githubusercontent.com/danielmiessler/fabric/main/scripts/installer/install.sh | bash
-</code></pre>
-<h3 id="fabric-user-playbook-installation-verify-installation" class="docmd-heading"><a href="#fabric-user-playbook-installation-verify-installation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Verify Installation</h3>
-<pre class="hljs"><code>fabric --version
-</code></pre>
-<h2 id="fabric-user-playbook-configuration" class="docmd-heading"><a href="#fabric-user-playbook-configuration" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Configuration</h2>
-<h3 id="fabric-user-playbook-configuration-initial-setup" class="docmd-heading"><a href="#fabric-user-playbook-configuration-initial-setup" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Initial Setup</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Run interactive setup wizard</span>
-fabric --setup
-
-<span class="hljs-comment"># Or manually edit config</span>
-nano ~/.config/fabric/.env
-</code></pre>
-<h3 id="fabric-user-playbook-configuration-add-api-keys" class="docmd-heading"><a href="#fabric-user-playbook-configuration-add-api-keys" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Add API Keys</h3>
-<p>Edit <code>~/.config/fabric/.env</code>:</p>
-<pre class="hljs"><code><span class="hljs-comment"># OpenAI</span>
-OPENAI_API_KEY=sk-...
-
-<span class="hljs-comment"># Anthropic Claude</span>
-ANTHROPIC_API_KEY=sk-ant-...
-
-<span class="hljs-comment"># Google Gemini</span>
-GOOGLE_API_KEY=...
-
-<span class="hljs-comment"># Or use local models with Ollama (no API key needed)</span>
-</code></pre>
-<h3 id="fabric-user-playbook-configuration-update-patterns" class="docmd-heading"><a href="#fabric-user-playbook-configuration-update-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Update Patterns</h3>
-<pre class="hljs"><code>fabric --updatepatterns
-</code></pre>
-<h3 id="fabric-user-playbook-configuration-list-available-resources" class="docmd-heading"><a href="#fabric-user-playbook-configuration-list-available-resources" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>List Available Resources</h3>
-<pre class="hljs"><code><span class="hljs-comment"># List all patterns</span>
-fabric --listpatterns
-
-<span class="hljs-comment"># List available models</span>
-fabric --listmodels
-
-<span class="hljs-comment"># List saved contexts</span>
-fabric --listcontexts
-</code></pre>
-<h2 id="fabric-user-playbook-common-usage-patterns" class="docmd-heading"><a href="#fabric-user-playbook-common-usage-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Common Usage Patterns</h2>
-<h3 id="fabric-user-playbook-common-usage-patterns-summarize-content" class="docmd-heading"><a href="#fabric-user-playbook-common-usage-patterns-summarize-content" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Summarize Content</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Summarize a URL</span>
+<p>Fabric provides 250+ reusable AI patterns for summarizing, analyzing, extracting, and transforming content. Pipe content through patterns via stdin/stdout.</p>
+<p><strong>Core Philosophy:</strong> Patterns over prompts. Stream for speed.</p>
+<h2 id="fabric-user-playbook-usage" class="docmd-heading"><a href="#fabric-user-playbook-usage" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Usage</h2>
+<h3 id="fabric-user-playbook-usage-common-patterns" class="docmd-heading"><a href="#fabric-user-playbook-usage-common-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Common Patterns</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Summarize (most common)</span>
 fabric -u https://example.com/article -p summarize
-
-<span class="hljs-comment"># Summarize clipboard content (macOS)</span>
-pbpaste | fabric -p summarize
-
-<span class="hljs-comment"># Summarize a file</span>
 <span class="hljs-built_in">cat</span> document.txt | fabric -p summarize
+<span class="hljs-built_in">cat</span> long-article.txt | fabric -sp summarize  <span class="hljs-comment"># streaming</span>
 
-<span class="hljs-comment"># Summarize with streaming</span>
-<span class="hljs-built_in">cat</span> long-article.txt | fabric -sp summarize
-</code></pre>
-<p><strong>When to use:</strong></p>
-<ul>
-<li>Condensing long documents</li>
-<li>Getting quick overviews</li>
-<li>Processing meeting notes</li>
-<li>Summarizing research papers</li>
-</ul>
-<h3 id="fabric-user-playbook-common-usage-patterns-extract-information" class="docmd-heading"><a href="#fabric-user-playbook-common-usage-patterns-extract-information" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Extract Information</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Extract main ideas</span>
+<span class="hljs-comment"># Extract insights</span>
 <span class="hljs-built_in">cat</span> article.txt | fabric -p extract_ideas
-
-<span class="hljs-comment"># Extract article wisdom</span>
-fabric -u https://blog.com/post -p extract_article_wisdom
-
-<span class="hljs-comment"># Extract action items from meeting notes</span>
 <span class="hljs-built_in">cat</span> meeting-notes.txt | fabric -p extract_actions
-</code></pre>
-<p><strong>When to use:</strong></p>
-<ul>
-<li>Pulling key points from documents</li>
-<li>Extracting action items</li>
-<li>Identifying main themes</li>
-<li>Gathering insights</li>
-</ul>
-<h3 id="fabric-user-playbook-common-usage-patterns-code-tasks" class="docmd-heading"><a href="#fabric-user-playbook-common-usage-patterns-code-tasks" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Code Tasks</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Explain code</span>
-<span class="hljs-built_in">cat</span> script.py | fabric -p explain_code
 
-<span class="hljs-comment"># Write pull request description</span>
+<span class="hljs-comment"># Code tasks</span>
+<span class="hljs-built_in">cat</span> script.py | fabric -p explain_code
 git diff main | fabric -p write_pull-request
 
-<span class="hljs-comment"># Analyze code for security</span>
-<span class="hljs-built_in">cat</span> app.js | fabric -p analyze_malware
-
-<span class="hljs-comment"># Create coding instructions</span>
-<span class="hljs-built_in">cat</span> requirements.txt | fabric -p create_coding_project
-</code></pre>
-<p><strong>When to use:</strong></p>
-<ul>
-<li>Understanding complex code</li>
-<li>Writing commit messages</li>
-<li>Security reviews</li>
-<li>Project planning</li>
-</ul>
-<h3 id="fabric-user-playbook-common-usage-patterns-writing-content-creation" class="docmd-heading"><a href="#fabric-user-playbook-common-usage-patterns-writing-content-creation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Writing &amp; Content Creation</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Write an essay</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Why AI augmentation matters&quot;</span> | fabric -p write_essay
-
-<span class="hljs-comment"># Create social media post</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Fabric CLI launch announcement&quot;</span> | fabric -p create_social_media_post
-
-<span class="hljs-comment"># Improve writing</span>
+<span class="hljs-comment"># Writing</span>
 <span class="hljs-built_in">cat</span> draft.md | fabric -p improve_writing
 
-<span class="hljs-comment"># Write a micro-essay</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;The future of AI tools&quot;</span> | fabric -p write_micro_essay
-</code></pre>
-<p><strong>When to use:</strong></p>
-<ul>
-<li>Drafting content</li>
-<li>Improving existing writing</li>
-<li>Creating social posts</li>
-<li>Generating essays</li>
-</ul>
-<h3 id="fabric-user-playbook-common-usage-patterns-analysis" class="docmd-heading"><a href="#fabric-user-playbook-common-usage-patterns-analysis" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Analysis</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Analyze claims</span>
+<span class="hljs-comment"># Analysis</span>
 <span class="hljs-built_in">cat</span> article.txt | fabric -p analyze_claims
-
-<span class="hljs-comment"># Analyze debate</span>
-fabric -u https://debate.com/transcript -p analyze_debate
-
-<span class="hljs-comment"># Rate content quality</span>
-<span class="hljs-built_in">cat</span> content.md | fabric -p rate_content
-
-<span class="hljs-comment"># Label content</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;AI article text&quot;</span> | fabric -p label
 </code></pre>
-<p><strong>When to use:</strong></p>
-<ul>
-<li>Fact-checking</li>
-<li>Content evaluation</li>
-<li>Quality assessment</li>
-<li>Categorization</li>
-</ul>
-<h3 id="fabric-user-playbook-common-usage-patterns-youtube-content" class="docmd-heading"><a href="#fabric-user-playbook-common-usage-patterns-youtube-content" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>YouTube Content</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Summarize YouTube video</span>
-fabric -y https://youtube.com/watch?v=... -p summarize
-
-<span class="hljs-comment"># Extract wisdom from video</span>
-fabric -y https://youtube.com/watch?v=... -p extract_wisdom
-
-<span class="hljs-comment"># Get transcript only</span>
-fabric -y https://youtube.com/watch?v=... -p extract_video_ideas
+<h3 id="fabric-user-playbook-usage-pattern-discovery" class="docmd-heading"><a href="#fabric-user-playbook-usage-pattern-discovery" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern Discovery</h3>
+<pre class="hljs"><code>fabric --listpatterns | grep summary
+fabric --listpatterns | grep code
+fabric --listmodels
 </code></pre>
-<p><strong>When to use:</strong></p>
-<ul>
-<li>Processing video content</li>
-<li>Extracting video insights</li>
-<li>Summarizing tutorials</li>
-<li>Analyzing presentations</li>
-</ul>
-<h2 id="fabric-user-playbook-advanced-usage" class="docmd-heading"><a href="#fabric-user-playbook-advanced-usage" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Advanced Usage</h2>
-<h3 id="fabric-user-playbook-advanced-usage-chain-patterns-together" class="docmd-heading"><a href="#fabric-user-playbook-advanced-usage-chain-patterns-together" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Chain Patterns Together</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Extract ideas then summarize</span>
+<h3 id="fabric-user-playbook-usage-chaining-patterns" class="docmd-heading"><a href="#fabric-user-playbook-usage-chaining-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Chaining Patterns</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Extract then summarize</span>
 <span class="hljs-built_in">cat</span> article.txt | fabric -p extract_ideas | fabric -p summarize
 
-<span class="hljs-comment"># Analyze then improve</span>
-<span class="hljs-built_in">cat</span> code.py | fabric -p analyze_code | fabric -p improve_report_finding
-</code></pre>
-<p><strong>Benefits:</strong></p>
-<ul>
-<li>Multi-stage processing</li>
-<li>Deeper analysis</li>
-<li>More nuanced output</li>
-</ul>
-<h3 id="fabric-user-playbook-advanced-usage-use-different-models" class="docmd-heading"><a href="#fabric-user-playbook-advanced-usage-use-different-models" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Use Different Models</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Use specific model</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;test&quot;</span> | fabric -p summarize -m gpt-4
-
-<span class="hljs-comment"># Use Claude</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;test&quot;</span> | fabric -p summarize -m claude-3-opus-20240229
-
-<span class="hljs-comment"># Use local Ollama model</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;test&quot;</span> | fabric -p summarize -m llama2
-</code></pre>
-<p><strong>Model Selection Strategy:</strong></p>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Model Type</th>
-<th>Use Case</th>
-<th>Examples</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Fast models (gpt-3.5-turbo, claude-instant)</td>
-<td>Simple summarization, quick analysis</td>
-<td><code>summarize</code>, <code>extract_ideas</code></td>
-</tr>
-<tr>
-<td>Powerful models (gpt-4, claude-opus)</td>
-<td>Complex analysis, critical tasks</td>
-<td><code>analyze_code</code>, <code>analyze_claims</code></td>
-</tr>
-<tr>
-<td>Local models (ollama)</td>
-<td>Privacy-sensitive work, offline</td>
-<td>Any pattern with privacy concerns</td>
-</tr>
-</tbody>
-</table>
-</div><h3 id="fabric-user-playbook-advanced-usage-save-reuse-context" class="docmd-heading"><a href="#fabric-user-playbook-advanced-usage-save-reuse-context" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Save &amp; Reuse Context</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Save context for reuse</span>
-<span class="hljs-built_in">cat</span> context.txt | fabric -p summarize -c my-context
-
-<span class="hljs-comment"># List contexts</span>
-fabric --listcontexts
-
-<span class="hljs-comment"># Use saved context</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Follow-up question&quot;</span> | fabric -p ai -C my-context
-</code></pre>
-<p><strong>Benefits:</strong></p>
-<ul>
-<li>Maintain context across operations</li>
-<li>Enable follow-up questions</li>
-<li>Reference previous analyses</li>
-</ul>
-<h3 id="fabric-user-playbook-advanced-usage-output-options" class="docmd-heading"><a href="#fabric-user-playbook-advanced-usage-output-options" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Output Options</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Copy to clipboard</span>
+<span class="hljs-comment"># Pipe to clipboard (macOS)</span>
 <span class="hljs-built_in">cat</span> file.txt | fabric -p summarize -c
-
-<span class="hljs-comment"># Save to file</span>
-<span class="hljs-built_in">cat</span> input.txt | fabric -p summarize -o output.txt
-
-<span class="hljs-comment"># Stream output</span>
-<span class="hljs-built_in">cat</span> large-file.txt | fabric -sp summarize
 </code></pre>
-<p><strong>Benefits:</strong></p>
-<ul>
-<li>Flexible output options</li>
-<li>Easy integration with other tools</li>
-<li>Real-time feedback for long operations</li>
-</ul>
-<h2 id="fabric-user-playbook-pattern-discovery" class="docmd-heading"><a href="#fabric-user-playbook-pattern-discovery" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern Discovery</h2>
-<h3 id="fabric-user-playbook-pattern-discovery-find-the-right-pattern" class="docmd-heading"><a href="#fabric-user-playbook-pattern-discovery-find-the-right-pattern" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Find the Right Pattern</h3>
-<pre class="hljs"><code><span class="hljs-comment"># List all patterns</span>
-fabric --listpatterns | grep summary
+<h3 id="fabric-user-playbook-usage-model-selection" class="docmd-heading"><a href="#fabric-user-playbook-usage-model-selection" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Model Selection</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Fast model (default)</span>
+fabric -p summarize
 
-<span class="hljs-comment"># Search patterns by task</span>
-fabric --listpatterns | grep code
-fabric --listpatterns | grep analyze
-fabric --listpatterns | grep extract
+<span class="hljs-comment"># Powerful model</span>
+fabric -p summarize -m gpt-4
 
-<span class="hljs-comment"># Get pattern suggestions (if available)</span>
-fabric -p suggest_pattern
+<span class="hljs-comment"># Local model (no API key)</span>
+fabric -p summarize -m llama2
 </code></pre>
-<h3 id="fabric-user-playbook-pattern-discovery-popular-patterns" class="docmd-heading"><a href="#fabric-user-playbook-pattern-discovery-popular-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Popular Patterns</h3>
+<h3 id="fabric-user-playbook-usage-git-workflows" class="docmd-heading"><a href="#fabric-user-playbook-usage-git-workflows" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Git Workflows</h3>
+<pre class="hljs"><code>git diff --staged | fabric -p create_git_commit_message
+git diff main..feature | fabric -p write_pull-request
+</code></pre>
+<hr>
+<h2 id="fabric-user-playbook-reference" class="docmd-heading"><a href="#fabric-user-playbook-reference" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Reference</h2>
+<h3 id="fabric-user-playbook-reference-pattern-library" class="docmd-heading"><a href="#fabric-user-playbook-reference-pattern-library" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern Library</h3>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
 <th>Pattern</th>
 <th>Purpose</th>
-<th>Frequency</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>summarize</code></td>
 <td>General summarization</td>
-<td>Daily</td>
-</tr>
-<tr>
-<td><code>extract_wisdom</code></td>
-<td>Extract key insights</td>
-<td>Weekly</td>
 </tr>
 <tr>
 <td><code>extract_ideas</code></td>
-<td>Pull out main ideas</td>
-<td>Weekly</td>
+<td>Pull key ideas</td>
 </tr>
 <tr>
-<td><code>analyze_claims</code></td>
-<td>Evaluate claims and arguments</td>
-<td>Monthly</td>
+<td><code>extract_wisdom</code></td>
+<td>Extract insights</td>
 </tr>
 <tr>
 <td><code>explain_code</code></td>
 <td>Code explanation</td>
-<td>Daily</td>
 </tr>
 <tr>
-<td><code>write_essay</code></td>
-<td>Essay writing</td>
-<td>Weekly</td>
+<td><code>analyze_claims</code></td>
+<td>Evaluate arguments</td>
+</tr>
+<tr>
+<td><code>improve_writing</code></td>
+<td>Enhance writing</td>
 </tr>
 <tr>
 <td><code>write_pull-request</code></td>
 <td>PR descriptions</td>
-<td>Weekly</td>
-</tr>
-<tr>
-<td><code>improve_writing</code></td>
-<td>Writing enhancement</td>
-<td>Weekly</td>
-</tr>
-<tr>
-<td><code>create_summary</code></td>
-<td>Create structured summaries</td>
-<td>Weekly</td>
-</tr>
-<tr>
-<td><code>rate_content</code></td>
-<td>Content quality rating</td>
-<td>Monthly</td>
 </tr>
 </tbody>
 </table>
-</div><h2 id="fabric-user-playbook-creating-custom-patterns" class="docmd-heading"><a href="#fabric-user-playbook-creating-custom-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Creating Custom Patterns</h2>
-<h3 id="fabric-user-playbook-creating-custom-patterns-pattern-structure" class="docmd-heading"><a href="#fabric-user-playbook-creating-custom-patterns-pattern-structure" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern Structure</h3>
-<p>Custom patterns are markdown files in <code>~/.config/fabric/patterns/my-pattern/system.md</code></p>
+</div><h3 id="fabric-user-playbook-reference-advanced-usage" class="docmd-heading"><a href="#fabric-user-playbook-reference-advanced-usage" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Advanced Usage</h3>
+<p><strong>Context preservation:</strong></p>
+<pre class="hljs"><code><span class="hljs-built_in">cat</span> context.md | fabric -p summarize -c my-context
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Follow-up?&quot;</span> | fabric -p ai -C my-context
+</code></pre>
+<p><strong>Chain patterns:</strong></p>
+<pre class="hljs"><code><span class="hljs-built_in">cat</span> article.txt | fabric -p extract_ideas | fabric -p summarize
+</code></pre>
+<p><strong>Custom patterns:</strong> Create <code>~/.config/fabric/patterns/my-pattern/system.md</code>:</p>
 <pre class="hljs"><code><span class="hljs-section"># IDENTITY</span>
-You are an expert at [specific task].
+You are an expert at [task].
 
 <span class="hljs-section"># GOAL</span>
-Your goal is to [specific outcome].
-
-<span class="hljs-section"># STEPS</span>
-<span class="hljs-bullet">-</span> Step 1: [instruction]
-<span class="hljs-bullet">-</span> Step 2: [instruction]
-<span class="hljs-bullet">-</span> Step 3: [instruction]
+Your goal is to [outcome].
 
 <span class="hljs-section"># OUTPUT FORMAT</span>
-<span class="hljs-bullet">-</span> Format the output as [specific format]
-<span class="hljs-bullet">-</span> Include [specific elements]
-
-<span class="hljs-section"># OUTPUT INSTRUCTIONS</span>
-<span class="hljs-bullet">-</span> Only output the final result
-<span class="hljs-bullet">-</span> Do not include explanations unless asked
+[format description]
 </code></pre>
-<h3 id="fabric-user-playbook-creating-custom-patterns-example-custom-pattern" class="docmd-heading"><a href="#fabric-user-playbook-creating-custom-patterns-example-custom-pattern" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Example: Custom Pattern</h3>
-<p>Create <code>~/.config/fabric/patterns/extract-todos/system.md</code>:</p>
-<pre class="hljs"><code><span class="hljs-section"># IDENTITY</span>
-You are a task extraction expert.
-
-<span class="hljs-section"># GOAL</span>
-Extract all TODO items, action items, and tasks from the input text.
-
-<span class="hljs-section"># STEPS</span>
-<span class="hljs-bullet">-</span> Read the input carefully
-<span class="hljs-bullet">-</span> Identify all tasks, TODOs, and action items
-<span class="hljs-bullet">-</span> Extract them with context
-
-<span class="hljs-section"># OUTPUT FORMAT</span>
-<span class="hljs-bullet">-</span> [ ] Task description (priority, context if available)
-
-<span class="hljs-section"># OUTPUT INSTRUCTIONS</span>
-<span class="hljs-bullet">-</span> Only output the task list
-<span class="hljs-bullet">-</span> Include priority if mentioned
-<span class="hljs-bullet">-</span> Add brief context in parentheses
-</code></pre>
-<p>Use it:</p>
-<pre class="hljs"><code><span class="hljs-built_in">cat</span> notes.txt | fabric -p extract-todos
-</code></pre>
-<h2 id="fabric-user-playbook-integration-examples" class="docmd-heading"><a href="#fabric-user-playbook-integration-examples" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Integration Examples</h2>
-<h3 id="fabric-user-playbook-integration-examples-git-workflows" class="docmd-heading"><a href="#fabric-user-playbook-integration-examples-git-workflows" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Git Workflows</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Generate commit message from diff</span>
-git diff --staged | fabric -p create_git_commit_message
-
-<span class="hljs-comment"># Write PR description</span>
-git diff main..feature-branch | fabric -p write_pull-request
-
-<span class="hljs-comment"># Summarize recent commits</span>
-git <span class="hljs-built_in">log</span> --oneline -10 | fabric -p summarize
-</code></pre>
-<p><strong>Benefits:</strong></p>
-<ul>
-<li>Consistent commit messages</li>
-<li>Better PR descriptions</li>
-<li>Automated changelog generation</li>
-</ul>
-<h3 id="fabric-user-playbook-integration-examples-note-taking" class="docmd-heading"><a href="#fabric-user-playbook-integration-examples-note-taking" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Note Taking</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Summarize meeting notes</span>
-<span class="hljs-built_in">cat</span> meeting-notes.txt | fabric -p summarize | <span class="hljs-built_in">tee</span> summary.txt
-
-<span class="hljs-comment"># Extract action items</span>
-<span class="hljs-built_in">cat</span> notes.txt | fabric -p extract_actions &gt;&gt; actions.md
-</code></pre>
-<p><strong>Benefits:</strong></p>
-<ul>
-<li>Quick meeting summaries</li>
-<li>Action item extraction</li>
-<li>Better note organization</li>
-</ul>
-<h3 id="fabric-user-playbook-integration-examples-reading-research" class="docmd-heading"><a href="#fabric-user-playbook-integration-examples-reading-research" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Reading &amp; Research</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Summarize article</span>
-fabric -u https://article-url.com -p extract_article_wisdom
-
-<span class="hljs-comment"># Compare multiple sources</span>
-(<span class="hljs-built_in">cat</span> source1.txt; <span class="hljs-built_in">cat</span> source2.txt) | fabric -p analyze_debate
-</code></pre>
-<p><strong>Benefits:</strong></p>
-<ul>
-<li>Quick article summaries</li>
-<li>Source comparison</li>
-<li>Research synthesis</li>
-</ul>
-<h3 id="fabric-user-playbook-integration-examples-code-review" class="docmd-heading"><a href="#fabric-user-playbook-integration-examples-code-review" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Code Review</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Review PR diff</span>
-gh <span class="hljs-built_in">pr</span> diff 123 | fabric -p analyze_code
-
-<span class="hljs-comment"># Security analysis</span>
-<span class="hljs-built_in">cat</span> app.py | fabric -p analyze_malware
-</code></pre>
-<p><strong>Benefits:</strong></p>
-<ul>
-<li>Automated code review</li>
-<li>Security vulnerability detection</li>
-<li>Actionable feedback</li>
-</ul>
-<h2 id="fabric-user-playbook-best-practices" class="docmd-heading"><a href="#fabric-user-playbook-best-practices" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Best Practices</h2>
-<h3 id="fabric-user-playbook-best-practices-1-start-simple" class="docmd-heading"><a href="#fabric-user-playbook-best-practices-1-start-simple" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. Start Simple</h3>
-<p>Use built-in patterns before creating custom ones.</p>
-<p><strong>Why:</strong> Built-in patterns are tested and optimized.</p>
-<pre class="hljs"><code><span class="hljs-comment"># Good</span>
-<span class="hljs-built_in">cat</span> article.txt | fabric -p summarize
-
-<span class="hljs-comment"># Bad (unless necessary)</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Summarize this article&quot;</span> | openai api
-</code></pre>
-<h3 id="fabric-user-playbook-best-practices-2-stream-long-content" class="docmd-heading"><a href="#fabric-user-playbook-best-practices-2-stream-long-content" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Stream Long Content</h3>
-<p>Use <code>-s</code> flag for real-time output on large inputs.</p>
-<p><strong>Why:</strong> Streaming provides real-time feedback and prevents memory issues.</p>
-<pre class="hljs"><code><span class="hljs-comment"># Good</span>
-<span class="hljs-built_in">cat</span> large-file.txt | fabric -sp summarize
-
-<span class="hljs-comment"># Bad</span>
-<span class="hljs-built_in">cat</span> large-file.txt | fabric -p summarize
-</code></pre>
-<h3 id="fabric-user-playbook-best-practices-3-chain-strategically" class="docmd-heading"><a href="#fabric-user-playbook-best-practices-3-chain-strategically" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. Chain Strategically</h3>
-<p>Pipe patterns together for complex workflows.</p>
-<p><strong>Why:</strong> Chaining enables deeper analysis and more nuanced output.</p>
-<pre class="hljs"><code><span class="hljs-comment"># Good</span>
-<span class="hljs-built_in">cat</span> article.txt | fabric -p extract_ideas | fabric -p summarize
-
-<span class="hljs-comment"># Bad (unrelated patterns)</span>
-<span class="hljs-built_in">cat</span> article.txt | fabric -p analyze_code | fabric -p write_essay
-</code></pre>
-<h3 id="fabric-user-playbook-best-practices-4-save-contexts" class="docmd-heading"><a href="#fabric-user-playbook-best-practices-4-save-contexts" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>4. Save Contexts</h3>
-<p>Reuse context for follow-up questions.</p>
-<p><strong>Why:</strong> Context preservation enables more sophisticated analysis.</p>
-<pre class="hljs"><code><span class="hljs-comment"># Good</span>
-<span class="hljs-built_in">cat</span> codebase.md | fabric -p summarize -c project-context
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;What about security?&quot;</span> | fabric -p ai -C project-context
-
-<span class="hljs-comment"># Bad (no context)</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;What about security?&quot;</span> | fabric -p ai
-</code></pre>
-<h3 id="fabric-user-playbook-best-practices-5-version-patterns" class="docmd-heading"><a href="#fabric-user-playbook-best-practices-5-version-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>5. Version Patterns</h3>
-<p>Keep custom patterns in version control.</p>
-<p><strong>Why:</strong> Version control ensures patterns are backed up and shareable.</p>
-<pre class="hljs"><code><span class="hljs-comment"># Add to git</span>
-git add ~/.config/fabric/patterns/
-git commit -m <span class="hljs-string">&quot;Add custom patterns&quot;</span>
-</code></pre>
-<h3 id="fabric-user-playbook-best-practices-6-update-regularly" class="docmd-heading"><a href="#fabric-user-playbook-best-practices-6-update-regularly" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>6. Update Regularly</h3>
-<p>Run <code>fabric --updatepatterns</code> monthly.</p>
-<p><strong>Why:</strong> Regular updates ensure access to the latest patterns and improvements.</p>
-<pre class="hljs"><code><span class="hljs-comment"># Add to cron or schedule</span>
-fabric --updatepatterns
-</code></pre>
-<h2 id="fabric-user-playbook-troubleshooting" class="docmd-heading"><a href="#fabric-user-playbook-troubleshooting" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Troubleshooting</h2>
-<h3 id="fabric-user-playbook-troubleshooting-common-issues" class="docmd-heading"><a href="#fabric-user-playbook-troubleshooting-common-issues" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Common Issues</h3>
-<h4 id="fabric-user-playbook-troubleshooting-common-issues-api-key-issues" class="docmd-heading"><a href="#fabric-user-playbook-troubleshooting-common-issues-api-key-issues" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>API Key Issues</h4>
-<p><strong>Symptoms:</strong></p>
-<pre class="hljs"><code>fabric -p summarize
-<span class="hljs-comment"># Error: API key not found</span>
-</code></pre>
-<p><strong>Solution:</strong></p>
-<pre class="hljs"><code><span class="hljs-comment"># Check config</span>
-<span class="hljs-built_in">cat</span> ~/.config/fabric/.env
-
-<span class="hljs-comment"># Verify models are available</span>
-fabric --listmodels
-
-<span class="hljs-comment"># Re-run setup</span>
-fabric --setup
-</code></pre>
-<h4 id="fabric-user-playbook-troubleshooting-common-issues-pattern-not-found" class="docmd-heading"><a href="#fabric-user-playbook-troubleshooting-common-issues-pattern-not-found" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern Not Found</h4>
-<p><strong>Symptoms:</strong></p>
-<pre class="hljs"><code>fabric -p unknown-pattern
-<span class="hljs-comment"># Error: Pattern not found</span>
-</code></pre>
-<p><strong>Solution:</strong></p>
-<pre class="hljs"><code><span class="hljs-comment"># Update patterns</span>
-fabric --updatepatterns
-
-<span class="hljs-comment"># Check pattern exists</span>
-fabric --listpatterns | grep pattern-name
-</code></pre>
-<h4 id="fabric-user-playbook-troubleshooting-common-issues-performance-issues" class="docmd-heading"><a href="#fabric-user-playbook-troubleshooting-common-issues-performance-issues" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Performance Issues</h4>
-<p><strong>Symptoms:</strong></p>
-<pre class="hljs"><code><span class="hljs-built_in">cat</span> large-file.txt | fabric -p summarize
-<span class="hljs-comment"># Slow or hangs</span>
-</code></pre>
-<p><strong>Solution:</strong></p>
-<pre class="hljs"><code><span class="hljs-comment"># Use streaming for large inputs</span>
-<span class="hljs-built_in">cat</span> large-file.txt | fabric -sp summarize
-
-<span class="hljs-comment"># Use faster models</span>
-<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;test&quot;</span> | fabric -p summarize -m gpt-3.5-turbo
-</code></pre>
-<h2 id="fabric-user-playbook-tips-tricks" class="docmd-heading"><a href="#fabric-user-playbook-tips-tricks" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Tips &amp; Tricks</h2>
-<h3 id="fabric-user-playbook-tips-tricks-aliases" class="docmd-heading"><a href="#fabric-user-playbook-tips-tricks-aliases" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Aliases</h3>
-<p>Add to <code>~/.zshrc</code> or <code>~/.bashrc</code>:</p>
-<pre class="hljs"><code><span class="hljs-comment"># Quick summarize</span>
+<h3 id="fabric-user-playbook-reference-tips" class="docmd-heading"><a href="#fabric-user-playbook-reference-tips" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Tips</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Aliases for ~/.zshrc</span>
 <span class="hljs-built_in">alias</span> fsumm=<span class="hljs-string">&#x27;fabric -p summarize&#x27;</span>
-
-<span class="hljs-comment"># Quick extract wisdom</span>
 <span class="hljs-built_in">alias</span> fwisdom=<span class="hljs-string">&#x27;fabric -p extract_wisdom&#x27;</span>
 
-<span class="hljs-comment"># Quick code explanation</span>
-<span class="hljs-built_in">alias</span> fcode=<span class="hljs-string">&#x27;fabric -p explain_code&#x27;</span>
-
-<span class="hljs-comment"># Clipboard summarize</span>
-<span class="hljs-built_in">alias</span> fclip=<span class="hljs-string">&#x27;pbpaste | fabric -p summarize&#x27;</span>
+<span class="hljs-comment"># Shell functions</span>
+<span class="hljs-function"><span class="hljs-title">furl</span></span>() { fabric -u <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> -p summarize; }
 </code></pre>
-<h3 id="fabric-user-playbook-tips-tricks-shell-functions" class="docmd-heading"><a href="#fabric-user-playbook-tips-tricks-shell-functions" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Shell Functions</h3>
-<pre class="hljs"><code><span class="hljs-comment"># Summarize URL</span>
-<span class="hljs-function"><span class="hljs-title">furl</span></span>() {
-  fabric -u <span class="hljs-string">&quot;<span class="hljs-variable">$1</span>&quot;</span> -p summarize
-}
-
-<span class="hljs-comment"># Summarize and copy to clipboard</span>
-<span class="hljs-function"><span class="hljs-title">fsummc</span></span>() {
-  fabric -p summarize -c
-}
-</code></pre>
-<h3 id="fabric-user-playbook-tips-tricks-keyboard-shortcuts-macos" class="docmd-heading"><a href="#fabric-user-playbook-tips-tricks-keyboard-shortcuts-macos" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Keyboard Shortcuts (macOS)</h3>
-<p>Create Automator workflows for common tasks:</p>
-<ol>
-<li>Open Automator</li>
-<li>Create new “Quick Action”</li>
-<li>Add “Run Shell Script”</li>
-<li>Add your fabric command</li>
-<li>Save and assign keyboard shortcut</li>
-</ol>
-<h2 id="fabric-user-playbook-references" class="docmd-heading"><a href="#fabric-user-playbook-references" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>References</h2>
-<ul>
-<li><a href="https://github.com/danielmiessler/fabric">Fabric Documentation</a> – Official fabric documentation</li>
-<li><a href="https://github.com/danielmiessler/fabric/tree/main/patterns">Pattern Library</a> – Available patterns</li>
-<li><a href="~/.config/fabric/">Config Location</a> – Configuration directory</li>
-<li><a href="~/.config/fabric/patterns/">Patterns Location</a> – Custom patterns directory</li>
-<li><a href="../loading-process-playbook">Loading Process Playbook</a> – Two-step loading process pattern</li>
-<li><a href="../fabric-agent-playbook">Fabric Agent Playbook</a> – Agent-specific fabric usage</li>
-</ul>
 <hr>
-<p><strong>Version:</strong> 1.0<br>
-<strong>Last Updated:</strong> 2026-03-21<br>
-<strong>Maintained by:</strong> PolyVis Development Team</p>
+<h2 id="fabric-user-playbook-setup" class="docmd-heading"><a href="#fabric-user-playbook-setup" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Setup</h2>
+<p><strong>Installation &amp; Configuration:</strong> See <a href="../../playbook-setup">Playbook Setup Guide</a></p>
+<p>Quick setup:</p>
+<pre class="hljs"><code><span class="hljs-comment"># Install</span>
+curl -fsSL https://raw.githubusercontent.com/danielmiessler/fabric/main/scripts/installer/install.sh | bash
+
+<span class="hljs-comment"># API keys</span>
+nano ~/.config/fabric/.env
+<span class="hljs-comment"># OPENAI_API_KEY=sk-...</span>
+<span class="hljs-comment"># ANTHROPIC_API_KEY=sk-ant-...</span>
+
+<span class="hljs-comment"># Update patterns</span>
+fabric --updatepatterns
+
+<span class="hljs-comment"># Verify</span>
+fabric --version
+</code></pre>
+<hr>
+<h2 id="fabric-user-playbook-see-also" class="docmd-heading"><a href="#fabric-user-playbook-see-also" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>See Also</h2>
+<ul>
+<li><a href="../fabric-agent-playbook">Fabric Agent Playbook</a> – Agent-specific usage</li>
+<li><a href="../../playbook-setup">Playbook Setup Guide</a> – Installation &amp; configuration</li>
+</ul>
 
                                       
                               </div>
@@ -2920,207 +2502,51 @@ fabric --listpatterns | grep pattern-name
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-purpose" class="toc-link">Purpose</a>
+          <a href="#fabric-user-playbook-usage" class="toc-link">Usage</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-user-playbook-usage-common-patterns" class="toc-link">Common Patterns</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-user-playbook-usage-pattern-discovery" class="toc-link">Pattern Discovery</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-user-playbook-usage-chaining-patterns" class="toc-link">Chaining Patterns</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-user-playbook-usage-model-selection" class="toc-link">Model Selection</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-user-playbook-usage-git-workflows" class="toc-link">Git Workflows</a>
         </li>
       
         <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-core-principles" class="toc-link">Core Principles</a>
+          <a href="#fabric-user-playbook-reference" class="toc-link">Reference</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-user-playbook-reference-pattern-library" class="toc-link">Pattern Library</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-user-playbook-reference-advanced-usage" class="toc-link">Advanced Usage</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-user-playbook-reference-tips" class="toc-link">Tips</a>
         </li>
       
         <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-quick-start-checklist" class="toc-link">Quick Start (Checklist)</a>
+          <a href="#fabric-user-playbook-setup" class="toc-link">Setup</a>
         </li>
       
         <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-installation" class="toc-link">Installation</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-installation-macoslinux-one-line-installer" class="toc-link">macOS/Linux (One-line installer)</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-installation-verify-installation" class="toc-link">Verify Installation</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-configuration" class="toc-link">Configuration</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-configuration-initial-setup" class="toc-link">Initial Setup</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-configuration-add-api-keys" class="toc-link">Add API Keys</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-configuration-update-patterns" class="toc-link">Update Patterns</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-configuration-list-available-resources" class="toc-link">List Available Resources</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-common-usage-patterns" class="toc-link">Common Usage Patterns</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-common-usage-patterns-summarize-content" class="toc-link">Summarize Content</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-common-usage-patterns-extract-information" class="toc-link">Extract Information</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-common-usage-patterns-code-tasks" class="toc-link">Code Tasks</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-common-usage-patterns-writing-content-creation" class="toc-link">Writing &amp; Content Creation</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-common-usage-patterns-analysis" class="toc-link">Analysis</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-common-usage-patterns-youtube-content" class="toc-link">YouTube Content</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-advanced-usage" class="toc-link">Advanced Usage</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-advanced-usage-chain-patterns-together" class="toc-link">Chain Patterns Together</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-advanced-usage-use-different-models" class="toc-link">Use Different Models</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-advanced-usage-save-reuse-context" class="toc-link">Save &amp; Reuse Context</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-advanced-usage-output-options" class="toc-link">Output Options</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-pattern-discovery" class="toc-link">Pattern Discovery</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-pattern-discovery-find-the-right-pattern" class="toc-link">Find the Right Pattern</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-pattern-discovery-popular-patterns" class="toc-link">Popular Patterns</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-creating-custom-patterns" class="toc-link">Creating Custom Patterns</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-creating-custom-patterns-pattern-structure" class="toc-link">Pattern Structure</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-creating-custom-patterns-example-custom-pattern" class="toc-link">Example: Custom Pattern</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-integration-examples" class="toc-link">Integration Examples</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-integration-examples-git-workflows" class="toc-link">Git Workflows</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-integration-examples-note-taking" class="toc-link">Note Taking</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-integration-examples-reading-research" class="toc-link">Reading &amp; Research</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-integration-examples-code-review" class="toc-link">Code Review</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-best-practices" class="toc-link">Best Practices</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-best-practices-1-start-simple" class="toc-link">1. Start Simple</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-best-practices-2-stream-long-content" class="toc-link">2. Stream Long Content</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-best-practices-3-chain-strategically" class="toc-link">3. Chain Strategically</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-best-practices-4-save-contexts" class="toc-link">4. Save Contexts</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-best-practices-5-version-patterns" class="toc-link">5. Version Patterns</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-best-practices-6-update-regularly" class="toc-link">6. Update Regularly</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-troubleshooting" class="toc-link">Troubleshooting</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-troubleshooting-common-issues" class="toc-link">Common Issues</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#fabric-user-playbook-troubleshooting-common-issues-api-key-issues" class="toc-link">API Key Issues</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#fabric-user-playbook-troubleshooting-common-issues-pattern-not-found" class="toc-link">Pattern Not Found</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#fabric-user-playbook-troubleshooting-common-issues-performance-issues" class="toc-link">Performance Issues</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-tips-tricks" class="toc-link">Tips &amp; Tricks</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-tips-tricks-aliases" class="toc-link">Aliases</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-tips-tricks-shell-functions" class="toc-link">Shell Functions</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#fabric-user-playbook-tips-tricks-keyboard-shortcuts-macos" class="toc-link">Keyboard Shortcuts (macOS)</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#fabric-user-playbook-references" class="toc-link">References</a>
+          <a href="#fabric-user-playbook-see-also" class="toc-link">See Also</a>
         </li>
       
     </ul>
@@ -3148,10 +2574,10 @@ fabric --listpatterns | grep pattern-name
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7hki5k"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7hki5k" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7hu8bu"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7hu8bu" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7hki5k" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7hu8bu" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

@@ -2698,6 +2698,43 @@ export default defineConfig({
 ---
 **Proceed with Implementation: [ ]**
 ---
+## [Docmd Integration Notes](https://polyvis.local/briefs/brief-docmd-integration-notes/)
+# Docmd Integration Notes
+**Status:** In Progress
+**Date:** 2026-03-26
+**Agent:** ctx-vs
+## Remaining Tasks
+### 1. 📋 Update Loading Process Document
+The `playbook-loading-process-tracker.md` should be updated to document the new docmd-based documentation system.
+**Suggested additions:**
+```markdown
+## Documentation (Updated 2026-03-26)
+### Docmd Integration
+The project now uses Docmd for documentation. See `docs/docmd.config.ts`.
+**Commands:**
+- `bun scripts/dev.ts docs build` - Build static docs
+- `bun scripts/dev.ts docs serve` - Dev server with live reload
+- `bun scripts/dev.ts docs auto` - Generate TODO/export inventory
+**Output:** `docs-site/` directory with HTML pages and `llms.txt` for AI agents.
+**Source:** All `.md` files in `playbooks/`, `briefs/`, `debriefs/`, `src/`, `docs/`
+```
+### 2. 🗑️ Remove TOC Sections from Playbooks
+Docmd automatically generates a Table of Contents sidebar. Manual TOC sections in playbooks are redundant.
+**Action:** Search for and remove TOC sections from all playbooks.
+```bash
+# Find playbooks with TOC sections
+grep -l "^## Table of Contents\|^## Contents\|^## TOC" playbooks/*.md
+# Or remove lines matching TOC patterns
+sed -i '' '/^## Table of Contents/,/^## /d' playbooks/*.md
+```
+**Pattern to remove:**
+```markdown
+## Verification
+- [ ] Links in docmd sidebar work
+- [ ] `llms.txt` contains src documentation
+- [ ] Loading process doc updated
+- [ ] Manual TOCs removed from playbooks
+---
 ## [Untitled](https://polyvis.local/briefs/brief-mastra-autoresearch-skill/)
 ---
 date: 2026-03-19
@@ -4526,10 +4563,125 @@ ast-grep -p '## Section Name' -A 50 playbooks/playbook-name.md
 - [LOADING_PROCESS.md](../LOADING_PROCESS.md)
 - [Loading Process Playbook](../playbooks/loading-process-playbook.md)
 - [Apply Loading Process Brief](../briefs/archive/apply-loading-process-to-playbooks.md)
+## ⚠️ DOCMD INTEGRATION NOTE (2026-03-26)
+The project now uses **Docmd** for documentation. This affects playbook maintenance:
+### Manual TOCs Should Be Removed
+Docmd automatically generates a Table of Contents sidebar. Manual `## Table of Contents` sections are **redundant** and should be removed.
+```bash
+# Find playbooks with TOC sections
+grep -l "## Table of Contents" playbooks/*.md
+# Remove TOC sections (between ## Table of Contents and next ## heading)
+```
+### Docmd Commands
+```bash
+bun scripts/dev.ts docs build   # Build static docs
+bun scripts/dev.ts docs serve  # Dev server with live reload
+bun scripts/dev.ts docs auto   # Generate TODO/export inventory
+```
+### Playbook Status Update Needed
+After removing manual TOCs, update this tracker:
+- Mark all playbooks as needing TOC removal
+- Update completion rate
 ---
 **Created:** 2026-03-21  
 **Last Updated:** 2026-03-21  
 **Maintained by:** PolyVis Development Team
+---
+## [Playbook Setup Guide](https://polyvis.local/docs/playbook-setup/)
+---
+title: "Playbook Setup Guide"
+description: "Installation and configuration prerequisites for all playbooks"
+last_updated: "2026-03-26"
+tags: [playbook, meta]
+---
+# Playbook Setup Guide
+This document contains one-time setup instructions for all playbooks. Once configured, you rarely need to revisit this content.
+## Quick Setup Checklist
+- [ ] Install required tools (see individual sections below)
+- [ ] Configure API keys via environment variables
+- [ ] Verify installations with `--version` or `-v`
+---
+## Tool Installations
+### Fabric
+**macOS/Linux:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/danielmiessler/fabric/main/scripts/installer/install.sh | bash
+```
+**Verify:**
+```bash
+fabric --version
+```
+**API Keys:** Edit `~/.config/fabric/.env`:
+```bash
+OPENAI_API_KEY=sk-...
+ANTHROPIC_API_KEY=sk-ant-...
+```
+---
+### Nushell
+**Homebrew (macOS):**
+```bash
+brew install nushell
+```
+**Verify:**
+```bash
+nu --version
+```
+**Note:** Nushell is self-contained with no additional dependencies.
+---
+### Sidecar
+**Requirements:**
+- Nushell with `nu-plugin-jupyter` or `nu-plugin-stdlib`
+- Jupyter kernel registration
+**Verify:**
+```bash
+sidecar --version  # or appropriate CLI name
+```
+---
+## Environment Setup
+### Skate (Secret Management)
+All projects use Skate for secrets. Do NOT use `.env` files.
+```bash
+# Set secrets via Skate
+skate set OPENAI_API_KEY "your-key"
+skate set ANTHROPIC_API_KEY "your-key"
+# Load in scripts via src/lib/secrets.ts
+```
+### Ollama (Local Models)
+```bash
+# Install Ollama
+brew install ollama
+# Pull models
+ollama pull llama2
+ollama pull codellama
+# Verify
+ollama list
+```
+---
+## Verification Commands
+Run these to verify your setup:
+```bash
+# Tool versions
+fabric --version
+nu --version
+ollama list
+# API connectivity (example)
+echo "test" | fabric -p summarize
+# Skate secrets loaded
+source <(skate env)
+```
+---
+## Troubleshooting
+### API Key Issues
+1. Check Skate is loaded: `skate list`
+2. Reload environment: `source <(skate env)`
+3. Verify key format (no trailing spaces, correct prefix)
+### Installation Issues
+```bash
+# Re-run installation
+curl -fsSL https://raw.githubusercontent.com/danielmiessler/fabric/main/scripts/installer/install.sh | bash
+# Update patterns (for fabric)
+fabric --updatepatterns
+```
 ---
 ## [Qwen3.5:latest Model Evaluation - Extended Benchmark (v2)](https://polyvis.local/docs/qwen35-evaluation-02/)
 # Qwen3.5:latest Model Evaluation - Extended Benchmark (v2)
@@ -5881,32 +6033,6 @@ Brief description of what this playbook covers and why it exists.
 ### Step 3: Create Table of Contents
 List all major sections with anchor links:
 ```markdown
-## Table of Contents
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Section 1](#section-1)
-- [Section 2](#section-2)
-  - [Subsection 2.1](#subsection-21)
-- [Section 3](#section-3)
-```
-### Step 4: Add Loading Process Section
-Include this file:
-```nu
-source "$(pwd)/LOADING_PROCESS.md"
-```
-### Step 5: Write Self‑Contained Sections
-Each major section should:
-- Start with a brief description
-- Use subsections for organization
-- Include examples where appropriate
-- Be readable in isolation
-### Step 6: Test Extraction
-Verify that sections can be extracted correctly:
-```bash
-# Test extracting a section
-ast-grep -p '## Section Name' -A 50 playbooks/your-playbook.md
-# Verify the output is complete and readable
-```
 ## Frontmatter Metadata
 ### Required Fields
 | Field | Format | Purpose |
@@ -5946,17 +6072,6 @@ status: published
 5. **Update when adding sections** – Always update the table of contents when adding new sections.
 ### Example Structure
 ```markdown
-## Table of Contents
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Section 1](#section-1)
-  - [Subsection 1.1](#subsection-11)
-  - [Subsection 1.2](#subsection-12)
-- [Section 2](#section-2)
-- [Section 3](#section-3)
-  - [Subsection 3.1](#subsection-31)
-- [References](#references)
-```
 ## Section Extraction
 ### Using `ast-grep`
 `ast-grep` is ideal for structured markdown because it parses the document into an AST, making extraction more reliable than pattern matching.
@@ -6065,43 +6180,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Agentic Integrity Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Prerequisites](#prerequisites)
-  - [Required Tools](#required-tools)
-  - [Infrastructure Requirements](#infrastructure-requirements)
-  - [Verification](#verification)
-- [Infrastructure Setup](#infrastructure-setup)
-  - [Local "Gumption" Layer](#local-"gumption"-layer)
-  - [Cloud "Sovereignty" Layer](#cloud-"sovereignty"-layer)
-- [Artefact Generation](#artefact-generation)
-  - [A. `AGENTS.md` (The Constitution)](#a-`agentsmd`-the-constitution)
-  - [B. `review.md` (The Cloud Reviewer)](#b-`reviewmd`-the-cloud-reviewer)
-  - [C. `conceptual-lexicon.json`](#c-`conceptual-lexiconjson`)
-- [The Canonical Workflow Loop](#the-canonical-workflow-loop)
-  - [Phase A — Delivery Agent (Build + PR)](#phase-a-—-delivery-agent-build-+-pr)
-  - [Phase B — Review Agent (PR Health Gate)](#phase-b-—-review-agent-pr-health-gate)
-  - [Phase C — Human Merge + Tidy](#phase-c-—-human-merge-+-tidy)
-- [Deployment Heuristics](#deployment-heuristics)
-  - [Start with Mastra-Hono](#start-with-mastra-hono)
-  - [Fail Fast](#fail-fast)
-  - [Human in the Loop](#human-in-the-loop)
-- [Best Practices](#best-practices)
-  - [1. Always Start with `td usage --new-session`](#1-always-start-with-`td-usage---new-session`)
-  - [2. Use `bun run ask` for Clarification](#2-use-`bun-run-ask`-for-clarification)
-  - [3. Run `bun run check` Before Committing](#3-run-`bun-run-check`-before-committing)
-  - [4. Perform Handoffs Before Context Window Ends](#4-perform-handoffs-before-context-window-ends)
-  - [5. Keep Worktrees Until Approval](#5-keep-worktrees-until-approval)
-  - [6. Use Descriptive Commit Messages](#6-use-descriptive-commit-messages)
-  - [7. Test Edge Cases](#7-test-edge-cases)
-  - [8. Document Decisions](#8-document-decisions)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Skipping Pre-Commit Checks](#pitfall-1-skipping-pre-commit-checks)
-  - [Pitfall 2: Not Performing Handoffs](#pitfall-2-not-performing-handoffs)
-  - [Pitfall 3: Ignoring Review Feedback](#pitfall-3-ignoring-review-feedback)
-  - [Pitfall 4: Deleting Worktrees Too Early](#pitfall-4-deleting-worktrees-too-early)
-  - [Pitfall 5: Spamming Notifications](#pitfall-5-spamming-notifications)
-- [References](#references)
 ## Purpose
 This playbook outlines how to replicate the "Agentic Integrity" workflow in any new or existing project. It is based on the **Symmetric Mentation** principle: splitting high-velocity execution from sovereign auditing. This ensures that agents can work quickly while maintaining quality through automated review processes.
 **Core Philosophy:** Separate delivery (local execution) from review (cloud auditing) to maintain both velocity and integrity in agentic development workflows.
@@ -6659,51 +6737,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Agentic Integrity Retrofit Guide
-## Table of Contents
-- [Purpose](#purpose)
-- [Core Script Porting](#core-script-porting)
-  - [Required Scripts](#required-scripts)
-  - [Script Customization](#script-customization)
-  - [Verification](#verification)
-- [Directory Structure](#directory-structure)
-  - [Required Directories](#required-directories)
-  - [Directory Purposes](#directory-purposes)
-  - [Optional Directories](#optional-directories)
-- [package.json Integration](#packagejson-integration)
-  - [Required Scripts](#required-scripts)
-  - [Script Descriptions](#script-descriptions)
-  - [Customizing the `verify` Script](#customizing-the-`verify`-script)
-- [The Agent Constitution (AGENTS.md)](#the-agent-constitution-agentsmd)
-  - [Required Sections](#required-sections)
-  - [Example Template](#example-template)
-- [Local Environment Setup](#local-environment-setup)
-  - [Step 1: Initialize `td`](#step-1-initialize-`td`)
-  - [Step 2: Haptic Alias (Optional but Recommended)](#step-2-haptic-alias-optional-but-recommended)
-  - [Step 3: Verify Setup](#step-3-verify-setup)
-- [The "Map of Knowledge" Protocol](#the-"map-of-knowledge"-protocol)
-  - [Required Links](#required-links)
-  - [Implementation](#implementation)
-  - [Benefits](#benefits)
-- [Retrofit Checklist](#retrofit-checklist)
-  - [Infrastructure](#infrastructure)
-  - [Scripts](#scripts)
-  - [Configuration](#configuration)
-  - [Testing](#testing)
-  - [Documentation](#documentation)
-- [Best Practices](#best-practices)
-  - [1. Keep Scripts Simple](#1-keep-scripts-simple)
-  - [2. Use Absolute Paths Where Possible](#2-use-absolute-paths-where-possible)
-  - [3. Make Scripts Executable](#3-make-scripts-executable)
-  - [4. Test Scripts Before Committing](#4-test-scripts-before-committing)
-  - [5. Document Customizations](#5-document-customizations)
-  - [6. Keep `AGENTS.md` Up to Date](#6-keep-`agentsmd`-up-to-date)
-- [Common Issues](#common-issues)
-  - [Issue 1: Scripts Not Executable](#issue-1-scripts-not-executable)
-  - [Issue 2: `NTFY_TOPIC` Not Configured](#issue-2-`ntfy_topic`-not-configured)
-  - [Issue 3: `verify` Script Fails](#issue-3-`verify`-script-fails)
-  - [Issue 4: `td` Not Initialized](#issue-4-`td`-not-initialized)
-  - [Issue 5: Directories Not Created](#issue-5-directories-not-created)
-- [References](#references)
 ## Purpose
 This guide provides the technical steps to port the **Agentic Integrity Workflow** (Symmetric Mentation) to any new or existing repository. It serves as a comprehensive migration guide for teams adopting the workflow, ensuring consistency across projects while allowing for project-specific customization.
 **Core Philosophy:** Standardize the workflow infrastructure while allowing flexibility in implementation details. The workflow should be portable and reproducible across different tech stacks.
@@ -7097,55 +7130,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Agentic SDLC Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Verifiable Goals (TDD as Agent Rails)](#verifiable-goals-tdd-as-agent-rails)
-  - [The Problem](#the-problem)
-  - [The Solution](#the-solution)
-  - [Practice](#practice)
-  - [Example](#example)
-  - [Benefits](#benefits)
-- [Context Density over Context Volume](#context-density-over-context-volume)
-  - [The Problem](#the-problem)
-  - [The Solution](#the-solution)
-  - [Practice](#practice)
-  - [Benefits](#benefits)
-- [Declarative State over Imperative Mutation](#declarative-state-over-imperative-mutation)
-  - [The Problem](#the-problem)
-  - [The Solution](#the-solution)
-  - [Practice](#practice)
-  - [Benefits](#benefits)
-- [The "Why" in Code Comments](#the-"why"-in-code-comments)
-  - [The Problem](#the-problem)
-  - [The Solution](#the-solution)
-  - [Practice](#practice)
-  - [Benefits](#benefits)
-- [Tool Chaining (The Unix Philosophy for Agents)](#tool-chaining-the-unix-philosophy-for-agents)
-  - [The Problem](#the-problem)
-  - [The Solution](#the-solution)
-  - [Practice](#practice)
-  - [Benefits](#benefits)
-- [Deterministic Environments](#deterministic-environments)
-  - [The Problem](#the-problem)
-  - [The Solution](#the-solution)
-  - [Practice](#practice)
-  - [Benefits](#benefits)
-- [Best Practices](#best-practices)
-  - [1. Always Write Tests First](#1-always-write-tests-first)
-  - [2. Keep Context Focused](#2-keep-context-focused)
-  - [3. Use Pure Functions](#3-use-pure-functions)
-  - [4. Document the "Why"](#4-document-the-"why")
-  - [5. Build Small Tools](#5-build-small-tools)
-  - [6. Enforce Deterministic Environments](#6-enforce-deterministic-environments)
-  - [7. Provide Clear Success Criteria](#7-provide-clear-success-criteria)
-  - [8. Review Agent Output](#8-review-agent-output)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Giving Open-Ended Instructions](#pitfall-1-giving-open-ended-instructions)
-  - [Pitfall 2: Overloading Context](#pitfall-2-overloading-context)
-  - [Pitfall 3: Ignoring Environment Issues](#pitfall-3-ignoring-environment-issues)
-  - [Pitfall 4: Not Testing Agent Output](#pitfall-4-not-testing-agent-output)
-  - [Pitfall 5: Building Monolithic Tools](#pitfall-5-building-monolithic-tools)
-- [References](#references)
 ## Purpose
 This playbook outlines heuristics for an Agentic Software Development Life Cycle (SDLC). As software development evolves to include autonomous and semi-autonomous AI agents, our practices must adapt to maximize their leverage. This document provides guidance on how to structure code, context, and workflows to enable effective agent-assisted development.
 **Core Philosophy:** Design software and workflows that align with how agents think and work. Agents excel at pattern matching, constraint satisfaction, and declarative reasoning. By structuring our code and processes accordingly, we can maximize agent effectiveness while maintaining quality and reliability.
@@ -7525,33 +7509,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # AI-Friendly Code Patterns Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Executive Summary](#executive-summary)
-- [Case Study: Git Worktree Cleanup Implementation](#case-study-git-worktree-cleanup-implementation)
-  - [The Experiment](#the-experiment)
-  - [Human Readability Verdict](#human-readability-verdict)
-  - [AI Agent Maintainability Verdict](#ai-agent-maintainability-verdict)
-- [The Counterexample: await-to-js](#the-counterexample-await-to-js)
-  - [Why This Package Works Well](#why-this-package-works-well)
-- [Comparative Analysis](#comparative-analysis)
-- [Package Selection Guidelines](#package-selection-guidelines)
-  - [✅ Keep (AI-Friendly)](#✅-keep-ai-friendly)
-  - [❌ Deprecate (AI-Unfriendly)](#❌-deprecate-ai-unfriendly)
-- [Practical Guidelines for This Project](#practical-guidelines-for-this-project)
-  - [When to Use Imperative Code](#when-to-use-imperative-code)
-  - [When Functional Code is Acceptable](#when-functional-code-is-acceptable)
-  - [Anti-Patterns to Avoid](#anti-patterns-to-avoid)
-- [Opinion: Should We Deprecate Remeda?](#opinion-should-we-deprecate-remeda)
-  - [Rationale](#rationale)
-  - [Migration Strategy](#migration-strategy)
-  - [Keep: await-to-js](#keep-await-to-js)
-- [Key Takeaways](#key-takeaways)
-  - [For Developers](#for-developers)
-  - [For Code Review](#for-code-review)
-  - [For Package Selection](#for-package-selection)
-- [Conclusion](#conclusion)
-- [References](#references)
 ## Purpose
 This playbook documents when to prefer imperative over functional programming for maximum AI agent maintainability. It provides guidelines for writing code that is both human-readable and AI-maintainable, based on empirical evidence from real-world experiments.
 **Core Philosophy:** Code patterns that are "clean" and "modern" for humans often become "opaque" and difficult for AI coding agents. Our goal is to write AI-maintainable code that works for both humans AND AI.
@@ -7861,47 +7818,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Biome Standards Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Proactive Fixing (Formatting vs Linting)](#proactive-fixing-formatting-vs-linting)
-  - [Formatter: Biome](#formatter-biome)
-  - [Linter: OxLint](#linter-oxlint)
-- [Handling "any" (noExplicitAny)](#handling-"any"-noexplicitany)
-  - [Prefer `unknown`](#prefer-`unknown`)
-  - [Selective Suppression](#selective-suppression)
-  - [Reasoning Required](#reasoning-required)
-- [Formatting Standards](#formatting-standards)
-  - [Indentation](#indentation)
-  - [Quotes](#quotes)
-  - [Semicolons](#semicolons)
-  - [Trailing Commas](#trailing-commas)
-- [The "Scripts Lab" Exception](#the-"scripts-lab"-exception)
-  - [What Goes in `scripts/lab/`](#what-goes-in-`scriptslab`)
-  - [Configuration](#configuration)
-  - [OxLint Configuration](#oxlint-configuration)
-- [Pre-commit vs. CI](#pre-commit-vs-ci)
-  - [Pre-commit: Light and Fast](#pre-commit-light-and-fast)
-  - [CI / Verify: Comprehensive](#ci--verify-comprehensive)
-  - [When in Doubt](#when-in-doubt)
-- [OxLint Responsibilities (Best-Practice Baseline)](#oxlint-responsibilities-best-practice-baseline)
-  - [OxLint is the Lint Engine](#oxlint-is-the-lint-engine)
-  - [Avoid Stylistic Overlap](#avoid-stylistic-overlap)
-  - [Type Checking Remains `tsc --noEmit`](#type-checking-remains-`tsc---noemit`)
-  - [Recommended Baseline](#recommended-baseline)
-- [Best Practices](#best-practices)
-  - [1. Run Formatting Before Committing](#1-run-formatting-before-committing)
-  - [2. Fix Linting Issues Before Pushing](#2-fix-linting-issues-before-pushing)
-  - [3. Use Type Guards Instead of `any`](#3-use-type-guards-instead-of-`any`)
-  - [4. Document Ignore Comments](#4-document-ignore-comments)
-  - [5. Use Scripts Lab for Experiments](#5-use-scripts-lab-for-experiments)
-  - [6. Run Verify Before Pushing](#6-run-verify-before-pushing)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Mixing Formatting and Linting](#pitfall-1-mixing-formatting-and-linting)
-  - [Pitfall 2: Using `any` Without Reasoning](#pitfall-2-using-`any`-without-reasoning)
-  - [Pitfall 3: Forgetting Trailing Commas](#pitfall-3-forgetting-trailing-commas)
-  - [Pitfall 4: Not Running Verify Before Pushing](#pitfall-4-not-running-verify-before-pushing)
-  - [Pitfall 5: Putting Experimental Code in Production](#pitfall-5-putting-experimental-code-in-production)
-- [References](#references)
 ## Purpose
 This playbook defines our standards for using **Biome (formatting)** and **OxLint (linting)** together without overlap, plus TypeScript for authoritative type checking. It provides comprehensive guidelines for maintaining consistent code quality across the project while avoiding conflicts between different tools.
 **Core Philosophy:** Separate responsibilities to avoid overlap and conflicting rules. Biome handles formatting, OxLint handles linting, and TypeScript handles type checking. Each tool has a clear, non-overlapping domain.
@@ -8279,39 +8195,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # CLI Design Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Technology Stack](#technology-stack)
-- [When to Use citty vs Native `util.parseArgs`](#when-to-use-citty-vs-native-`utilparseargs`)
-- [Mandatory Directives](#mandatory-directives)
-  - [Command Structure](#command-structure)
-  - [Arg Definition Pattern](#arg-definition-pattern)
-  - [Handler Structure](#handler-structure)
-  - [Error Handling](#error-handling)
-  - [Output Formatting](#output-formatting)
-  - [Help Text Quality](#help-text-quality)
-- [Integration Patterns](#integration-patterns)
-  - [Pattern 1: Subcommand Delegation](#pattern-1-subcommand-delegation)
-  - [Pattern 2: Shared Arguments](#pattern-2-shared-arguments)
-  - [Pattern 3: External Tool Integration](#pattern-3-external-tool-integration)
-- [Testing CLI Commands](#testing-cli-commands)
-- [Type Safety Requirements](#type-safety-requirements)
-- [Performance Considerations](#performance-considerations)
-- [Migration from `util.parseArgs`](#migration-from-`utilparseargs`)
-- [Dependencies](#dependencies)
-- [Compliance Checklist](#compliance-checklist)
-- [Best Practices](#best-practices)
-  - [1. Keep Commands Focused](#1-keep-commands-focused)
-  - [2. Use Descriptive Names](#2-use-descriptive-names)
-  - [3. Provide Clear Error Messages](#3-provide-clear-error-messages)
-  - [4. Test Help Text](#4-test-help-text)
-  - [5. Use Exit Codes Consistently](#5-use-exit-codes-consistently)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Not Using `required: true`](#pitfall-1-not-using-`required-true`)
-  - [Pitfall 2: Missing Descriptions](#pitfall-2-missing-descriptions)
-  - [Pitfall 3: Inconsistent Exit Codes](#pitfall-3-inconsistent-exit-codes)
-  - [Pitfall 4: Not Cleaning Up External Processes](#pitfall-4-not-cleaning-up-external-processes)
-- [References](#references)
 ## Purpose
 This playbook defines the design patterns and standards for building CLI tools in the Mastra-Hono project, ensuring consistency, type safety, and maintainability. It provides guidelines for using the citty framework and ensures that all CLI tools follow a consistent structure and user experience.
 **Core Philosophy:** Use declarative command structures with citty for complex CLIs, and native `util.parseArgs` for simple tools. Prioritize type safety, clear help text, and consistent error handling.
@@ -8739,40 +8622,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Design Heuristics
-## Table of Contents
-- [Purpose](#purpose)
-- [The Result/Option Return Pattern](#the-resultoption-return-pattern)
-  - [Why?](#why)
-  - [Example](#example)
-  - [Benefits](#benefits)
-- [Type-Safety Strictness Zones](#type-safety-strictness-zones)
-  - [The `@src` Zone](#the-`@src`-zone)
-  - [The `tests` & `@scripts` Zone](#the-`tests`-&-`@scripts`-zone)
-  - [The `scripts/lab` Zone](#the-`scriptslab`-zone)
-- [Separation of Review & Implementation](#separation-of-review-&-implementation)
-  - [Implementation](#implementation)
-  - [Why this matters](#why-this-matters)
-- [Pipeline Resiliency & Idempotency](#pipeline-resiliency-&-idempotency)
-  - [Key Practices](#key-practices)
-  - [Benefits](#benefits)
-- [Intermediate Artifacts & JSONL](#intermediate-artifacts-&-jsonl)
-  - [Why?](#why)
-  - [Example](#example)
-  - [Benefits](#benefits)
-- [Best Practices](#best-practices)
-  - [1. Always Return Result Objects](#1-always-return-result-objects)
-  - [2. Respect Type-Safety Zones](#2-respect-type-safety-zones)
-  - [3. Separate Implementation from Review](#3-separate-implementation-from-review)
-  - [4. Design for Failure](#4-design-for-failure)
-  - [5. Emit Intermediate Artifacts](#5-emit-intermediate-artifacts)
-  - [6. Use JSONL for Large Datasets](#6-use-jsonl-for-large-datasets)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Throwing Exceptions from Tools](#pitfall-1-throwing-exceptions-from-tools)
-  - [Pitfall 2: Using `any` in Production Code](#pitfall-2-using-`any`-in-production-code)
-  - [Pitfall 3: Approving Own Code](#pitfall-3-approving-own-code)
-  - [Pitfall 4: Fragile Pipelines](#pitfall-4-fragile-pipelines)
-  - [Pitfall 5: No Intermediate Artifacts](#pitfall-5-no-intermediate-artifacts)
-- [References](#references)
 ## Purpose
 This document outlines the core architectural and design heuristics for the Mastra Agent Forge repository. While playbooks provide concrete workflows and step-by-step guides, these heuristics describe *why* and *how* we shape our systems. These principles guide our decision-making and ensure consistency across the codebase.
 **Core Philosophy:** Design systems that are resilient, maintainable, and agent-friendly. Prioritize graceful error handling, strict type safety in production, and clear separation of concerns.
@@ -9115,27 +8964,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Edinburgh Protocol Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [When to Use](#when-to-use)
-- [The Protocol](#the-protocol)
-  - [Phase 1: Acknowledge the Map](#phase-1-acknowledge-the-map)
-  - [Phase 2: Measure Entropy](#phase-2-measure-entropy)
-  - [Phase 3: Apply the Appropriate Lens](#phase-3-apply-the-appropriate-lens)
-  - [Phase 4: The Impartial Spectator](#phase-4-the-impartial-spectator)
-  - [Phase 5: Watt's Test](#phase-5-watt's-test)
-- [Anti-Patterns](#anti-patterns)
-  - [What NOT to Do](#what-not-to-do)
-  - [What TO Do](#what-to-do)
-- [Quick Reference](#quick-reference)
-- [Integration with Mastra](#integration-with-mastra)
-  - [Agent](#agent)
-  - [Tool](#tool)
-  - [Example Usage](#example-usage)
-- [Further Reading](#further-reading)
-  - [Primary Sources](#primary-sources)
-  - [Secondary Sources](#secondary-sources)
-  - [Related Playbooks](#related-playbooks)
 ## Purpose
 This playbook documents the **Edinburgh Protocol**, a framework for building agents and workflows that reduce conceptual entropy—transforming chaotic "Stuff" into structured "Things" through Scottish Enlightenment principles. It provides a systematic approach to handling uncertainty, making decisions under ambiguity, and analyzing complex system failures.
 **Core Philosophy:** Reduce conceptual entropy by acknowledging the difference between maps (your understanding) and territories (reality), measuring uncertainty explicitly, and applying appropriate analytical lenses based on entropy levels.
@@ -9303,70 +9131,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Fabric Agent Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Core Principles](#core-principles)
-- [Mandatory Directives](#mandatory-directives)
-  - [1) Use Fabric for Repetitive AI Tasks](#1-use-fabric-for-repetitive-ai-tasks)
-  - [2) Always Stream Large Content](#2-always-stream-large-content)
-  - [3) Generate Documentation Systematically](#3-generate-documentation-systematically)
-- [Standard Workflows](#standard-workflows)
-  - [Code Review & Analysis](#code-review-&-analysis)
-  - [Documentation Generation](#documentation-generation)
-  - [Content Summarization](#content-summarization)
-  - [Writing Enhancement](#writing-enhancement)
-- [Integration Patterns](#integration-patterns)
-  - [With Git Workflows](#with-git-workflows)
-  - [With Code Review](#with-code-review)
-  - [With Documentation](#with-documentation)
-  - [With Testing](#with-testing)
-- [Pattern Selection Guide](#pattern-selection-guide)
-  - [When to Use Which Pattern](#when-to-use-which-pattern)
-- [Advanced Usage](#advanced-usage)
-  - [Chaining Patterns](#chaining-patterns)
-  - [Context Management](#context-management)
-  - [Model Selection](#model-selection)
-  - [Output Management](#output-management)
-- [Agent-Specific Patterns](#agent-specific-patterns)
-  - [Code Analysis Flow](#code-analysis-flow)
-  - [Documentation Generation Flow](#documentation-generation-flow)
-  - [PR Review Flow](#pr-review-flow)
-- [Do / Don't](#do--don't)
-  - [Do](#do)
-  - [Don't](#don't)
-- [Pattern Library Reference](#pattern-library-reference)
-  - [Most Useful for Agents](#most-useful-for-agents)
-- [Performance Considerations](#performance-considerations)
-  - [When to Stream](#when-to-stream)
-  - [Model Selection Strategy](#model-selection-strategy)
-- [Integration with Other Tools](#integration-with-other-tools)
-  - [With td (Task Management)](#with-td-task-management)
-  - [With GitHub CLI](#with-github-cli)
-  - [With Testing Tools](#with-testing-tools)
-- [Custom Pattern Creation for Agents](#custom-pattern-creation-for-agents)
-  - [Pattern Template](#pattern-template)
-  - [Example: PR Review Pattern](#example-pr-review-pattern)
-- [Summary](#summary)
-- [Issues Found](#issues-found)
-- [Suggestions](#suggestions)
-- [Approval Status](#approval-status)
-- [Troubleshooting](#troubleshooting)
-  - [Pattern Not Working as Expected](#pattern-not-working-as-expected)
-  - [Performance Issues](#performance-issues)
-- [Best Practices](#best-practices)
-  - [1. Always Check for Existing Patterns](#1-always-check-for-existing-patterns)
-  - [2. Stream Large Inputs](#2-stream-large-inputs)
-  - [3. Chain Patterns for Complex Workflows](#3-chain-patterns-for-complex-workflows)
-  - [4. Save Context for Multi-Turn Analysis](#4-save-context-for-multi-turn-analysis)
-  - [5. Document Pattern Usage](#5-document-pattern-usage)
-  - [6. Update Patterns Regularly](#6-update-patterns-regularly)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Writing Custom Prompts for Common Tasks](#pitfall-1-writing-custom-prompts-for-common-tasks)
-  - [Pitfall 2: Not Streaming Large Inputs](#pitfall-2-not-streaming-large-inputs)
-  - [Pitfall 3: Mixing Unrelated Patterns](#pitfall-3-mixing-unrelated-patterns)
-  - [Pitfall 4: Forgetting Model Selection](#pitfall-4-forgetting-model-selection)
-  - [Pitfall 5: Using Patterns for Code Execution](#pitfall-5-using-patterns-for-code-execution)
-- [References](#references)
 ## Purpose
 This playbook defines how AI agents should use the `fabric` CLI to enhance their capabilities with pre-built AI patterns for code analysis, content summarization, documentation generation, and more. It provides comprehensive guidelines for leveraging fabric's 250+ patterns to improve agent efficiency and output quality.
 **Core Philosophy:** Leverage existing fabric patterns instead of crafting similar prompts from scratch. Compose patterns with other tools for complex tasks, and always stream large inputs for better performance.
@@ -9947,511 +9711,116 @@ id: PB-010
 title: "Fabric User Playbook"
 role: "Orchestrate"
 infrastructure: [fabric]
-last_updated: "2026-03-21"
+last_updated: "2026-03-26"
 tags: [playbook]
 ---
 # Fabric User Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Core Principles](#core-principles)
-- [Quick Start (Checklist)](#quick-start-checklist)
-- [Installation](#installation)
-  - [macOS/Linux (One-line installer)](#macoslinux-one-line-installer)
-  - [Verify Installation](#verify-installation)
-- [Configuration](#configuration)
-  - [Initial Setup](#initial-setup)
-  - [Add API Keys](#add-api-keys)
-  - [Update Patterns](#update-patterns)
-  - [List Available Resources](#list-available-resources)
-- [Common Usage Patterns](#common-usage-patterns)
-  - [Summarize Content](#summarize-content)
-  - [Extract Information](#extract-information)
-  - [Code Tasks](#code-tasks)
-  - [Writing & Content Creation](#writing-&-content-creation)
-  - [Analysis](#analysis)
-  - [YouTube Content](#youtube-content)
-- [Advanced Usage](#advanced-usage)
-  - [Chain Patterns Together](#chain-patterns-together)
-  - [Use Different Models](#use-different-models)
-  - [Save & Reuse Context](#save-&-reuse-context)
-  - [Output Options](#output-options)
-- [Pattern Discovery](#pattern-discovery)
-  - [Find the Right Pattern](#find-the-right-pattern)
-  - [Popular Patterns](#popular-patterns)
-- [Creating Custom Patterns](#creating-custom-patterns)
-  - [Pattern Structure](#pattern-structure)
-  - [Example: Custom Pattern](#example-custom-pattern)
-- [Integration Examples](#integration-examples)
-  - [Git Workflows](#git-workflows)
-  - [Note Taking](#note-taking)
-  - [Reading & Research](#reading-&-research)
-  - [Code Review](#code-review)
-- [Best Practices](#best-practices)
-  - [1. Start Simple](#1-start-simple)
-  - [2. Stream Long Content](#2-stream-long-content)
-  - [3. Chain Strategically](#3-chain-strategically)
-  - [4. Save Contexts](#4-save-contexts)
-  - [5. Version Patterns](#5-version-patterns)
-  - [6. Update Regularly](#6-update-regularly)
-- [Troubleshooting](#troubleshooting)
-  - [Common Issues](#common-issues)
-- [Tips & Tricks](#tips-&-tricks)
-  - [Aliases](#aliases)
-  - [Shell Functions](#shell-functions)
-  - [Keyboard Shortcuts (macOS)](#keyboard-shortcuts-macos)
-- [References](#references)
-## Purpose
-Use `fabric` as your AI augmentation toolkit for everyday tasks. Fabric provides 250+ reusable AI patterns that can be piped into any workflow to summarize, analyze, extract, and transform content. This playbook provides comprehensive guidance for end-users to leverage fabric's capabilities effectively.
-**Core Philosophy:** Patterns over prompts. Use pre-built patterns instead of crafting prompts from scratch. Pipe everything through Unix workflows via stdin/stdout. Stream for speed and create custom patterns for repeated tasks.
-## Core Principles
-1. **Patterns over prompts**: Use pre-built patterns instead of crafting prompts from scratch.
-2. **Pipe everything**: Fabric integrates into Unix workflows via stdin/stdout.
-3. **Stream for speed**: Use `--stream` for real-time output.
-4. **Custom patterns**: Create your own patterns for repeated tasks.
-## Quick Start (Checklist)
-1. Install fabric
-2. Configure API keys
-3. Update patterns
-4. Test with a simple pattern
-5. Explore available patterns
-## Installation
-### macOS/Linux (One-line installer)
+Fabric provides 250+ reusable AI patterns for summarizing, analyzing, extracting, and transforming content. Pipe content through patterns via stdin/stdout.
+**Core Philosophy:** Patterns over prompts. Stream for speed.
+## Usage
+### Common Patterns
 ```bash
-curl -fsSL https://raw.githubusercontent.com/danielmiessler/fabric/main/scripts/installer/install.sh | bash
-```
-### Verify Installation
-```bash
-fabric --version
-```
-## Configuration
-### Initial Setup
-```bash
-# Run interactive setup wizard
-fabric --setup
-# Or manually edit config
-nano ~/.config/fabric/.env
-```
-### Add API Keys
-Edit `~/.config/fabric/.env`:
-```bash
-# OpenAI
-OPENAI_API_KEY=sk-...
-# Anthropic Claude
-ANTHROPIC_API_KEY=sk-ant-...
-# Google Gemini
-GOOGLE_API_KEY=...
-# Or use local models with Ollama (no API key needed)
-```
-### Update Patterns
-```bash
-fabric --updatepatterns
-```
-### List Available Resources
-```bash
-# List all patterns
-fabric --listpatterns
-# List available models
-fabric --listmodels
-# List saved contexts
-fabric --listcontexts
-```
-## Common Usage Patterns
-### Summarize Content
-```bash
-# Summarize a URL
+# Summarize (most common)
 fabric -u https://example.com/article -p summarize
-# Summarize clipboard content (macOS)
-pbpaste | fabric -p summarize
-# Summarize a file
 cat document.txt | fabric -p summarize
-# Summarize with streaming
-cat long-article.txt | fabric -sp summarize
-```
-**When to use:**
-- Condensing long documents
-- Getting quick overviews
-- Processing meeting notes
-- Summarizing research papers
-### Extract Information
-```bash
-# Extract main ideas
+cat long-article.txt | fabric -sp summarize  # streaming
+# Extract insights
 cat article.txt | fabric -p extract_ideas
-# Extract article wisdom
-fabric -u https://blog.com/post -p extract_article_wisdom
-# Extract action items from meeting notes
 cat meeting-notes.txt | fabric -p extract_actions
-```
-**When to use:**
-- Pulling key points from documents
-- Extracting action items
-- Identifying main themes
-- Gathering insights
-### Code Tasks
-```bash
-# Explain code
+# Code tasks
 cat script.py | fabric -p explain_code
-# Write pull request description
 git diff main | fabric -p write_pull-request
-# Analyze code for security
-cat app.js | fabric -p analyze_malware
-# Create coding instructions
-cat requirements.txt | fabric -p create_coding_project
-```
-**When to use:**
-- Understanding complex code
-- Writing commit messages
-- Security reviews
-- Project planning
-### Writing & Content Creation
-```bash
-# Write an essay
-echo "Why AI augmentation matters" | fabric -p write_essay
-# Create social media post
-echo "Fabric CLI launch announcement" | fabric -p create_social_media_post
-# Improve writing
+# Writing
 cat draft.md | fabric -p improve_writing
-# Write a micro-essay
-echo "The future of AI tools" | fabric -p write_micro_essay
-```
-**When to use:**
-- Drafting content
-- Improving existing writing
-- Creating social posts
-- Generating essays
-### Analysis
-```bash
-# Analyze claims
+# Analysis
 cat article.txt | fabric -p analyze_claims
-# Analyze debate
-fabric -u https://debate.com/transcript -p analyze_debate
-# Rate content quality
-cat content.md | fabric -p rate_content
-# Label content
-echo "AI article text" | fabric -p label
 ```
-**When to use:**
-- Fact-checking
-- Content evaluation
-- Quality assessment
-- Categorization
-### YouTube Content
+### Pattern Discovery
 ```bash
-# Summarize YouTube video
-fabric -y https://youtube.com/watch?v=... -p summarize
-# Extract wisdom from video
-fabric -y https://youtube.com/watch?v=... -p extract_wisdom
-# Get transcript only
-fabric -y https://youtube.com/watch?v=... -p extract_video_ideas
-```
-**When to use:**
-- Processing video content
-- Extracting video insights
-- Summarizing tutorials
-- Analyzing presentations
-## Advanced Usage
-### Chain Patterns Together
-```bash
-# Extract ideas then summarize
-cat article.txt | fabric -p extract_ideas | fabric -p summarize
-# Analyze then improve
-cat code.py | fabric -p analyze_code | fabric -p improve_report_finding
-```
-**Benefits:**
-- Multi-stage processing
-- Deeper analysis
-- More nuanced output
-### Use Different Models
-```bash
-# Use specific model
-echo "test" | fabric -p summarize -m gpt-4
-# Use Claude
-echo "test" | fabric -p summarize -m claude-3-opus-20240229
-# Use local Ollama model
-echo "test" | fabric -p summarize -m llama2
-```
-**Model Selection Strategy:**
-| Model Type | Use Case | Examples |
-|------------|----------|----------|
-| Fast models (gpt-3.5-turbo, claude-instant) | Simple summarization, quick analysis | `summarize`, `extract_ideas` |
-| Powerful models (gpt-4, claude-opus) | Complex analysis, critical tasks | `analyze_code`, `analyze_claims` |
-| Local models (ollama) | Privacy-sensitive work, offline | Any pattern with privacy concerns |
-### Save & Reuse Context
-```bash
-# Save context for reuse
-cat context.txt | fabric -p summarize -c my-context
-# List contexts
-fabric --listcontexts
-# Use saved context
-echo "Follow-up question" | fabric -p ai -C my-context
-```
-**Benefits:**
-- Maintain context across operations
-- Enable follow-up questions
-- Reference previous analyses
-### Output Options
-```bash
-# Copy to clipboard
-cat file.txt | fabric -p summarize -c
-# Save to file
-cat input.txt | fabric -p summarize -o output.txt
-# Stream output
-cat large-file.txt | fabric -sp summarize
-```
-**Benefits:**
-- Flexible output options
-- Easy integration with other tools
-- Real-time feedback for long operations
-## Pattern Discovery
-### Find the Right Pattern
-```bash
-# List all patterns
 fabric --listpatterns | grep summary
-# Search patterns by task
 fabric --listpatterns | grep code
-fabric --listpatterns | grep analyze
-fabric --listpatterns | grep extract
-# Get pattern suggestions (if available)
-fabric -p suggest_pattern
+fabric --listmodels
 ```
-### Popular Patterns
-| Pattern | Purpose | Frequency |
-|---------|---------|-----------|
-| `summarize` | General summarization | Daily |
-| `extract_wisdom` | Extract key insights | Weekly |
-| `extract_ideas` | Pull out main ideas | Weekly |
-| `analyze_claims` | Evaluate claims and arguments | Monthly |
-| `explain_code` | Code explanation | Daily |
-| `write_essay` | Essay writing | Weekly |
-| `write_pull-request` | PR descriptions | Weekly |
-| `improve_writing` | Writing enhancement | Weekly |
-| `create_summary` | Create structured summaries | Weekly |
-| `rate_content` | Content quality rating | Monthly |
-## Creating Custom Patterns
-### Pattern Structure
-Custom patterns are markdown files in `~/.config/fabric/patterns/my-pattern/system.md`
-```markdown
-# IDENTITY
-You are an expert at [specific task].
-# GOAL
-Your goal is to [specific outcome].
-# STEPS
-- Step 1: [instruction]
-- Step 2: [instruction]
-- Step 3: [instruction]
-# OUTPUT FORMAT
-- Format the output as [specific format]
-- Include [specific elements]
-# OUTPUT INSTRUCTIONS
-- Only output the final result
-- Do not include explanations unless asked
-```
-### Example: Custom Pattern
-Create `~/.config/fabric/patterns/extract-todos/system.md`:
-```markdown
-# IDENTITY
-You are a task extraction expert.
-# GOAL
-Extract all TODO items, action items, and tasks from the input text.
-# STEPS
-- Read the input carefully
-- Identify all tasks, TODOs, and action items
-- Extract them with context
-# OUTPUT FORMAT
-- [ ] Task description (priority, context if available)
-# OUTPUT INSTRUCTIONS
-- Only output the task list
-- Include priority if mentioned
-- Add brief context in parentheses
-```
-Use it:
+### Chaining Patterns
 ```bash
-cat notes.txt | fabric -p extract-todos
+# Extract then summarize
+cat article.txt | fabric -p extract_ideas | fabric -p summarize
+# Pipe to clipboard (macOS)
+cat file.txt | fabric -p summarize -c
 ```
-## Integration Examples
+### Model Selection
+```bash
+# Fast model (default)
+fabric -p summarize
+# Powerful model
+fabric -p summarize -m gpt-4
+# Local model (no API key)
+fabric -p summarize -m llama2
+```
 ### Git Workflows
 ```bash
-# Generate commit message from diff
 git diff --staged | fabric -p create_git_commit_message
-# Write PR description
-git diff main..feature-branch | fabric -p write_pull-request
-# Summarize recent commits
-git log --oneline -10 | fabric -p summarize
+git diff main..feature | fabric -p write_pull-request
 ```
-**Benefits:**
-- Consistent commit messages
-- Better PR descriptions
-- Automated changelog generation
-### Note Taking
+---
+## Reference
+### Pattern Library
+| Pattern | Purpose |
+|---------|---------|
+| `summarize` | General summarization |
+| `extract_ideas` | Pull key ideas |
+| `extract_wisdom` | Extract insights |
+| `explain_code` | Code explanation |
+| `analyze_claims` | Evaluate arguments |
+| `improve_writing` | Enhance writing |
+| `write_pull-request` | PR descriptions |
+### Advanced Usage
+**Context preservation:**
 ```bash
-# Summarize meeting notes
-cat meeting-notes.txt | fabric -p summarize | tee summary.txt
-# Extract action items
-cat notes.txt | fabric -p extract_actions >> actions.md
+cat context.md | fabric -p summarize -c my-context
+echo "Follow-up?" | fabric -p ai -C my-context
 ```
-**Benefits:**
-- Quick meeting summaries
-- Action item extraction
-- Better note organization
-### Reading & Research
+**Chain patterns:**
 ```bash
-# Summarize article
-fabric -u https://article-url.com -p extract_article_wisdom
-# Compare multiple sources
-(cat source1.txt; cat source2.txt) | fabric -p analyze_debate
-```
-**Benefits:**
-- Quick article summaries
-- Source comparison
-- Research synthesis
-### Code Review
-```bash
-# Review PR diff
-gh pr diff 123 | fabric -p analyze_code
-# Security analysis
-cat app.py | fabric -p analyze_malware
-```
-**Benefits:**
-- Automated code review
-- Security vulnerability detection
-- Actionable feedback
-## Best Practices
-### 1. Start Simple
-Use built-in patterns before creating custom ones.
-**Why:** Built-in patterns are tested and optimized.
-```bash
-# Good
-cat article.txt | fabric -p summarize
-# Bad (unless necessary)
-echo "Summarize this article" | openai api
-```
-### 2. Stream Long Content
-Use `-s` flag for real-time output on large inputs.
-**Why:** Streaming provides real-time feedback and prevents memory issues.
-```bash
-# Good
-cat large-file.txt | fabric -sp summarize
-# Bad
-cat large-file.txt | fabric -p summarize
-```
-### 3. Chain Strategically
-Pipe patterns together for complex workflows.
-**Why:** Chaining enables deeper analysis and more nuanced output.
-```bash
-# Good
 cat article.txt | fabric -p extract_ideas | fabric -p summarize
-# Bad (unrelated patterns)
-cat article.txt | fabric -p analyze_code | fabric -p write_essay
 ```
-### 4. Save Contexts
-Reuse context for follow-up questions.
-**Why:** Context preservation enables more sophisticated analysis.
-```bash
-# Good
-cat codebase.md | fabric -p summarize -c project-context
-echo "What about security?" | fabric -p ai -C project-context
-# Bad (no context)
-echo "What about security?" | fabric -p ai
+**Custom patterns:** Create `~/.config/fabric/patterns/my-pattern/system.md`:
+```markdown
+# IDENTITY
+You are an expert at [task].
+# GOAL
+Your goal is to [outcome].
+# OUTPUT FORMAT
+[format description]
 ```
-### 5. Version Patterns
-Keep custom patterns in version control.
-**Why:** Version control ensures patterns are backed up and shareable.
+### Tips
 ```bash
-# Add to git
-git add ~/.config/fabric/patterns/
-git commit -m "Add custom patterns"
+# Aliases for ~/.zshrc
+alias fsumm='fabric -p summarize'
+alias fwisdom='fabric -p extract_wisdom'
+# Shell functions
+furl() { fabric -u "$1" -p summarize; }
 ```
-### 6. Update Regularly
-Run `fabric --updatepatterns` monthly.
-**Why:** Regular updates ensure access to the latest patterns and improvements.
+---
+## Setup
+**Installation & Configuration:** See [Playbook Setup Guide](../playbook-setup.md)
+Quick setup:
 ```bash
-# Add to cron or schedule
-fabric --updatepatterns
-```
-## Troubleshooting
-### Common Issues
-#### API Key Issues
-**Symptoms:**
-```bash
-fabric -p summarize
-# Error: API key not found
-```
-**Solution:**
-```bash
-# Check config
-cat ~/.config/fabric/.env
-# Verify models are available
-fabric --listmodels
-# Re-run setup
-fabric --setup
-```
-#### Pattern Not Found
-**Symptoms:**
-```bash
-fabric -p unknown-pattern
-# Error: Pattern not found
-```
-**Solution:**
-```bash
+# Install
+curl -fsSL https://raw.githubusercontent.com/danielmiessler/fabric/main/scripts/installer/install.sh | bash
+# API keys
+nano ~/.config/fabric/.env
+# OPENAI_API_KEY=sk-...
+# ANTHROPIC_API_KEY=sk-ant-...
 # Update patterns
 fabric --updatepatterns
-# Check pattern exists
-fabric --listpatterns | grep pattern-name
+# Verify
+fabric --version
 ```
-#### Performance Issues
-**Symptoms:**
-```bash
-cat large-file.txt | fabric -p summarize
-# Slow or hangs
-```
-**Solution:**
-```bash
-# Use streaming for large inputs
-cat large-file.txt | fabric -sp summarize
-# Use faster models
-echo "test" | fabric -p summarize -m gpt-3.5-turbo
-```
-## Tips & Tricks
-### Aliases
-Add to `~/.zshrc` or `~/.bashrc`:
-```bash
-# Quick summarize
-alias fsumm='fabric -p summarize'
-# Quick extract wisdom
-alias fwisdom='fabric -p extract_wisdom'
-# Quick code explanation
-alias fcode='fabric -p explain_code'
-# Clipboard summarize
-alias fclip='pbpaste | fabric -p summarize'
-```
-### Shell Functions
-```bash
-# Summarize URL
-furl() {
-  fabric -u "$1" -p summarize
-}
-# Summarize and copy to clipboard
-fsummc() {
-  fabric -p summarize -c
-}
-```
-### Keyboard Shortcuts (macOS)
-Create Automator workflows for common tasks:
-1. Open Automator
-2. Create new "Quick Action"
-3. Add "Run Shell Script"
-4. Add your fabric command
-5. Save and assign keyboard shortcut
-## References
-- [Fabric Documentation](https://github.com/danielmiessler/fabric) – Official fabric documentation
-- [Pattern Library](https://github.com/danielmiessler/fabric/tree/main/patterns) – Available patterns
-- [Config Location](~/.config/fabric/) – Configuration directory
-- [Patterns Location](~/.config/fabric/patterns/) – Custom patterns directory
-- [Loading Process Playbook](./loading-process-playbook.md) – Two-step loading process pattern
-- [Fabric Agent Playbook](./fabric-agent-playbook.md) – Agent-specific fabric usage
 ---
-**Version:** 1.0  
-**Last Updated:** 2026-03-21  
-**Maintained by:** PolyVis Development Team
+## See Also
+- [Fabric Agent Playbook](./fabric-agent-playbook.md) – Agent-specific usage
+- [Playbook Setup Guide](../playbook-setup.md) – Installation & configuration
 ---
 ## [Git & TD Workflow Playbook](https://polyvis.local/playbooks/git-workflow-playbook/)
 ---
@@ -10463,30 +9832,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Git & TD Workflow Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Branching & Workspaces](#branching-&-workspaces)
-  - [Core Rules](#core-rules)
-  - [Why This Matters](#why-this-matters)
-- [The TD Flow](#the-td-flow)
-  - [Picking Up Work](#picking-up-work)
-  - [During Development](#during-development)
-  - [Context Handoffs](#context-handoffs)
-- [Reviews & Merging](#reviews-&-merging)
-  - [The Review Process](#the-review-process)
-  - [Why This Separation Matters](#why-this-separation-matters)
-- [Resolving Conflicts](#resolving-conflicts)
-  - [What NOT to Do](#what-not-to-do)
-  - [What TO Do](#what-to-do)
-  - [Common Issues and Solutions](#common-issues-and-solutions)
-- [Best Practices](#best-practices)
-  - [1. Always Link Workspaces to Tasks](#1-always-link-workspaces-to-tasks)
-  - [2. Perform Handoffs Before Context Window Ends](#2-perform-handoffs-before-context-window-ends)
-  - [3. Keep Worktrees Until Approval](#3-keep-worktrees-until-approval)
-  - [4. Never Skip Quality Checks](#4-never-skip-quality-checks)
-  - [5. Log Decisions Explicitly](#5-log-decisions-explicitly)
-  - [6. Test Before Submitting for Review](#6-test-before-submitting-for-review)
-- [References](#references)
 ## Purpose
 This playbook defines our expected workflow for branching, using Sidecar workspaces, and managing task reviews using the `td` CLI. It provides a systematic approach to parallel development, context management, and code review processes.
 **Core Philosophy:** Maintain clean separation between implementation, automated review, and approval while preserving context across sessions and agents.
@@ -10612,34 +9957,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Just-Bash Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Key Features](#key-features)
-- [Usage Guidelines](#usage-guidelines)
-  - [Installation](#installation)
-  - [Basic API Usage (TypeScript)](#basic-api-usage-typescript)
-  - [Filesystem Modes](#filesystem-modes)
-  - [Security & Network](#security-&-network)
-  - [Integration with Mastra / AI Agents](#integration-with-mastra--ai-agents)
-- [Best Practices](#best-practices)
-  - [1. Use New Instances for Unrelated Tasks](#1-use-new-instances-for-unrelated-tasks)
-  - [2. Always Set Execution Limits](#2-always-set-execution-limits)
-  - [3. Test Before Production Execution](#3-test-before-production-execution)
-  - [4. Use OverlayFs for Codebase Exploration](#4-use-overlayfs-for-codebase-exploration)
-  - [5. Validate Output Before Using](#5-validate-output-before-using)
-- [Real-World Example: Worktree Cleanup](#real-world-example-worktree-cleanup)
-  - [The Problem](#the-problem)
-  - [Testing Strategy](#testing-strategy)
-  - [Key Benefits](#key-benefits)
-  - [When to Use This Pattern](#when-to-use-this-pattern)
-  - [Production Execution](#production-execution)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Reusing Instances for Unrelated Tasks](#pitfall-1-reusing-instances-for-unrelated-tasks)
-  - [Pitfall 2: Not Setting Execution Limits](#pitfall-2-not-setting-execution-limits)
-  - [Pitfall 3: Assuming Persistence Across Instances](#pitfall-3-assuming-persistence-across-instances)
-  - [Pitfall 4: Forgetting to Validate Output](#pitfall-4-forgetting-to-validate-output)
-  - [Pitfall 5: Using ReadWriteFs Without Caution](#pitfall-5-using-readwritefs-without-caution)
-- [References](#references)
 ## Purpose
 `just-bash` provides a simulated, secure, and sandboxed Bash environment with an in-memory virtual filesystem. It is designed for AI agents to execute commands safely without risking the host system. This playbook provides comprehensive guidelines for using just-bash in development workflows, particularly for testing shell logic and integrating with AI agents.
 **Core Philosophy:** Execute shell commands safely in a sandboxed environment. Test logic before running on the host system. Use virtual filesystems for isolated experimentation without permanent changes.
@@ -10968,22 +10285,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Loading Process Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [When to Use This Pattern](#when-to-use-this-pattern)
-  - [Ideal Use Cases](#ideal-use-cases)
-  - [When NOT to Use This Pattern](#when-not-to-use-this-pattern)
-- [Design Principles](#design-principles)
-- [Implementation Guide](#implementation-guide)
-- [Section Extraction](#section-extraction)
-  - [Using ast-grep](#using-ast-grep)
-  - [Alternative Methods](#alternative-methods)
-- [Template](#template)
-- [Best Practices](#best-practices)
-- [Examples](#examples)
-  - [Example 1: Simple Playbook](#example-1-simple-playbook)
-  - [Example 2: Complex Playbook](#example-2-complex-playbook)
-- [References](#references)
 ## Purpose
 This playbook documents the **two‑step loading process** pattern for structured markdown documentation. It explains why this pattern exists, when to use it, how to implement it, and provides best practices for creating maintainable, discoverable documentation.
 **Core Philosophy:** Documentation should be **discoverable** and **extractable** – users should be able to find what they need in seconds, not minutes.
@@ -11046,10 +10347,6 @@ last_updated: "YYYY-MM-DD"
 tags: [playbook]
 ---
 # Playbook Title
-## Table of Contents
-- [Purpose](#purpose)
-- [Section 1](#section-1)
-- [References](#references)
 ## Purpose
 Brief description of what this playbook covers.
 ## Section 1
@@ -11085,39 +10382,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Local Memory Agents Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Core Principles](#core-principles)
-  - [Data Sovereignty](#data-sovereignty)
-  - [Fail-Fast Tools](#fail-fast-tools)
-  - [Aggressive Orientation](#aggressive-orientation)
-- [Implementation Pattern](#implementation-pattern)
-  - [Basic Setup](#basic-setup)
-  - [Storage Options](#storage-options)
-  - [Tool Design for Observability](#tool-design-for-observability)
-- [Testing the Learning Loop](#testing-the-learning-loop)
-  - [Step-by-Step Testing Process](#step-by-step-testing-process)
-  - [Automated Test Example](#automated-test-example)
-- [Verification Checklist](#verification-checklist)
-  - [Memory Configuration](#memory-configuration)
-  - [Tool Design](#tool-design)
-  - [Model Requirements](#model-requirements)
-  - [Testing](#testing)
-- [Best Practices](#best-practices)
-  - [1. Start with Low Token Thresholds](#1-start-with-low-token-thresholds)
-  - [2. Use Descriptive Error Messages](#2-use-descriptive-error-messages)
-  - [3. Include Warnings for Non-Critical Issues](#3-include-warnings-for-non-critical-issues)
-  - [4. Test Learning Scenarios](#4-test-learning-scenarios)
-  - [5. Monitor Memory Growth](#5-monitor-memory-growth)
-  - [6. Version Your Models](#6-version-your-models)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Throwing Exceptions Instead of Returning Errors](#pitfall-1-throwing-exceptions-instead-of-returning-errors)
-  - [Pitfall 2: Using Cloud Models for Observation](#pitfall-2-using-cloud-models-for-observation)
-  - [Pitfall 3: Setting Token Thresholds Too High](#pitfall-3-setting-token-thresholds-too-high)
-  - [Pitfall 4: Not Testing Learning Behavior](#pitfall-4-not-testing-learning-behavior)
-  - [Pitfall 5: Using Insufficient Model Capacity](#pitfall-5-using-insufficient-model-capacity)
-  - [Pitfall 6: Ignoring Memory Storage](#pitfall-6-ignoring-memory-storage)
-- [References](#references)
 ## Purpose
 This playbook outlines the heuristics for building agents that learn from their environment using local Mastra Observational Memory. It provides guidelines for implementing agents that can observe their actions, learn from failures, and improve over time without relying on external cloud services.
 **Core Philosophy:** Build agents that learn locally and autonomously. Use local model providers for observation and reflection to maintain data sovereignty. Design tools that fail explicitly so agents can learn from their mistakes.
@@ -11545,31 +10809,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Mastra Agent Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Project Structure and Type-Safety Zones](#project-structure-and-type-safety-zones)
-  - [Strict Zone: `@src/`](#strict-zone-`@src`)
-  - [Promotable Zone: `@scripts/` and `tests/`](#promotable-zone-`@scripts`-and-`tests`)
-  - [Experimental Zone: `scripts/lab/`](#experimental-zone-`scriptslab`)
-- [Mastra Patterns](#mastra-patterns)
-  - [Creating Tools](#creating-tools)
-  - [Creating Agents](#creating-agents)
-  - [Creating Workflows](#creating-workflows)
-- [Pre-Commit Expectations](#pre-commit-expectations)
-- [Best Practices](#best-practices)
-  - [1. Always Use Zod Schemas](#1-always-use-zod-schemas)
-  - [2. Keep Functions Focused](#2-keep-functions-focused)
-  - [3. Write Tests for Production Code](#3-write-tests-for-production-code)
-  - [4. Use Descriptive Names](#4-use-descriptive-names)
-  - [5. Handle Errors Gracefully](#5-handle-errors-gracefully)
-  - [6. Document Your Code](#6-document-your-code)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Using `any` Type](#pitfall-1-using-`any`-type)
-  - [Pitfall 2: Ignoring Type Errors](#pitfall-2-ignoring-type-errors)
-  - [Pitfall 3: Not Testing Edge Cases](#pitfall-3-not-testing-edge-cases)
-  - [Pitfall 4: Importing from Experimental Zone](#pitfall-4-importing-from-experimental-zone)
-  - [Pitfall 5: Skipping Pre-Commit Checks](#pitfall-5-skipping-pre-commit-checks)
-- [References](#references)
 ## Purpose
 This playbook outlines the architectural patterns, heuristics, and type-safety rules for our Mastra Agent Forge repository. It provides guidelines for maintaining a robust, production-ready codebase while preserving space for experimentation.
 **Core Philosophy:** Maintain strict type-safety in production code while allowing flexibility in experimental zones. Balance structure with innovation.
@@ -11937,29 +11176,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Nushell Agent Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Modes of Use](#modes-of-use)
-  - [Mode 1: Everyday Mode (Shortcuts)](#mode-1-everyday-mode-shortcuts)
-  - [Mode 2: Development Mode (Tooling)](#mode-2-development-mode-tooling)
-- [Approved Integration Rules](#approved-integration-rules)
-  - [What TO Do](#what-to-do)
-  - [What NOT to Do](#what-not-to-do)
-- [Troubleshooting](#troubleshooting)
-  - [Common Issues](#common-issues)
-- [Best Practices](#best-practices)
-  - [1. Always Start with `td usage --new-session`](#1-always-start-with-`td-usage---new-session`)
-  - [2. Use Aliases for Common Operations](#2-use-aliases-for-common-operations)
-  - [3. Validate Output Structures](#3-validate-output-structures)
-  - [4. Prefer Pipes Over Variables](#4-prefer-pipes-over-variables)
-  - [5. Test Transformations Interactively](#5-test-transformations-interactively)
-  - [6. Keep Functions Small](#6-keep-functions-small)
-- [Examples](#examples)
-  - [Example 1: Extract Task Summary](#example-1-extract-task-summary)
-  - [Example 2: Filter Tasks by Multiple Criteria](#example-2-filter-tasks-by-multiple-criteria)
-  - [Example 3: Generate Task Report](#example-3-generate-task-report)
-  - [Example 4: Monitor Task Changes](#example-4-monitor-task-changes)
-- [References](#references)
 ## Purpose
 Use Nushell (`nu`) as a **sensory layer** to extract structured truth from `td` and related tools. This playbook defines the two operating modes and the approved usage patterns for agents working with task state and structured data.
 **Core Philosophy:** Prefer structured data (JSON/tables) over raw text. Use Nushell transforms to extract and manipulate data without coupling to storage implementations.
@@ -12315,53 +11531,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Nushell User Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Installation](#installation)
-  - [System Requirements](#system-requirements)
-  - [Installation Methods](#installation-methods)
-  - [Verification](#verification)
-- [Configuration](#configuration)
-  - [Config File Location](#config-file-location)
-  - [Locate Configuration Files](#locate-configuration-files)
-  - [Edit Configuration](#edit-configuration)
-  - [Basic Config Structure](#basic-config-structure)
-  - [Environment Variables](#environment-variables)
-- [Project Shortcuts](#project-shortcuts)
-  - [Manual Sourcing](#manual-sourcing)
-  - [Persistent Sourcing (Global)](#persistent-sourcing-global)
-  - [Available Aliases](#available-aliases)
-  - [Help Command](#help-command)
-- [Automated Deployment](#automated-deployment)
-  - [Deployment Script: `scripts/setup-nushell.nu`](#deployment-script-`scriptssetup-nushellnu`)
-- [Multi-Shell Access](#multi-shell-access)
-  - [Available Commands](#available-commands)
-  - [Via Mastra CLI](#via-mastra-cli)
-  - [Cross-Shell Compatibility](#cross-shell-compatibility)
-- [Usage Guide](#usage-guide)
-  - [Everyday Shortcuts](#everyday-shortcuts)
-- [Daily Workflow](#daily-workflow)
-  - [Morning Routine](#morning-routine)
-  - [During Development](#during-development)
-  - [End of Day](#end-of-day)
-- [Troubleshooting](#troubleshooting)
-  - [Common Issues](#common-issues)
-  - [Debugging](#debugging)
-- [Best Practices](#best-practices)
-  - [1. Use Structured Data](#1-use-structured-data)
-  - [2. Leverage Type Safety](#2-leverage-type-safety)
-  - [3. Keep Functions Small](#3-keep-functions-small)
-  - [4. Document Your Code](#4-document-your-code)
-  - [5. Use Meaningful Names](#5-use-meaningful-names)
-  - [6. Test Your Aliases](#6-test-your-aliases)
-- [Examples](#examples)
-  - [Example 1: Task Dashboard](#example-1-task-dashboard)
-  - [Example 2: Git Summary](#example-2-git-summary)
-  - [Example 3: File Analyzer](#example-3-file-analyzer)
-- [References](#references)
-  - [Official Documentation](#official-documentation)
-  - [Project Documentation](#project-documentation)
-  - [Related Playbooks](#related-playbooks)
 ## Purpose
 This playbook provides a complete guide for setting up **Nushell (nu)** as your primary or auxiliary shell for interacting with the Mastra-Hono project. It covers installation, configuration patterns, automated deployment of project shortcuts, and daily workflows. The goal is to help developers become productive with Nushell quickly and leverage its power for structured data manipulation and automation.
 **Core Philosophy:** Nushell is a **modern, type‑safe shell** that treats data as structured values (tables, records, lists) rather than raw text. This makes it ideal for working with JSON, APIs, and complex data pipelines.
@@ -12791,47 +11960,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Origami Protocol Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Philosophy](#philosophy)
-- [The Mantra](#the-mantra)
-- [Core Principle](#core-principle)
-- [Prerequisite: JSON or Nothing](#prerequisite-json-or-nothing)
-  - [Supported Input Formats](#supported-input-formats)
-  - [The Check](#the-check)
-- [The Folds](#the-folds)
-  - [Flat Fold → `table`](#flat-fold-→-`table`)
-  - [Stacked Fold → `table -e`](#stacked-fold-→-`table--e`)
-  - [Rolled Fold → `csv`](#rolled-fold-→-`csv`)
-  - [Nested Fold → `nuon`](#nested-fold-→-`nuon`)
-  - [Pressed Fold → `json`](#pressed-fold-→-`json`)
-  - [Wrapped Fold → `html`](#wrapped-fold-→-`html`)
-- [Debugging Ingestion Pipelines](#debugging-ingestion-pipelines)
-  - [The Fold Debug Pattern](#the-fold-debug-pattern)
-  - [Fold Selection by Pipeline Stage](#fold-selection-by-pipeline-stage)
-  - [Common Pipeline Debug Commands](#common-pipeline-debug-commands)
-- [The Origami Grammar](#the-origami-grammar)
-  - [Command Pattern](#command-pattern)
-  - [Transform Verbs](#transform-verbs)
-  - [Examples](#examples)
-- [Catalog: When to Use Which Fold](#catalog-when-to-use-which-fold)
-- [Entropy Reduction](#entropy-reduction)
-- [Integration with Edinburgh Protocol](#integration-with-edinburgh-protocol)
-- [Best Practices](#best-practices)
-  - [1. Always Start with JSON](#1-always-start-with-json)
-  - [2. Choose the Right Fold for the Task](#2-choose-the-right-fold-for-the-task)
-  - [3. Chain Transforms Before Folding](#3-chain-transforms-before-folding)
-  - [4. Use `nuon` for Chaining](#4-use-`nuon`-for-chaining)
-  - [5. Debug with Multiple Folds](#5-debug-with-multiple-folds)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Forgetting to Parse JSON](#pitfall-1-forgetting-to-parse-json)
-  - [Pitfall 2: Folding Too Early](#pitfall-2-folding-too-early)
-  - [Pitfall 3: Using Wrong Fold for Task](#pitfall-3-using-wrong-fold-for-task)
-  - [Pitfall 4: Not Verifying Input Structure](#pitfall-4-not-verifying-input-structure)
-  - [Pitfall 5: Ignoring Null Values](#pitfall-5-ignoring-null-values)
-- [References](#references)
-- [Quick Reference](#quick-reference)
-- [Environment](#environment)
 ## Purpose
 The Origami Protocol is a **lexicon for data folding** — transforming structured data into predictable shapes without losing information. Like origami, we start with a single sheet (raw data) and fold it into forms that reveal different aspects. This playbook provides comprehensive guidelines for using the origami protocol to structure, transform, and debug data ingestion pipelines.
 **Core Philosophy:** Same base, multiple forms. JSON → fold → DONE. If you have structured data (JSON, JSONL, YAML), apply an origami fold. Then you're done.
@@ -13283,38 +12411,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Secure Tool Design Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [How Tool Calling Actually Works](#how-tool-calling-actually-works)
-  - [The Execution Loop](#the-execution-loop)
-  - [Key Insight](#key-insight)
-- [The Danger of "God Tools"](#the-danger-of-"god-tools")
-  - [The Anti-Pattern](#the-anti-pattern)
-  - [The Heuristic: Principle of Least Privilege](#the-heuristic-principle-of-least-privilege)
-- [Defense in Depth: Sandboxing & Boundaries](#defense-in-depth-sandboxing-&-boundaries)
-  - [Zod Input Validation](#zod-input-validation)
-  - [Ephemeral Sandboxes](#ephemeral-sandboxes)
-  - [Human-in-the-Loop (HITL)](#human-in-the-loop-hitl)
-- [Observational Memory & Local Models](#observational-memory-&-local-models)
-  - [Why this is powerful with `lfm2.5-thinking`](#why-this-is-powerful-with-`lfm25-thinking`)
-  - [The Agentic Workflow](#the-agentic-workflow)
-- [Best Practices](#best-practices)
-  - [1. Apply the Principle of Least Privilege](#1-apply-the-principle-of-least-privilege)
-  - [2. Validate All Inputs](#2-validate-all-inputs)
-  - [3. Use Sandboxes for Code Execution](#3-use-sandboxes-for-code-execution)
-  - [4. Require Human Approval for Critical Actions](#4-require-human-approval-for-critical-actions)
-  - [5. Leverage Observational Memory](#5-leverage-observational-memory)
-  - [6. Use Local Models for Sensitive Data](#6-use-local-models-for-sensitive-data)
-  - [7. Monitor and Audit Tool Usage](#7-monitor-and-audit-tool-usage)
-  - [8. Implement Rate Limiting](#8-implement-rate-limiting)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Creating "God Tools"](#pitfall-1-creating-"god-tools")
-  - [Pitfall 2: Skipping Input Validation](#pitfall-2-skipping-input-validation)
-  - [Pitfall 3: Executing Code on Host](#pitfall-3-executing-code-on-host)
-  - [Pitfall 4: No Human Oversight](#pitfall-4-no-human-oversight)
-  - [Pitfall 5: Not Using Observational Memory](#pitfall-5-not-using-observational-memory)
-  - [Pitfall 6: Leaking Sensitive Data to Cloud](#pitfall-6-leaking-sensitive-data-to-cloud)
-- [References](#references)
 ## Purpose
 This playbook covers how to design secure tools and leverage Mastra's Observational Memory, especially when paired with capable local models like `lfm2.5-thinking`. Building autonomous agents is an exercise in managing trust and blast radius. LLMs do not "run" code; they predict text that frameworks like Mastra convert into function calls. Therefore, the safety of your system is entirely dependent on the boundaries of the tools you provide.
 **Core Philosophy:** The safety of your system is entirely dependent on the boundaries of the tools you provide. Design tools with the principle of least privilege, validate inputs rigorously, and leverage observational memory for continuous learning without compromising security.
@@ -13728,41 +12824,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Sidecar Agent Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Mandatory Directives](#mandatory-directives)
-  - [Mandatory Session Check](#mandatory-session-check)
-  - [Mandatory Task Creation](#mandatory-task-creation)
-  - [Tracking Progress](#tracking-progress)
-  - [Mandatory Handoffs (Crucial)](#mandatory-handoffs-crucial)
-  - [Review Workflow](#review-workflow)
-  - [Querying State](#querying-state)
-- [Integration Patterns](#integration-patterns)
-  - [Pattern 1: Plugin Development Guidelines](#pattern-1-plugin-development-guidelines)
-  - [Pattern 2: Workspace Workflow](#pattern-2-workspace-workflow)
-  - [Pattern 3: Git Operations via Sidecar](#pattern-3-git-operations-via-sidecar)
-  - [Pattern 4: Conversation Tracking](#pattern-4-conversation-tracking)
-- [Configuration & Development Workflow](#configuration-&-development-workflow)
-  - [Workspace tmux Preview](#workspace-tmux-preview)
-  - [Build & Version Standards](#build-&-version-standards)
-- [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
-- [Best Practices](#best-practices)
-  - [1. Always Start with Session Check](#1-always-start-with-session-check)
-  - [2. Always Create Tasks Before Starting Work](#2-always-create-tasks-before-starting-work)
-  - [3. Always Perform Handoffs Before Ending Sessions](#3-always-perform-handoffs-before-ending-sessions)
-  - [4. Follow Plugin Height Constraints](#4-follow-plugin-height-constraints)
-  - [5. Use Short Command Names](#5-use-short-command-names)
-  - [6. Never Render Footers in Plugin View()](#6-never-render-footers-in-plugin-view)
-  - [7. Never Approve Your Own Code](#7-never-approve-your-own-code)
-  - [8. Run Tests Before Committing](#8-run-tests-before-committing)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Starting Work Without a Task](#pitfall-1-starting-work-without-a-task)
-  - [Pitfall 2: Forgetting Handoffs](#pitfall-2-forgetting-handoffs)
-  - [Pitfall 3: Exceeding Plugin Height](#pitfall-3-exceeding-plugin-height)
-  - [Pitfall 4: Rendering Footers in View()](#pitfall-4-rendering-footers-in-view)
-  - [Pitfall 5: Approving Own Code](#pitfall-5-approving-own-code)
-  - [Pitfall 6: Committing Without Tests](#pitfall-6-committing-without-tests)
-- [References](#references)
 ## Purpose
 This playbook defines how AI agents should integrate with Sidecar for development workflows, task tracking, workspace management, and code quality standards. It is critical for agents to use `td` as structured external memory to persist context across sessions. This playbook provides comprehensive guidelines for effective agent-sidecar integration.
 **Core Philosophy:** Always use `td` as structured external memory to persist context across sessions. The session that implements code cannot approve it. Maintain strict separation between implementation and review.
@@ -14119,42 +13180,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Sidecar User Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Quick Start](#quick-start)
-- [Recommended Terminal Layout](#recommended-terminal-layout)
-- [Core Features & Plugins](#core-features-&-plugins)
-  - [Git Status Plugin](#git-status-plugin)
-  - [TD Monitor (Task Management)](#td-monitor-task-management)
-  - [Workspaces Plugin](#workspaces-plugin)
-  - [Conversations Plugin](#conversations-plugin)
-  - [File Browser](#file-browser)
-- [Global Navigation Shortcuts](#global-navigation-shortcuts)
-- [Configuration](#configuration)
-  - [Example Configuration](#example-configuration)
-- [Typical Workflow](#typical-workflow)
-  - [1. Plan Phase](#1-plan-phase)
-  - [2. Development Phase](#2-development-phase)
-  - [3. Review & Commit Phase](#3-review-&-commit-phase)
-  - [4. Workspace Management](#4-workspace-management)
-  - [5. Merge Phase](#5-merge-phase)
-- [Installation](#installation)
-  - [macOS (Recommended)](#macos-recommended)
-  - [Linux / Other](#linux--other)
-- [Tips for Effective Use](#tips-for-effective-use)
-- [Best Practices](#best-practices)
-  - [1. Always Check TD Before Starting Work](#1-always-check-td-before-starting-work)
-  - [2. Use Split Terminal Layout](#2-use-split-terminal-layout)
-  - [3. Link Tasks to Workspaces](#3-link-tasks-to-workspaces)
-  - [4. Review Diffs Before Committing](#4-review-diffs-before-committing)
-  - [5. Use Merge Workflow for Cleanup](#5-use-merge-workflow-for-cleanup)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Not Checking TD Before Starting Work](#pitfall-1-not-checking-td-before-starting-work)
-  - [Pitfall 2: Not Linking Tasks to Workspaces](#pitfall-2-not-linking-tasks-to-workspaces)
-  - [Pitfall 3: Forgetting to Review Diffs](#pitfall-3-forgetting-to-review-diffs)
-  - [Pitfall 4: Not Cleaning Up Workspaces](#pitfall-4-not-cleaning-up-workspaces)
-  - [Pitfall 5: Not Using Project Switcher](#pitfall-5-not-using-project-switcher)
-- [References](#references)
 ## Purpose
 Sidecar is a terminal-based development dashboard that consolidates your entire development workflow into a single interface. Use it to plan tasks with td, chat with AI agents, review diffs, stage commits, and manage workspaces—all without leaving the terminal. This playbook provides comprehensive guidelines for using Sidecar effectively in your daily development workflow.
 **Core Philosophy:** Consolidate your entire development workflow into a single terminal interface. Plan tasks, chat with AI agents, review diffs, stage commits, and manage workspaces without leaving the terminal.
@@ -14454,44 +13479,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # TD Agent Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Core Principles](#core-principles)
-- [Mandatory Directives](#mandatory-directives)
-  - [Mandatory Session Check](#mandatory-session-check)
-  - [Mandatory Task Creation](#mandatory-task-creation)
-  - [Start and Focus](#start-and-focus)
-  - [Track Progress and Decisions](#track-progress-and-decisions)
-  - [Mandatory Handoff (Crucial)](#mandatory-handoff-crucial)
-  - [Review Workflow Separation](#review-workflow-separation)
-- [Standard Workflow](#standard-workflow)
-  - [Plan](#plan)
-  - [Implement](#implement)
-  - [Handoff](#handoff)
-  - [Review](#review)
-  - [Review Agent Checklist (GH API)](#review-agent-checklist-gh-api)
-- [Querying State](#querying-state)
-- [Parallel Sessions: Build + Review](#parallel-sessions-build-+-review)
-  - [Session A — Build Agent](#session-a-—-build-agent)
-  - [Session B — Review Agent (Separate Session)](#session-b-—-review-agent-separate-session)
-  - [Practical Setup](#practical-setup)
-- [Do / Don't](#do--don't)
-  - [Do](#do)
-  - [Don't](#don't)
-- [Session End Checklist](#session-end-checklist)
-- [Summary Checklist](#summary-checklist)
-- [Best Practices](#best-practices)
-  - [1. Always Start with Session Check](#1-always-start-with-session-check)
-  - [2. Create Tasks Before Starting Work](#2-create-tasks-before-starting-work)
-  - [3. Log Decisions Explicitly](#3-log-decisions-explicitly)
-  - [4. Always Perform Handoffs](#4-always-perform-handoffs)
-  - [5. Never Approve Your Own Work](#5-never-approve-your-own-work)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Starting Work Without a Task](#pitfall-1-starting-work-without-a-task)
-  - [Pitfall 2: Forgetting Handoffs](#pitfall-2-forgetting-handoffs)
-  - [Pitfall 3: Approving Own Code](#pitfall-3-approving-own-code)
-  - [Pitfall 4: Not Logging Decisions](#pitfall-4-not-logging-decisions)
-- [References](#references)
 ## Purpose
 This playbook defines how AI agents must use the `td` CLI as structured external memory to ensure continuity across sessions, clear accountability, and reliable review workflows. For Nushell-based structured querying, see `playbooks/nushell-agent-playbook.md`.
 **Core Philosophy:** Tasks before work. Never start implementation without a task. Record key decisions and blockers in `td` logs. Every session must end with a `td handoff`. The implementation session cannot approve its own work.
@@ -14814,46 +13801,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # TD Skill Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Overview](#overview)
-- [Quick Start](#quick-start)
-  - [Session Start (Every Time)](#session-start-every-time)
-  - [Single-Issue Workflow](#single-issue-workflow)
-  - [Multi-Issue Workflow (Recommended for Agents)](#multi-issue-workflow-recommended-for-agents)
-- [Key Workflows](#key-workflows)
-  - [Workflow 1: Starting New Work](#workflow-1-starting-new-work)
-  - [Workflow 2: Handing Off Work](#workflow-2-handing-off-work)
-  - [Workflow 3: Reviewing Code](#workflow-3-reviewing-code)
-  - [Workflow 4: Handling Blockers](#workflow-4-handling-blockers)
-- [Commands by Category](#commands-by-category)
-  - [Checking Status](#checking-status)
-  - [Working on Issues](#working-on-issues)
-  - [Handing Off](#handing-off)
-  - [Reviews](#reviews)
-  - [Creating/Managing Issues](#creatingmanaging-issues)
-  - [File Tracking](#file-tracking)
-  - [Other](#other)
-- [Resources](#resources)
-  - [[quick_reference.md](references/quick_reference.md)](#[quick_referencemd]referencesquick_referencemd)
-  - [[ai_agent_workflows.md](references/ai_agent_workflows.md)](#[ai_agent_workflowsmd]referencesai_agent_workflowsmd)
-- [Issue Lifecycle](#issue-lifecycle)
-- [Key Principles](#key-principles)
-- [For AI Agents](#for-ai-agents)
-- [Best Practices](#best-practices)
-  - [1. Always Start with Session Check](#1-always-start-with-session-check)
-  - [2. Use Structured Handoffs](#2-use-structured-handoffs)
-  - [3. Log Decisions Explicitly](#3-log-decisions-explicitly)
-  - [4. Track Blockers](#4-track-blockers)
-  - [5. Link Files to Issues](#5-link-files-to-issues)
-  - [6. Never Approve Your Own Work](#6-never-approve-your-own-work)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Not Starting with Session Check](#pitfall-1-not-starting-with-session-check)
-  - [Pitfall 2: Skipping Handoffs](#pitfall-2-skipping-handoffs)
-  - [Pitfall 3: Approving Own Work](#pitfall-3-approving-own-work)
-  - [Pitfall 4: Not Logging Decisions](#pitfall-4-not-logging-decisions)
-  - [Pitfall 5: Not Tracking Blockers](#pitfall-5-not-tracking-blockers)
-- [References](#references)
 ## Purpose
 `td` is a minimalist CLI for tracking tasks and maintaining agent memory across context windows. When your AI session ends, `td` captures what was done, what remains, and what decisions were made—so the next session picks up exactly where the last one left off. This playbook provides comprehensive guidelines for using `td` in AI-assisted development workflows.
 **Core Philosophy:** Run `td usage` and get everything needed for the next action—current focus, pending reviews, open issues, recent decisions. Maintain structured handoffs to ensure continuity across sessions.
@@ -15153,37 +14100,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # TD User Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Core Principles](#core-principles)
-- [Quick Start (Checklist)](#quick-start-checklist)
-  - [Session End Checklist (Required)](#session-end-checklist-required)
-- [Commands You'll Use Daily](#commands-you'll-use-daily)
-  - [Session Start](#session-start)
-  - [Create & Link Work](#create-&-link-work)
-  - [Focus & Progress](#focus-&-progress)
-  - [Handoff (Mandatory)](#handoff-mandatory)
-  - [Review Workflow](#review-workflow)
-- [Recommended Workflow](#recommended-workflow)
-  - [1) Plan](#1-plan)
-  - [2) Execute](#2-execute)
-  - [3) Handoff](#3-handoff)
-  - [4) Review & Merge](#4-review-&-merge)
-- [Example: Full Process (Command Line + AI Tools)](#example-full-process-command-line-+-ai-tools)
-  - [Start the session and pick work](#start-the-session-and-pick-work)
-  - [Launch your AI agent and set the task context](#launch-your-ai-agent-and-set-the-task-context)
-  - [Log decisions during development](#log-decisions-during-development)
-  - [Submit for review and handoff](#submit-for-review-and-handoff)
-  - [Reviewer session (separate session)](#reviewer-session-separate-session)
-- [Parallel Agents: Build + Review (Two Sessions)](#parallel-agents-build-+-review-two-sessions)
-  - [Session A — Build Agent](#session-a-—-build-agent)
-  - [Session B — Review Agent (Separate Session)](#session-b-—-review-agent-separate-session)
-  - [Practical Setup](#practical-setup)
-  - [Zed Session Scope Note](#zed-session-scope-note)
-- [Best Practices](#best-practices)
-- [Common Pitfalls](#common-pitfalls)
-- [Summary](#summary)
-- [References](#references)
 ## Purpose
 Use `td` as your persistent task system for planning, tracking, and handing off work across human and AI agent sessions. This playbook defines how you should start work, log decisions, hand off context, and submit/approve reviews.
 **Core Philosophy:** Start every session with visibility. Keep your session scoped to a single `td` issue whenever possible. Log decisions and blockers as your external memory and audit trail. Every session ends with a structured handoff to prevent lost context. The session that implements work must not approve it.
@@ -15450,29 +14366,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # TypeScript Standards Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Loose Autocomplete](#loose-autocomplete)
-- [Branded Types (Nominal Typing)](#branded-types-nominal-typing)
-- [Exhaustive Switches](#exhaustive-switches)
-- [Result Pattern (Error Handling)](#result-pattern-error-handling)
-- [Zod Type Inference](#zod-type-inference)
-- [Bun-First Patterns](#bun-first-patterns)
-  - [Explicit Main Check](#explicit-main-check)
-  - [Path Resolution](#path-resolution)
-- [AI-Friendly Typing](#ai-friendly-typing)
-- [Best Practices](#best-practices)
-  - [1. Always Use Zod for Data Structures](#1-always-use-zod-for-data-structures)
-  - [2. Use Branded Types for IDs](#2-use-branded-types-for-ids)
-  - [3. Use Exhaustive Switches](#3-use-exhaustive-switches)
-  - [4. Use Result Pattern for Error Handling](#4-use-result-pattern-for-error-handling)
-  - [5. Use Explicit Return Types](#5-use-explicit-return-types)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Using `any` Instead of `unknown`](#pitfall-1-using-`any`-instead-of-`unknown`)
-  - [Pitfall 2: Not Using Branded Types for IDs](#pitfall-2-not-using-branded-types-for-ids)
-  - [Pitfall 3: Missing Exhaustive Switch Cases](#pitfall-3-missing-exhaustive-switch-cases)
-  - [Pitfall 4: Not Deriving Types from Zod Schemas](#pitfall-4-not-deriving-types-from-zod-schemas)
-- [References](#references)
 ## Purpose
 This playbook defines idiomatic TypeScript patterns used in the Mastra-Hono project. These patterns are selected for high type-safety, excellent developer experience (IDE autocomplete), and AI-maintainability. It provides comprehensive guidelines for writing TypeScript code that is both human-readable and AI-friendly.
 **Core Philosophy:** Write TypeScript that is type-safe, maintainable, and AI-friendly. Use explicit types, avoid `any`, prefer Zod for validation, and follow patterns that enhance IDE autocomplete and make code easier for AI agents to understand and modify.
@@ -15872,28 +14765,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Vercel Labs Agentic Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Core Tools](#core-tools)
-  - [Portless (`vercel-labs/portless`)](#portless-`vercel-labsportless`)
-  - [Just-Bash (`vercel-labs/just-bash`)](#just-bash-`vercel-labsjust-bash`)
-  - [Agent-Browser (`vercel-labs/agent-browser`)](#agent-browser-`vercel-labsagent-browser`)
-  - [Dev3000 (`vercel-labs/dev3000`)](#dev3000-`vercel-labsdev3000`)
-  - [JSON-Render (`vercel-labs/json-render`)](#json-render-`vercel-labsjson-render`)
-- [Strategic Integration with Mastra + Hono](#strategic-integration-with-mastra-+-hono)
-- [Best Practices](#best-practices)
-  - [1. Use Portless for All Local Services](#1-use-portless-for-all-local-services)
-  - [2. Wrap Shell Commands in Just-Bash](#2-wrap-shell-commands-in-just-bash)
-  - [3. Use Agent-Browser for Web Data](#3-use-agent-browser-for-web-data)
-  - [4. Use Dev3000 for Debugging](#4-use-dev3000-for-debugging)
-  - [5. Use JSON-Render for Rich UI](#5-use-json-render-for-rich-ui)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Not Using Portless](#pitfall-1-not-using-portless)
-  - [Pitfall 2: Running Shell Commands Directly](#pitfall-2-running-shell-commands-directly)
-  - [Pitfall 3: Not Using Agent-Browser](#pitfall-3-not-using-agent-browser)
-  - [Pitfall 4: Not Capturing Execution Traces](#pitfall-4-not-capturing-execution-traces)
-  - [Pitfall 5: Not Using JSON-Render](#pitfall-5-not-using-json-render)
-- [References](#references)
 ## Purpose
 This playbook outlines the integration of Vercel Labs' specialized tools into the `mastra-hono` ecosystem. These tools focus on providing stable environments, safe execution, and enhanced capabilities for AI agents. It provides comprehensive guidelines for leveraging Vercel Labs tools to enhance agent capabilities while maintaining security and reliability.
 **Core Philosophy:** Use Vercel Labs tools to provide stable environments, safe execution, and enhanced capabilities for AI agents. Integrate these tools with Mastra to create a powerful, secure, and reliable agent development workflow.
@@ -16150,36 +15021,6 @@ last_updated: "2026-03-21"
 tags: [playbook]
 ---
 # Visual Palette Playbook
-## Table of Contents
-- [Purpose](#purpose)
-- [Philosophy](#philosophy)
-- [The Palette](#the-palette)
-- [Quick Reference](#quick-reference)
-  - [td list (all tasks)](#td-list-all-tasks)
-  - [td current (focused task)](#td-current-focused-task)
-- [Output Examples](#output-examples)
-  - [table](#table)
-  - [compact (table -e)](#compact-table--e)
-  - [csv](#csv)
-  - [nuon](#nuon)
-  - [json](#json)
-  - [html](#html)
-- [Why This Matters](#why-this-matters)
-- [Integration with Edinburgh Protocol](#integration-with-edinburgh-protocol)
-- [Best Practices](#best-practices)
-  - [1. Choose Format Based on Use Case](#1-choose-format-based-on-use-case)
-  - [2. Use Table for Human Overview](#2-use-table-for-human-overview)
-  - [3. Use Compact for Focused View](#3-use-compact-for-focused-view)
-  - [4. Use CSV for Export](#4-use-csv-for-export)
-  - [5. Use NUON for Chaining](#5-use-nuon-for-chaining)
-  - [6. Use JSON for Debugging](#6-use-json-for-debugging)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Using Wrong Format for Use Case](#pitfall-1-using-wrong-format-for-use-case)
-  - [Pitfall 2: Not Using Compact for Focused View](#pitfall-2-not-using-compact-for-focused-view)
-  - [Pitfall 3: Not Using NUON for Chaining](#pitfall-3-not-using-nuon-for-chaining)
-  - [Pitfall 4: Using JSON for Human Overview](#pitfall-4-using-json-for-human-overview)
-  - [Pitfall 5: Not Using CSV for Export](#pitfall-5-not-using-csv-for-export)
-- [References](#references)
 ## Purpose
 This playbook defines a limited palette of structured output formats for deterministic display. It provides guidelines for choosing the right format when displaying structured data, ensuring consistency and clarity across all tools and workflows.
 **Core Philosophy:** Limited palette, maximum clarity. When displaying structured data, use one of these formats. No ad-hoc formatting—the choice should be trivial.
@@ -16449,34 +15290,6 @@ td list --json | from json | to csv -n > export.csv
 **Version:** 1.0  
 **Last Updated:** 2026-03-21  
 **Maintained by:** PolyVis Development Team
----
-## [Brainstorming: Knowledge Substrate & Stoolap Integration](https://polyvis.local/scratchpad/brainstorm-knowledge-substrate/)
-# Brainstorming: Knowledge Substrate & Stoolap Integration
-## Current State: "The Flat Lexicon"
-- `conceptual-lexicon.json` is a flat, hierarchical JSON file.
-- **Pros**: Simple, version-controlled via Git, easy for agents to read in one shot.
-- **Cons**: Becomes unwieldy as metadata dimensions increase. Hard to query specific cross-references (e.g., "Find all protocols that use the ntfy haptic link"). Lacks operational "heat" mapping (which personas or tools are failing most often).
-## Desired State: "The Stoolap Substrate"
-We are moving toward **STructural & Operational On-Line Analytical Processing**. 
-- **Structural**: Mapping the "Map of Knowledge" (Briefs -> Playbooks -> Code).
-- **Operational**: Real-time tracking of agent performance, entropy reduction scores, and task biddability.
-### 1. The Schema Vision
-- **CDA Registry**: Detailed persona profiles (Capabilities, Constraints, Locus Tags).
-- **Protocol Graph**: How protocols (Edinburgh, Origami) relate and overlap.
-- **Entropy Ledger**: A log of every major "Stuff to Things" transformation.
-- **Haptic Audit**: Monitoring the frequency and quality of human-in-the-loop interactions.
-### 2. Implementation Heuristics
-- **Mastra Integration**: Stoolap should be exposed as a `KnowledgeBase` or a set of specialized `Tools` within the Mastra index.
-- **Deterministic Memory**: Use Stoolap to provide "Mode A" persistence (OPM-0). If an agent restarts, it queries the substrate to find its last successful "Conceptual Anchor."
-- **Nushell Tier**: Nushell remains the CLI "Sensory Tier," but it should now pipe data into Stoolap for long-term analytical storage.
-### 3. Immediate Experiments
-- [ ] **ST-001**: Convert `conceptual-lexicon.json` into a Stoolap-ready relational structure.
-- [ ] **ST-002**: Implement a `substrateQuery` tool for the `edinburgh-protocol-agent`.
-- [ ] **ST-003**: Measure the "Retrieval Latency" vs. the "Cognitive Overhead" of the current JSON approach.
-## Why This Matters (The "Glass Cockpit" Goal)
-Turning documentation into a "Live Service Layer" means the agent doesn't just read a file; it *interacts* with the project's history. Stoolap is the engine that prevents "Context Collapse" as we scale to more complex, multi-agent workflows.
----
-*Reasoning Log (ses_96ef30): This scratchpad facilitates the transition from Documentation-as-Text to Documentation-as-Data.*
 ---
 ## [MastraCode Environment Variable Management Scripts](https://polyvis.local/scripts/)
 # MastraCode Environment Variable Management Scripts
