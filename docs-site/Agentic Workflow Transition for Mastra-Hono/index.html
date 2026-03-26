@@ -1,0 +1,842 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "/";
+      </script>
+      <title>
+        Agentic Workflow Transition for Mastra-Hono
+      </title>
+      
+        <link rel="stylesheet" href="../assets/css/docmd-main.css?v=mn7bl1if">
+        
+          <link rel="stylesheet" href="../assets/css/docmd-highlight-light.css?v=mn7bl1if"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../assets/css/docmd-highlight-dark.css?v=mn7bl1if"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../assets/css/docmd-theme-knowledge-sleeve.css?v=mn7bl1if" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../index.html">
+                      Mastra-Hono Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="" >
+      
+        <a href="../" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Persona Shift and Analysis
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../Agentic Workflow for Code Integrity" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Workflow for Code Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="active" >
+      
+        <a href="../Agentic Workflow Transition for Mastra-Hono" class="active "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Workflow Transition for Mastra-Hono
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../architectural-insights" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights: Compilers, Concurrency, and Semantic Graphs
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../knowledge-sleeve" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Beyond Chatbots: Engineering the &#34;Persona Stack&#34; for Agentic Collaboration
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../dev-setup-macos-zed" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup (macOS + Zed)
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../td-usage" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Folders:
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../hormuz-matrix" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Hormuz Matrix
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../edinburgh-protocol-system-prompt" class=" "
+          >
+          
+          <span class="nav-item-title">
+            IDENTITY: The Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../Mastra-Hono Symmetric Mentation Workflow" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Hono Symmetric Mentation Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../nushell-agent-usage" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage Guide
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbook-loading-process-tracker" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process Tracker
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../qwen35-evaluation-02" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Qwen3.5:latest Model Evaluation - Extended Benchmark (v2)
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../qwen35-evaluation" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Qwen3.5:latest Model Evaluation Results
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../safe-agi" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe Agi
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../td-workflow-diagram" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Td Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../test-mermaid" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid Charts
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../tomatoes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  Agentic Workflow Transition for Mastra-Hono
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                  <nav aria-label="breadcrumb" class="docmd-breadcrumbs">
+                                    <ol>
+                                      
+                                        <li class="breadcrumb-item active" aria-current=&#34;page&#34;>
+                                          
+                                            <span>Agentic Workflow Transition for Mastra-Hono</span>
+                                          
+                                          
+                                        </li>
+                                      
+                                    </ol>
+                                  </nav>
+                                
+                                
+                                    <h1 id="agentic-workflow-transition-for-mastra-hono">Agentic Workflow Transition for Mastra-Hono</h1>
+<p>This document describes how to transition Mastra-Hono to a <strong>Symmetric Mentation</strong> workflow that combines local task management with cloud-based review and secure notifications.</p>
+<hr>
+<h2 id="agentic-workflow-transition-for-mastra-hono-1-core-infrastructure-overview" class="docmd-heading"><a href="#agentic-workflow-transition-for-mastra-hono-1-core-infrastructure-overview" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. Core Infrastructure Overview</h2>
+<p>The workflow anchors agent state locally (via <code>td</code>) while delegating final review to GitHub workflows.</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Role</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Local Sleeve (SideCar + td)</strong></td>
+<td>Local task state</td>
+<td>Keeps task context durable and structured.</td>
+</tr>
+<tr>
+<td><strong>Cloud Brain (GHAW)</strong></td>
+<td>PR audit</td>
+<td>Runs sovereign checks in CI using <code>review.md</code>.</td>
+</tr>
+<tr>
+<td><strong>Haptic Link (ntfy)</strong></td>
+<td>Notifications</td>
+<td>Pushes actionable results to your phone.</td>
+</tr>
+<tr>
+<td><strong>Isolation (Git Worktrees)</strong></td>
+<td>Environment isolation</td>
+<td>Keeps task changes isolated and reproducible.</td>
+</tr>
+</tbody>
+</table>
+</div><hr>
+<h2 id="agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local" class="docmd-heading"><a href="#agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Setup Instructions (Phase 1: Local)</h2>
+<h3 id="agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local-step-1-install-agentic-tooling" class="docmd-heading"><a href="#agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local-step-1-install-agentic-tooling" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 1: Install agentic tooling</h3>
+<pre class="hljs"><code>gh extension install github/gh-aw
+# Ensure td is installed and available on PATH.
+</code></pre>
+<h3 id="agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local-step-2-initialize-repository-workflows" class="docmd-heading"><a href="#agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local-step-2-initialize-repository-workflows" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 2: Initialize repository workflows</h3>
+<pre class="hljs"><code>gh aw init
+# This creates .github/workflows for agentic markdown workflows.
+</code></pre>
+<h3 id="agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local-step-3-configure-ntfy-for-notifications-private" class="docmd-heading"><a href="#agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local-step-3-configure-ntfy-for-notifications-private" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 3: Configure ntfy for notifications (private)</h3>
+<p>Use a <strong>private</strong> topic or tokenized URL. Avoid public topics.</p>
+<pre class="hljs"><code># Replace &lt;private-topic-or-token&gt; with your private ntfy topic or token.
+alias notify=&quot;curl -d \&quot;Action Required in Mastra-Hono\&quot; https://ntfy.sh/&lt;private-topic-or-token&gt;&quot;
+</code></pre>
+<p>On iPhone, subscribe to the same private topic in the ntfy app.</p>
+<hr>
+<h2 id="agentic-workflow-transition-for-mastra-hono-3-repository-artifacts-placement" class="docmd-heading"><a href="#agentic-workflow-transition-for-mastra-hono-3-repository-artifacts-placement" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. Repository Artifacts &amp; Placement</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><a href="http://AGENTS.md">AGENTS.md</a></strong></td>
+<td><code>/AGENTS.md</code></td>
+<td>Repo constitution for all agents.</td>
+</tr>
+<tr>
+<td><strong><a href="http://review.md">review.md</a></strong></td>
+<td><code>.github/workflows/review.md</code></td>
+<td>GHAW review instructions.</td>
+</tr>
+<tr>
+<td><strong>CL.json</strong></td>
+<td><code>/root/conceptual-lexicon.json</code></td>
+<td>Project lexicon for agent context.</td>
+</tr>
+<tr>
+<td><strong>td.db</strong></td>
+<td><code>~/.td/mastra-hono.db</code></td>
+<td>Local task state (outside repo).</td>
+</tr>
+</tbody>
+</table>
+</div><p>After editing <code>review.md</code>, recompile the lock file:</p>
+<pre class="hljs"><code>gh aw compile
+</code></pre>
+<hr>
+<h2 id="agentic-workflow-transition-for-mastra-hono-4-operational-loop" class="docmd-heading"><a href="#agentic-workflow-transition-for-mastra-hono-4-operational-loop" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>4. Operational Loop</h2>
+<ol>
+<li><strong>Create a task</strong>: start a new <code>td</code> task and worktree.</li>
+<li><strong>Mentation</strong>: execute work locally; use <code>td</code> for durable context.</li>
+<li><strong>Submission</strong>: push the branch; CI runs <code>review.md</code>.</li>
+<li><strong>Feedback</strong>: ntfy posts pass/fail updates.</li>
+</ol>
+<hr>
+<h2 id="agentic-workflow-transition-for-mastra-hono-5-notes" class="docmd-heading"><a href="#agentic-workflow-transition-for-mastra-hono-5-notes" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>5. Notes</h2>
+<ul>
+<li><code>tsc --noEmit</code> remains the authoritative type check.</li>
+<li>Formatting is handled by Biome.</li>
+<li>Linting is handled by OxLint (where configured).</li>
+</ul>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#agentic-workflow-transition-for-mastra-hono-1-core-infrastructure-overview" class="toc-link">1. Core Infrastructure Overview</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local" class="toc-link">2. Setup Instructions (Phase 1: Local)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local-step-1-install-agentic-tooling" class="toc-link">Step 1: Install agentic tooling</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local-step-2-initialize-repository-workflows" class="toc-link">Step 2: Initialize repository workflows</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#agentic-workflow-transition-for-mastra-hono-2-setup-instructions-phase-1-local-step-3-configure-ntfy-for-notifications-private" class="toc-link">Step 3: Configure ntfy for notifications (private)</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#agentic-workflow-transition-for-mastra-hono-3-repository-artifacts-placement" class="toc-link">3. Repository Artifacts &amp; Placement</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#agentic-workflow-transition-for-mastra-hono-4-operational-loop" class="toc-link">4. Operational Loop</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#agentic-workflow-transition-for-mastra-hono-5-notes" class="toc-link">5. Notes</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../assets/js/docmd-main.js?v=mn7bl1if"></script>
+            <script src="../assets/js/docmd-image-lightbox.js?v=mn7bl1if" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../assets/js/docmd-search.js?v=mn7bl1if" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

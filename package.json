@@ -36,6 +36,8 @@
     "env:export": "bash scripts/export-mastra-env.sh"
   },
   "dependencies": {
+    "@docmd/core": "^0.6.3",
+    "@docmd/plugin-llms": "^0.6.3",
     "@mastra/core": "^1.4.0",
     "@mastra/hono": "^1.1.3",
     "@mastra/libsql": "^1.4.0",
