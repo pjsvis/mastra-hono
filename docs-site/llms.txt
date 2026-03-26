@@ -66,6 +66,7 @@ Context-as-Code documentation for the PolyVis project
 - [Agentic Workflow Transition for Mastra-Hono](https://polyvis.local/docs/Agentic Workflow Transition for Mastra-Hono/)
 - [AI Persona Shift and Analysis](https://polyvis.local/docs/AI Persona Shift and Analysis/)
 - [Architectural Insights: Compilers, Concurrency, and Semantic Graphs](https://polyvis.local/docs/architectural-insights/)
+- [Auto-Generated Documentation](https://polyvis.local/docs/auto-docs/)
 - [Dev Setup (macOS + Zed)](https://polyvis.local/docs/dev-setup-macos-zed/)
 - [IDENTITY: The Edinburgh Protocol](https://polyvis.local/docs/edinburgh-protocol-system-prompt/)
 - [Untitled](https://polyvis.local/docs/hormuz-matrix/)

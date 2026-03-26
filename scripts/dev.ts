@@ -1,12 +1,12 @@
 #!/usr/bin/env bun
 
 /**
- * dev-box CLI - Main Entry Point
+ * dev-box CLI - Context-as-Code Utility
  *
- * Provides utility commands for the Context-as-Code environment:
- * - lab: Run experimental scripts from scripts/lab/
- * - docs: Trigger Docmd documentation generation
- * - promote: Generate TTS v2.0 boilerplate for promoted scripts
+ * Commands:
+ * - lab [script]     Run experimental scripts from scripts/lab/
+ * - docs <subcommand> Documentation utilities
+ * - promote <name>    Generate TTS v2.0 boilerplate
  */
 
 import { runDocsCommand } from './commands/docs.js';
@@ -14,7 +14,7 @@ import { runLabCommand } from './commands/lab.js';
 import { runPromoteCommand } from './commands/promote.js';
 
 const main = async () => {
-  const args = Bun.argv.slice(2); // Skip bun and script path
+  const args = Bun.argv.slice(2);
   let command = args[0];
   const commandArgs = args.slice(1);
 
@@ -48,25 +48,23 @@ dev-box - Context-as-Code Utility CLI
 Usage: bun scripts/dev.ts <command> [options]
 
 Commands:
-  lab [script]    Run a script from scripts/lab/
-                  Examples:
-                    bun scripts/dev.ts lab hello
-                    bun scripts/dev.ts lab analyze
-  
-  docs            Generate documentation using Docmd
-                  Creates llms.txt and llms-full.txt
-  
-  promote <name>  Generate TTS v2.0 boilerplate
-                  Creates a new Tier 2 utility in scripts/commands/
-  
-Options:
-  --help, -h      Show this help message
+  lab [script]     Run a script from scripts/lab/
+  docs <subcommand> Documentation utilities
+  promote <name>   Generate TTS v2.0 boilerplate
+
+Docs Subcommands:
+  docs build   Build static documentation
+  docs serve   Start dev server (live reload)
+  docs auto    Generate auto-documentation
+  docs clean   Remove generated docs
 
 Examples:
   bun scripts/dev.ts lab hello
-  bun scripts/dev.ts docs
+  bun scripts/dev.ts docs build
+  bun scripts/dev.ts docs serve
+  bun scripts/dev.ts docs auto
   bun scripts/dev.ts promote my-utility
-  `);
+`);
 }
 
 main().catch(console.error);

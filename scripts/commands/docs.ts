@@ -1,30 +1,51 @@
 /**
  * Docs Command - Trigger Docmd documentation generation
  *
- * Runs the docmd CLI to generate documentation and llms.txt
- * Includes post-processing to clean up generated files
+ * Provides subcommands:
+ * - build: Generate static documentation
+ * - serve: Start dev server with live reload
+ * - clean: Remove generated docs
  */
 
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, readdirSync, readFileSync, writeFileSync, rmSync } from 'fs';
 import { join, resolve } from 'path';
 
 export async function runDocsCommand(args: string[]) {
-  console.log('📚 Generating documentation with Docmd...');
+  const [subcommand] = args;
+
+  switch (subcommand) {
+    case 'build':
+      await buildDocs();
+      break;
+    case 'serve':
+      await serveDocs();
+      break;
+    case 'clean':
+      await cleanDocs();
+      break;
+    case 'auto':
+      await runAutoDocumentation();
+      break;
+    case undefined:
+    case 'help':
+    default:
+      printDocsHelp();
+  }
+}
+
+async function buildDocs() {
+  console.log('📚 Building documentation with Docmd...');
 
   const configPath = resolve(join(import.meta.dir, '..', '..', 'docs', 'docmd.config.ts'));
 
-  // Check if docmd config exists
   if (!existsSync(configPath)) {
-    console.log('⚠️  Docmd config not found at:', configPath);
-    console.log('   Creating placeholder llms.txt...');
-    await generatePlaceholderLlms();
-    return;
+    console.log('❌ Docmd config not found at:', configPath);
+    process.exit(1);
   }
 
   console.log('   Found config:', configPath);
 
   try {
-    // Run docmd CLI
     const { spawn } = await import('child_process');
 
     const proc = spawn('bunx', ['docmd', 'build', '--config', configPath], {
@@ -42,137 +63,269 @@ export async function runDocsCommand(args: string[]) {
       proc.on('error', reject);
     });
 
-    // Only process files if docmd succeeded
     if (docmdExitCode !== 0) {
-      console.log('\n⚠️  Docmd build failed (exit code: ' + docmdExitCode + ')');
-      console.log('   Falling back to placeholder llms.txt...');
-      await generatePlaceholderLlms();
-      return;
+      console.log('\n❌ Docmd build failed (exit code: ' + docmdExitCode + ')');
+      process.exit(1);
     }
 
-    // Define paths
-    const docsSiteDir = resolve(join(import.meta.dir, '..', '..', 'docs-site'));
-    const siteLlms = join(docsSiteDir, 'llms.txt');
-    const siteLlmsFull = join(docsSiteDir, 'llms-full.txt');
-    const docsDir = resolve(join(import.meta.dir, '..', '..', 'docs'));
-    const docsLlms = join(docsDir, 'llms.txt');
-    const docsLlmsFull = join(docsDir, 'llms-full.txt');
+    // Post-process llms files
+    await postProcessLlms();
 
-    if (existsSync(siteLlms)) {
-      // Post-process and copy llms.txt
-      let llmsContent = readFileSync(siteLlms, 'utf8');
-      llmsContent = cleanLlmsContent(llmsContent);
-      // Append source documentation map
-      llmsContent += generateSourceDocMap();
-      writeFileSync(docsLlms, llmsContent, 'utf8');
-      console.log('✅ Cleaned llms.txt written to docs/');
-    }
-
-    if (existsSync(siteLlmsFull)) {
-      // Post-process and copy llms-full.txt
-      let fullContent = readFileSync(siteLlmsFull, 'utf8');
-      fullContent = cleanLlmsContent(fullContent);
-      writeFileSync(docsLlmsFull, fullContent, 'utf8');
-      console.log('✅ Cleaned llms-full.txt written to docs/');
-    }
-
-    if (!existsSync(siteLlms) && !existsSync(siteLlmsFull)) {
-      console.log('\n⚠️  Docmd completed but llms files not found');
-      console.log('   Falling back to placeholder...');
-      await generatePlaceholderLlms();
-      return;
-    }
-
-    console.log('\n✅ Documentation generated successfully');
+    console.log('\n✅ Documentation built successfully');
   } catch (error) {
-    console.error('❌ Documentation generation failed:', error);
-    console.log('\n⚠️  Falling back to placeholder llms.txt');
-    await generatePlaceholderLlms();
+    console.error('❌ Documentation build failed:', error);
+    process.exit(1);
+  }
+}
+
+async function serveDocs() {
+  console.log('🚀 Starting Docmd dev server...');
+
+  const configPath = resolve(join(import.meta.dir, '..', '..', 'docs', 'docmd.config.ts'));
+
+  if (!existsSync(configPath)) {
+    console.log('❌ Docmd config not found at:', configPath);
+    process.exit(1);
+  }
+
+  const { spawn } = await import('child_process');
+
+  const proc = spawn('bunx', ['docmd', 'dev', '--config', configPath], {
+    cwd: resolve(join(import.meta.dir, '..', '..')),
+    stdio: 'inherit',
+  });
+
+  proc.on('error', (error) => {
+    console.error('❌ Failed to start dev server:', error);
+    process.exit(1);
+  });
+
+  // Keep process alive
+  await new Promise(() => {});
+}
+
+async function cleanDocs() {
+  const docsSiteDir = resolve(join(import.meta.dir, '..', '..', 'docs-site'));
+  const docsLlms = resolve(join(import.meta.dir, '..', '..', 'docs', 'llms.txt'));
+  const docsLlmsFull = resolve(join(import.meta.dir, '..', '..', 'docs', 'llms-full.txt'));
+
+  let cleaned = 0;
+
+  if (existsSync(docsSiteDir)) {
+    rmSync(docsSiteDir, { recursive: true, force: true });
+    cleaned++;
+    console.log('🗑️  Removed docs-site/');
+  }
+
+  if (existsSync(docsLlms)) {
+    rmSync(docsLlms, { force: true });
+    cleaned++;
+  }
+
+  if (existsSync(docsLlmsFull)) {
+    rmSync(docsLlmsFull, { force: true });
+    cleaned++;
+  }
+
+  if (cleaned > 0) {
+    console.log('✅ Documentation cleaned');
+  } else {
+    console.log('ℹ️  Nothing to clean');
   }
 }
 
 /**
- * Clean llms.txt content:
- * 1. URL-encode spaces in links
- * 2. Remove "Untitled" entries
- * 3. Remove "Folders:" and metadata-only entries
+ * Run auto-documentation:
+ * 1. Scan for TODO/FIXME comments in src/
+ * 2. Extract function signatures
+ * 3. Generate a code inventory
  */
+async function runAutoDocumentation() {
+  console.log('🔍 Running auto-documentation...');
+
+  const srcDir = resolve(join(import.meta.dir, '..', '..', 'src'));
+  const outputPath = resolve(join(import.meta.dir, '..', '..', 'docs', 'auto-docs.md'));
+
+  if (!existsSync(srcDir)) {
+    console.log('❌ src/ directory not found');
+    process.exit(1);
+  }
+
+  const todos = findTodos(srcDir);
+  const exports = findExports(srcDir);
+
+  let content = `# Auto-Generated Documentation
+
+> ⚠️  **Auto-generated by dev-box** - Run \`bun scripts/dev.ts docs:auto\` to regenerate
+
+## TODO/FIXME Summary
+
+Found **${todos.length}** outstanding items across the codebase.
+
+`;
+
+  if (todos.length > 0) {
+    content += '### Items\n\n';
+    for (const { file, line, text } of todos) {
+      const relativePath = file.replace(resolve(import.meta.dir, '..', '..') + '/', '');
+      content += `- [ ] \`${relativePath}:${line}\` - ${text}\n`;
+    }
+  } else {
+    content += '✅ No TODO/FIXME items found.\n';
+  }
+
+  content += '\n## Export Inventory\n\n';
+  content += `Found **${exports.length}** exports across the codebase.\n\n`;
+
+  if (exports.length > 0) {
+    content += '| File | Export |\n|--------|--------|\n';
+    for (const { file, name, type } of exports) {
+      const relativePath = file.replace(resolve(import.meta.dir, '..', '..') + '/', '');
+      content += `| \`${relativePath}\` | \`${type} ${name}\` |\n`;
+    }
+  }
+
+  writeFileSync(outputPath, content, 'utf8');
+  console.log('✅ Auto-documentation generated: docs/auto-docs.md');
+  console.log(`   - ${todos.length} TODO/FIXME items`);
+  console.log(`   - ${exports.length} exports`);
+}
+
+interface Todo {
+  file: string;
+  line: number;
+  text: string;
+}
+
+interface Export {
+  file: string;
+  name: string;
+  type: string;
+}
+
+function findTodos(dir: string, results: Todo[] = []): Todo[] {
+  try {
+    const entries = readdirSync(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const fullPath = join(dir, entry.name);
+
+      if (entry.isDirectory()) {
+        if (entry.name === 'node_modules' || entry.name === '.git' || entry.name.startsWith('.')) {
+          continue;
+        }
+        findTodos(fullPath, results);
+      } else if (entry.isFile() && (entry.name.endsWith('.ts') || entry.name.endsWith('.js'))) {
+        const content = readFileSync(fullPath, 'utf8');
+        const lines = content.split('\n');
+
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          const todoMatch = line.match(/\/\/\s*(TODO|FIXME|HACK|XXX):\s*(.+)/);
+          if (todoMatch) {
+            results.push({
+              file: fullPath,
+              line: i + 1,
+              text: todoMatch[2].trim(),
+            });
+          }
+        }
+      }
+    }
+  } catch {
+    // Ignore permission errors
+  }
+
+  return results;
+}
+
+function findExports(dir: string, results: Export[] = []): Export[] {
+  try {
+    const entries = readdirSync(dir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      const fullPath = join(dir, entry.name);
+
+      if (entry.isDirectory()) {
+        if (entry.name === 'node_modules' || entry.name === '.git' || entry.name.startsWith('.')) {
+          continue;
+        }
+        findExports(fullPath, results);
+      } else if (entry.isFile() && (entry.name.endsWith('.ts') || entry.name.endsWith('.js'))) {
+        const content = readFileSync(fullPath, 'utf8');
+
+        // Match export statements
+        const exportMatches = content.matchAll(/(?:export|export\s+default)\s+(?:const|function|class|type|interface|enum)\s+(\w+)/g);
+        for (const match of exportMatches) {
+          const type = match[0].includes('class') ? 'class' :
+                       match[0].includes('type') ? 'type' :
+                       match[0].includes('interface') ? 'interface' :
+                       match[0].includes('enum') ? 'enum' :
+                       match[0].includes('function') ? 'fn' :
+                       match[0].includes('default') ? 'default' : 'const';
+          results.push({
+            file: fullPath,
+            name: match[1],
+            type,
+          });
+        }
+      }
+    }
+  } catch {
+    // Ignore permission errors
+  }
+
+  return results;
+}
+
+async function postProcessLlms() {
+  const docsSiteDir = resolve(join(import.meta.dir, '..', '..', 'docs-site'));
+  const siteLlms = join(docsSiteDir, 'llms.txt');
+  const siteLlmsFull = join(docsSiteDir, 'llms-full.txt');
+  const docsDir = resolve(join(import.meta.dir, '..', '..', 'docs'));
+  const docsLlms = join(docsDir, 'llms.txt');
+  const docsLlmsFull = join(docsDir, 'llms-full.txt');
+
+  if (existsSync(siteLlms)) {
+    let llmsContent = readFileSync(siteLlms, 'utf8');
+    llmsContent = cleanLlmsContent(llmsContent);
+    llmsContent += generateSourceDocMap();
+    writeFileSync(docsLlms, llmsContent, 'utf8');
+    console.log('✅ Cleaned llms.txt written to docs/');
+  }
+
+  if (existsSync(siteLlmsFull)) {
+    let fullContent = readFileSync(siteLlmsFull, 'utf8');
+    fullContent = cleanLlmsContent(fullContent);
+    writeFileSync(docsLlmsFull, fullContent, 'utf8');
+    console.log('✅ Cleaned llms-full.txt written to docs/');
+  }
+}
+
 function cleanLlmsContent(content: string): string {
-  // 1. URL-encode spaces in markdown links
-  // [Title](url with spaces) -> [Title](url%20with%20spaces)
-  // Handles both .md links and stripped URLs
   content = content.replace(/\[([^\]]*)\]\(([^)]+)\)/g, (match, title, url) => {
-    // Skip if already encoded or if it's a header blockquote
     if (url.includes('%20') || url.startsWith('>')) return match;
-    // Skip "Generated by" and other header lines
     if (title.includes('Generated')) return match;
-    // Skip empty titles
     if (!title || title.trim() === '') return match;
-    // URL-encode spaces in the URL portion
     const encodedUrl = url.replace(/ /g, '%20');
     return `[${title}](${encodedUrl})`;
   });
 
-  // 2. Remove "Untitled" entries (lines that are just "- [Untitled]" or contain "Untitled" at start)
   content = content
     .split('\n')
     .filter((line) => {
-      // Skip standalone "Untitled" link lines
       if (line.match(/^-\s+\[Untitled\]/)) return false;
-      // Skip "Folders:" metadata lines
       if (line.includes('Folders:')) return false;
-      // Skip empty lines after filtering
       if (line.trim() === '') return false;
       return true;
     })
     .join('\n');
 
-  // 3. Clean up consecutive empty lines
   content = content.replace(/\n{3,}/g, '\n\n');
 
   return content;
 }
 
-async function generatePlaceholderLlms() {
-  const docsDir = resolve(join(import.meta.dir, '..', '..', 'docs'));
-
-  // ⚠️  NOTICE: This is a placeholder, not real Docmd output
-  const llmsContent = `# LLMS - Root Level Visibility (PLACEHOLDER)
-
-> ⚠️  **This is a placeholder file.** Run \`bun scripts/dev.ts docs\` after installing
-> \`@docmd/core\` to generate the real documentation index.
-
-## Directories
-
-- \`/briefs\` - Active mission parameters and briefs
-- \`/playbooks\` - Pattern playbooks (TTS v2.0, UI-Color, etc.)
-- \`/debriefs\` - Post-mortem analysis
-- \`/scripts\` - Utility CLI (dev-box)
-
-## Technology Stack
-
-| Tier | Location | Strictness |
-|------|----------|------------|
-| Tier 1: Sieve | /scripts/lab | @ts-nocheck |
-| Tier 2: Net | /scripts/commands | Moderate |
-| Tier 3: Edifice | /src | strict: true |
-
-Generated by dev-box (placeholder)
-`;
-
-  const llmsPath = join(docsDir, 'llms.txt');
-  writeFileSync(llmsPath, llmsContent, 'utf8');
-  console.log(`⚠️  Created placeholder llms.txt - not using real Docmd output`);
-  console.log(`   Run: bun add @docmd/core @docmd/plugin-llms`);
-  console.log(`   Then: bun scripts/dev.ts docs`);
-}
-
-/**
- * Generate Source Documentation Map
- *
- * Scans /src for README.md files and generates a structured map
- * of the source code documentation.
- */
 function generateSourceDocMap(): string {
   const srcDir = resolve(join(import.meta.dir, '..', '..', 'src'));
 
@@ -188,23 +341,18 @@ function generateSourceDocMap(): string {
 
   let output = '\n---\n\n## Source Documentation (Doc Map)\n\n';
 
-  // Deduplicate by full URL
   const seenUrls = new Set<string>();
 
   for (const { path: filePath, title } of readmeFiles) {
-    // Convert src/foo/README.md -> /src/foo/
     let relativePath = filePath.replace(srcDir, '').replace(/\/README\.md$/i, '').replace(/\.md$/i, '');
-    // Handle root src/README.md case
     if (relativePath === '') {
       relativePath = '/';
     } else if (!relativePath.startsWith('/')) {
       relativePath = '/' + relativePath;
     }
-    // Ensure no double slashes and handle trailing slash
     const cleanPath = ('/src' + relativePath).replace(/\/\//g, '/').replace(/\/$/, '');
     const fullUrl = 'https://polyvis.local' + (cleanPath || '/src') + '/';
 
-    // Skip duplicates (from docmd's own processing)
     if (seenUrls.has(fullUrl)) {
       continue;
     }
@@ -216,9 +364,6 @@ function generateSourceDocMap(): string {
   return output;
 }
 
-/**
- * Recursively find README.md files in a directory
- */
 function findReadmeFiles(
   dir: string,
   rootDir: string
@@ -232,14 +377,11 @@ function findReadmeFiles(
       const fullPath = join(dir, entry.name);
 
       if (entry.isDirectory()) {
-        // Skip node_modules and hidden directories
         if (entry.name === 'node_modules' || entry.name.startsWith('.')) {
           continue;
         }
-        // Recurse into subdirectories
         results.push(...findReadmeFiles(fullPath, rootDir));
       } else if (entry.isFile()) {
-        // Check for README.md files (case-insensitive)
         if (entry.name.toLowerCase() === 'readme.md') {
           const title = extractTitleFromReadme(fullPath, entry.name);
           results.push({ path: fullPath, title });
@@ -253,14 +395,10 @@ function findReadmeFiles(
   return results;
 }
 
-/**
- * Extract title from README.md file
- */
 function extractTitleFromReadme(filePath: string, fallbackName: string): string {
   try {
     const content = readFileSync(filePath, 'utf8');
 
-    // Try YAML frontmatter title
     const fmMatch = content.match(/^---\n([\s\S]*?)\n---/);
     if (fmMatch) {
       const titleMatch = fmMatch[1].match(/^title:\s*"?([^"\n]+)"?/m);
@@ -269,15 +407,33 @@ function extractTitleFromReadme(filePath: string, fallbackName: string): string 
       }
     }
 
-    // Try H1 heading
     const h1Match = content.match(/^#\s+(.+)$/m);
     if (h1Match) {
       return h1Match[1].trim();
     }
 
-    // Fallback: prettify filename
     return fallbackName.replace(/\.md$/i, '').replace(/[-_]/g, ' ');
   } catch {
     return fallbackName.replace(/\.md$/i, '');
   }
+}
+
+function printDocsHelp() {
+  console.log(`
+docs - Documentation utilities
+
+Usage: bun scripts/dev.ts docs <subcommand>
+
+Subcommands:
+  build       Build static documentation with Docmd
+  serve       Start dev server with live reload
+  auto        Generate auto-documentation (TODOs, exports)
+  clean       Remove generated documentation
+
+Examples:
+  bun scripts/dev.ts docs build    # Build static docs
+  bun scripts/dev.ts docs serve     # Start dev server (live reload)
+  bun scripts/dev.ts docs auto      # Generate TODO/export inventory
+  bun scripts/dev.ts docs clean     # Remove docs-site/
+`);
 }
