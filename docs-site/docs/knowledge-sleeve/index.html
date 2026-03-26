@@ -1,0 +1,1692 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "/";
+      </script>
+      <title>
+        Beyond Chatbots: Engineering the &#34;Persona Stack&#34; for Agentic Collaboration
+      </title>
+      
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7fiooe">
+        
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7fiooe"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7fiooe"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7fiooe" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-integrity-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-retrofit/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-sdlc/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/ai-friendly-code-patterns/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/biome-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/cli-design-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/design-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/edinburgh-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/fabric-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/fabric-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/git-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/just-bash/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/loading-process-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/local-memory-agents/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/mastra-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/nushell-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/nushell-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/origami-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/repo-init-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/secure-tool-design/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/sidecar-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/sidecar-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-skill-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/tiered-type-safety-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/typescript-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/ui-color-decision-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/vercel-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/visual-palette/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../briefs/brief-agentic-integrity-workflow/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-ai-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-ctx-telepresence/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-01/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-02/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-03/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-doc-manage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-mastra-autoresearch-skill/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-merge-queue/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-playbook-index/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-stoolap-eval/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-summary/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../debriefs/review-remeda-usage-and-plan-deprecation/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-33741f-biome-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-3bdb2f/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-4b567d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-64959e/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-770149/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-8c4038/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-bcf87d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-c4a3cb/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-fa8288/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-fc7e38/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="active-parent collapsible expanded nav-group"  aria-expanded="true" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="active" >
+      
+        <a href="../../docs/knowledge-sleeve/" class="active "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/nushell-agent-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/architectural-insights/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/edinburgh-protocol-system-prompt/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/dev-setup-macos-zed/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/playbook-loading-process-tracker/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/td-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/td-workflow-diagram/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/safe-agi/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/test-mermaid/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/tomatoes/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  Beyond Chatbots: Engineering the &#34;Persona Stack&#34; for Agentic Collaboration
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                  <nav aria-label="breadcrumb" class="docmd-breadcrumbs">
+                                    <ol>
+                                      
+                                        <li class="breadcrumb-item " >
+                                          
+                                            <span>System Docs</span>
+                                          
+                                          
+                                            <span class="breadcrumb-separator">
+<svg class="lucide-icon icon-chevron-right " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+                                          
+                                        </li>
+                                      
+                                        <li class="breadcrumb-item active" aria-current=&#34;page&#34;>
+                                          
+                                            <span>Knowledge Sleeve</span>
+                                          
+                                          
+                                        </li>
+                                      
+                                    </ol>
+                                  </nav>
+                                
+                                
+                                    <p>This article provides a “High-Fidelity Interface” for our audience, translating our internal directives into clear, actionable architectural principles. It mirrors the <strong>Scottish Enlightenment</strong> values we’ve established: analytical, articulate, and focused on reducing conceptual entropy.</p>
+<hr>
+<h1 id="beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration">Beyond Chatbots: Engineering the “Persona Stack” for Agentic Collaboration</h1>
+<p>In the rush to integrate generative AI, most organizations are stuck at the “chatbot” level—a transient conversation in a web UI. At Ctx, we recognized early that for AI to move from a curiosity to a core engineering partner, it needed more than a prompt; it needed an architecture.</p>
+<p>We have moved beyond the isolated chat window and engineered what we call the <strong>Persona Stack</strong>. This is a functional blueprint for transforming a Large Language Model (LLM) into a stateful, predictable, and self-documenting agentic collaborator.</p>
+<hr>
+<h2 id="beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-1-the-persona-stack-giving-the-agent-a-sleeve" class="docmd-heading"><a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-1-the-persona-stack-giving-the-agent-a-sleeve" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. The Persona Stack: Giving the Agent a “Sleeve”</h2>
+<p>A raw LLM has no concept of your project, your strictness standards, or your development philosophy. We solve this by wrapping the agent in three critical layers:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th style="text-align:left">Layer</th>
+<th style="text-align:left">Component</th>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">The Scottish Enlightenment Principle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Sleeve</strong></td>
+<td style="text-align:left">The <strong>Runtime</strong> (Bun, CITTY, Docmd)</td>
+<td style="text-align:left">Defines what the agent <em>can do</em> (executable tools, file system access).</td>
+<td style="text-align:left"><strong>Pragmatic Resourcefulness:</strong> Use the fastest, most specialized tools available (Bun/Docmd).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Persona</strong></td>
+<td style="text-align:left">The <strong>Directives</strong> (Core Directive Array #63)</td>
+<td style="text-align:left">Defines <em>how</em> the agent thinks and acts (analytical, empathetic, minimalist).</td>
+<td style="text-align:left"><strong>Mentational Humility:</strong> Operating with a clear understanding of its own limitations.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Skin</strong></td>
+<td style="text-align:left">The <strong>UI/UX</strong> (Hono, UI-Color Playbook)</td>
+<td style="text-align:left">Defines how the agent is <em>perceived</em> (how its outputs look and feel).</td>
+<td style="text-align:left"><strong>Visual Hierarchy &amp; Functional Clarity:</strong> Color as a signal to reduce interaction entropy.</td>
+</tr>
+</tbody>
+</table>
+</div><p>By defining this stack, we transition the agent from a chaotic input/output machine to a “Contextualized Entity.” We reduced <strong>Conceptual Entropy</strong> not by asking the agent to “be good,” but by building an architecture that <em>enforces</em> goodness.</p>
+<hr>
+<h2 id="beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net" class="docmd-heading"><a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. The Development Process: “The Sieve” and “The Net”</h2>
+<p>A “pro” agent that can write perfect, strictly typed TypeScript (our Tier 3 “Edifice”) is often a <strong>friction machine</strong> in the early, exploratory phase of a project. They refuse to “just code” and demand interfaces and schemas before the problem is understood. We solved this by implementing a <strong>Tiered Type-Safety (TTS)</strong> gradient:</p>
+<h3 id="beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net-a-the-sieve-tier-1-explosive-gumption" class="docmd-heading"><a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net-a-the-sieve-tier-1-explosive-gumption" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>A. The Sieve (Tier 1): Explosive Gumption</h3>
+<p>Our exploratory coding happens in the <code>/lab</code> folder, protected by <code>// @ts-nocheck</code>. The goal here is pure speed and functional proof-of-concept. The agent is freed from strict types to allow for rapid <strong>Tree Climbing</strong> to map the conceptual space. This allows the user’s <strong>Gumption</strong> (OH-093) to drive the exploration without the overhead of fulfilling a complex type contract.</p>
+<h3 id="beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net-b-the-net-tier-2-utility-promotion" class="docmd-heading"><a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net-b-the-net-tier-2-utility-promotion" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>B. The Net (Tier 2): Utility Promotion</h3>
+<p>Once a script works twice, it’s promoted from “Stuff” to a “Thing.” We created a utility CLI (using Bun and CITTY) that can “net” a lab script and wrap it in a boilerplate CITTY command with moderate type-checking. This “Formalization” (PHI-12) serves as a <strong>Cognitive Checkpoint (OH-052)</strong>, ensuring the tool is repeatable before its logic is hardened for production.</p>
+<h3 id="beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net-c-the-edifice-tier-3-production-rigor" class="docmd-heading"><a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net-c-the-edifice-tier-3-production-rigor" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>C. The Edifice (Tier 3): Production Rigor</h3>
+<p>Logic destined for production is hardened in <code>/src</code>, where <code>strict: true</code> and advanced “Pro” patterns (Discriminated Unions, Branded Types, Exhaustive Checks) are mandatory. By separating these tiers, we reduced <strong>Compulsive Narrative Syndrome (COG-12)</strong>, allowing the agent to write low-fidelity code when velocity matters and high-fidelity code when durability matters.</p>
+<p>—TOTAL SIEVE INFRASTRUCTURE DIAGRAM [Image showing a 3D pyramid with horizontal layers representing ‘Lab’, ‘Utility’, and ‘Production’, with arrows indicating ‘Friction’ and ‘Rigor’ on one side, and ‘Velocity’ and ‘Gumption’ on the other.]</p>
+<h2 id="beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-3-the-knowledge-sleeve-documentation-for-agents" class="docmd-heading"><a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-3-the-knowledge-sleeve-documentation-for-agents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. The Knowledge Sleeve: Documentation for Agents</h2>
+<p>The final, and perhaps most critical, component of our stack is the <strong>Knowledge Sleeve</strong>, built with <a href="http://Docmd.io">Docmd.io</a>. Traditional documentation is passive; it’s a website humans occasionally read. Our documentation is <strong>active context</strong>.</p>
+<p>By using Docmd’s native support for the <code>llms.txt</code> and <code>llms-full.txt</code> standards, we provide agents with a <strong>High-Density Context Engine</strong>. An agent entering the repo doesn’t search for information—it &quot; Deep Syncs&quot; (PHI-2). It ingests the entire <strong>Conceptual Lexicon</strong>, all <strong>Playbooks</strong> (TTS, CLI-Design), and all active <strong>Briefs</strong> in a single pass.</p>
+<p>This turns documentation from a post-mortem requirement into a <strong>Workflow Durability (PHI-13)</strong> asset. Every decision, brief, and playbook is a reusable “cognitive block” that reduces the agent’s startup entropy in the next session.</p>
+<hr>
+<h2 id="beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-conclusion-engineering-for-collaboration-not-command" class="docmd-heading"><a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-conclusion-engineering-for-collaboration-not-command" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Conclusion: Engineering for Collaboration, Not Command</h2>
+<p>By building the <strong>Persona Stack</strong>, implementing <strong>Tiered Type-Safety</strong>, and activating the <strong>Docmd Knowledge Sleeve</strong>, we have moved beyond “prompt engineering” and into <strong>Context Engineering</strong>.</p>
+<p>We don’t “chat” with an AI; we <strong>Sleeve</strong> an advanced synthetic intelligence to explore conceptual space alongside us. This is how we move AI from a tool of automation to a partner of <strong>Synergistic Collaboration</strong>. The “chatbot” is dead. The engineering of the <strong>Agentic Persona Stack</strong> has begun.</p>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-1-the-persona-stack-giving-the-agent-a-sleeve" class="toc-link">1. The Persona Stack: Giving the Agent a “Sleeve”</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net" class="toc-link">2. The Development Process: “The Sieve” and “The Net”</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net-a-the-sieve-tier-1-explosive-gumption" class="toc-link">A. The Sieve (Tier 1): Explosive Gumption</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net-b-the-net-tier-2-utility-promotion" class="toc-link">B. The Net (Tier 2): Utility Promotion</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-2-the-development-process-the-sieve-and-the-net-c-the-edifice-tier-3-production-rigor" class="toc-link">C. The Edifice (Tier 3): Production Rigor</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-3-the-knowledge-sleeve-documentation-for-agents" class="toc-link">3. The Knowledge Sleeve: Documentation for Agents</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#beyond-chatbots-engineering-the-persona-stack-for-agentic-collaboration-conclusion-engineering-for-collaboration-not-command" class="toc-link">Conclusion: Engineering for Collaboration, Not Command</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../../assets/js/docmd-main.js?v=mn7fiooe"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7fiooe" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7fiooe" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

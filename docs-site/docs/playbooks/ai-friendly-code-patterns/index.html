@@ -1,0 +1,2140 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../../../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../../../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "";
+      </script>
+      <title>
+        AI-Friendly Code Patterns Playbook
+      </title>
+      
+        <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7fdkey">
+        
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-light.css?v=mn7fdkey"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-dark.css?v=mn7fdkey"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../../../assets/css/docmd-theme-sky.css?v=mn7fdkey" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../../../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-integrity-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-retrofit/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-sdlc/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ai-friendly-code-patterns/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/biome-standards/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/cli-design-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/design-heuristics/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/edinburgh-protocol/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/git-workflow-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/just-bash/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/loading-process-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/local-memory-agents/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/mastra-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/origami-protocol/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/repo-init-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/secure-tool-design/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-skill-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/tiered-type-safety-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/typescript-standards/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ui-color-decision-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/vercel-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/visual-palette/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../briefs/brief-agentic-integrity-workflow/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ai-workflow-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ctx-telepresence/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-01/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-02/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-03/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-doc-manage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-mastra-autoresearch-skill/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-merge-queue/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-playbook-index/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-stoolap-eval/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-summary/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../debriefs/review-remeda-usage-and-plan-deprecation/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-33741f-biome-heuristics/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-3bdb2f/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-4b567d/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-64959e/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-770149/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-8c4038/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-bcf87d/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-c4a3cb/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fa8288/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fc7e38/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../docs/knowledge-sleeve/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/nushell-agent-usage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/architectural-insights/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/edinburgh-protocol-system-prompt/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/dev-setup-macos-zed/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/playbook-loading-process-tracker/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-usage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-workflow-diagram/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/safe-agi/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/test-mermaid/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/tomatoes/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  AI-Friendly Code Patterns Playbook
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                
+                                    <h1 id="ai-friendly-code-patterns-playbook">AI-Friendly Code Patterns Playbook</h1>
+<h2 id="ai-friendly-code-patterns-playbook-table-of-contents" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
+<ul>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#executive-summary">Executive Summary</a></li>
+<li><a href="#case-study-git-worktree-cleanup-implementation">Case Study: Git Worktree Cleanup Implementation</a>
+<ul>
+<li><a href="#the-experiment">The Experiment</a></li>
+<li><a href="#human-readability-verdict">Human Readability Verdict</a></li>
+<li><a href="#ai-agent-maintainability-verdict">AI Agent Maintainability Verdict</a></li>
+</ul>
+</li>
+<li><a href="#the-counterexample-await-to-js">The Counterexample: await-to-js</a>
+<ul>
+<li><a href="#why-this-package-works-well">Why This Package Works Well</a></li>
+</ul>
+</li>
+<li><a href="#comparative-analysis">Comparative Analysis</a></li>
+<li><a href="#package-selection-guidelines">Package Selection Guidelines</a>
+<ul>
+<li><a href="#%E2%9C%85-keep-ai-friendly">✅ Keep (AI-Friendly)</a></li>
+<li><a href="#%E2%9D%8C-deprecate-ai-unfriendly">❌ Deprecate (AI-Unfriendly)</a></li>
+</ul>
+</li>
+<li><a href="#practical-guidelines-for-this-project">Practical Guidelines for This Project</a>
+<ul>
+<li><a href="#when-to-use-imperative-code">When to Use Imperative Code</a></li>
+<li><a href="#when-functional-code-is-acceptable">When Functional Code is Acceptable</a></li>
+<li><a href="#anti-patterns-to-avoid">Anti-Patterns to Avoid</a></li>
+</ul>
+</li>
+<li><a href="#opinion-should-we-deprecate-remeda">Opinion: Should We Deprecate Remeda?</a>
+<ul>
+<li><a href="#rationale">Rationale</a></li>
+<li><a href="#migration-strategy">Migration Strategy</a></li>
+<li><a href="#keep-await-to-js">Keep: await-to-js</a></li>
+</ul>
+</li>
+<li><a href="#key-takeaways">Key Takeaways</a>
+<ul>
+<li><a href="#for-developers">For Developers</a></li>
+<li><a href="#for-code-review">For Code Review</a></li>
+<li><a href="#for-package-selection">For Package Selection</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="ai-friendly-code-patterns-playbook-purpose" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
+<p>This playbook documents when to prefer imperative over functional programming for maximum AI agent maintainability. It provides guidelines for writing code that is both human-readable and AI-maintainable, based on empirical evidence from real-world experiments.</p>
+<p><strong>Core Philosophy:</strong> Code patterns that are “clean” and “modern” for humans often become “opaque” and difficult for AI coding agents. Our goal is to write AI-maintainable code that works for both humans AND AI.</p>
+<h2 id="ai-friendly-code-patterns-playbook-executive-summary" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-executive-summary" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Executive Summary</h2>
+<p><strong>Key Learning:</strong> Code patterns that are “clean” and “modern” for humans often become “opaque” and difficult for AI coding agents. This playbook documents when to prefer imperative over functional programming for maximum AI agent maintainability.</p>
+<hr>
+<h2 id="ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Case Study: Git Worktree Cleanup Implementation</h2>
+<h3 id="ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-the-experiment" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-the-experiment" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>The Experiment</h3>
+<p>We created two versions of the same functionality:</p>
+<ol>
+<li><strong>Original (Imperative)</strong> - Traditional JavaScript patterns</li>
+<li><strong>Remeda (Functional)</strong> - Modern functional programming with pipelines</li>
+</ol>
+<h3 id="ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-human-readability-verdict" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-human-readability-verdict" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Human Readability Verdict</h3>
+<p><strong>Winner: Original (Imperative)</strong></p>
+<p>Both versions were readable to humans, but the original was easier because:</p>
+<ul>
+<li>Familiar patterns that every developer knows</li>
+<li>Explicit control flow and state mutations</li>
+<li>No learning curve for team members</li>
+</ul>
+<h3 id="ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-ai-agent-maintainability-verdict" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-ai-agent-maintainability-verdict" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>AI Agent Maintainability Verdict</h3>
+<p><strong>Winner: Original (Imperative)</strong> by a <strong>landslide margin</strong></p>
+<h4 id="ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-ai-agent-maintainability-verdict-why-ai-agents-struggle-with-functional-code" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-ai-agent-maintainability-verdict-why-ai-agents-struggle-with-functional-code" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Why AI Agents Struggle with Functional Code</h4>
+<p><strong>1. The Reduce Function Problem</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// Remeda version - Hard for AI</span>
+<span class="hljs-title function_">reduce</span>(
+  <span class="hljs-function">(<span class="hljs-params">acc, line</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&quot;worktree &quot;</span>, line)) {
+      <span class="hljs-keyword">return</span> { ...acc, <span class="hljs-attr">current</span>: { ...acc.<span class="hljs-property">current</span>, <span class="hljs-attr">path</span>: ... } };
+    }
+  },
+  { <span class="hljs-attr">worktrees</span>: [], <span class="hljs-attr">current</span>: <span class="hljs-literal">null</span> }
+)
+</code></pre>
+<ul>
+<li>Multiple spread operations confuse AI</li>
+<li>Complex accumulator structure</li>
+<li>AI must reason about nested mutations</li>
+<li>Higher cognitive load for LLMs</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-comment">// Original version - Easy for AI</span>
+<span class="hljs-keyword">let</span> current = <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> line <span class="hljs-keyword">of</span> output.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;\n&#x27;</span>)) {
+  <span class="hljs-keyword">if</span> (line.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&#x27;worktree &#x27;</span>)) {
+    current = { <span class="hljs-attr">path</span>: ..., <span class="hljs-attr">branch</span>: <span class="hljs-string">&#x27;&#x27;</span> };
+  }
+  worktrees.<span class="hljs-title function_">push</span>(current);
+}
+</code></pre>
+<ul>
+<li>Explicit state changes</li>
+<li>Clear step-by-step logic</li>
+<li>AI can track each operation</li>
+<li>Matches patterns from training data</li>
+</ul>
+<p><strong>2. Pipeline Reasoning</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// Remeda version - AI struggles with type flow</span>
+<span class="hljs-title function_">pipe</span>(
+  data,
+  transform1,  <span class="hljs-comment">// What&#x27;s the type here?</span>
+  transform2,  <span class="hljs-comment">// And here?</span>
+  transform3   <span class="hljs-comment">// AI has to infer all intermediate types</span>
+)
+</code></pre>
+<pre class="hljs"><code><span class="hljs-comment">// Original version - Clear types throughout</span>
+<span class="hljs-keyword">const</span> output = <span class="hljs-title function_">exec</span>(<span class="hljs-string">&quot;git branch --merged main&quot;</span>);
+<span class="hljs-keyword">const</span> branches = output.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;\n&#x27;</span>);
+<span class="hljs-keyword">const</span> trimmed = branches.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">b</span> =&gt;</span> b.<span class="hljs-title function_">trim</span>());
+<span class="hljs-keyword">const</span> filtered = trimmed.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">b</span> =&gt;</span> b &amp;&amp; !<span class="hljs-variable constant_">PROTECTED</span>.<span class="hljs-title function_">includes</span>(b));
+<span class="hljs-comment">// AI knows types at each step</span>
+</code></pre>
+<p><strong>3. Intent Understanding</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// Remeda version - Why are we doing this?</span>
+<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">b</span>) =&gt;</span> b.<span class="hljs-title function_">trim</span>())
+<span class="hljs-title function_">filter</span>((b): b is <span class="hljs-built_in">string</span> =&gt; b !== <span class="hljs-string">&quot;&quot;</span> &amp;&amp; !<span class="hljs-variable constant_">PROTECTED</span>.<span class="hljs-title function_">includes</span>(b))
+</code></pre>
+<pre class="hljs"><code><span class="hljs-comment">// Original version - Clear context</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> branch <span class="hljs-keyword">of</span> branches) {
+  <span class="hljs-keyword">const</span> trimmed = branch.<span class="hljs-title function_">trim</span>();  <span class="hljs-comment">// Operation in context</span>
+  <span class="hljs-keyword">if</span> (trimmed &amp;&amp; !<span class="hljs-variable constant_">PROTECTED</span>.<span class="hljs-title function_">includes</span>(trimmed)) {
+    <span class="hljs-comment">// Clear business logic</span>
+  }
+}
+</code></pre>
+<hr>
+<h2 id="ai-friendly-code-patterns-playbook-the-counterexample-await-to-js" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-the-counterexample-await-to-js" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>The Counterexample: await-to-js</h2>
+<h3 id="ai-friendly-code-patterns-playbook-the-counterexample-await-to-js-why-this-package-works-well" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-the-counterexample-await-to-js-why-this-package-works-well" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Why This Package Works Well</h3>
+<pre class="hljs"><code><span class="hljs-comment">// await-to-js: Simple, focused, AI-friendly</span>
+<span class="hljs-keyword">const</span> [error, data] = <span class="hljs-keyword">await</span> <span class="hljs-title function_">to</span>(<span class="hljs-title function_">someAsyncOperation</span>());
+<span class="hljs-keyword">if</span> (error) {
+  <span class="hljs-comment">// AI understands this pattern instantly</span>
+}
+</code></pre>
+<p><strong>Why it’s great for both humans AND agents:</strong></p>
+<ol>
+<li><strong>Single purpose</strong> - Does one thing well</li>
+<li><strong>Low complexity</strong> - No complex transformations</li>
+<li><strong>Clear intent</strong> - Error handling is explicit</li>
+<li><strong>Familiar pattern</strong> - Similar to Go error handling</li>
+<li><strong>Type-safe</strong> - Easy for AI to infer types</li>
+</ol>
+<p><strong>Contrast with Remeda:</strong></p>
+<ul>
+<li>Remeda has 100+ functions with complex signatures</li>
+<li>Higher learning curve for AI</li>
+<li>More opportunities for AI hallucinations</li>
+<li>Pipeline complexity scales poorly for AI reasoning</li>
+</ul>
+<hr>
+<h2 id="ai-friendly-code-patterns-playbook-comparative-analysis" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-comparative-analysis" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Comparative Analysis</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Human Readability</th>
+<th>AI Maintainability</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple imperative loops</td>
+<td>✅ High</td>
+<td>✅ High</td>
+<td><strong>Keep</strong></td>
+</tr>
+<tr>
+<td>Functional pipelines (simple)</td>
+<td>✅ High</td>
+<td>✅ Medium</td>
+<td><strong>Conditional</strong></td>
+</tr>
+<tr>
+<td>Functional pipelines (complex)</td>
+<td>⚠️ Medium</td>
+<td>❌ Low</td>
+<td><strong>Avoid</strong></td>
+</tr>
+<tr>
+<td>Small utility functions</td>
+<td>✅ High</td>
+<td>✅ High</td>
+<td><strong>Keep</strong></td>
+</tr>
+<tr>
+<td>Large functional libraries</td>
+<td>⚠️ Variable</td>
+<td>❌ Low</td>
+<td><strong>Deprecate</strong></td>
+</tr>
+</tbody>
+</table>
+</div><hr>
+<h2 id="ai-friendly-code-patterns-playbook-package-selection-guidelines" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-package-selection-guidelines" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Package Selection Guidelines</h2>
+<h3 id="ai-friendly-code-patterns-playbook-package-selection-guidelines-keep-ai-friendly" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-package-selection-guidelines-keep-ai-friendly" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>✅ Keep (AI-Friendly)</h3>
+<p><strong>Criteria:</strong></p>
+<ul>
+<li>Simple, focused functionality</li>
+<li>Low complexity (&lt; 3 parameters)</li>
+<li>Clear, linear data flow</li>
+<li>Matches common training patterns</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><code>await-to-js</code> - Simple error handling</li>
+<li><code>zod</code> - Schema validation with clear structure</li>
+<li>Small domain utilities (date-fns individual exports)</li>
+</ul>
+<h3 id="ai-friendly-code-patterns-playbook-package-selection-guidelines-deprecate-ai-unfriendly" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-package-selection-guidelines-deprecate-ai-unfriendly" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>❌ Deprecate (AI-Unfriendly)</h3>
+<p><strong>Criteria:</strong></p>
+<ul>
+<li>Large API surface (50+ functions)</li>
+<li>Complex composition patterns</li>
+<li>Heavy use of higher-order functions</li>
+<li>Requires significant learning investment</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><code>remeda</code> - Too complex for AI reasoning</li>
+<li><code>ramda</code> - Same issues as Remeda</li>
+<li><code>lodash</code> - Large, though somewhat familiar to AI</li>
+<li><code>fp-ts</code> - Extremely complex for AI</li>
+</ul>
+<hr>
+<h2 id="ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Practical Guidelines for This Project</h2>
+<h3 id="ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project-when-to-use-imperative-code" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project-when-to-use-imperative-code" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>When to Use Imperative Code</h3>
+<p><strong>Always prefer when:</strong></p>
+<ol>
+<li>Parsing structured data from strings</li>
+<li>Implementing complex state machines</li>
+<li>Working with nested objects</li>
+<li>Building data structures incrementally</li>
+<li>Performance is critical (avoid function call overhead)</li>
+</ol>
+<p><strong>Examples:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// ✅ AI-Friendly: Parsing worktrees</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">parseWorktrees</span>(<span class="hljs-params"><span class="hljs-attr">output</span>: <span class="hljs-built_in">string</span></span>): <span class="hljs-title class_">Worktree</span>[] {
+  <span class="hljs-keyword">const</span> <span class="hljs-attr">worktrees</span>: <span class="hljs-title class_">Worktree</span>[] = [];
+  <span class="hljs-keyword">let</span> <span class="hljs-attr">current</span>: <span class="hljs-title class_">Partial</span>&lt;<span class="hljs-title class_">Worktree</span>&gt; | <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span>;
+  
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> line <span class="hljs-keyword">of</span> output.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;\n&#x27;</span>)) {
+    <span class="hljs-keyword">if</span> (line.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&#x27;worktree &#x27;</span>)) {
+      current = { <span class="hljs-attr">path</span>: line.<span class="hljs-title function_">slice</span>(<span class="hljs-number">9</span>) };
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (line.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">&#x27;branch &#x27;</span>) &amp;&amp; current) {
+      worktrees.<span class="hljs-title function_">push</span>({ ...current, <span class="hljs-attr">branch</span>: line.<span class="hljs-title function_">slice</span>(<span class="hljs-number">7</span>) });
+      current = <span class="hljs-literal">null</span>;
+    }
+  }
+  
+  <span class="hljs-keyword">return</span> worktrees;
+}
+</code></pre>
+<h3 id="ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project-when-functional-code-is-acceptable" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project-when-functional-code-is-acceptable" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>When Functional Code is Acceptable</h3>
+<p><strong>Use when:</strong></p>
+<ol>
+<li>Simple transformations (map/filter/each)</li>
+<li>Small utility functions</li>
+<li>Type-safe operations</li>
+<li>Operations that don’t require state tracking</li>
+</ol>
+<p><strong>Examples:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// ✅ Acceptable: Simple filtering</span>
+<span class="hljs-keyword">const</span> activeTasks = tasks.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> !t.<span class="hljs-property">completed</span>);
+
+<span class="hljs-comment">// ✅ Acceptable: Simple mapping</span>
+<span class="hljs-keyword">const</span> taskIds = tasks.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> t.<span class="hljs-property">id</span>);
+
+<span class="hljs-comment">// ✅ Acceptable: Small transformation</span>
+<span class="hljs-keyword">const</span> trimmed = input.<span class="hljs-title function_">trim</span>().<span class="hljs-title function_">toLowerCase</span>();
+</code></pre>
+<h3 id="ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project-anti-patterns-to-avoid" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project-anti-patterns-to-avoid" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Anti-Patterns to Avoid</h3>
+<p><strong>❌ Don’t do this:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// Too complex for AI to modify correctly</span>
+<span class="hljs-keyword">const</span> result = <span class="hljs-title function_">pipe</span>(
+  data,
+  <span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, item</span>) =&gt;</span> ({
+    ...acc,
+    [item.<span class="hljs-property">id</span>]: { ...acc[item.<span class="hljs-property">id</span>], ...<span class="hljs-title function_">transform</span>(item) }
+  }), {}),
+  <span class="hljs-title function_">mapValues</span>(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> ({ ...v, <span class="hljs-attr">computed</span>: <span class="hljs-title function_">calc</span>(v) })),
+  <span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v.<span class="hljs-property">computed</span> &gt; threshold)
+);
+</code></pre>
+<p><strong>✅ Do this instead:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// AI can easily understand and modify</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">result</span>: <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-title class_">TransformedItem</span>&gt; = {};
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> item <span class="hljs-keyword">of</span> data) {
+  <span class="hljs-keyword">const</span> transformed = <span class="hljs-title function_">transform</span>(item);
+  <span class="hljs-keyword">const</span> computed = <span class="hljs-title function_">calc</span>(transformed);
+  
+  <span class="hljs-keyword">if</span> (computed &gt; threshold) {
+    result[item.<span class="hljs-property">id</span>] = {
+      ...item,
+      ...transformed,
+      computed
+    };
+  }
+}
+</code></pre>
+<hr>
+<h2 id="ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Opinion: Should We Deprecate Remeda?</h2>
+<p><strong>Recommendation: YES, deprecate Remeda</strong></p>
+<h3 id="ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda-rationale" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda-rationale" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Rationale</h3>
+<ol>
+<li><p><strong>AI Maintainability</strong> - Our primary constraint</p>
+<ul>
+<li>Complex functional code is harder for AI to maintain</li>
+<li>Reduces accuracy of AI-generated changes</li>
+<li>Increases AI debugging time</li>
+</ul>
+</li>
+<li><p><strong>Team Considerations</strong></p>
+<ul>
+<li>Remeda has a learning curve</li>
+<li>Mixed-skill teams benefit from simpler patterns</li>
+<li>Onboarding overhead</li>
+</ul>
+</li>
+<li><p><strong>Code Review Burden</strong></p>
+<ul>
+<li>Complex pipelines are harder to review</li>
+<li>Harder to spot bugs</li>
+<li>More cognitive load on reviewers</li>
+</ul>
+</li>
+<li><p><strong>Performance</strong></p>
+<ul>
+<li>Function call overhead in hot paths</li>
+<li>Immutable allocations for every operation</li>
+<li>JavaScript engine optimization challenges</li>
+</ul>
+</li>
+</ol>
+<h3 id="ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda-migration-strategy" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda-migration-strategy" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Migration Strategy</h3>
+<ol>
+<li><p><strong>Phase 1: Stop new usage</strong></p>
+<ul>
+<li>Don’t use Remeda in new code</li>
+<li>Prefer native JavaScript or simple utilities</li>
+</ul>
+</li>
+<li><p><strong>Phase 2: Gradual replacement</strong></p>
+<ul>
+<li>Replace complex Remeda usage with imperative code</li>
+<li>Keep simple utility functions if they add value</li>
+<li>Document the migration for future reference</li>
+</ul>
+</li>
+<li><p><strong>Phase 3: Remove dependency</strong></p>
+<ul>
+<li>Once all Remeda usage is replaced, remove from package.json</li>
+<li>Document the lessons learned</li>
+</ul>
+</li>
+</ol>
+<h3 id="ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda-keep-await-to-js" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda-keep-await-to-js" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Keep: await-to-js</h3>
+<p><strong>This package serves a different purpose:</strong></p>
+<ul>
+<li>Simple, focused API</li>
+<li>Clear, linear data flow</li>
+<li>Excellent for both humans and AI</li>
+<li>Low cognitive overhead</li>
+<li>Type-safe without complexity</li>
+</ul>
+<hr>
+<h2 id="ai-friendly-code-patterns-playbook-key-takeaways" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-key-takeaways" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Key Takeaways</h2>
+<h3 id="ai-friendly-code-patterns-playbook-key-takeaways-for-developers" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-key-takeaways-for-developers" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>For Developers</h3>
+<ol>
+<li><p><strong>Write code that AI can understand</strong></p>
+<ul>
+<li>Explicit beats implicit</li>
+<li>Linear beats complex pipelines</li>
+<li>Familiar beats clever</li>
+</ul>
+</li>
+<li><p><strong>Think about AI maintainability</strong></p>
+<ul>
+<li>How easy would it be for an AI to modify this?</li>
+<li>Would an AI understand the intent?</li>
+<li>Are there simpler patterns?</li>
+</ul>
+</li>
+<li><p><strong>Avoid premature abstraction</strong></p>
+<ul>
+<li>Don’t functionalize everything just because it’s “clean”</li>
+<li>Sometimes loops are the right choice</li>
+<li>Performance matters</li>
+</ul>
+</li>
+</ol>
+<h3 id="ai-friendly-code-patterns-playbook-key-takeaways-for-code-review" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-key-takeaways-for-code-review" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>For Code Review</h3>
+<ol>
+<li><p><strong>Check AI-friendliness</strong></p>
+<ul>
+<li>Is the code easily maintainable by AI?</li>
+<li>Are complex transformations justified?</li>
+</ul>
+</li>
+<li><p><strong>Prefer readability</strong></p>
+<ul>
+<li>“This is clever” ≠ “This is good”</li>
+<li>Simple and explicit is usually better</li>
+</ul>
+</li>
+<li><p><strong>Question dependencies</strong></p>
+<ul>
+<li>Do we need this large library?</li>
+<li>Can we use native JavaScript instead?</li>
+<li>Is this worth the learning curve?</li>
+</ul>
+</li>
+</ol>
+<h3 id="ai-friendly-code-patterns-playbook-key-takeaways-for-package-selection" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-key-takeaways-for-package-selection" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>For Package Selection</h3>
+<ol>
+<li><p><strong>Evaluate AI compatibility</strong></p>
+<ul>
+<li>Is the API surface manageable?</li>
+<li>Are the patterns AI-friendly?</li>
+<li>Will AI hallucinate less with this?</li>
+</ul>
+</li>
+<li><p><strong>Keep focused libraries</strong></p>
+<ul>
+<li>Single-purpose utilities are great</li>
+<li>Multi-function libraries are risky</li>
+<li>Domain-specific beats general-purpose</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="ai-friendly-code-patterns-playbook-conclusion" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-conclusion" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Conclusion</h2>
+<p>The most surprising insight is that <strong>what makes code “clean” for humans often makes it “opaque” for AI agents</strong>. This isn’t about bad code vs good code - it’s about choosing patterns that work for both humans AND AI.</p>
+<p>Our goal isn’t to write bad code - it’s to write <strong>AI-maintainable code</strong>. Sometimes that means choosing familiar imperative patterns over elegant functional ones. The complexity of our AI tools demands code that they can understand, modify, and debug effectively.</p>
+<p><strong>Bottom line:</strong> When in doubt, choose the approach that’s easier for an AI agent to understand and maintain. The code may be less “elegant,” but it will be more maintainable in an AI-driven development workflow.</p>
+<hr>
+<h2 id="ai-friendly-code-patterns-playbook-references" class="docmd-heading"><a href="#ai-friendly-code-patterns-playbook-references" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>References</h2>
+<ul>
+<li>Original implementation: <code>src/cli/commands/worktree/cleanup.ts</code></li>
+<li>Functional version: <code>src/cli/commands/worktree/cleanup-remeda.ts</code></li>
+<li>Package: <code>remeda</code> (deprecate)</li>
+<li>Package: <code>await-to-js</code> (keep)</li>
+<li><a href="../agentic-sdlc">Agentic SDLC Playbook</a> – Agent-assisted development practices</li>
+<li><a href="../mastra-agent-playbook">Mastra Agent Playbook</a> – Mastra-specific patterns</li>
+<li><a href="../loading-process-playbook">Loading Process Playbook</a> – Two-step loading process pattern</li>
+</ul>
+<hr>
+<p><strong>Version:</strong> 1.0<br>
+<strong>Last Updated:</strong> 2026-03-21<br>
+<strong>Maintained by:</strong> PolyVis Development Team</p>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-table-of-contents" class="toc-link">Table of Contents</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-purpose" class="toc-link">Purpose</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-executive-summary" class="toc-link">Executive Summary</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation" class="toc-link">Case Study: Git Worktree Cleanup Implementation</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-the-experiment" class="toc-link">The Experiment</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-human-readability-verdict" class="toc-link">Human Readability Verdict</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-ai-agent-maintainability-verdict" class="toc-link">AI Agent Maintainability Verdict</a>
+        </li>
+      
+        <li class="toc-item toc-level-4">
+          <a href="#ai-friendly-code-patterns-playbook-case-study-git-worktree-cleanup-implementation-ai-agent-maintainability-verdict-why-ai-agents-struggle-with-functional-code" class="toc-link">Why AI Agents Struggle with Functional Code</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-the-counterexample-await-to-js" class="toc-link">The Counterexample: await-to-js</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-the-counterexample-await-to-js-why-this-package-works-well" class="toc-link">Why This Package Works Well</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-comparative-analysis" class="toc-link">Comparative Analysis</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-package-selection-guidelines" class="toc-link">Package Selection Guidelines</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-package-selection-guidelines-keep-ai-friendly" class="toc-link">✅ Keep (AI-Friendly)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-package-selection-guidelines-deprecate-ai-unfriendly" class="toc-link">❌ Deprecate (AI-Unfriendly)</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project" class="toc-link">Practical Guidelines for This Project</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project-when-to-use-imperative-code" class="toc-link">When to Use Imperative Code</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project-when-functional-code-is-acceptable" class="toc-link">When Functional Code is Acceptable</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-practical-guidelines-for-this-project-anti-patterns-to-avoid" class="toc-link">Anti-Patterns to Avoid</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda" class="toc-link">Opinion: Should We Deprecate Remeda?</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda-rationale" class="toc-link">Rationale</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda-migration-strategy" class="toc-link">Migration Strategy</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-opinion-should-we-deprecate-remeda-keep-await-to-js" class="toc-link">Keep: await-to-js</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-key-takeaways" class="toc-link">Key Takeaways</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-key-takeaways-for-developers" class="toc-link">For Developers</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-key-takeaways-for-code-review" class="toc-link">For Code Review</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#ai-friendly-code-patterns-playbook-key-takeaways-for-package-selection" class="toc-link">For Package Selection</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-conclusion" class="toc-link">Conclusion</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#ai-friendly-code-patterns-playbook-references" class="toc-link">References</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../../../assets/js/docmd-main.js?v=mn7fdkey"></script>
+            <script src="../../../assets/js/docmd-image-lightbox.js?v=mn7fdkey" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../../../assets/js/docmd-search.js?v=mn7fdkey" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

@@ -1,0 +1,1784 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "/";
+      </script>
+      <title>
+        MastraCode Environment Variable Management Scripts
+      </title>
+      
+        <link rel="stylesheet" href="../assets/css/docmd-main.css?v=mn7fiooe">
+        
+          <link rel="stylesheet" href="../assets/css/docmd-highlight-light.css?v=mn7fiooe"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../assets/css/docmd-highlight-dark.css?v=mn7fiooe"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../assets/css/docmd-theme-sky.css?v=mn7fiooe" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../playbooks/agentic-integrity-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/agentic-retrofit/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/agentic-sdlc/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/ai-friendly-code-patterns/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/biome-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/cli-design-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/design-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/edinburgh-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/fabric-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/fabric-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/git-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/just-bash/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/loading-process-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/local-memory-agents/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/mastra-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/nushell-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/nushell-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/origami-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/repo-init-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/secure-tool-design/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/sidecar-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/sidecar-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/td-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/td-skill-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/td-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/tiered-type-safety-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/typescript-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/ui-color-decision-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/vercel-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../playbooks/visual-palette/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../briefs/brief-agentic-integrity-workflow/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-ai-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-ctx-telepresence/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-dev-cli-01/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-dev-cli-02/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-dev-cli-03/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-doc-manage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-mastra-autoresearch-skill/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-merge-queue/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-playbook-index/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-stoolap-eval/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-summary/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../debriefs/review-remeda-usage-and-plan-deprecation/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../debriefs/td-33741f-biome-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../debriefs/td-3bdb2f/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../debriefs/td-4b567d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../debriefs/td-64959e/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../debriefs/td-770149/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../debriefs/td-8c4038/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../debriefs/td-bcf87d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../debriefs/td-c4a3cb/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../debriefs/td-fa8288/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../debriefs/td-fc7e38/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../docs/knowledge-sleeve/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../docs/nushell-agent-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../docs/architectural-insights/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../docs/edinburgh-protocol-system-prompt/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../docs/dev-setup-macos-zed/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../docs/playbook-loading-process-tracker/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../docs/td-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../docs/td-workflow-diagram/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../docs/safe-agi/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../docs/test-mermaid/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../docs/tomatoes/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  MastraCode Environment Variable Management Scripts
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                
+                                    <h1 id="mastracode-environment-variable-management-scripts">MastraCode Environment Variable Management Scripts</h1>
+<p>This directory contains scripts for managing API keys and environment variables for MastraCode using <a href="https://github.com/charmbracelet/skate">Skate</a>, a secure credential manager.</p>
+<h2 id="mastracode-environment-variable-management-scripts-prerequisites" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-prerequisites" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Prerequisites</h2>
+<h3 id="mastracode-environment-variable-management-scripts-prerequisites-install-skate" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-prerequisites-install-skate" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Install Skate</h3>
+<p>Skate is required to store and retrieve API keys securely.</p>
+<pre class="hljs"><code><span class="hljs-comment"># On macOS</span>
+brew install skate
+
+<span class="hljs-comment"># On Linux</span>
+go install github.com/charmbracelet/skate@latest
+</code></pre>
+<h3 id="mastracode-environment-variable-management-scripts-prerequisites-store-api-keys-in-skate" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-prerequisites-store-api-keys-in-skate" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Store API Keys in Skate</h3>
+<p>Before using these scripts, store your API keys in Skate:</p>
+<pre class="hljs"><code>skate <span class="hljs-built_in">set</span> OPENAI_API_KEY <span class="hljs-string">&quot;your-openai-key-here&quot;</span>
+skate <span class="hljs-built_in">set</span> GOOGLE_GENERATIVE_AI_API_KEY <span class="hljs-string">&quot;your-google-key-here&quot;</span>
+skate <span class="hljs-built_in">set</span> OPENROUTER_API_KEY <span class="hljs-string">&quot;your-openrouter-key-here&quot;</span>
+</code></pre>
+<h2 id="mastracode-environment-variable-management-scripts-available-scripts" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-available-scripts" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Available Scripts</h2>
+<h3 id="mastracode-environment-variable-management-scripts-available-scripts-setup-mastra-envsh" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-available-scripts-setup-mastra-envsh" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a><a href="http://setup-mastra-env.sh">setup-mastra-env.sh</a></h3>
+<p>Sets environment variables in the current shell session from Skate credentials.</p>
+<p><strong>Usage:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment"># For interactive shell sessions (variables persist to subsequent commands)</span>
+<span class="hljs-built_in">source</span> scripts/setup-mastra-env.sh
+
+<span class="hljs-comment"># For npm scripts or child processes (use via npm script)</span>
+bun run <span class="hljs-built_in">env</span>:setup
+
+<span class="hljs-comment"># Direct execution (variables won&#x27;t persist to parent shell)</span>
+bash scripts/setup-mastra-env.sh
+</code></pre>
+<p><strong>What it does:</strong></p>
+<ul>
+<li>Checks if Skate is installed</li>
+<li>Retrieves API keys from Skate</li>
+<li>Exports them as environment variables for the current shell session</li>
+<li>Provides feedback on which keys were successfully retrieved</li>
+</ul>
+<p><strong>Best for:</strong></p>
+<ul>
+<li><strong>Interactive sessions</strong>: Use <code>source scripts/setup-mastra-env.sh</code></li>
+<li><strong>npm scripts</strong>: Use <code>bun run env:setup</code> (variables available within the npm script context)</li>
+<li><strong>CI/CD pipelines</strong>: Use <code>bash scripts/setup-mastra-env.sh</code> or npm script</li>
+<li><strong>Quick testing</strong>: Any of the above methods</li>
+</ul>
+<p><strong>Important Notes:</strong></p>
+<ul>
+<li>When running <code>bun run env:setup</code>, environment variables are only available within the npm script context</li>
+<li>For variables to persist in your terminal session, always use <code>source scripts/setup-mastra-env.sh</code></li>
+<li>For persistent configuration across sessions, use <code>bun run env:export</code> instead</li>
+</ul>
+<h3 id="mastracode-environment-variable-management-scripts-available-scripts-export-mastra-envsh" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-available-scripts-export-mastra-envsh" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a><a href="http://export-mastra-env.sh">export-mastra-env.sh</a></h3>
+<p>Exports API keys from Skate to a <code>.env</code> file for persistent configuration.</p>
+<p><strong>Usage:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment"># Using npm script (recommended)</span>
+bun run <span class="hljs-built_in">env</span>:<span class="hljs-built_in">export</span>
+
+<span class="hljs-comment"># Or run directly</span>
+bash scripts/export-mastra-env.sh
+</code></pre>
+<p><strong>What it does:</strong></p>
+<ul>
+<li>Creates <code>.env</code> file if it doesn’t exist</li>
+<li>Retrieves API keys from Skate</li>
+<li>Updates or adds entries to <code>.env</code> file</li>
+<li>Preserves existing entries in <code>.env</code> file</li>
+</ul>
+<p><strong>Best for:</strong></p>
+<ul>
+<li>Persistent local development environment</li>
+<li>Application configuration</li>
+<li>Version control (if <code>.env</code> is excluded from git)</li>
+</ul>
+<h2 id="mastracode-environment-variable-management-scripts-supported-api-keys" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-supported-api-keys" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Supported API Keys</h2>
+<p>The scripts currently support retrieving the following API keys:</p>
+<ul>
+<li><code>OPENAI_API_KEY</code> - For OpenAI GPT models</li>
+<li><code>GOOGLE_GENERATIVE_AI_API_KEY</code> - For Google’s Gemini models</li>
+<li><code>OPENROUTER_API_KEY</code> - For OpenRouter API</li>
+</ul>
+<h2 id="mastracode-environment-variable-management-scripts-adding-new-api-keys" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-adding-new-api-keys" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Adding New API Keys</h2>
+<p>To add support for additional API keys, edit either script and add a new line:</p>
+<pre class="hljs"><code><span class="hljs-comment"># In setup-mastra-env.sh</span>
+get_skate_key <span class="hljs-string">&quot;NEW_API_KEY&quot;</span> <span class="hljs-string">&quot;NEW_API_KEY&quot;</span> || <span class="hljs-literal">true</span>
+
+<span class="hljs-comment"># In export-mastra-env.sh</span>
+export_skate_key <span class="hljs-string">&quot;NEW_API_KEY&quot;</span> <span class="hljs-string">&quot;NEW_API_KEY&quot;</span> || <span class="hljs-literal">true</span>
+</code></pre>
+<h2 id="mastracode-environment-variable-management-scripts-security-notes" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-security-notes" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Security Notes</h2>
+<ul>
+<li><strong>Never commit</strong> <code>.env</code> files to version control</li>
+<li><code>.env</code> is already included in <code>.gitignore</code></li>
+<li>Skate credentials are encrypted and stored securely</li>
+<li>Scripts handle missing keys gracefully with warnings</li>
+</ul>
+<h2 id="mastracode-environment-variable-management-scripts-troubleshooting" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-troubleshooting" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Troubleshooting</h2>
+<h3 id="mastracode-environment-variable-management-scripts-troubleshooting-skate-not-found" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-troubleshooting-skate-not-found" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Skate Not Found</h3>
+<pre class="hljs"><code>❌ Skate is not installed. Install with: brew install skate
+</code></pre>
+<p>Solution: Install Skate using the instructions in the Prerequisites section.</p>
+<h3 id="mastracode-environment-variable-management-scripts-troubleshooting-key-not-retrieved" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-troubleshooting-key-not-retrieved" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Key Not Retrieved</h3>
+<pre class="hljs"><code>⚠ Warning: Could not retrieve OPENAI_API_KEY from Skate
+</code></pre>
+<p>Solution: Ensure the key is stored in Skate with the correct name:</p>
+<pre class="hljs"><code>skate <span class="hljs-built_in">ls</span>  <span class="hljs-comment"># List all stored keys</span>
+skate <span class="hljs-built_in">set</span> OPENAI_API_KEY <span class="hljs-string">&quot;your-key-here&quot;</span>
+</code></pre>
+<h3 id="mastracode-environment-variable-management-scripts-troubleshooting-environment-variables-not-persisting" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-troubleshooting-environment-variables-not-persisting" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Environment Variables Not Persisting</h3>
+<p>If using <code>setup-mastra-env.sh</code>, remember to source the script:</p>
+<pre class="hljs"><code><span class="hljs-built_in">source</span> scripts/setup-mastra-env.sh  <span class="hljs-comment"># Correct</span>
+bash scripts/setup-mastra-env.sh    <span class="hljs-comment"># Variables won&#x27;t persist</span>
+</code></pre>
+<p>For persistent configuration, use <code>export-mastra-env.sh</code> instead.</p>
+<h2 id="mastracode-environment-variable-management-scripts-integration-with-development-workflow" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-integration-with-development-workflow" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Integration with Development Workflow</h2>
+<h3 id="mastracode-environment-variable-management-scripts-integration-with-development-workflow-quick-setup-recommended" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-integration-with-development-workflow-quick-setup-recommended" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Quick Setup (Recommended)</h3>
+<pre class="hljs"><code><span class="hljs-comment"># One-time setup using npm script</span>
+bun run <span class="hljs-built_in">env</span>:<span class="hljs-built_in">export</span>
+
+<span class="hljs-comment"># Start development</span>
+bun run dev
+</code></pre>
+<h3 id="mastracode-environment-variable-management-scripts-integration-with-development-workflow-session-based-setup" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-integration-with-development-workflow-session-based-setup" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Session-based Setup</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Each new terminal session - source the script (variables persist)</span>
+<span class="hljs-built_in">source</span> scripts/setup-mastra-env.sh
+bun run dev
+
+<span class="hljs-comment"># Alternative: Use npm script for child processes only</span>
+bun run <span class="hljs-built_in">env</span>:setup  <span class="hljs-comment"># Variables won&#x27;t persist to parent shell</span>
+</code></pre>
+<h3 id="mastracode-environment-variable-management-scripts-integration-with-development-workflow-shell-integration" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-integration-with-development-workflow-shell-integration" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Shell Integration</h3>
+<p>Add to your shell profile (<code>.zshrc</code>, <code>.bashrc</code>, etc.):</p>
+<pre class="hljs"><code><span class="hljs-comment"># Source the script directly for environment variables to persist</span>
+<span class="hljs-built_in">source</span> ~/path/to/mastra-hono/scripts/setup-mastra-env.sh
+
+<span class="hljs-comment"># Note: Using npm script in shell profile won&#x27;t work for persistent variables</span>
+<span class="hljs-comment"># bun run env:setup  # ❌ Don&#x27;t use this in shell profiles</span>
+</code></pre>
+<h2 id="mastracode-environment-variable-management-scripts-related-documentation" class="docmd-heading"><a href="#mastracode-environment-variable-management-scripts-related-documentation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Related Documentation</h2>
+<ul>
+<li><a href="https://github.com/charmbracelet/skate">Skate Documentation</a></li>
+<li><a href="../AGENTS">AGENTS.md</a> - Mastra project documentation</li>
+<li><a href="../docs/dev-setup-macos-zed">dev-setup-macos-zed.md</a> - Development setup guide</li>
+</ul>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#mastracode-environment-variable-management-scripts-prerequisites" class="toc-link">Prerequisites</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#mastracode-environment-variable-management-scripts-prerequisites-install-skate" class="toc-link">Install Skate</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#mastracode-environment-variable-management-scripts-prerequisites-store-api-keys-in-skate" class="toc-link">Store API Keys in Skate</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#mastracode-environment-variable-management-scripts-available-scripts" class="toc-link">Available Scripts</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#mastracode-environment-variable-management-scripts-available-scripts-setup-mastra-envsh" class="toc-link">setup-mastra-env.sh</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#mastracode-environment-variable-management-scripts-available-scripts-export-mastra-envsh" class="toc-link">export-mastra-env.sh</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#mastracode-environment-variable-management-scripts-supported-api-keys" class="toc-link">Supported API Keys</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#mastracode-environment-variable-management-scripts-adding-new-api-keys" class="toc-link">Adding New API Keys</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#mastracode-environment-variable-management-scripts-security-notes" class="toc-link">Security Notes</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#mastracode-environment-variable-management-scripts-troubleshooting" class="toc-link">Troubleshooting</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#mastracode-environment-variable-management-scripts-troubleshooting-skate-not-found" class="toc-link">Skate Not Found</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#mastracode-environment-variable-management-scripts-troubleshooting-key-not-retrieved" class="toc-link">Key Not Retrieved</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#mastracode-environment-variable-management-scripts-troubleshooting-environment-variables-not-persisting" class="toc-link">Environment Variables Not Persisting</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#mastracode-environment-variable-management-scripts-integration-with-development-workflow" class="toc-link">Integration with Development Workflow</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#mastracode-environment-variable-management-scripts-integration-with-development-workflow-quick-setup-recommended" class="toc-link">Quick Setup (Recommended)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#mastracode-environment-variable-management-scripts-integration-with-development-workflow-session-based-setup" class="toc-link">Session-based Setup</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#mastracode-environment-variable-management-scripts-integration-with-development-workflow-shell-integration" class="toc-link">Shell Integration</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#mastracode-environment-variable-management-scripts-related-documentation" class="toc-link">Related Documentation</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../assets/js/docmd-main.js?v=mn7fiooe"></script>
+            <script src="../assets/js/docmd-image-lightbox.js?v=mn7fiooe" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../assets/js/docmd-search.js?v=mn7fiooe" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

@@ -1,0 +1,1963 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../../../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../../../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "/";
+      </script>
+      <title>
+        Create Nushell Shortcut Vocabulary
+      </title>
+      
+        <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7fiooe">
+        
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-light.css?v=mn7fiooe"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-dark.css?v=mn7fiooe"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../../../assets/css/docmd-theme-sky.css?v=mn7fiooe" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../../../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-integrity-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-retrofit/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-sdlc/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ai-friendly-code-patterns/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/biome-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/cli-design-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/design-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/edinburgh-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/git-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/just-bash/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/loading-process-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/local-memory-agents/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/mastra-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/origami-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/repo-init-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/secure-tool-design/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-skill-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/tiered-type-safety-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/typescript-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ui-color-decision-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/vercel-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/visual-palette/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../briefs/brief-agentic-integrity-workflow/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ai-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ctx-telepresence/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-01/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-02/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-03/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-doc-manage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-mastra-autoresearch-skill/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-merge-queue/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-playbook-index/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-stoolap-eval/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-summary/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../debriefs/review-remeda-usage-and-plan-deprecation/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-33741f-biome-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-3bdb2f/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-4b567d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-64959e/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-770149/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-8c4038/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-bcf87d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-c4a3cb/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fa8288/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fc7e38/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../docs/knowledge-sleeve/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/nushell-agent-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/architectural-insights/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/edinburgh-protocol-system-prompt/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/dev-setup-macos-zed/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/playbook-loading-process-tracker/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-workflow-diagram/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/safe-agi/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/test-mermaid/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/tomatoes/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  Create Nushell Shortcut Vocabulary
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                
+                                    <h1 id="create-nushell-shortcut-vocabulary">Create Nushell Shortcut Vocabulary</h1>
+<h2 id="create-nushell-shortcut-vocabulary-objective" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-objective" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Objective</h2>
+<p>Create a reusable set of NuShell aliases that wrap the most common <code>td</code> and <code>git</code> commands used in the Mastra project. The aliases should be:</p>
+<ul>
+<li><strong>Consistent</strong> – same name across all developers.</li>
+<li><strong>Typed</strong> – return JSON or tables that can be piped further.</li>
+<li><strong>Testable</strong> – each alias has a corresponding unit test.</li>
+</ul>
+<h2 id="create-nushell-shortcut-vocabulary-scope" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-scope" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Scope</h2>
+<ul>
+<li>Aliases for task session, focus, filtering, and status.</li>
+<li>Aliases for skate commands.</li>
+<li>Git shortcuts for quick repository inspection.</li>
+<li>Optional aliases for other utilities (e.g., weather, web‑search) if they become frequent.</li>
+</ul>
+<h2 id="create-nushell-shortcut-vocabulary-deliverables" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-deliverables" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Deliverables</h2>
+<ol>
+<li><code>src/mastra/tools/nushell-aliases.nu</code> – the actual alias definitions.</li>
+<li><code>src/mastra/tools/nushell-aliases.md</code> – documentation for the aliases (already created).</li>
+<li><code>tests/nushell-aliases.test.ts</code> – test suite that validates each alias.</li>
+<li>Updated <code>~/.config/nushell/config.nu</code> (or a project‑wide <code>nushell-config.nu</code>) that sources the alias file.</li>
+</ol>
+<h2 id="create-nushell-shortcut-vocabulary-steps" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-steps" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Steps</h2>
+<ol>
+<li><strong>Create the <code>.nu</code> file</strong> with the alias definitions (see the file created earlier).</li>
+<li><strong>Add a source line</strong> to <code>config.nu</code>:<pre class="hljs"><code>source &quot;$(pwd)/src/mastra/tools/nushell-aliases.nu&quot;
+</code></pre>
+Adjust the path if you run NuShell from a different directory.</li>
+<li><strong>Write tests</strong> that invoke each alias via <code>nu -c</code> and assert the expected output.</li>
+<li><strong>Run <code>bun test</code></strong> to ensure all tests pass.</li>
+<li><strong>Commit</strong> the files and update the project README to reference the new shortcuts.</li>
+</ol>
+<h2 id="create-nushell-shortcut-vocabulary-acceptance-criteria" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-acceptance-criteria" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Acceptance Criteria</h2>
+<ul>
+<li>All aliases are defined in <code>nushell-aliases.nu</code>.</li>
+<li>Running <code>nu -c &quot;alias-name&quot;</code> (or via the alias) produces the same output as the underlying <code>td</code>/<code>git</code> command.</li>
+<li>Tests cover at least:
+<ul>
+<li><code>tdu</code> – starts a new session.</li>
+<li><code>tdl</code> – lists tasks.</li>
+<li><code>station-status</code> – returns focused task JSON or a helpful message.</li>
+<li><code>td-open</code>, <code>td-inprog</code>, <code>td-review</code> – filter tasks correctly.</li>
+<li><code>skg</code>, <code>sk-set</code>, <code>sk-del</code> – interact with skate config.</li>
+<li><code>td-commits</code>, <code>td-clean</code>, <code>td-status</code>, <code>td-branch</code> – Git shortcuts.</li>
+</ul>
+</li>
+<li>The project’s <code>config.nu</code> loads the aliases without errors.</li>
+</ul>
+<hr>
+<h3 id="create-nushell-shortcut-vocabulary-acceptance-criteria-file-creation-confirmation" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-acceptance-criteria-file-creation-confirmation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>File Creation Confirmation</h3>
+<p>The alias file <code>src/mastra/tools/nushell-aliases.nu</code> has already been created (see the file content above).<br>
+The documentation file <code>src/mastra/tools/nushell-aliases.md</code> also exists.</p>
+<hr>
+<h2 id="create-nushell-shortcut-vocabulary-2-test-suite-nushell-aliasestestts" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-2-test-suite-nushell-aliasestestts" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2️⃣ Test Suite – <code>nushell-aliases.test.ts</code></h2>
+<p><strong>File:</strong> <code>tests/nushell-aliases.test.ts</code><br>
+<strong>Location:</strong> <code>mastra-hono/tests/</code> (create the file)</p>
+<pre class="hljs"><code><span class="hljs-comment">// tests/nushell-aliases.test.ts</span>
+<span class="hljs-keyword">import</span> { execSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;child_process&#x27;</span>;
+<span class="hljs-keyword">import</span> { expect, test, describe } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;bun:test&#x27;</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">runNu</span> = (<span class="hljs-params"><span class="hljs-attr">cmd</span>: <span class="hljs-built_in">string</span></span>) =&gt; {
+  <span class="hljs-comment">// Ensure the alias file is sourced for each command</span>
+  <span class="hljs-keyword">const</span> source = <span class="hljs-string">`source &quot;$(pwd)/src/mastra/tools/nushell-aliases.nu&quot;`</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-title function_">execSync</span>(<span class="hljs-string">`nu -c &quot;<span class="hljs-subst">${source}</span>; <span class="hljs-subst">${cmd}</span>&quot;`</span>, { <span class="hljs-attr">encoding</span>: <span class="hljs-string">&#x27;utf8&#x27;</span> }).<span class="hljs-title function_">trim</span>();
+};
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;Nushell Alias Vocabulary&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;tdu starts a new session&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-keyword">const</span> out = <span class="hljs-title function_">runNu</span>(<span class="hljs-string">&#x27;tdu&#x27;</span>);
+    <span class="hljs-title function_">expect</span>(out).<span class="hljs-title function_">toBeTruthy</span>(); <span class="hljs-comment">// non‑empty session ID</span>
+  });
+
+  <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;tdl lists tasks&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-keyword">const</span> out = <span class="hljs-title function_">runNu</span>(<span class="hljs-string">&#x27;tdl&#x27;</span>);
+    <span class="hljs-title function_">expect</span>(out).<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;id&#x27;</span>); <span class="hljs-comment">// JSON array or table contains id</span>
+  });
+
+  <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;station-status returns focused task JSON&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">// First focus a known task (replace with a real ID if needed)</span>
+    <span class="hljs-keyword">const</span> focusId = <span class="hljs-string">&#x27;td-0000000&#x27;</span>; <span class="hljs-comment">// dummy ID; adjust for your environment</span>
+    <span class="hljs-title function_">runNu</span>(<span class="hljs-string">`td-foc <span class="hljs-subst">${focusId}</span>`</span>);
+    <span class="hljs-keyword">const</span> out = <span class="hljs-title function_">runNu</span>(<span class="hljs-string">&#x27;station-status&#x27;</span>);
+    <span class="hljs-title function_">expect</span>(out).<span class="hljs-title function_">toContain</span>(focusId);
+  });
+
+  <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;td-open filters open tasks&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-keyword">const</span> out = <span class="hljs-title function_">runNu</span>(<span class="hljs-string">&#x27;td-open | from json | select id status&#x27;</span>);
+    <span class="hljs-title function_">expect</span>(out).<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;open&#x27;</span>);
+  });
+
+  <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;td-inprog filters in‑progress tasks&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-keyword">const</span> out = <span class="hljs-title function_">runNu</span>(<span class="hljs-string">&#x27;td-inprog | from json | select id status&#x27;</span>);
+    <span class="hljs-title function_">expect</span>(out).<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;in_progress&#x27;</span>);
+  });
+
+  <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;td-review filters review tasks&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-keyword">const</span> out = <span class="hljs-title function_">runNu</span>(<span class="hljs-string">&#x27;td-review | from json | select id status&#x27;</span>);
+    <span class="hljs-title function_">expect</span>(out).<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;in_review&#x27;</span>);
+  });
+
+  <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;skg retrieves skate session&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-keyword">const</span> out = <span class="hljs-title function_">runNu</span>(<span class="hljs-string">&#x27;skg&#x27;</span>);
+    <span class="hljs-title function_">expect</span>(out).<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;session&#x27;</span>);
+  });
+
+  <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;td-commits shows recent commits&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-keyword">const</span> out = <span class="hljs-title function_">runNu</span>(<span class="hljs-string">&#x27;td-commits&#x27;</span>);
+    <span class="hljs-title function_">expect</span>(out).<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;commit&#x27;</span>);
+  });
+
+  <span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;td-clean removes untracked files&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">// Run in a safe test repo</span>
+    <span class="hljs-title function_">runNu</span>(<span class="hljs-string">&#x27;td-clean&#x27;</span>);
+    <span class="hljs-keyword">const</span> out = <span class="hljs-title function_">execSync</span>(<span class="hljs-string">&#x27;git status&#x27;</span>, { <span class="hljs-attr">encoding</span>: <span class="hljs-string">&#x27;utf8&#x27;</span> });
+    <span class="hljs-title function_">expect</span>(out).<span class="hljs-property">not</span>.<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;Untracked files&#x27;</span>);
+  });
+});
+</code></pre>
+<p><strong>Notes</strong></p>
+<ul>
+<li>The test suite uses <code>nu -c</code> to run a single command.</li>
+<li>The <code>source</code> line ensures the alias file is loaded for each test.</li>
+<li>Adjust the placeholder task ID (<code>td-0000000</code>) to a real focused task in your environment.</li>
+<li>The <code>td-clean</code> test should be run in a disposable repository to avoid accidental data loss.</li>
+</ul>
+<hr>
+<h2 id="create-nushell-shortcut-vocabulary-3-workflow-plan-our-particular-workflow" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-3-workflow-plan-our-particular-workflow" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3️⃣ Workflow Plan – “Our Particular Workflow”</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Description</th>
+<th>Tools / Aliases</th>
+<th>Deliverable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1️⃣ Setup</strong></td>
+<td>Install NuShell, add <code>nushell-aliases.nu</code> to <code>config.nu</code>.</td>
+<td><code>source</code> command</td>
+<td><code>config.nu</code> updated</td>
+</tr>
+<tr>
+<td><strong>2️⃣ Task Management</strong></td>
+<td>Start a new session, focus tasks, view status.</td>
+<td><code>tdu</code>, <code>td-foc</code>, <code>station-status</code>, <code>td-open</code>, <code>td-inprog</code>, <code>td-review</code></td>
+<td>Daily task rhythm</td>
+</tr>
+<tr>
+<td><strong>3️⃣ Development</strong></td>
+<td>Pull code, run tests, create PRs.</td>
+<td><code>td-commits</code>, <code>td-clean</code>, <code>td-status</code>, <code>td-branch</code></td>
+<td>Clean repo</td>
+</tr>
+<tr>
+<td><strong>4️⃣ Review</strong></td>
+<td>Review PRs, handoff tasks.</td>
+<td><code>td-review</code>, <code>td-status</code></td>
+<td>Review cycle</td>
+</tr>
+<tr>
+<td><strong>5️⃣ Release</strong></td>
+<td>Deploy, monitor.</td>
+<td><code>td-status</code>, <code>skg</code> (if using skate)</td>
+<td>Release pipeline</td>
+</tr>
+<tr>
+<td><strong>6️⃣ Cleanup</strong></td>
+<td>Remove stale tasks, reset session.</td>
+<td><code>td-unfoc</code>, <code>td-clean</code></td>
+<td>End‑of‑day cleanup</td>
+</tr>
+</tbody>
+</table>
+</div><p><strong>Key Requirements</strong></p>
+<ul>
+<li><strong>Fast, repeatable commands</strong> – aliases reduce keystrokes.</li>
+<li><strong>Structured output</strong> – JSON tables enable downstream tooling.</li>
+<li><strong>Safety</strong> – <code>td-clean</code> is destructive; alias includes a confirmation prompt in production scripts.</li>
+<li><strong>Extensibility</strong> – new aliases can be added without touching existing code.</li>
+</ul>
+<hr>
+<h2 id="create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>4️⃣ Ingestion Pipeline Review &amp; Refactoring Opportunities</h2>
+<h3 id="create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-current-pipeline-overview" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-current-pipeline-overview" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Current Pipeline Overview</h3>
+<p>The project doesn’t have a monolithic “ingestion” script; instead, data is pulled via the <code>td</code> CLI and processed by various tools:</p>
+<ul>
+<li><code>calculator-tool.ts</code> – simple arithmetic.</li>
+<li><code>entropy-tool.ts</code> – entropy calculations.</li>
+<li><code>mock-api-tool.ts</code> – mock HTTP responses.</li>
+<li><code>weather-tool.ts</code> – fetch weather data.</li>
+<li><code>web-search-tool.ts</code> – web search.</li>
+</ul>
+<h3 id="create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-potential-reusable-components" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-potential-reusable-components" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Potential Reusable Components</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Current Implementation</th>
+<th>Refactor Idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Task Focus Extraction</strong></td>
+<td><code>station-status.sh</code> (Bash + NuShell)</td>
+<td>Move to a <strong>NuShell alias</strong> (<code>station-status</code>) that directly returns JSON.</td>
+</tr>
+<tr>
+<td><strong>Task List Filtering</strong></td>
+<td>Repeated `td list --json</td>
+<td>from json</td>
+</tr>
+<tr>
+<td><strong>Git Status Summary</strong></td>
+<td><code>td-commits</code>, <code>td-clean</code>, <code>td-status</code> scripts</td>
+<td>Consolidate into a <strong>single alias</strong> <code>git-summary</code> that returns a JSON object with commit count, branch, and status.</td>
+</tr>
+<tr>
+<td><strong>Weather Data Retrieval</strong></td>
+<td><code>weather-tool.ts</code> uses external API.</td>
+<td>Wrap the API call in a <strong>NuShell alias</strong> <code>weather</code> that returns JSON, enabling piping to other tools.</td>
+</tr>
+<tr>
+<td><strong>Web Search</strong></td>
+<td><code>web-search-tool.ts</code> returns raw HTML.</td>
+<td>Add a <strong>NuShell alias</strong> <code>search</code> that parses results into JSON.</td>
+</tr>
+<tr>
+<td><strong>Mock API</strong></td>
+<td><code>mock-api-tool.ts</code> used for testing.</td>
+<td>Provide a <strong>NuShell alias</strong> <code>mock-api</code> that starts a local mock server, simplifying test setup.</td>
+</tr>
+</tbody>
+</table>
+</div><h3 id="create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-why-refactor-to-nushell" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-why-refactor-to-nushell" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Why Refactor to NuShell?</h3>
+<ul>
+<li><strong>Uniform command language</strong> – all pipelines become NuShell commands, reducing context switching.</li>
+<li><strong>Composable</strong> – pipelines can be built by chaining aliases (<code>weather | from json | select temperature</code>).</li>
+<li><strong>Testable</strong> – each alias can be unit‑tested with <code>nu -c</code>.</li>
+<li><strong>Portability</strong> – NuShell works on macOS, Linux, and Windows (WSL), matching the developer environment.</li>
+</ul>
+<h3 id="create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-refactoring-plan" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-refactoring-plan" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Refactoring Plan</h3>
+<ol>
+<li><strong>Create a <code>nushell-utils.nu</code></strong> containing generic functions:<pre class="hljs"><code>export def filter-tasks [status: string] {
+  td list --json | from json | where status == $status
+}
+
+export def git-summary [] {
+  let commits = td-commits | lines | length
+  let branch = td-branch
+  let status = td-status
+  echo {commits: $commits, branch: $branch, status: $status}
+}
+</code></pre>
+</li>
+<li><strong>Update aliases</strong> to use these functions:<pre class="hljs"><code>alias td-open = &quot;filter-tasks open&quot;
+alias td-inprog = &quot;filter-tasks in_progress&quot;
+alias td-review = &quot;filter-tasks in_review&quot;
+alias git-summary = &quot;git-summary&quot;
+</code></pre>
+</li>
+<li><strong>Add tests</strong> for each function in <code>tests/nushell-utils.test.ts</code>.</li>
+<li><strong>Document</strong> the new utilities in <code>src/mastra/tools/nushell-aliases.md</code>.</li>
+<li><strong>Iterate</strong> – add more functions as new pipelines emerge.</li>
+</ol>
+<hr>
+<h2 id="create-nushell-shortcut-vocabulary-5-selfdocumenting-help-script" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-5-selfdocumenting-help-script" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>5️⃣ Self‑Documenting Help Script</h2>
+<p><strong>File:</strong> <code>src/mastra/tools/help-aliases.nu</code><br>
+<strong>Location:</strong> <code>mastra-hono/src/mastra/tools/</code> (already created)</p>
+<pre class="hljs"><code># help-aliases.nu
+# Self‑documenting help for Nushell alias set.
+# Mirrors Citty CLI builder style.
+
+# Usage:
+#   help
+#   help &lt;alias&gt;
+
+# Define help table
+let help-table = [
+  {alias: &quot;tdu&quot;,           command: &quot;td usage --new-session&quot;,           description: &quot;Start a new task usage session.&quot;},
+  {alias: &quot;tdl&quot;,           command: &quot;td list&quot;,                     description: &quot;List all tasks.&quot;},
+  {alias: &quot;td-foc&quot;,         command: &quot;td focus &lt;issue-id&gt;&quot;,          description: &quot;Focus on a specific task.&quot;},
+  {alias: &quot;td-unfoc&quot;,       command: &quot;td unfocus&quot;,                   description: &quot;Clear any focused task.&quot;},
+  {alias: &quot;station-status&quot;, command: &quot;td current --json | from json | get focused.issue&quot;, description: &quot;Show the focused task as JSON.&quot;},
+  {alias: &quot;td-open&quot;,        command: &quot;filter-tasks open&quot;,             description: &quot;List open tasks.&quot;},
+  {alias: &quot;td-inprog&quot;,      command: &quot;filter-tasks in_progress&quot;,       description: &quot;List in‑progress tasks.&quot;},
+  {alias: &quot;td-review&quot;,      command: &quot;filter-tasks in_review&quot;,         description: &quot;List tasks awaiting review.&quot;},
+  {alias: &quot;td-all&quot;,         command: &quot;td list --json | from json&quot;,     description: &quot;List all tasks (raw JSON).&quot;},
+  {alias: &quot;td-summary&quot;,     command: &quot;td list --json | from json | select id title status priority&quot;, description: &quot;Quick summary table of tasks.&quot;},
+  {alias: &quot;skg&quot;,            command: &quot;skate get&quot;,                    description: &quot;Retrieve the current skate session.&quot;},
+  {alias: &quot;sk-set&quot;,          command: &quot;skate set &lt;value&gt;&quot;,             description: &quot;Set a skate configuration value.&quot;},
+  {alias: &quot;sk-del&quot;,          command: &quot;skate delete &lt;key&gt;&quot;,             description: &quot;Delete a skate configuration key.&quot;},
+  {alias: &quot;td-commits&quot;,     command: &quot;git log --oneline --decorate --graph&quot;, description: &quot;Show recent git commits in a concise format.&quot;},
+  {alias: &quot;td-clean&quot;,        command: &quot;git clean -fdx&quot;,                 description: &quot;Remove untracked files (use with caution).&quot;},
+  {alias: &quot;td-status&quot;,       command: &quot;git status&quot;,                    description: &quot;Show current git status.&quot;},
+  {alias: &quot;td-branch&quot;,       command: &quot;git branch --show-current&quot;,      description: &quot;Show the current branch.&quot;},
+  {alias: &quot;td-commits-json&quot;, command: &quot;git log --pretty=format:'{\\\&quot;hash\\\&quot;:\\\&quot;%H\\\&quot;,\\\&quot;message\\\&quot;:\\\&quot;%s\\\&quot;}'&quot;, description: &quot;Show commits as JSON objects.&quot;},
+  {alias: &quot;td-branch-json&quot;, command: &quot;git branch --show-current | json&quot;, description: &quot;Show current branch as JSON.&quot;}
+]
+
+# Help function
+export def help [alias: string?] {
+  if $alias {
+    let entry = (help-table | where alias == $alias)
+    if $entry != [] {
+      echo $&quot;Alias: $entry.alias&quot;
+      echo $&quot;Command: $entry.command&quot;
+      echo $&quot;Description: $entry.description&quot;
+    } else {
+      echo $&quot;No help entry found for alias '$alias'.&quot;
+    }
+  } else {
+    echo &quot;Available Nushell shortcuts:&quot;
+    help-table | select alias command description | sort-by alias | table
+  }
+}
+
+# Register alias
+alias help = &quot;help&quot;
+</code></pre>
+<p><em>The help command now lists all aliases in a nicely formatted table and can show detailed help for a single alias.</em></p>
+<hr>
+<h2 id="create-nushell-shortcut-vocabulary-6-next-actions" class="docmd-heading"><a href="#create-nushell-shortcut-vocabulary-6-next-actions" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>6️⃣ Next Actions</h2>
+<ol>
+<li><strong>Add the brief file</strong> <code>briefs/create-nushell-shortcuts.md</code> (copy the content above).</li>
+<li><strong>Create the test file</strong> <code>tests/nushell-aliases.test.ts</code> (copy the content above).</li>
+<li><strong>Add the helper functions</strong> (<code>filter-tasks</code>, <code>git-summary</code>) in a new file <code>src/mastra/tools/nushell-utils.nu</code>.</li>
+<li><strong>Update <code>config.nu</code></strong> to source both <code>nushell-aliases.nu</code> and <code>nushell-utils.nu</code>.</li>
+<li><strong>Run <code>bun test</code></strong> to verify all tests pass.</li>
+<li><strong>Commit</strong> the changes and open a PR for review.</li>
+</ol>
+<p>Let me know if you’d like me to generate any of the remaining files (<code>nushell-utils.nu</code>, <code>nushell-aliases.test.ts</code>, the brief) or to walk through the test execution steps!</p>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#create-nushell-shortcut-vocabulary-objective" class="toc-link">Objective</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#create-nushell-shortcut-vocabulary-scope" class="toc-link">Scope</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#create-nushell-shortcut-vocabulary-deliverables" class="toc-link">Deliverables</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#create-nushell-shortcut-vocabulary-steps" class="toc-link">Steps</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#create-nushell-shortcut-vocabulary-acceptance-criteria" class="toc-link">Acceptance Criteria</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#create-nushell-shortcut-vocabulary-acceptance-criteria-file-creation-confirmation" class="toc-link">File Creation Confirmation</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#create-nushell-shortcut-vocabulary-2-test-suite-nushell-aliasestestts" class="toc-link">2️⃣ Test Suite – nushell-aliases.test.ts</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#create-nushell-shortcut-vocabulary-3-workflow-plan-our-particular-workflow" class="toc-link">3️⃣ Workflow Plan – “Our Particular Workflow”</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities" class="toc-link">4️⃣ Ingestion Pipeline Review &amp; Refactoring Opportunities</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-current-pipeline-overview" class="toc-link">Current Pipeline Overview</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-potential-reusable-components" class="toc-link">Potential Reusable Components</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-why-refactor-to-nushell" class="toc-link">Why Refactor to NuShell?</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#create-nushell-shortcut-vocabulary-4-ingestion-pipeline-review-refactoring-opportunities-refactoring-plan" class="toc-link">Refactoring Plan</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#create-nushell-shortcut-vocabulary-5-selfdocumenting-help-script" class="toc-link">5️⃣ Self‑Documenting Help Script</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#create-nushell-shortcut-vocabulary-6-next-actions" class="toc-link">6️⃣ Next Actions</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../../../assets/js/docmd-main.js?v=mn7fiooe"></script>
+            <script src="../../../assets/js/docmd-image-lightbox.js?v=mn7fiooe" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../../../assets/js/docmd-search.js?v=mn7fiooe" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

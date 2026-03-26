@@ -37,4 +37,7 @@ function getThemesDir() {
   return path.join(__dirname, '..', 'src');
 }
 
-export { getThemePath, getThemesDir };
+export {
+  getThemePath,
+  getThemesDir
+};

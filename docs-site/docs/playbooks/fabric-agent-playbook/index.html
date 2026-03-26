@@ -1,0 +1,2786 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../../../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../../../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "";
+      </script>
+      <title>
+        Fabric Agent Playbook
+      </title>
+      
+        <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7fdkey">
+        
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-light.css?v=mn7fdkey"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-dark.css?v=mn7fdkey"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../../../assets/css/docmd-theme-sky.css?v=mn7fdkey" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../../../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-integrity-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-retrofit/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-sdlc/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ai-friendly-code-patterns/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/biome-standards/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/cli-design-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/design-heuristics/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/edinburgh-protocol/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/git-workflow-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/just-bash/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/loading-process-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/local-memory-agents/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/mastra-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/origami-protocol/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/repo-init-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/secure-tool-design/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-skill-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/tiered-type-safety-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/typescript-standards/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ui-color-decision-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/vercel-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/visual-palette/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../briefs/brief-agentic-integrity-workflow/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ai-workflow-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ctx-telepresence/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-01/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-02/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-03/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-doc-manage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-mastra-autoresearch-skill/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-merge-queue/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-playbook-index/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-stoolap-eval/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-summary/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../debriefs/review-remeda-usage-and-plan-deprecation/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-33741f-biome-heuristics/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-3bdb2f/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-4b567d/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-64959e/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-770149/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-8c4038/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-bcf87d/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-c4a3cb/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fa8288/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fc7e38/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../docs/knowledge-sleeve/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/nushell-agent-usage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/architectural-insights/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/edinburgh-protocol-system-prompt/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/dev-setup-macos-zed/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/playbook-loading-process-tracker/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-usage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-workflow-diagram/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/safe-agi/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/test-mermaid/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/tomatoes/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  Fabric Agent Playbook
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                
+                                    <h1 id="fabric-agent-playbook">Fabric Agent Playbook</h1>
+<h2 id="fabric-agent-playbook-table-of-contents" class="docmd-heading"><a href="#fabric-agent-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
+<ul>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#core-principles">Core Principles</a></li>
+<li><a href="#mandatory-directives">Mandatory Directives</a>
+<ul>
+<li><a href="#1-use-fabric-for-repetitive-ai-tasks">1) Use Fabric for Repetitive AI Tasks</a></li>
+<li><a href="#2-always-stream-large-content">2) Always Stream Large Content</a></li>
+<li><a href="#3-generate-documentation-systematically">3) Generate Documentation Systematically</a></li>
+</ul>
+</li>
+<li><a href="#standard-workflows">Standard Workflows</a>
+<ul>
+<li><a href="#code-review-&amp;-analysis">Code Review &amp; Analysis</a></li>
+<li><a href="#documentation-generation">Documentation Generation</a></li>
+<li><a href="#content-summarization">Content Summarization</a></li>
+<li><a href="#writing-enhancement">Writing Enhancement</a></li>
+</ul>
+</li>
+<li><a href="#integration-patterns">Integration Patterns</a>
+<ul>
+<li><a href="#with-git-workflows">With Git Workflows</a></li>
+<li><a href="#with-code-review">With Code Review</a></li>
+<li><a href="#with-documentation">With Documentation</a></li>
+<li><a href="#with-testing">With Testing</a></li>
+</ul>
+</li>
+<li><a href="#pattern-selection-guide">Pattern Selection Guide</a>
+<ul>
+<li><a href="#when-to-use-which-pattern">When to Use Which Pattern</a></li>
+</ul>
+</li>
+<li><a href="#advanced-usage">Advanced Usage</a>
+<ul>
+<li><a href="#chaining-patterns">Chaining Patterns</a></li>
+<li><a href="#context-management">Context Management</a></li>
+<li><a href="#model-selection">Model Selection</a></li>
+<li><a href="#output-management">Output Management</a></li>
+</ul>
+</li>
+<li><a href="#agent-specific-patterns">Agent-Specific Patterns</a>
+<ul>
+<li><a href="#code-analysis-flow">Code Analysis Flow</a></li>
+<li><a href="#documentation-generation-flow">Documentation Generation Flow</a></li>
+<li><a href="#pr-review-flow">PR Review Flow</a></li>
+</ul>
+</li>
+<li><a href="#do--don't">Do / Don’t</a>
+<ul>
+<li><a href="#do">Do</a></li>
+<li><a href="#don't">Don’t</a></li>
+</ul>
+</li>
+<li><a href="#pattern-library-reference">Pattern Library Reference</a>
+<ul>
+<li><a href="#most-useful-for-agents">Most Useful for Agents</a></li>
+</ul>
+</li>
+<li><a href="#performance-considerations">Performance Considerations</a>
+<ul>
+<li><a href="#when-to-stream">When to Stream</a></li>
+<li><a href="#model-selection-strategy">Model Selection Strategy</a></li>
+</ul>
+</li>
+<li><a href="#integration-with-other-tools">Integration with Other Tools</a>
+<ul>
+<li><a href="#with-td-task-management">With td (Task Management)</a></li>
+<li><a href="#with-github-cli">With GitHub CLI</a></li>
+<li><a href="#with-testing-tools">With Testing Tools</a></li>
+</ul>
+</li>
+<li><a href="#custom-pattern-creation-for-agents">Custom Pattern Creation for Agents</a>
+<ul>
+<li><a href="#pattern-template">Pattern Template</a></li>
+<li><a href="#example-pr-review-pattern">Example: PR Review Pattern</a></li>
+</ul>
+</li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#issues-found">Issues Found</a></li>
+<li><a href="#suggestions">Suggestions</a></li>
+<li><a href="#approval-status">Approval Status</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a>
+<ul>
+<li><a href="#pattern-not-working-as-expected">Pattern Not Working as Expected</a></li>
+<li><a href="#performance-issues">Performance Issues</a></li>
+</ul>
+</li>
+<li><a href="#best-practices">Best Practices</a>
+<ul>
+<li><a href="#1-always-check-for-existing-patterns">1. Always Check for Existing Patterns</a></li>
+<li><a href="#2-stream-large-inputs">2. Stream Large Inputs</a></li>
+<li><a href="#3-chain-patterns-for-complex-workflows">3. Chain Patterns for Complex Workflows</a></li>
+<li><a href="#4-save-context-for-multi-turn-analysis">4. Save Context for Multi-Turn Analysis</a></li>
+<li><a href="#5-document-pattern-usage">5. Document Pattern Usage</a></li>
+<li><a href="#6-update-patterns-regularly">6. Update Patterns Regularly</a></li>
+</ul>
+</li>
+<li><a href="#common-pitfalls">Common Pitfalls</a>
+<ul>
+<li><a href="#pitfall-1-writing-custom-prompts-for-common-tasks">Pitfall 1: Writing Custom Prompts for Common Tasks</a></li>
+<li><a href="#pitfall-2-not-streaming-large-inputs">Pitfall 2: Not Streaming Large Inputs</a></li>
+<li><a href="#pitfall-3-mixing-unrelated-patterns">Pitfall 3: Mixing Unrelated Patterns</a></li>
+<li><a href="#pitfall-4-forgetting-model-selection">Pitfall 4: Forgetting Model Selection</a></li>
+<li><a href="#pitfall-5-using-patterns-for-code-execution">Pitfall 5: Using Patterns for Code Execution</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="fabric-agent-playbook-purpose" class="docmd-heading"><a href="#fabric-agent-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
+<p>This playbook defines how AI agents should use the <code>fabric</code> CLI to enhance their capabilities with pre-built AI patterns for code analysis, content summarization, documentation generation, and more. It provides comprehensive guidelines for leveraging fabric’s 250+ patterns to improve agent efficiency and output quality.</p>
+<p><strong>Core Philosophy:</strong> Leverage existing fabric patterns instead of crafting similar prompts from scratch. Compose patterns with other tools for complex tasks, and always stream large inputs for better performance.</p>
+<h2 id="fabric-agent-playbook-core-principles" class="docmd-heading"><a href="#fabric-agent-playbook-core-principles" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Core Principles</h2>
+<ol>
+<li><strong>Leverage patterns</strong>: Use fabric patterns instead of crafting similar prompts from scratch.</li>
+<li><strong>Compose workflows</strong>: Chain fabric patterns with other tools for complex tasks.</li>
+<li><strong>Stream large inputs</strong>: Always use <code>--stream</code> for outputs &gt;1KB.</li>
+<li><strong>Document with patterns</strong>: Generate documentation, PR descriptions, and summaries systematically.</li>
+</ol>
+<h2 id="fabric-agent-playbook-mandatory-directives" class="docmd-heading"><a href="#fabric-agent-playbook-mandatory-directives" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Mandatory Directives</h2>
+<h3 id="fabric-agent-playbook-mandatory-directives-1-use-fabric-for-repetitive-ai-tasks" class="docmd-heading"><a href="#fabric-agent-playbook-mandatory-directives-1-use-fabric-for-repetitive-ai-tasks" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1) Use Fabric for Repetitive AI Tasks</h3>
+<p>Before writing a custom prompt for common tasks, check if a fabric pattern exists:</p>
+<pre class="hljs"><code>fabric --listpatterns | grep &lt;task-keyword&gt;
+</code></pre>
+<p><strong>Why:</strong> Fabric provides 250+ pre-built patterns optimized for common tasks. Using them saves time and ensures consistent, high-quality output.</p>
+<h3 id="fabric-agent-playbook-mandatory-directives-2-always-stream-large-content" class="docmd-heading"><a href="#fabric-agent-playbook-mandatory-directives-2-always-stream-large-content" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2) Always Stream Large Content</h3>
+<p>When processing files &gt;1KB or long API responses:</p>
+<pre class="hljs"><code><span class="hljs-built_in">cat</span> large-file.txt | fabric -sp &lt;pattern-name&gt;
+</code></pre>
+<p><strong>Why:</strong> Streaming provides real-time feedback and prevents memory issues with large inputs. Use <code>-sp</code> flag for streaming.</p>
+<h3 id="fabric-agent-playbook-mandatory-directives-3-generate-documentation-systematically" class="docmd-heading"><a href="#fabric-agent-playbook-mandatory-directives-3-generate-documentation-systematically" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3) Generate Documentation Systematically</h3>
+<p>Use fabric patterns for consistent documentation:</p>
+<pre class="hljs"><code><span class="hljs-comment"># Explain code</span>
+<span class="hljs-built_in">cat</span> module.py | fabric -p explain_code
+
+<span class="hljs-comment"># Generate PR description</span>
+git diff main | fabric -p write_pull-request
+
+<span class="hljs-comment"># Create API documentation</span>
+<span class="hljs-built_in">cat</span> api.py | fabric -p create_api_documentation
+</code></pre>
+<p><strong>Why:</strong> Consistent documentation improves maintainability and reduces onboarding time for new developers.</p>
+<h2 id="fabric-agent-playbook-standard-workflows" class="docmd-heading"><a href="#fabric-agent-playbook-standard-workflows" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Standard Workflows</h2>
+<h3 id="fabric-agent-playbook-standard-workflows-code-review-analysis" class="docmd-heading"><a href="#fabric-agent-playbook-standard-workflows-code-review-analysis" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Code Review &amp; Analysis</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Analyze code quality</span>
+<span class="hljs-built_in">cat</span> src/app.js | fabric -p analyze_code
+
+<span class="hljs-comment"># Security analysis</span>
+<span class="hljs-built_in">cat</span> auth.py | fabric -p analyze_malware
+
+<span class="hljs-comment"># Extract key concepts from code</span>
+<span class="hljs-built_in">cat</span> complex-module.ts | fabric -p extract_ideas
+
+<span class="hljs-comment"># Review PR diff</span>
+gh <span class="hljs-built_in">pr</span> diff 123 | fabric -p analyze_code
+</code></pre>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>Before committing code</li>
+<li>During code reviews</li>
+<li>When analyzing security vulnerabilities</li>
+<li>When documenting complex code</li>
+</ul>
+<h3 id="fabric-agent-playbook-standard-workflows-documentation-generation" class="docmd-heading"><a href="#fabric-agent-playbook-standard-workflows-documentation-generation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Documentation Generation</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Generate comprehensive docs</span>
+<span class="hljs-built_in">cat</span> module.py | fabric -p explain_code &gt; docs/module.md
+
+<span class="hljs-comment"># Write PR description</span>
+git diff main..feature-branch | fabric -p write_pull-request &gt; pr-description.md
+
+<span class="hljs-comment"># Create README sections</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Project overview&quot;</span> | fabric -p improve_writing
+
+<span class="hljs-comment"># Generate API documentation</span>
+<span class="hljs-built_in">cat</span> api-routes.ts | fabric -p create_api_documentation
+</code></pre>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>When creating new documentation</li>
+<li>When updating existing docs</li>
+<li>When generating PR descriptions</li>
+<li>When creating API references</li>
+</ul>
+<h3 id="fabric-agent-playbook-standard-workflows-content-summarization" class="docmd-heading"><a href="#fabric-agent-playbook-standard-workflows-content-summarization" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Content Summarization</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Summarize requirements</span>
+<span class="hljs-built_in">cat</span> requirements.md | fabric -p summarize &gt; summary.txt
+
+<span class="hljs-comment"># Extract key decisions</span>
+<span class="hljs-built_in">cat</span> meeting-notes.txt | fabric -p extract_ideas
+
+<span class="hljs-comment"># Summarize research</span>
+fabric -u https://paper-url.com -p extract_article_wisdom
+
+<span class="hljs-comment"># Condense logs</span>
+<span class="hljs-built_in">cat</span> debug.log | fabric -p summarize
+</code></pre>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>When reviewing large documents</li>
+<li>When extracting key information</li>
+<li>When condensing logs or output</li>
+<li>When summarizing research papers</li>
+</ul>
+<h3 id="fabric-agent-playbook-standard-workflows-writing-enhancement" class="docmd-heading"><a href="#fabric-agent-playbook-standard-workflows-writing-enhancement" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Writing Enhancement</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Improve technical writing</span>
+<span class="hljs-built_in">cat</span> draft-docs.md | fabric -p improve_writing
+
+<span class="hljs-comment"># Generate commit messages</span>
+git diff --staged | fabric -p create_git_commit_message
+
+<span class="hljs-comment"># Create essays/blog posts</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Topic: AI in software development&quot;</span> | fabric -p write_essay
+
+<span class="hljs-comment"># Generate social content</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Feature announcement: New API&quot;</span> | fabric -p create_social_media_post
+</code></pre>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>When improving existing documentation</li>
+<li>When generating commit messages</li>
+<li>When creating marketing content</li>
+<li>When writing blog posts or essays</li>
+</ul>
+<h2 id="fabric-agent-playbook-integration-patterns" class="docmd-heading"><a href="#fabric-agent-playbook-integration-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Integration Patterns</h2>
+<h3 id="fabric-agent-playbook-integration-patterns-with-git-workflows" class="docmd-heading"><a href="#fabric-agent-playbook-integration-patterns-with-git-workflows" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>With Git Workflows</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Pre-commit: Generate commit message</span>
+git diff --staged | fabric -p create_git_commit_message
+
+<span class="hljs-comment"># PR creation: Generate description</span>
+git diff main | fabric -p write_pull-request &gt; pr-template.md
+
+<span class="hljs-comment"># Post-merge: Summarize changes</span>
+git <span class="hljs-built_in">log</span> --oneline -10 | fabric -p summarize &gt; changelog.md
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Consistent commit messages</li>
+<li>Better PR descriptions</li>
+<li>Automated changelog generation</li>
+</ul>
+<h3 id="fabric-agent-playbook-integration-patterns-with-code-review" class="docmd-heading"><a href="#fabric-agent-playbook-integration-patterns-with-code-review" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>With Code Review</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Review submitted code</span>
+gh <span class="hljs-built_in">pr</span> diff &lt;pr-number&gt; | fabric -p analyze_code
+
+<span class="hljs-comment"># Check for security issues</span>
+<span class="hljs-built_in">cat</span> new-feature.py | fabric -p analyze_malware
+
+<span class="hljs-comment"># Extract review comments</span>
+<span class="hljs-built_in">cat</span> review-notes.txt | fabric -p extract_actions
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Automated code review</li>
+<li>Security vulnerability detection</li>
+<li>Actionable review comments</li>
+</ul>
+<h3 id="fabric-agent-playbook-integration-patterns-with-documentation" class="docmd-heading"><a href="#fabric-agent-playbook-integration-patterns-with-documentation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>With Documentation</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Auto-document functions</span>
+<span class="hljs-built_in">cat</span> utils.ts | fabric -p explain_code &gt;&gt; docs/utils.md
+
+<span class="hljs-comment"># Create user guides</span>
+<span class="hljs-built_in">cat</span> feature-spec.md | fabric -p create_user_guide
+
+<span class="hljs-comment"># Generate API docs</span>
+<span class="hljs-built_in">cat</span> api.py | fabric -p create_api_documentation &gt; api-docs.md
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Automated documentation generation</li>
+<li>Consistent documentation style</li>
+<li>Up-to-date API references</li>
+</ul>
+<h3 id="fabric-agent-playbook-integration-patterns-with-testing" class="docmd-heading"><a href="#fabric-agent-playbook-integration-patterns-with-testing" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>With Testing</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Analyze test coverage gaps</span>
+<span class="hljs-built_in">cat</span> test-report.txt | fabric -p analyze_incident
+
+<span class="hljs-comment"># Extract test requirements</span>
+<span class="hljs-built_in">cat</span> requirements.md | fabric -p extract_actions &gt; test-checklist.md
+
+<span class="hljs-comment"># Review test results</span>
+<span class="hljs-built_in">cat</span> test-output.txt | fabric -p summarize
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Test coverage analysis</li>
+<li>Automated test plan generation</li>
+<li>Test result summarization</li>
+</ul>
+<h2 id="fabric-agent-playbook-pattern-selection-guide" class="docmd-heading"><a href="#fabric-agent-playbook-pattern-selection-guide" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern Selection Guide</h2>
+<h3 id="fabric-agent-playbook-pattern-selection-guide-when-to-use-which-pattern" class="docmd-heading"><a href="#fabric-agent-playbook-pattern-selection-guide-when-to-use-which-pattern" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>When to Use Which Pattern</h3>
+<p><strong>Code-Related:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Purpose</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>explain_code</code></td>
+<td>Explain complex code sections</td>
+<td>When documenting or reviewing code</td>
+</tr>
+<tr>
+<td><code>analyze_code</code></td>
+<td>Review code quality and structure</td>
+<td>During code review</td>
+</tr>
+<tr>
+<td><code>analyze_malware</code></td>
+<td>Security and vulnerability analysis</td>
+<td>When checking for security issues</td>
+</tr>
+<tr>
+<td><code>improve_code</code></td>
+<td>Code improvement suggestions</td>
+<td>When refactoring or optimizing</td>
+</tr>
+<tr>
+<td><code>create_coding_project</code></td>
+<td>Project structure planning</td>
+<td>When starting new projects</td>
+</tr>
+</tbody>
+</table>
+</div><p><strong>Documentation:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Purpose</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>write_pull-request</code></td>
+<td>PR descriptions</td>
+<td>When creating PRs</td>
+</tr>
+<tr>
+<td><code>create_git_commit_message</code></td>
+<td>Commit messages</td>
+<td>Before committing</td>
+</tr>
+<tr>
+<td><code>improve_writing</code></td>
+<td>Enhance existing docs</td>
+<td>When updating documentation</td>
+</tr>
+<tr>
+<td><code>create_api_documentation</code></td>
+<td>API reference</td>
+<td>When documenting APIs</td>
+</tr>
+<tr>
+<td><code>explain_terms</code></td>
+<td>Technical terminology</td>
+<td>When defining terms</td>
+</tr>
+</tbody>
+</table>
+</div><p><strong>Analysis:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Purpose</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>summarize</code></td>
+<td>General summarization</td>
+<td>When condensing content</td>
+</tr>
+<tr>
+<td><code>extract_ideas</code></td>
+<td>Key concepts extraction</td>
+<td>When analyzing documents</td>
+</tr>
+<tr>
+<td><code>extract_wisdom</code></td>
+<td>Insights and takeaways</td>
+<td>When reviewing research</td>
+</tr>
+<tr>
+<td><code>analyze_claims</code></td>
+<td>Evaluate assertions</td>
+<td>When fact-checking</td>
+</tr>
+<tr>
+<td><code>rate_content</code></td>
+<td>Quality assessment</td>
+<td>When evaluating content</td>
+</tr>
+</tbody>
+</table>
+</div><p><strong>Content Creation:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Purpose</th>
+<th>When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>write_essay</code></td>
+<td>Long-form content</td>
+<td>When writing articles</td>
+</tr>
+<tr>
+<td><code>write_micro_essay</code></td>
+<td>Short-form content</td>
+<td>When writing summaries</td>
+</tr>
+<tr>
+<td><code>create_social_media_post</code></td>
+<td>Social content</td>
+<td>When creating social posts</td>
+</tr>
+<tr>
+<td><code>create_summary</code></td>
+<td>Structured summaries</td>
+<td>When summarizing content</td>
+</tr>
+<tr>
+<td><code>improve_report_finding</code></td>
+<td>Report enhancement</td>
+<td>When improving reports</td>
+</tr>
+</tbody>
+</table>
+</div><h2 id="fabric-agent-playbook-advanced-usage" class="docmd-heading"><a href="#fabric-agent-playbook-advanced-usage" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Advanced Usage</h2>
+<h3 id="fabric-agent-playbook-advanced-usage-chaining-patterns" class="docmd-heading"><a href="#fabric-agent-playbook-advanced-usage-chaining-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Chaining Patterns</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Extract then summarize</span>
+<span class="hljs-built_in">cat</span> long-article.md | fabric -p extract_ideas | fabric -p summarize
+
+<span class="hljs-comment"># Analyze then improve</span>
+<span class="hljs-built_in">cat</span> code.py | fabric -p analyze_code | fabric -p improve_report_finding
+
+<span class="hljs-comment"># Multiple analysis stages</span>
+<span class="hljs-built_in">cat</span> requirements.txt | \
+  fabric -p extract_ideas | \
+  fabric -p create_coding_project
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Complex multi-stage workflows</li>
+<li>Deeper analysis through pattern composition</li>
+<li>More nuanced output</li>
+</ul>
+<h3 id="fabric-agent-playbook-advanced-usage-context-management" class="docmd-heading"><a href="#fabric-agent-playbook-advanced-usage-context-management" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Context Management</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Save context for multi-turn analysis</span>
+<span class="hljs-built_in">cat</span> codebase-overview.md | fabric -p summarize -c project-context
+
+<span class="hljs-comment"># Reuse context for follow-up</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;What are the security implications?&quot;</span> | fabric -p ai -C project-context
+
+<span class="hljs-comment"># List saved contexts</span>
+fabric --listcontexts
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Maintain context across multiple operations</li>
+<li>Enable follow-up questions</li>
+<li>Reference previous analyses</li>
+</ul>
+<h3 id="fabric-agent-playbook-advanced-usage-model-selection" class="docmd-heading"><a href="#fabric-agent-playbook-advanced-usage-model-selection" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Model Selection</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Use faster models for simple tasks</span>
+<span class="hljs-built_in">cat</span> simple-code.py | fabric -p summarize -m gpt-3.5-turbo
+
+<span class="hljs-comment"># Use powerful models for complex analysis</span>
+<span class="hljs-built_in">cat</span> complex-system.ts | fabric -p analyze_code -m claude-3-opus-20240229
+
+<span class="hljs-comment"># Use local models for privacy</span>
+<span class="hljs-built_in">cat</span> sensitive-code.py | fabric -p analyze_code -m llama2
+</code></pre>
+<p><strong>Model Selection Strategy:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Model Type</th>
+<th>Use Case</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fast models (gpt-3.5-turbo, claude-instant)</td>
+<td>Simple summarization, quick code explanations, draft generation</td>
+<td><code>summarize</code>, <code>explain_code</code></td>
+</tr>
+<tr>
+<td>Powerful models (gpt-4, claude-opus)</td>
+<td>Complex code analysis, security reviews, critical documentation</td>
+<td><code>analyze_code</code>, <code>analyze_malware</code></td>
+</tr>
+<tr>
+<td>Local models (ollama)</td>
+<td>Sensitive code, offline work, high-volume tasks</td>
+<td>Any pattern with privacy concerns</td>
+</tr>
+</tbody>
+</table>
+</div><h3 id="fabric-agent-playbook-advanced-usage-output-management" class="docmd-heading"><a href="#fabric-agent-playbook-advanced-usage-output-management" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Output Management</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Save to file</span>
+<span class="hljs-built_in">cat</span> module.ts | fabric -p explain_code -o docs/module.md
+
+<span class="hljs-comment"># Copy to clipboard for pasting</span>
+git diff main | fabric -p write_pull-request -c
+
+<span class="hljs-comment"># Stream for real-time feedback</span>
+<span class="hljs-built_in">cat</span> large-log.txt | fabric -sp summarize
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Flexible output options</li>
+<li>Easy integration with other tools</li>
+<li>Real-time feedback for long operations</li>
+</ul>
+<h2 id="fabric-agent-playbook-agent-specific-patterns" class="docmd-heading"><a href="#fabric-agent-playbook-agent-specific-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Agent-Specific Patterns</h2>
+<h3 id="fabric-agent-playbook-agent-specific-patterns-code-analysis-flow" class="docmd-heading"><a href="#fabric-agent-playbook-agent-specific-patterns-code-analysis-flow" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Code Analysis Flow</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Step 1: Analyze code structure</span>
+<span class="hljs-built_in">cat</span> src/**/*.ts | fabric -p analyze_code &gt; analysis.md
+
+<span class="hljs-comment"># Step 2: Extract security concerns</span>
+<span class="hljs-built_in">cat</span> src/**/*.ts | fabric -p analyze_malware &gt; security.md
+
+<span class="hljs-comment"># Step 3: Summarize findings</span>
+<span class="hljs-built_in">cat</span> analysis.md security.md | fabric -p summarize &gt; report.md
+</code></pre>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>Before major code changes</li>
+<li>During security audits</li>
+<li>When documenting code architecture</li>
+</ul>
+<h3 id="fabric-agent-playbook-agent-specific-patterns-documentation-generation-flow" class="docmd-heading"><a href="#fabric-agent-playbook-agent-specific-patterns-documentation-generation-flow" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Documentation Generation Flow</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Step 1: Explain core modules</span>
+<span class="hljs-keyword">for</span> file <span class="hljs-keyword">in</span> src/*.py; <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">cat</span> <span class="hljs-string">&quot;<span class="hljs-variable">$file</span>&quot;</span> | fabric -p explain_code &gt;&gt; docs/modules.md
+<span class="hljs-keyword">done</span>
+
+<span class="hljs-comment"># Step 2: Create overview</span>
+<span class="hljs-built_in">cat</span> docs/modules.md | fabric -p summarize &gt; docs/overview.md
+
+<span class="hljs-comment"># Step 3: Generate README sections</span>
+<span class="hljs-built_in">cat</span> docs/overview.md | fabric -p improve_writing &gt; README.md
+</code></pre>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>When creating new documentation</li>
+<li>When updating existing docs</li>
+<li>When onboarding new developers</li>
+</ul>
+<h3 id="fabric-agent-playbook-agent-specific-patterns-pr-review-flow" class="docmd-heading"><a href="#fabric-agent-playbook-agent-specific-patterns-pr-review-flow" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>PR Review Flow</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Step 1: Get PR diff</span>
+gh <span class="hljs-built_in">pr</span> diff &lt;pr-number&gt; &gt; pr-diff.txt
+
+<span class="hljs-comment"># Step 2: Analyze changes</span>
+<span class="hljs-built_in">cat</span> pr-diff.txt | fabric -p analyze_code &gt; review-analysis.md
+
+<span class="hljs-comment"># Step 3: Generate review comments</span>
+<span class="hljs-built_in">cat</span> review-analysis.md | fabric -p extract_actions &gt; review-comments.md
+
+<span class="hljs-comment"># Step 4: Create PR comment</span>
+<span class="hljs-built_in">cat</span> review-comments.md | fabric -p improve_writing
+</code></pre>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>During code review</li>
+<li>When providing feedback on PRs</li>
+<li>When documenting review decisions</li>
+</ul>
+<h2 id="fabric-agent-playbook-do-dont" class="docmd-heading"><a href="#fabric-agent-playbook-do-dont" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Do / Don’t</h2>
+<h3 id="fabric-agent-playbook-do-dont-do" class="docmd-heading"><a href="#fabric-agent-playbook-do-dont-do" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Do</h3>
+<p>✅ Check for existing patterns before writing custom prompts<br>
+✅ Use <code>--stream</code> for large inputs<br>
+✅ Chain patterns for complex workflows<br>
+✅ Save context for multi-turn analysis<br>
+✅ Document which patterns you use in comments<br>
+✅ Update patterns regularly with <code>fabric --updatepatterns</code></p>
+<h3 id="fabric-agent-playbook-do-dont-dont" class="docmd-heading"><a href="#fabric-agent-playbook-do-dont-dont" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Don’t</h3>
+<p>❌ Don’t write custom prompts for tasks that have patterns<br>
+❌ Don’t process large files without streaming<br>
+❌ Don’t ignore pattern suggestions from <code>suggest_pattern</code><br>
+❌ Don’t mix unrelated patterns in a chain<br>
+❌ Don’t forget to specify model when quality matters<br>
+❌ Don’t use patterns for tasks requiring code execution</p>
+<h2 id="fabric-agent-playbook-pattern-library-reference" class="docmd-heading"><a href="#fabric-agent-playbook-pattern-library-reference" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern Library Reference</h2>
+<h3 id="fabric-agent-playbook-pattern-library-reference-most-useful-for-agents" class="docmd-heading"><a href="#fabric-agent-playbook-pattern-library-reference-most-useful-for-agents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Most Useful for Agents</h3>
+<p><strong>Essential:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Purpose</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>summarize</code></td>
+<td>Universal summarization</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td><code>explain_code</code></td>
+<td>Code explanation</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td><code>analyze_code</code></td>
+<td>Code review</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td><code>write_pull-request</code></td>
+<td>PR descriptions</td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td><code>extract_ideas</code></td>
+<td>Concept extraction</td>
+<td>Weekly</td>
+</tr>
+</tbody>
+</table>
+</div><p><strong>Frequently Used:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Purpose</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>improve_writing</code></td>
+<td>Documentation enhancement</td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td><code>create_git_commit_message</code></td>
+<td>Commit messages</td>
+<td>Daily</td>
+</tr>
+<tr>
+<td><code>analyze_malware</code></td>
+<td>Security analysis</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td><code>extract_wisdom</code></td>
+<td>Insights extraction</td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td><code>rate_content</code></td>
+<td>Quality assessment</td>
+<td>Monthly</td>
+</tr>
+</tbody>
+</table>
+</div><p><strong>Specialized:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Purpose</th>
+<th>Frequency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>create_coding_project</code></td>
+<td>Project planning</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td><code>create_api_documentation</code></td>
+<td>API docs</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td><code>analyze_claims</code></td>
+<td>Argument analysis</td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td><code>extract_actions</code></td>
+<td>Task extraction</td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td><code>improve_report_finding</code></td>
+<td>Report enhancement</td>
+<td>Monthly</td>
+</tr>
+</tbody>
+</table>
+</div><h2 id="fabric-agent-playbook-performance-considerations" class="docmd-heading"><a href="#fabric-agent-playbook-performance-considerations" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Performance Considerations</h2>
+<h3 id="fabric-agent-playbook-performance-considerations-when-to-stream" class="docmd-heading"><a href="#fabric-agent-playbook-performance-considerations-when-to-stream" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>When to Stream</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Always stream for:</span>
+<span class="hljs-comment"># - Files &gt;1KB</span>
+<span class="hljs-comment"># - Multiple file analysis</span>
+<span class="hljs-comment"># - Long documents</span>
+<span class="hljs-comment"># - Real-time feedback needs</span>
+
+<span class="hljs-built_in">cat</span> large-file.txt | fabric -sp summarize
+</code></pre>
+<p><strong>Why:</strong> Streaming provides real-time feedback and prevents memory issues with large inputs.</p>
+<h3 id="fabric-agent-playbook-performance-considerations-model-selection-strategy" class="docmd-heading"><a href="#fabric-agent-playbook-performance-considerations-model-selection-strategy" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Model Selection Strategy</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Fast models (gpt-3.5-turbo, claude-instant):</span>
+<span class="hljs-comment"># - Simple summarization</span>
+<span class="hljs-comment"># - Quick code explanations</span>
+<span class="hljs-comment"># - Draft generation</span>
+
+<span class="hljs-comment"># Powerful models (gpt-4, claude-opus):</span>
+<span class="hljs-comment"># - Complex code analysis</span>
+<span class="hljs-comment"># - Security reviews</span>
+<span class="hljs-comment"># - Critical documentation</span>
+
+<span class="hljs-comment"># Local models (ollama):</span>
+<span class="hljs-comment"># - Sensitive code</span>
+<span class="hljs-comment"># - Offline work</span>
+<span class="hljs-comment"># - High-volume tasks</span>
+</code></pre>
+<p><strong>Guidelines:</strong></p>
+<ul>
+<li>Use fast models for simple, repetitive tasks</li>
+<li>Use powerful models for complex, critical analysis</li>
+<li>Use local models for privacy-sensitive work</li>
+</ul>
+<h2 id="fabric-agent-playbook-integration-with-other-tools" class="docmd-heading"><a href="#fabric-agent-playbook-integration-with-other-tools" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Integration with Other Tools</h2>
+<h3 id="fabric-agent-playbook-integration-with-other-tools-with-td-task-management" class="docmd-heading"><a href="#fabric-agent-playbook-integration-with-other-tools-with-td-task-management" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>With td (Task Management)</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Generate task description from requirements</span>
+<span class="hljs-built_in">cat</span> requirements.md | fabric -p extract_ideas | td create --<span class="hljs-built_in">type</span> feature
+
+<span class="hljs-comment"># Summarize task progress</span>
+td context &lt;issue-id&gt; | fabric -p summarize
+
+<span class="hljs-comment"># Generate handoff notes</span>
+git diff | fabric -p summarize &gt; handoff.md
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Automated task creation</li>
+<li>Better task documentation</li>
+<li>Improved handoff quality</li>
+</ul>
+<h3 id="fabric-agent-playbook-integration-with-other-tools-with-github-cli" class="docmd-heading"><a href="#fabric-agent-playbook-integration-with-other-tools-with-github-cli" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>With GitHub CLI</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Review PR</span>
+gh <span class="hljs-built_in">pr</span> view &lt;pr-number&gt; --json body | jq -r .body | fabric -p analyze_claims
+
+<span class="hljs-comment"># Generate release notes</span>
+gh <span class="hljs-built_in">pr</span> list --state merged --json title,body | \
+  jq -r <span class="hljs-string">&#x27;.[] | .title&#x27;</span> | \
+  fabric -p summarize
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Automated PR review</li>
+<li>Release note generation</li>
+<li>Issue analysis</li>
+</ul>
+<h3 id="fabric-agent-playbook-integration-with-other-tools-with-testing-tools" class="docmd-heading"><a href="#fabric-agent-playbook-integration-with-other-tools-with-testing-tools" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>With Testing Tools</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Analyze test failures</span>
+npm <span class="hljs-built_in">test</span> 2&gt;&amp;1 | fabric -p analyze_incident
+
+<span class="hljs-comment"># Generate test documentation</span>
+<span class="hljs-built_in">cat</span> <span class="hljs-built_in">test</span>/*.spec.ts | fabric -p explain_code &gt; docs/tests.md
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Test failure analysis</li>
+<li>Automated test documentation</li>
+<li>Test coverage insights</li>
+</ul>
+<h2 id="fabric-agent-playbook-custom-pattern-creation-for-agents" class="docmd-heading"><a href="#fabric-agent-playbook-custom-pattern-creation-for-agents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Custom Pattern Creation for Agents</h2>
+<p>When creating custom patterns for agent-specific workflows:</p>
+<h3 id="fabric-agent-playbook-custom-pattern-creation-for-agents-pattern-template" class="docmd-heading"><a href="#fabric-agent-playbook-custom-pattern-creation-for-agents-pattern-template" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern Template</h3>
+<pre class="hljs"><code><span class="hljs-section"># IDENTITY</span>
+You are a [specific role] expert specializing in [domain].
+
+<span class="hljs-section"># GOAL</span>
+[Clear, specific objective]
+
+<span class="hljs-section"># STEPS</span>
+<span class="hljs-bullet">1.</span> [Concrete action]
+<span class="hljs-bullet">2.</span> [Concrete action]
+<span class="hljs-bullet">3.</span> [Concrete action]
+
+<span class="hljs-section"># OUTPUT FORMAT</span>
+[Specific format with examples]
+
+<span class="hljs-section"># OUTPUT INSTRUCTIONS</span>
+<span class="hljs-bullet">-</span> Be specific and actionable
+<span class="hljs-bullet">-</span> Include context when relevant
+<span class="hljs-bullet">-</span> Use consistent formatting
+<span class="hljs-bullet">-</span> No explanations unless requested
+</code></pre>
+<h3 id="fabric-agent-playbook-custom-pattern-creation-for-agents-example-pr-review-pattern" class="docmd-heading"><a href="#fabric-agent-playbook-custom-pattern-creation-for-agents-example-pr-review-pattern" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Example: PR Review Pattern</h3>
+<p>Create <code>~/.config/fabric/patterns/agent-pr-review/system.md</code>:</p>
+<pre class="hljs"><code><span class="hljs-section"># IDENTITY</span>
+You are a senior code reviewer with expertise in software architecture and best practices.
+
+<span class="hljs-section"># GOAL</span>
+Review code changes and provide actionable feedback focused on correctness, performance, and maintainability.
+
+<span class="hljs-section"># STEPS</span>
+<span class="hljs-bullet">1.</span> Analyze the diff for logical errors
+<span class="hljs-bullet">2.</span> Check for performance implications
+<span class="hljs-bullet">3.</span> Evaluate code maintainability
+<span class="hljs-bullet">4.</span> Identify security concerns
+<span class="hljs-bullet">5.</span> Suggest improvements
+
+<span class="hljs-section"># OUTPUT FORMAT</span>
+<span class="hljs-section">## Summary</span>
+[Brief overview of changes]
+
+<span class="hljs-section">## Issues Found</span>
+<span class="hljs-bullet">-</span> [Issue 1]: [Description] (Priority: High/Medium/Low)
+<span class="hljs-bullet">-</span> [Issue 2]: [Description]
+
+<span class="hljs-section">## Suggestions</span>
+<span class="hljs-bullet">-</span> [Suggestion 1]: [Specific improvement]
+<span class="hljs-bullet">-</span> [Suggestion 2]: [Specific improvement]
+
+<span class="hljs-section">## Approval Status</span>
+[Approve/Needs Changes/Reject]
+
+<span class="hljs-section"># OUTPUT INSTRUCTIONS</span>
+<span class="hljs-bullet">-</span> Be specific with line numbers when possible
+<span class="hljs-bullet">-</span> Prioritize issues by impact
+<span class="hljs-bullet">-</span> Suggest concrete improvements
+<span class="hljs-bullet">-</span> Keep feedback constructive
+</code></pre>
+<h2 id="fabric-agent-playbook-troubleshooting" class="docmd-heading"><a href="#fabric-agent-playbook-troubleshooting" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Troubleshooting</h2>
+<h3 id="fabric-agent-playbook-troubleshooting-pattern-not-working-as-expected" class="docmd-heading"><a href="#fabric-agent-playbook-troubleshooting-pattern-not-working-as-expected" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern Not Working as Expected</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Check pattern exists</span>
+fabric --listpatterns | grep pattern-name
+
+<span class="hljs-comment"># Update patterns</span>
+fabric --updatepatterns
+
+<span class="hljs-comment"># Try with explicit model</span>
+fabric -p pattern-name -m gpt-4
+</code></pre>
+<p><strong>Common issues:</strong></p>
+<ul>
+<li>Pattern name typo</li>
+<li>Outdated pattern library</li>
+<li>Model compatibility issues</li>
+</ul>
+<h3 id="fabric-agent-playbook-troubleshooting-performance-issues" class="docmd-heading"><a href="#fabric-agent-playbook-troubleshooting-performance-issues" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Performance Issues</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Use streaming</span>
+fabric -sp pattern-name
+
+<span class="hljs-comment"># Use faster model</span>
+fabric -p pattern-name -m gpt-3.5-turbo
+
+<span class="hljs-comment"># Split large inputs</span>
+<span class="hljs-built_in">split</span> -l 1000 large-file.txt chunk-
+<span class="hljs-keyword">for</span> chunk <span class="hljs-keyword">in</span> chunk-*; <span class="hljs-keyword">do</span>
+  <span class="hljs-built_in">cat</span> <span class="hljs-string">&quot;<span class="hljs-variable">$chunk</span>&quot;</span> | fabric -p summarize &gt;&gt; output.txt
+<span class="hljs-keyword">done</span>
+</code></pre>
+<p><strong>Common issues:</strong></p>
+<ul>
+<li>Large input files</li>
+<li>Slow model selection</li>
+<li>Memory constraints</li>
+</ul>
+<h2 id="fabric-agent-playbook-best-practices" class="docmd-heading"><a href="#fabric-agent-playbook-best-practices" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Best Practices</h2>
+<h3 id="fabric-agent-playbook-best-practices-1-always-check-for-existing-patterns" class="docmd-heading"><a href="#fabric-agent-playbook-best-practices-1-always-check-for-existing-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. Always Check for Existing Patterns</h3>
+<p>Before writing a custom prompt, search for existing patterns:</p>
+<pre class="hljs"><code>fabric --listpatterns | grep &lt;keyword&gt;
+</code></pre>
+<p><strong>Why:</strong> Reusing existing patterns saves time and ensures consistency.</p>
+<h3 id="fabric-agent-playbook-best-practices-2-stream-large-inputs" class="docmd-heading"><a href="#fabric-agent-playbook-best-practices-2-stream-large-inputs" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Stream Large Inputs</h3>
+<p>Always use streaming for files &gt;1KB:</p>
+<pre class="hljs"><code><span class="hljs-built_in">cat</span> large-file.txt | fabric -sp summarize
+</code></pre>
+<p><strong>Why:</strong> Streaming provides real-time feedback and prevents memory issues.</p>
+<h3 id="fabric-agent-playbook-best-practices-3-chain-patterns-for-complex-workflows" class="docmd-heading"><a href="#fabric-agent-playbook-best-practices-3-chain-patterns-for-complex-workflows" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. Chain Patterns for Complex Workflows</h3>
+<p>Combine patterns for multi-stage analysis:</p>
+<pre class="hljs"><code><span class="hljs-built_in">cat</span> code.py | fabric -p analyze_code | fabric -p summarize
+</code></pre>
+<p><strong>Why:</strong> Chaining enables deeper analysis and more nuanced output.</p>
+<h3 id="fabric-agent-playbook-best-practices-4-save-context-for-multi-turn-analysis" class="docmd-heading"><a href="#fabric-agent-playbook-best-practices-4-save-context-for-multi-turn-analysis" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>4. Save Context for Multi-Turn Analysis</h3>
+<p>Use context management for follow-up questions:</p>
+<pre class="hljs"><code><span class="hljs-built_in">cat</span> codebase.md | fabric -p summarize -c project-context
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;What about security?&quot;</span> | fabric -p ai -C project-context
+</code></pre>
+<p><strong>Why:</strong> Context preservation enables more sophisticated analysis.</p>
+<h3 id="fabric-agent-playbook-best-practices-5-document-pattern-usage" class="docmd-heading"><a href="#fabric-agent-playbook-best-practices-5-document-pattern-usage" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>5. Document Pattern Usage</h3>
+<p>Add comments to code documenting which patterns were used:</p>
+<pre class="hljs"><code><span class="hljs-comment">// Documentation generated with: fabric -p explain_code</span>
+<span class="hljs-comment">/**
+ * Function description...
+ */</span>
+</code></pre>
+<p><strong>Why:</strong> Documentation helps future developers understand the workflow.</p>
+<h3 id="fabric-agent-playbook-best-practices-6-update-patterns-regularly" class="docmd-heading"><a href="#fabric-agent-playbook-best-practices-6-update-patterns-regularly" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>6. Update Patterns Regularly</h3>
+<p>Keep patterns up to date:</p>
+<pre class="hljs"><code>fabric --updatepatterns
+</code></pre>
+<p><strong>Why:</strong> Regular updates ensure access to the latest patterns and improvements.</p>
+<h2 id="fabric-agent-playbook-common-pitfalls" class="docmd-heading"><a href="#fabric-agent-playbook-common-pitfalls" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Common Pitfalls</h2>
+<h3 id="fabric-agent-playbook-common-pitfalls-pitfall-1-writing-custom-prompts-for-common-tasks" class="docmd-heading"><a href="#fabric-agent-playbook-common-pitfalls-pitfall-1-writing-custom-prompts-for-common-tasks" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 1: Writing Custom Prompts for Common Tasks</h3>
+<p><strong>Problem:</strong> Reinventing the wheel by writing custom prompts for tasks that have existing patterns.</p>
+<p><strong>Solution:</strong> Always check for existing patterns first.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Bad</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Summarize this code&quot;</span> | openai api
+
+<span class="hljs-comment"># Good</span>
+<span class="hljs-built_in">cat</span> code.py | fabric -p summarize
+</code></pre>
+<h3 id="fabric-agent-playbook-common-pitfalls-pitfall-2-not-streaming-large-inputs" class="docmd-heading"><a href="#fabric-agent-playbook-common-pitfalls-pitfall-2-not-streaming-large-inputs" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 2: Not Streaming Large Inputs</h3>
+<p><strong>Problem:</strong> Processing large files without streaming causes memory issues and delays.</p>
+<p><strong>Solution:</strong> Always use streaming for large inputs.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Bad</span>
+<span class="hljs-built_in">cat</span> large-file.txt | fabric -p summarize
+
+<span class="hljs-comment"># Good</span>
+<span class="hljs-built_in">cat</span> large-file.txt | fabric -sp summarize
+</code></pre>
+<h3 id="fabric-agent-playbook-common-pitfalls-pitfall-3-mixing-unrelated-patterns" class="docmd-heading"><a href="#fabric-agent-playbook-common-pitfalls-pitfall-3-mixing-unrelated-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 3: Mixing Unrelated Patterns</h3>
+<p><strong>Problem:</strong> Chaining unrelated patterns produces confusing output.</p>
+<p><strong>Solution:</strong> Only chain patterns that logically flow together.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Bad</span>
+<span class="hljs-built_in">cat</span> code.py | fabric -p analyze_code | fabric -p write_essay
+
+<span class="hljs-comment"># Good</span>
+<span class="hljs-built_in">cat</span> code.py | fabric -p analyze_code | fabric -p summarize
+</code></pre>
+<h3 id="fabric-agent-playbook-common-pitfalls-pitfall-4-forgetting-model-selection" class="docmd-heading"><a href="#fabric-agent-playbook-common-pitfalls-pitfall-4-forgetting-model-selection" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 4: Forgetting Model Selection</h3>
+<p><strong>Problem:</strong> Using default models for tasks that require specific capabilities.</p>
+<p><strong>Solution:</strong> Specify the appropriate model for the task.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Bad</span>
+<span class="hljs-built_in">cat</span> complex-code.ts | fabric -p analyze_code
+
+<span class="hljs-comment"># Good</span>
+<span class="hljs-built_in">cat</span> complex-code.ts | fabric -p analyze_code -m claude-3-opus-20240229
+</code></pre>
+<h3 id="fabric-agent-playbook-common-pitfalls-pitfall-5-using-patterns-for-code-execution" class="docmd-heading"><a href="#fabric-agent-playbook-common-pitfalls-pitfall-5-using-patterns-for-code-execution" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 5: Using Patterns for Code Execution</h3>
+<p><strong>Problem:</strong> Attempting to use fabric patterns for tasks requiring actual code execution.</p>
+<p><strong>Solution:</strong> Use fabric for analysis and documentation, not execution.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Bad</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Run this code&quot;</span> | fabric -p execute_code
+
+<span class="hljs-comment"># Good</span>
+bun run script.ts
+<span class="hljs-built_in">cat</span> output.txt | fabric -p analyze_code
+</code></pre>
+<h2 id="fabric-agent-playbook-references" class="docmd-heading"><a href="#fabric-agent-playbook-references" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>References</h2>
+<ul>
+<li><a href="https://github.com/danielmiessler/fabric">Fabric Documentation</a> – Official fabric documentation</li>
+<li><a href="https://github.com/danielmiessler/fabric/tree/main/patterns">Pattern Library</a> – Available patterns</li>
+<li><a href="../loading-process-playbook">Loading Process Playbook</a> – Two-step loading process pattern</li>
+<li><a href="../agentic-sdlc">Agentic SDLC Playbook</a> – Agent-assisted development practices</li>
+<li><a href="../mastra-agent-playbook">Mastra Agent Playbook</a> – Mastra-specific patterns</li>
+<li><a href="../git-workflow-playbook">Git Workflow Playbook</a> – Branching and review workflow</li>
+</ul>
+<hr>
+<p><strong>Version:</strong> 1.0<br>
+<strong>Last Updated:</strong> 2026-03-21<br>
+<strong>Maintained by:</strong> PolyVis Development Team</p>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-table-of-contents" class="toc-link">Table of Contents</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-purpose" class="toc-link">Purpose</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-core-principles" class="toc-link">Core Principles</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-mandatory-directives" class="toc-link">Mandatory Directives</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-mandatory-directives-1-use-fabric-for-repetitive-ai-tasks" class="toc-link">1) Use Fabric for Repetitive AI Tasks</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-mandatory-directives-2-always-stream-large-content" class="toc-link">2) Always Stream Large Content</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-mandatory-directives-3-generate-documentation-systematically" class="toc-link">3) Generate Documentation Systematically</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-standard-workflows" class="toc-link">Standard Workflows</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-standard-workflows-code-review-analysis" class="toc-link">Code Review &amp; Analysis</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-standard-workflows-documentation-generation" class="toc-link">Documentation Generation</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-standard-workflows-content-summarization" class="toc-link">Content Summarization</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-standard-workflows-writing-enhancement" class="toc-link">Writing Enhancement</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-integration-patterns" class="toc-link">Integration Patterns</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-integration-patterns-with-git-workflows" class="toc-link">With Git Workflows</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-integration-patterns-with-code-review" class="toc-link">With Code Review</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-integration-patterns-with-documentation" class="toc-link">With Documentation</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-integration-patterns-with-testing" class="toc-link">With Testing</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-pattern-selection-guide" class="toc-link">Pattern Selection Guide</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-pattern-selection-guide-when-to-use-which-pattern" class="toc-link">When to Use Which Pattern</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-advanced-usage" class="toc-link">Advanced Usage</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-advanced-usage-chaining-patterns" class="toc-link">Chaining Patterns</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-advanced-usage-context-management" class="toc-link">Context Management</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-advanced-usage-model-selection" class="toc-link">Model Selection</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-advanced-usage-output-management" class="toc-link">Output Management</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-agent-specific-patterns" class="toc-link">Agent-Specific Patterns</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-agent-specific-patterns-code-analysis-flow" class="toc-link">Code Analysis Flow</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-agent-specific-patterns-documentation-generation-flow" class="toc-link">Documentation Generation Flow</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-agent-specific-patterns-pr-review-flow" class="toc-link">PR Review Flow</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-do-dont" class="toc-link">Do / Don’t</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-do-dont-do" class="toc-link">Do</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-do-dont-dont" class="toc-link">Don’t</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-pattern-library-reference" class="toc-link">Pattern Library Reference</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-pattern-library-reference-most-useful-for-agents" class="toc-link">Most Useful for Agents</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-performance-considerations" class="toc-link">Performance Considerations</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-performance-considerations-when-to-stream" class="toc-link">When to Stream</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-performance-considerations-model-selection-strategy" class="toc-link">Model Selection Strategy</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-integration-with-other-tools" class="toc-link">Integration with Other Tools</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-integration-with-other-tools-with-td-task-management" class="toc-link">With td (Task Management)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-integration-with-other-tools-with-github-cli" class="toc-link">With GitHub CLI</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-integration-with-other-tools-with-testing-tools" class="toc-link">With Testing Tools</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-custom-pattern-creation-for-agents" class="toc-link">Custom Pattern Creation for Agents</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-custom-pattern-creation-for-agents-pattern-template" class="toc-link">Pattern Template</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-custom-pattern-creation-for-agents-example-pr-review-pattern" class="toc-link">Example: PR Review Pattern</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-troubleshooting" class="toc-link">Troubleshooting</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-troubleshooting-pattern-not-working-as-expected" class="toc-link">Pattern Not Working as Expected</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-troubleshooting-performance-issues" class="toc-link">Performance Issues</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-best-practices" class="toc-link">Best Practices</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-best-practices-1-always-check-for-existing-patterns" class="toc-link">1. Always Check for Existing Patterns</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-best-practices-2-stream-large-inputs" class="toc-link">2. Stream Large Inputs</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-best-practices-3-chain-patterns-for-complex-workflows" class="toc-link">3. Chain Patterns for Complex Workflows</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-best-practices-4-save-context-for-multi-turn-analysis" class="toc-link">4. Save Context for Multi-Turn Analysis</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-best-practices-5-document-pattern-usage" class="toc-link">5. Document Pattern Usage</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-best-practices-6-update-patterns-regularly" class="toc-link">6. Update Patterns Regularly</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-common-pitfalls" class="toc-link">Common Pitfalls</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-common-pitfalls-pitfall-1-writing-custom-prompts-for-common-tasks" class="toc-link">Pitfall 1: Writing Custom Prompts for Common Tasks</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-common-pitfalls-pitfall-2-not-streaming-large-inputs" class="toc-link">Pitfall 2: Not Streaming Large Inputs</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-common-pitfalls-pitfall-3-mixing-unrelated-patterns" class="toc-link">Pitfall 3: Mixing Unrelated Patterns</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-common-pitfalls-pitfall-4-forgetting-model-selection" class="toc-link">Pitfall 4: Forgetting Model Selection</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#fabric-agent-playbook-common-pitfalls-pitfall-5-using-patterns-for-code-execution" class="toc-link">Pitfall 5: Using Patterns for Code Execution</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#fabric-agent-playbook-references" class="toc-link">References</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../../../assets/js/docmd-main.js?v=mn7fdkey"></script>
+            <script src="../../../assets/js/docmd-image-lightbox.js?v=mn7fdkey" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../../../assets/js/docmd-search.js?v=mn7fdkey" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

@@ -1,0 +1,2214 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "/";
+      </script>
+      <title>
+        Biome Standards Playbook
+      </title>
+      
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7fiooe">
+        
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7fiooe"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7fiooe"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7fiooe" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="active-parent collapsible expanded nav-group"  aria-expanded="true" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-integrity-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-retrofit/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-sdlc/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/ai-friendly-code-patterns/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="active" >
+      
+        <a href="../../playbooks/biome-standards/" class="active "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/cli-design-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/design-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/edinburgh-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/fabric-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/fabric-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/git-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/just-bash/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/loading-process-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/local-memory-agents/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/mastra-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/nushell-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/nushell-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/origami-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/repo-init-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/secure-tool-design/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/sidecar-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/sidecar-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-skill-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/tiered-type-safety-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/typescript-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/ui-color-decision-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/vercel-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/visual-palette/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../briefs/brief-agentic-integrity-workflow/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-ai-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-ctx-telepresence/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-01/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-02/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-03/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-doc-manage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-mastra-autoresearch-skill/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-merge-queue/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-playbook-index/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-stoolap-eval/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-summary/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../debriefs/review-remeda-usage-and-plan-deprecation/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-33741f-biome-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-3bdb2f/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-4b567d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-64959e/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-770149/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-8c4038/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-bcf87d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-c4a3cb/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-fa8288/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-fc7e38/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../docs/knowledge-sleeve/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/nushell-agent-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/architectural-insights/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/edinburgh-protocol-system-prompt/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/dev-setup-macos-zed/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/playbook-loading-process-tracker/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/td-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/td-workflow-diagram/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/safe-agi/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/test-mermaid/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/tomatoes/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  Biome Standards Playbook
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                  <nav aria-label="breadcrumb" class="docmd-breadcrumbs">
+                                    <ol>
+                                      
+                                        <li class="breadcrumb-item " >
+                                          
+                                            <span>Playbooks</span>
+                                          
+                                          
+                                            <span class="breadcrumb-separator">
+<svg class="lucide-icon icon-chevron-right " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+                                          
+                                        </li>
+                                      
+                                        <li class="breadcrumb-item active" aria-current=&#34;page&#34;>
+                                          
+                                            <span>Biome Standards</span>
+                                          
+                                          
+                                        </li>
+                                      
+                                    </ol>
+                                  </nav>
+                                
+                                
+                                    <h1 id="biome-standards-playbook">Biome Standards Playbook</h1>
+<h2 id="biome-standards-playbook-table-of-contents" class="docmd-heading"><a href="#biome-standards-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
+<ul>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#proactive-fixing-formatting-vs-linting">Proactive Fixing (Formatting vs Linting)</a>
+<ul>
+<li><a href="#formatter-biome">Formatter: Biome</a></li>
+<li><a href="#linter-oxlint">Linter: OxLint</a></li>
+</ul>
+</li>
+<li><a href="#handling-%22any%22-noexplicitany">Handling “any” (noExplicitAny)</a>
+<ul>
+<li><a href="#prefer-%60unknown%60">Prefer <code>unknown</code></a></li>
+<li><a href="#selective-suppression">Selective Suppression</a></li>
+<li><a href="#reasoning-required">Reasoning Required</a></li>
+</ul>
+</li>
+<li><a href="#formatting-standards">Formatting Standards</a>
+<ul>
+<li><a href="#indentation">Indentation</a></li>
+<li><a href="#quotes">Quotes</a></li>
+<li><a href="#semicolons">Semicolons</a></li>
+<li><a href="#trailing-commas">Trailing Commas</a></li>
+</ul>
+</li>
+<li><a href="#the-%22scripts-lab%22-exception">The “Scripts Lab” Exception</a>
+<ul>
+<li><a href="#what-goes-in-%60scriptslab%60">What Goes in <code>scripts/lab/</code></a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#oxlint-configuration">OxLint Configuration</a></li>
+</ul>
+</li>
+<li><a href="#pre-commit-vs-ci">Pre-commit vs. CI</a>
+<ul>
+<li><a href="#pre-commit-light-and-fast">Pre-commit: Light and Fast</a></li>
+<li><a href="#ci--verify-comprehensive">CI / Verify: Comprehensive</a></li>
+<li><a href="#when-in-doubt">When in Doubt</a></li>
+</ul>
+</li>
+<li><a href="#oxlint-responsibilities-best-practice-baseline">OxLint Responsibilities (Best-Practice Baseline)</a>
+<ul>
+<li><a href="#oxlint-is-the-lint-engine">OxLint is the Lint Engine</a></li>
+<li><a href="#avoid-stylistic-overlap">Avoid Stylistic Overlap</a></li>
+<li><a href="#type-checking-remains-%60tsc---noemit%60">Type Checking Remains <code>tsc --noEmit</code></a></li>
+<li><a href="#recommended-baseline">Recommended Baseline</a></li>
+</ul>
+</li>
+<li><a href="#best-practices">Best Practices</a>
+<ul>
+<li><a href="#1-run-formatting-before-committing">1. Run Formatting Before Committing</a></li>
+<li><a href="#2-fix-linting-issues-before-pushing">2. Fix Linting Issues Before Pushing</a></li>
+<li><a href="#3-use-type-guards-instead-of-%60any%60">3. Use Type Guards Instead of <code>any</code></a></li>
+<li><a href="#4-document-ignore-comments">4. Document Ignore Comments</a></li>
+<li><a href="#5-use-scripts-lab-for-experiments">5. Use Scripts Lab for Experiments</a></li>
+<li><a href="#6-run-verify-before-pushing">6. Run Verify Before Pushing</a></li>
+</ul>
+</li>
+<li><a href="#common-pitfalls">Common Pitfalls</a>
+<ul>
+<li><a href="#pitfall-1-mixing-formatting-and-linting">Pitfall 1: Mixing Formatting and Linting</a></li>
+<li><a href="#pitfall-2-using-%60any%60-without-reasoning">Pitfall 2: Using <code>any</code> Without Reasoning</a></li>
+<li><a href="#pitfall-3-forgetting-trailing-commas">Pitfall 3: Forgetting Trailing Commas</a></li>
+<li><a href="#pitfall-4-not-running-verify-before-pushing">Pitfall 4: Not Running Verify Before Pushing</a></li>
+<li><a href="#pitfall-5-putting-experimental-code-in-production">Pitfall 5: Putting Experimental Code in Production</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="biome-standards-playbook-purpose" class="docmd-heading"><a href="#biome-standards-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
+<p>This playbook defines our standards for using <strong>Biome (formatting)</strong> and <strong>OxLint (linting)</strong> together without overlap, plus TypeScript for authoritative type checking. It provides comprehensive guidelines for maintaining consistent code quality across the project while avoiding conflicts between different tools.</p>
+<p><strong>Core Philosophy:</strong> Separate responsibilities to avoid overlap and conflicting rules. Biome handles formatting, OxLint handles linting, and TypeScript handles type checking. Each tool has a clear, non-overlapping domain.</p>
+<h2 id="biome-standards-playbook-proactive-fixing-formatting-vs-linting" class="docmd-heading"><a href="#biome-standards-playbook-proactive-fixing-formatting-vs-linting" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Proactive Fixing (Formatting vs Linting)</h2>
+<p>We separate responsibilities to avoid overlap and conflicting rules.</p>
+<h3 id="biome-standards-playbook-proactive-fixing-formatting-vs-linting-formatter-biome" class="docmd-heading"><a href="#biome-standards-playbook-proactive-fixing-formatting-vs-linting-formatter-biome" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Formatter: Biome</h3>
+<p>Biome is the source of truth for formatting.</p>
+<p><strong>Primary command:</strong></p>
+<pre class="hljs"><code>bun run lint  <span class="hljs-comment"># Runs biome check --write</span>
+</code></pre>
+<p><strong>What Biome handles:</strong></p>
+<ul>
+<li>Code formatting (indentation, quotes, semicolons)</li>
+<li>Trailing commas</li>
+<li>Line length</li>
+<li>Whitespace</li>
+</ul>
+<h3 id="biome-standards-playbook-proactive-fixing-formatting-vs-linting-linter-oxlint" class="docmd-heading"><a href="#biome-standards-playbook-proactive-fixing-formatting-vs-linting-linter-oxlint" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Linter: OxLint</h3>
+<p>OxLint is the source of truth for linting.</p>
+<p><strong>Primary command:</strong></p>
+<pre class="hljs"><code>bun run lint:ox  <span class="hljs-comment"># Read-only</span>
+</code></pre>
+<p><strong>Optional autofix:</strong></p>
+<pre class="hljs"><code>bun run lint:ox:fix
+</code></pre>
+<p><strong>What OxLint handles:</strong></p>
+<ul>
+<li>Code quality issues</li>
+<li>Potential bugs</li>
+<li>Performance problems</li>
+<li>Security vulnerabilities</li>
+<li>Import/export issues</li>
+</ul>
+<p><strong>Why this separation matters:</strong></p>
+<ul>
+<li><strong>No conflicts:</strong> Each tool has a clear domain</li>
+<li><strong>Faster feedback:</strong> Formatting and linting can run independently</li>
+<li><strong>Better maintainability:</strong> Easier to update and configure each tool</li>
+<li><strong>Clearer errors:</strong> Users know which tool to check for specific issues</li>
+</ul>
+<h2 id="biome-standards-playbook-handling-any-noexplicitany" class="docmd-heading"><a href="#biome-standards-playbook-handling-any-noexplicitany" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Handling “any” (noExplicitAny)</h2>
+<p>While we strive for type safety, we recognize that in tests and generic helpers (like Mastra tools), <code>any</code> or <code>unknown</code> casts are sometimes necessary.</p>
+<h3 id="biome-standards-playbook-handling-any-noexplicitany-prefer-unknown" class="docmd-heading"><a href="#biome-standards-playbook-handling-any-noexplicitany-prefer-unknown" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Prefer <code>unknown</code></h3>
+<p>When possible, use <code>unknown</code> and perform type guards.</p>
+<p><strong>Good:</strong></p>
+<pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">processData</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-built_in">unknown</span></span>): <span class="hljs-title class_">Result</span> {
+  <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isValidData</span>(data)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">process</span>(data);
+  }
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Invalid data&quot;</span>);
+}
+</code></pre>
+<p><strong>Bad:</strong></p>
+<pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">processData</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-built_in">any</span></span>): <span class="hljs-title class_">Result</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-title function_">process</span>(data);  <span class="hljs-comment">// No type safety</span>
+}
+</code></pre>
+<h3 id="biome-standards-playbook-handling-any-noexplicitany-selective-suppression" class="docmd-heading"><a href="#biome-standards-playbook-handling-any-noexplicitany-selective-suppression" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Selective Suppression</h3>
+<p>If <code>any</code> is truly required, use a biome ignore comment with reasoning.</p>
+<p><strong>Good:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// biome-ignore lint/suspicious/noExplicitAny: External API doesn&#x27;t provide types</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">x</span>: <span class="hljs-built_in">any</span> = externalApi.<span class="hljs-title function_">getData</span>();
+</code></pre>
+<p><strong>Bad:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// biome-ignore lint/suspicious/noExplicitAny</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">x</span>: <span class="hljs-built_in">any</span> = externalApi.<span class="hljs-title function_">getData</span>();  <span class="hljs-comment">// No reasoning!</span>
+</code></pre>
+<h3 id="biome-standards-playbook-handling-any-noexplicitany-reasoning-required" class="docmd-heading"><a href="#biome-standards-playbook-handling-any-noexplicitany-reasoning-required" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Reasoning Required</h3>
+<p>Never use an empty ignore comment. Always explain why the check is being bypassed.</p>
+<p><strong>Template:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// biome-ignore lint/suspicious/noExplicitAny: &lt;specific reason why any is necessary&gt;</span>
+</code></pre>
+<p><strong>Valid reasons:</strong></p>
+<ul>
+<li>External API doesn’t provide types</li>
+<li>Working with legacy code</li>
+<li>Test mocking</li>
+<li>Dynamic data structures</li>
+<li>Interop with untyped libraries</li>
+</ul>
+<h2 id="biome-standards-playbook-formatting-standards" class="docmd-heading"><a href="#biome-standards-playbook-formatting-standards" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Formatting Standards</h2>
+<h3 id="biome-standards-playbook-formatting-standards-indentation" class="docmd-heading"><a href="#biome-standards-playbook-formatting-standards-indentation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Indentation</h3>
+<ul>
+<li><strong>Spaces:</strong> 2 spaces</li>
+<li><strong>Tabs:</strong> Never use tabs</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">example</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">if</span> (condition) {
+    <span class="hljs-title function_">doSomething</span>();
+  }
+}
+</code></pre>
+<h3 id="biome-standards-playbook-formatting-standards-quotes" class="docmd-heading"><a href="#biome-standards-playbook-formatting-standards-quotes" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Quotes</h3>
+<ul>
+<li><strong>JavaScript/TypeScript:</strong> Single quotes</li>
+<li><strong>JSON:</strong> Double quotes (required by JSON spec)</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre class="hljs"><code><span class="hljs-keyword">const</span> message = <span class="hljs-string">&#x27;Hello, world!&#x27;</span>;  <span class="hljs-comment">// Single quotes</span>
+<span class="hljs-keyword">const</span> config = { <span class="hljs-string">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span> };  <span class="hljs-comment">// JSON uses double quotes</span>
+</code></pre>
+<h3 id="biome-standards-playbook-formatting-standards-semicolons" class="docmd-heading"><a href="#biome-standards-playbook-formatting-standards-semicolons" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Semicolons</h3>
+<ul>
+<li><strong>Always required:</strong> Never omit semicolons</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">const</span> x = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> y = <span class="hljs-number">2</span>;
+
+<span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">const</span> x = <span class="hljs-number">1</span>
+<span class="hljs-keyword">const</span> y = <span class="hljs-number">2</span>
+</code></pre>
+<h3 id="biome-standards-playbook-formatting-standards-trailing-commas" class="docmd-heading"><a href="#biome-standards-playbook-formatting-standards-trailing-commas" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Trailing Commas</h3>
+<ul>
+<li><strong>JavaScript/TypeScript:</strong> ES5 style (trailing commas allowed)</li>
+<li><strong>JSON:</strong> No trailing commas (required by JSON spec)</li>
+</ul>
+<p><strong>Example:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment">// Good (JS/TS)</span>
+<span class="hljs-keyword">const</span> obj = {
+  <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">b</span>: <span class="hljs-number">2</span>,
+};
+
+<span class="hljs-comment">// Good (JSON)</span>
+{
+  <span class="hljs-string">&quot;a&quot;</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-string">&quot;b&quot;</span>: <span class="hljs-number">2</span>
+}
+</code></pre>
+<h2 id="biome-standards-playbook-the-scripts-lab-exception" class="docmd-heading"><a href="#biome-standards-playbook-the-scripts-lab-exception" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>The “Scripts Lab” Exception</h2>
+<p>Experimental code that doesn’t need to meet production quality standards should live in <code>scripts/lab/</code>.</p>
+<h3 id="biome-standards-playbook-the-scripts-lab-exception-what-goes-in-scriptslab" class="docmd-heading"><a href="#biome-standards-playbook-the-scripts-lab-exception-what-goes-in-scriptslab" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>What Goes in <code>scripts/lab/</code></h3>
+<ul>
+<li>Experimental prototypes</li>
+<li>Proof-of-concept implementations</li>
+<li>Temporary test scripts</li>
+<li>Exploratory code</li>
+<li>Code that doesn’t need type safety</li>
+</ul>
+<h3 id="biome-standards-playbook-the-scripts-lab-exception-configuration" class="docmd-heading"><a href="#biome-standards-playbook-the-scripts-lab-exception-configuration" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Configuration</h3>
+<p>This directory is explicitly excluded from Biome and TypeScript checks in <code>biome.json</code> and <code>tsconfig.json</code>.</p>
+<p><strong>biome.json:</strong></p>
+<pre class="hljs"><code><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;overrides&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;include&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;scripts/lab/**&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;linter&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;rules&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+          <span class="hljs-attr">&quot;all&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span>
+        <span class="hljs-punctuation">}</span>
+      <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;formatter&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">&quot;enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>tsconfig.json:</strong></p>
+<pre class="hljs"><code><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;exclude&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;scripts/lab/**&quot;</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="biome-standards-playbook-the-scripts-lab-exception-oxlint-configuration" class="docmd-heading"><a href="#biome-standards-playbook-the-scripts-lab-exception-oxlint-configuration" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>OxLint Configuration</h3>
+<p>If needed, add matching ignore patterns for OxLint so all tools agree.</p>
+<p><strong>oxlint.json:</strong></p>
+<pre class="hljs"><code><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;ignore&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;scripts/lab/**&quot;</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>Why this matters:</strong></p>
+<ul>
+<li><strong>Freedom:</strong> Developers can experiment without friction</li>
+<li><strong>Clarity:</strong> Clear separation between production and experimental code</li>
+<li><strong>Consistency:</strong> All tools agree on what to check</li>
+<li><strong>Safety:</strong> Experimental code can’t accidentally enter production</li>
+</ul>
+<h2 id="biome-standards-playbook-pre-commit-vs-ci" class="docmd-heading"><a href="#biome-standards-playbook-pre-commit-vs-ci" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pre-commit vs. CI</h2>
+<h3 id="biome-standards-playbook-pre-commit-vs-ci-pre-commit-light-and-fast" class="docmd-heading"><a href="#biome-standards-playbook-pre-commit-vs-ci-pre-commit-light-and-fast" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pre-commit: Light and Fast</h3>
+<p>Runs formatting and basic type checking.</p>
+<p><strong>Commands:</strong></p>
+<pre class="hljs"><code>bun run lint      <span class="hljs-comment"># Biome formatting</span>
+bun run typecheck <span class="hljs-comment"># TypeScript type checking</span>
+</code></pre>
+<p><strong>What it checks:</strong></p>
+<ul>
+<li>Code formatting (Biome)</li>
+<li>Basic type errors (TypeScript)</li>
+<li>Quick feedback loop</li>
+</ul>
+<p><strong>Why:</strong> Fast feedback during development without blocking on comprehensive checks.</p>
+<h3 id="biome-standards-playbook-pre-commit-vs-ci-ci-verify-comprehensive" class="docmd-heading"><a href="#biome-standards-playbook-pre-commit-vs-ci-ci-verify-comprehensive" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>CI / Verify: Comprehensive</h3>
+<p>Runs full pipeline including linting and tests.</p>
+<p><strong>Command:</strong></p>
+<pre class="hljs"><code>bun run check  <span class="hljs-comment"># Biome format check + OxLint + tsc --noEmit</span>
+bun run <span class="hljs-built_in">test</span>   <span class="hljs-comment"># All tests</span>
+</code></pre>
+<p><strong>What it checks:</strong></p>
+<ul>
+<li>Code formatting (Biome, read-only)</li>
+<li>Linting (OxLint)</li>
+<li>Type checking (TypeScript)</li>
+<li>All tests</li>
+</ul>
+<p><strong>Why:</strong> Comprehensive validation before merging to main.</p>
+<h3 id="biome-standards-playbook-pre-commit-vs-ci-when-in-doubt" class="docmd-heading"><a href="#biome-standards-playbook-pre-commit-vs-ci-when-in-doubt" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>When in Doubt</h3>
+<p>Run <code>bun run verify</code> before pushing to ensure the full pipeline will pass.</p>
+<pre class="hljs"><code>bun run verify
+</code></pre>
+<p><strong>What verify does:</strong></p>
+<ol>
+<li>Runs Biome format check (read-only)</li>
+<li>Runs OxLint</li>
+<li>Runs TypeScript type checking</li>
+<li>Runs all tests</li>
+</ol>
+<h2 id="biome-standards-playbook-oxlint-responsibilities-best-practice-baseline" class="docmd-heading"><a href="#biome-standards-playbook-oxlint-responsibilities-best-practice-baseline" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>OxLint Responsibilities (Best-Practice Baseline)</h2>
+<h3 id="biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-oxlint-is-the-lint-engine" class="docmd-heading"><a href="#biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-oxlint-is-the-lint-engine" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>OxLint is the Lint Engine</h3>
+<p>OxLint is our primary linting engine. Enable <code>typescript</code> and <code>import</code> plugins as the default baseline.</p>
+<p><strong>Configuration:</strong></p>
+<pre class="hljs"><code><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;plugins&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;typescript&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;import&quot;</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-avoid-stylistic-overlap" class="docmd-heading"><a href="#biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-avoid-stylistic-overlap" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Avoid Stylistic Overlap</h3>
+<p>Keep OxLint style rules off and let Biome handle formatting.</p>
+<p><strong>Configuration:</strong></p>
+<pre class="hljs"><code><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;categories&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;style&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;off&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><strong>Why:</strong> Prevents conflicts between OxLint and Biome formatting rules.</p>
+<h3 id="biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-type-checking-remains-tsc-noemit" class="docmd-heading"><a href="#biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-type-checking-remains-tsc-noemit" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Type Checking Remains <code>tsc --noEmit</code></h3>
+<p>TypeScript’s compiler (<code>tsc</code>) remains the authoritative type checker. OxLint’s type checking complements <code>tsc</code> but does not replace it.</p>
+<p><strong>Why:</strong></p>
+<ul>
+<li><code>tsc</code> is the official TypeScript compiler</li>
+<li>OxLint’s type checking is faster but less comprehensive</li>
+<li>Using both provides better coverage</li>
+</ul>
+<h3 id="biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-recommended-baseline" class="docmd-heading"><a href="#biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-recommended-baseline" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Recommended Baseline</h3>
+<p><strong>OxLint categories:</strong></p>
+<ul>
+<li><strong>correctness:</strong> error</li>
+<li><strong>suspicious:</strong> warn</li>
+<li><strong>perf:</strong> warn</li>
+<li><strong>style:</strong> off</li>
+</ul>
+<p><strong>Biome linter:</strong></p>
+<ul>
+<li><strong>disabled:</strong> Let OxLint handle linting</li>
+</ul>
+<p><strong>Example configuration:</strong></p>
+<pre class="hljs"><code><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;categories&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;correctness&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;error&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;suspicious&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;warn&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;perf&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;warn&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;style&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;off&quot;</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;plugins&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;typescript&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;import&quot;</span><span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h2 id="biome-standards-playbook-best-practices" class="docmd-heading"><a href="#biome-standards-playbook-best-practices" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Best Practices</h2>
+<h3 id="biome-standards-playbook-best-practices-1-run-formatting-before-committing" class="docmd-heading"><a href="#biome-standards-playbook-best-practices-1-run-formatting-before-committing" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. Run Formatting Before Committing</h3>
+<p>Always run Biome formatting before committing.</p>
+<pre class="hljs"><code>bun run lint
+</code></pre>
+<p><strong>Why:</strong> Ensures consistent formatting across the codebase.</p>
+<h3 id="biome-standards-playbook-best-practices-2-fix-linting-issues-before-pushing" class="docmd-heading"><a href="#biome-standards-playbook-best-practices-2-fix-linting-issues-before-pushing" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Fix Linting Issues Before Pushing</h3>
+<p>Always fix OxLint issues before pushing.</p>
+<pre class="hljs"><code>bun run lint:ox
+bun run lint:ox:fix  <span class="hljs-comment"># If autofix available</span>
+</code></pre>
+<p><strong>Why:</strong> Prevents CI failures and maintains code quality.</p>
+<h3 id="biome-standards-playbook-best-practices-3-use-type-guards-instead-of-any" class="docmd-heading"><a href="#biome-standards-playbook-best-practices-3-use-type-guards-instead-of-any" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. Use Type Guards Instead of <code>any</code></h3>
+<p>Prefer <code>unknown</code> with type guards over <code>any</code>.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">process</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-built_in">unknown</span></span>): <span class="hljs-title class_">Result</span> {
+  <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isValidData</span>(data)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">process</span>(data <span class="hljs-keyword">as</span> <span class="hljs-title class_">DataType</span>);
+  }
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Invalid data&quot;</span>);
+}
+
+<span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">process</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-built_in">any</span></span>): <span class="hljs-title class_">Result</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-title function_">process</span>(data);
+}
+</code></pre>
+<p><strong>Why:</strong> Maintains type safety while handling dynamic data.</p>
+<h3 id="biome-standards-playbook-best-practices-4-document-ignore-comments" class="docmd-heading"><a href="#biome-standards-playbook-best-practices-4-document-ignore-comments" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>4. Document Ignore Comments</h3>
+<p>Always explain why you’re ignoring a rule.</p>
+<pre class="hljs"><code><span class="hljs-comment">// biome-ignore lint/suspicious/noExplicitAny: External API doesn&#x27;t provide types</span>
+<span class="hljs-keyword">const</span> data = externalApi.<span class="hljs-title function_">getData</span>() <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>;
+</code></pre>
+<p><strong>Why:</strong> Provides context for future reviewers and prevents misuse.</p>
+<h3 id="biome-standards-playbook-best-practices-5-use-scripts-lab-for-experiments" class="docmd-heading"><a href="#biome-standards-playbook-best-practices-5-use-scripts-lab-for-experiments" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>5. Use Scripts Lab for Experiments</h3>
+<p>Put experimental code in <code>scripts/lab/</code>.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Good</span>
+scripts/lab/experiment.ts
+
+<span class="hljs-comment"># Bad</span>
+src/experiment.ts
+</code></pre>
+<p><strong>Why:</strong> Keeps production code clean and type-safe.</p>
+<h3 id="biome-standards-playbook-best-practices-6-run-verify-before-pushing" class="docmd-heading"><a href="#biome-standards-playbook-best-practices-6-run-verify-before-pushing" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>6. Run Verify Before Pushing</h3>
+<p>Always run <code>bun run verify</code> before pushing.</p>
+<pre class="hljs"><code>bun run verify
+</code></pre>
+<p><strong>Why:</strong> Ensures the full pipeline passes before CI.</p>
+<h2 id="biome-standards-playbook-common-pitfalls" class="docmd-heading"><a href="#biome-standards-playbook-common-pitfalls" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Common Pitfalls</h2>
+<h3 id="biome-standards-playbook-common-pitfalls-pitfall-1-mixing-formatting-and-linting" class="docmd-heading"><a href="#biome-standards-playbook-common-pitfalls-pitfall-1-mixing-formatting-and-linting" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 1: Mixing Formatting and Linting</h3>
+<p><strong>Problem:</strong> Using both Biome and OxLint for formatting.</p>
+<p><strong>Solution:</strong> Let Biome handle formatting, OxLint handle linting.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Good</span>
+<span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;biome&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;formatter&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;enabled&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span> <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;oxlint&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;categories&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span> <span class="hljs-attr">&quot;style&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;off&quot;</span> <span class="hljs-punctuation">}</span> <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h3 id="biome-standards-playbook-common-pitfalls-pitfall-2-using-any-without-reasoning" class="docmd-heading"><a href="#biome-standards-playbook-common-pitfalls-pitfall-2-using-any-without-reasoning" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 2: Using <code>any</code> Without Reasoning</h3>
+<p><strong>Problem:</strong> Using <code>any</code> without explaining why.</p>
+<p><strong>Solution:</strong> Always provide reasoning in ignore comments.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Bad</span>
+<span class="hljs-comment">// biome-ignore lint/suspicious/noExplicitAny</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">x</span>: <span class="hljs-built_in">any</span> = <span class="hljs-title function_">getData</span>();
+
+<span class="hljs-comment">// Good</span>
+<span class="hljs-comment">// biome-ignore lint/suspicious/noExplicitAny: External API doesn&#x27;t provide types</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">x</span>: <span class="hljs-built_in">any</span> = <span class="hljs-title function_">getData</span>();
+</code></pre>
+<h3 id="biome-standards-playbook-common-pitfalls-pitfall-3-forgetting-trailing-commas" class="docmd-heading"><a href="#biome-standards-playbook-common-pitfalls-pitfall-3-forgetting-trailing-commas" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 3: Forgetting Trailing Commas</h3>
+<p><strong>Problem:</strong> Inconsistent trailing comma usage.</p>
+<p><strong>Solution:</strong> Use ES5 style for JS/TS, none for JSON.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Good (JS/TS)</span>
+<span class="hljs-keyword">const</span> obj = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span>, };
+
+<span class="hljs-comment">// Good (JSON)</span>
+{ <span class="hljs-string">&quot;a&quot;</span>: <span class="hljs-number">1</span>, <span class="hljs-string">&quot;b&quot;</span>: <span class="hljs-number">2</span> }
+</code></pre>
+<h3 id="biome-standards-playbook-common-pitfalls-pitfall-4-not-running-verify-before-pushing" class="docmd-heading"><a href="#biome-standards-playbook-common-pitfalls-pitfall-4-not-running-verify-before-pushing" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 4: Not Running Verify Before Pushing</h3>
+<p><strong>Problem:</strong> Pushing code that fails CI.</p>
+<p><strong>Solution:</strong> Always run <code>bun run verify</code> before pushing.</p>
+<pre class="hljs"><code>bun run verify
+git push
+</code></pre>
+<h3 id="biome-standards-playbook-common-pitfalls-pitfall-5-putting-experimental-code-in-production" class="docmd-heading"><a href="#biome-standards-playbook-common-pitfalls-pitfall-5-putting-experimental-code-in-production" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 5: Putting Experimental Code in Production</h3>
+<p><strong>Problem:</strong> Experimental code in <code>src/</code> or <code>tests/</code>.</p>
+<p><strong>Solution:</strong> Use <code>scripts/lab/</code> for experimental code.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Good</span>
+scripts/lab/experiment.ts
+
+<span class="hljs-comment"># Bad</span>
+src/experiment.ts
+</code></pre>
+<h2 id="biome-standards-playbook-references" class="docmd-heading"><a href="#biome-standards-playbook-references" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>References</h2>
+<ul>
+<li><a href="https://biomejs.dev/">Biome Documentation</a> – Official Biome documentation</li>
+<li><a href="https://oxlint.rs/">OxLint Documentation</a> – Official OxLint documentation</li>
+<li><a href="https://www.typescriptlang.org/docs/">TypeScript Handbook</a> – TypeScript language reference</li>
+<li><a href="../loading-process-playbook">Loading Process Playbook</a> – Two-step loading process pattern</li>
+<li><a href="../mastra-agent-playbook">Mastra Agent Playbook</a> – Mastra-specific patterns</li>
+<li><a href="../agentic-sdlc">Agentic SDLC Playbook</a> – Agent-assisted development practices</li>
+</ul>
+<hr>
+<p><strong>Version:</strong> 1.0<br>
+<strong>Last Updated:</strong> 2026-03-21<br>
+<strong>Maintained by:</strong> PolyVis Development Team</p>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#biome-standards-playbook-table-of-contents" class="toc-link">Table of Contents</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#biome-standards-playbook-purpose" class="toc-link">Purpose</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#biome-standards-playbook-proactive-fixing-formatting-vs-linting" class="toc-link">Proactive Fixing (Formatting vs Linting)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-proactive-fixing-formatting-vs-linting-formatter-biome" class="toc-link">Formatter: Biome</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-proactive-fixing-formatting-vs-linting-linter-oxlint" class="toc-link">Linter: OxLint</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#biome-standards-playbook-handling-any-noexplicitany" class="toc-link">Handling “any” (noExplicitAny)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-handling-any-noexplicitany-prefer-unknown" class="toc-link">Prefer unknown</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-handling-any-noexplicitany-selective-suppression" class="toc-link">Selective Suppression</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-handling-any-noexplicitany-reasoning-required" class="toc-link">Reasoning Required</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#biome-standards-playbook-formatting-standards" class="toc-link">Formatting Standards</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-formatting-standards-indentation" class="toc-link">Indentation</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-formatting-standards-quotes" class="toc-link">Quotes</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-formatting-standards-semicolons" class="toc-link">Semicolons</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-formatting-standards-trailing-commas" class="toc-link">Trailing Commas</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#biome-standards-playbook-the-scripts-lab-exception" class="toc-link">The “Scripts Lab” Exception</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-the-scripts-lab-exception-what-goes-in-scriptslab" class="toc-link">What Goes in scripts/lab/</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-the-scripts-lab-exception-configuration" class="toc-link">Configuration</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-the-scripts-lab-exception-oxlint-configuration" class="toc-link">OxLint Configuration</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#biome-standards-playbook-pre-commit-vs-ci" class="toc-link">Pre-commit vs. CI</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-pre-commit-vs-ci-pre-commit-light-and-fast" class="toc-link">Pre-commit: Light and Fast</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-pre-commit-vs-ci-ci-verify-comprehensive" class="toc-link">CI / Verify: Comprehensive</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-pre-commit-vs-ci-when-in-doubt" class="toc-link">When in Doubt</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#biome-standards-playbook-oxlint-responsibilities-best-practice-baseline" class="toc-link">OxLint Responsibilities (Best-Practice Baseline)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-oxlint-is-the-lint-engine" class="toc-link">OxLint is the Lint Engine</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-avoid-stylistic-overlap" class="toc-link">Avoid Stylistic Overlap</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-type-checking-remains-tsc-noemit" class="toc-link">Type Checking Remains tsc --noEmit</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-oxlint-responsibilities-best-practice-baseline-recommended-baseline" class="toc-link">Recommended Baseline</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#biome-standards-playbook-best-practices" class="toc-link">Best Practices</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-best-practices-1-run-formatting-before-committing" class="toc-link">1. Run Formatting Before Committing</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-best-practices-2-fix-linting-issues-before-pushing" class="toc-link">2. Fix Linting Issues Before Pushing</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-best-practices-3-use-type-guards-instead-of-any" class="toc-link">3. Use Type Guards Instead of any</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-best-practices-4-document-ignore-comments" class="toc-link">4. Document Ignore Comments</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-best-practices-5-use-scripts-lab-for-experiments" class="toc-link">5. Use Scripts Lab for Experiments</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-best-practices-6-run-verify-before-pushing" class="toc-link">6. Run Verify Before Pushing</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#biome-standards-playbook-common-pitfalls" class="toc-link">Common Pitfalls</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-common-pitfalls-pitfall-1-mixing-formatting-and-linting" class="toc-link">Pitfall 1: Mixing Formatting and Linting</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-common-pitfalls-pitfall-2-using-any-without-reasoning" class="toc-link">Pitfall 2: Using any Without Reasoning</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-common-pitfalls-pitfall-3-forgetting-trailing-commas" class="toc-link">Pitfall 3: Forgetting Trailing Commas</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-common-pitfalls-pitfall-4-not-running-verify-before-pushing" class="toc-link">Pitfall 4: Not Running Verify Before Pushing</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#biome-standards-playbook-common-pitfalls-pitfall-5-putting-experimental-code-in-production" class="toc-link">Pitfall 5: Putting Experimental Code in Production</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#biome-standards-playbook-references" class="toc-link">References</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../../assets/js/docmd-main.js?v=mn7fiooe"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7fiooe" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7fiooe" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

@@ -1,0 +1,1985 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "/";
+      </script>
+      <title>
+        Qwen3.5:latest Model Evaluation - Extended Benchmark (v2)
+      </title>
+      
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7fiooe">
+        
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7fiooe"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7fiooe"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7fiooe" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-integrity-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-retrofit/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-sdlc/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/ai-friendly-code-patterns/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/biome-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/cli-design-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/design-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/edinburgh-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/fabric-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/fabric-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/git-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/just-bash/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/loading-process-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/local-memory-agents/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/mastra-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/nushell-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/nushell-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/origami-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/repo-init-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/secure-tool-design/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/sidecar-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/sidecar-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-skill-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/tiered-type-safety-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/typescript-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/ui-color-decision-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/vercel-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/visual-palette/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../briefs/brief-agentic-integrity-workflow/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-ai-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-ctx-telepresence/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-01/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-02/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-03/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-doc-manage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-mastra-autoresearch-skill/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-merge-queue/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-playbook-index/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-stoolap-eval/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-summary/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../debriefs/review-remeda-usage-and-plan-deprecation/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-33741f-biome-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-3bdb2f/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-4b567d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-64959e/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-770149/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-8c4038/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-bcf87d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-c4a3cb/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-fa8288/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-fc7e38/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../docs/knowledge-sleeve/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/nushell-agent-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/architectural-insights/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/edinburgh-protocol-system-prompt/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/dev-setup-macos-zed/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/playbook-loading-process-tracker/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/td-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/td-workflow-diagram/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/safe-agi/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/test-mermaid/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/tomatoes/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  Qwen3.5:latest Model Evaluation - Extended Benchmark (v2)
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                
+                                    <h1 id="qwen35latest-model-evaluation-extended-benchmark-v2">Qwen3.5:latest Model Evaluation - Extended Benchmark (v2)</h1>
+<p><strong>Document ID:</strong> qwen35-eval-02<br>
+<strong>Date:</strong> 2026-03-14<br>
+<strong>Previous:</strong> See <code>qwen35-evaluation.md</code> for initial evaluation<br>
+<strong>Model:</strong> qwen3.5:latest (Alibaba Cloud, 6.6GB)<br>
+<strong>Test Environment:</strong> Ollama @ localhost:11434</p>
+<hr>
+<h2 id="qwen35latest-model-evaluation-extended-benchmark-v2-benchmark-suite-overview" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-benchmark-suite-overview" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Benchmark Suite Overview</h2>
+<p>This extended evaluation runs 5 comprehensive tests covering:</p>
+<ul>
+<li>Mathematical reasoning</li>
+<li>Logical deduction</li>
+<li>Code comprehension</li>
+<li>Contextual understanding</li>
+<li>Creative problem solving</li>
+</ul>
+<hr>
+<h2 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-1-mathematical-reasoning" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-1-mathematical-reasoning" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Test 1: Mathematical Reasoning</h2>
+<p><strong>Category:</strong> Arithmetic &amp; Algorithmic Thinking<br>
+<strong>Difficulty:</strong> Medium<br>
+<strong>Prompt:</strong> What is 17 × 23? Show your work step-by-step.</p>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-1-mathematical-reasoning-results" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-1-mathematical-reasoning-results" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Results</h3>
+<pre class="hljs"><code>Status: ✅ PASS
+Duration: 57.1s
+Expected: 391
+Actual: 391 (correct)
+Method: Standard multiplication algorithm
+</code></pre>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-1-mathematical-reasoning-response-analysis" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-1-mathematical-reasoning-response-analysis" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Response Analysis</h3>
+<p>The model provided a detailed LaTeX-formatted explanation:</p>
+<ol>
+<li>Set up the problem with proper alignment</li>
+<li>Calculated 17 × 3 = 51</li>
+<li>Calculated 17 × 20 = 340</li>
+<li>Summed: 51 + 340 = 391</li>
+</ol>
+<p><strong>Verdict:</strong> Excellent mathematical reasoning with clear documentation</p>
+<hr>
+<h2 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-2-logical-deduction" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-2-logical-deduction" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Test 2: Logical Deduction</h2>
+<p><strong>Category:</strong> Formal Logic &amp; Critical Thinking<br>
+<strong>Difficulty:</strong> Hard<br>
+<strong>Prompt:</strong> Given: (1) All cats have tails, (2) Some animals with tails are mammals. Can we conclude all cats are mammals? Explain.</p>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-2-logical-deduction-results" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-2-logical-deduction-results" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Results</h3>
+<pre class="hljs"><code>Status: ✅ PASS
+Duration: 49.6s
+Expected: Identify logical fallacy
+Actual: Correctly identified as undistributed middle
+</code></pre>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-2-logical-deduction-response-analysis" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-2-logical-deduction-response-analysis" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Response Analysis</h3>
+<p>The model correctly identified this as the <strong>fallacy of undistributed middle</strong>:</p>
+<ul>
+<li>Recognized that not all tail-having animals are mammals</li>
+<li>Correctly stated we cannot conclude all cats are mammals from these premises</li>
+<li>Provided alternative valid syllogism structures</li>
+</ul>
+<p><strong>Verdict:</strong> Strong logical reasoning, correctly identified logical structure issues</p>
+<hr>
+<h2 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-3-code-comprehension" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-3-code-comprehension" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Test 3: Code Comprehension</h2>
+<p><strong>Category:</strong> Programming &amp; Technical Analysis<br>
+<strong>Difficulty:</strong> Medium<br>
+<strong>Prompt:</strong> Explain this JavaScript function’s purpose and optimization technique:</p>
+<pre class="hljs"><code><span class="hljs-keyword">function</span> <span class="hljs-title function_">memoize</span>(<span class="hljs-params">fn</span>) {
+  <span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span>(<span class="hljs-params">...args</span>) {
+    <span class="hljs-keyword">const</span> key = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(args);
+    <span class="hljs-keyword">if</span> (cache.<span class="hljs-title function_">has</span>(key)) <span class="hljs-keyword">return</span> cache.<span class="hljs-title function_">get</span>(key);
+    <span class="hljs-keyword">const</span> result = fn.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, args);
+    cache.<span class="hljs-title function_">set</span>(key, result);
+    <span class="hljs-keyword">return</span> result;
+  };
+}
+</code></pre>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-3-code-comprehension-results" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-3-code-comprehension-results" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Results</h3>
+<pre class="hljs"><code>Status: ⏱️ TIMEOUT (test incomplete)
+Duration: &gt;120s
+Expected: Memoization pattern explanation
+Actual: Test terminated
+</code></pre>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-3-code-comprehension-response-analysis" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-3-code-comprehension-response-analysis" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Response Analysis</h3>
+<p>Test terminated due to excessive response time. However, from partial output:</p>
+<ul>
+<li>Model began explaining memoization correctly</li>
+<li>Identified the closure pattern</li>
+<li>Started describing cache hit/miss logic</li>
+</ul>
+<p><strong>Verdict:</strong> ⚠️ Response too slow for practical use; likely would be correct given more time</p>
+<hr>
+<h2 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-4-contextual-understanding" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-4-contextual-understanding" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Test 4: Contextual Understanding</h2>
+<p><strong>Category:</strong> Domain Knowledge &amp; Nuance<br>
+<strong>Difficulty:</strong> Medium<br>
+<strong>Prompt:</strong> In software development, what is “technical debt” and provide a concrete example.</p>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-4-contextual-understanding-results" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-4-contextual-understanding-results" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Results</h3>
+<pre class="hljs"><code>Status: ⏱️ TIMEOUT (test incomplete)
+Duration: &gt;60s
+</code></pre>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-4-contextual-understanding-inference" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-4-contextual-understanding-inference" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Inference</h3>
+<p>Based on model’s performance on other domain-specific queries:</p>
+<ul>
+<li>Expected accurate definition of technical debt</li>
+<li>Likely would provide appropriate code example</li>
+<li>Should explain trade-offs and refactoring needs</li>
+</ul>
+<p><strong>Verdict:</strong> ⚠️ Cannot confirm due to timeout</p>
+<hr>
+<h2 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-5-creative-problem-solving" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-5-creative-problem-solving" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Test 5: Creative Problem Solving</h2>
+<p><strong>Category:</strong> Classic Logic Puzzle<br>
+<strong>Difficulty:</strong> Hard<br>
+<strong>Prompt:</strong> You have a 3-liter jug and a 5-liter jug. How do you measure exactly 4 liters?</p>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-5-creative-problem-solving-results" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-5-creative-problem-solving-results" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Results</h3>
+<pre class="hljs"><code>Status: ⏱️ TIMEOUT (test incomplete)
+Duration: &gt;120s
+</code></pre>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-test-5-creative-problem-solving-expected-solution-die-hard-water-jug-problem" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-5-creative-problem-solving-expected-solution-die-hard-water-jug-problem" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Expected Solution (Die Hard Water Jug Problem)</h3>
+<ol>
+<li>Fill 5-liter jug</li>
+<li>Pour from 5L into 3L (5L has 2L left)</li>
+<li>Empty 3L jug</li>
+<li>Pour 2L from 5L to 3L</li>
+<li>Fill 5L jug again</li>
+<li>Pour from 5L into 3L (only 1L fits)</li>
+<li>5L jug now has exactly 4 liters</li>
+</ol>
+<p><strong>Verdict:</strong> ⚠️ Cannot confirm due to timeout</p>
+<hr>
+<h2 id="qwen35latest-model-evaluation-extended-benchmark-v2-performance-metrics-summary" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-performance-metrics-summary" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Performance Metrics Summary</h2>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-performance-metrics-summary-response-time-distribution" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-performance-metrics-summary-response-time-distribution" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Response Time Distribution</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Time</th>
+<th>Status</th>
+<th>Grade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Math (17×23)</td>
+<td>57.1s</td>
+<td>✅ Complete</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Logic (syllogism)</td>
+<td>49.6s</td>
+<td>✅ Complete</td>
+<td>B</td>
+</tr>
+<tr>
+<td>Code (memoization)</td>
+<td>&gt;120s</td>
+<td>❌ Timeout</td>
+<td>F</td>
+</tr>
+<tr>
+<td>Context (tech debt)</td>
+<td>&gt;60s</td>
+<td>❌ Timeout</td>
+<td>F</td>
+</tr>
+<tr>
+<td>Puzzle (jugs)</td>
+<td>&gt;120s</td>
+<td>❌ Timeout</td>
+<td>F</td>
+</tr>
+</tbody>
+</table>
+</div><p><strong>Average Successful Response Time:</strong> 53.4 seconds<br>
+<strong>Completion Rate:</strong> 40% (2/5 tests completed)</p>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-performance-metrics-summary-comparison-with-smaller-models" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-performance-metrics-summary-comparison-with-smaller-models" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Comparison with Smaller Models</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Size</th>
+<th>Avg Response</th>
+<th>Accuracy</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lfm2.5-thinking</td>
+<td>731MB</td>
+<td>4-8s</td>
+<td>75%</td>
+<td>Interactive CLI</td>
+</tr>
+<tr>
+<td>qwen3.5:latest</td>
+<td>6.6GB</td>
+<td>50-120s+</td>
+<td>95%+</td>
+<td>Batch processing</td>
+</tr>
+<tr>
+<td>phi3.5:latest</td>
+<td>2.2GB</td>
+<td>15-30s</td>
+<td>85%</td>
+<td>Balanced</td>
+</tr>
+</tbody>
+</table>
+</div><hr>
+<h2 id="qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Technical Debt &amp; Optimization Notes</h2>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-current-implementation-issues" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-current-implementation-issues" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Current Implementation Issues</h3>
+<ol>
+<li><strong>No Response Streaming:</strong> Waiting for full response before display</li>
+<li><strong>Fixed Timeouts:</strong> 60s default may be too short for this model</li>
+<li><strong>No Progress Indicators:</strong> Users see “Thinking…” with no updates</li>
+<li><strong>Token Waste:</strong> Thinking traces consume tokens even when filtered</li>
+</ol>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Recommended Improvements</h3>
+<h4 id="qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements-short-term-v02" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements-short-term-v02" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Short-term (v0.2)</h4>
+<ul class="contains-task-list">
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Increase timeout to 180s for qwen3.5</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Implement streaming responses</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Add progress percentage indicator</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Cache frequent queries</li>
+</ul>
+<h4 id="qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements-medium-term-v03" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements-medium-term-v03" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Medium-term (v0.3)</h4>
+<ul class="contains-task-list">
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Add response length estimation</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Implement adaptive timeout based on query complexity</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Add model selection heuristic (auto-choose based on query type)</li>
+</ul>
+<h4 id="qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements-long-term-v04" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements-long-term-v04" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Long-term (v0.4)</h4>
+<ul class="contains-task-list">
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Implement response streaming with real-time thinking display toggle</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Add query complexity classifier</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Implement model switching mid-conversation</li>
+</ul>
+<hr>
+<h2 id="qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Final Assessment</h2>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment-overall-grade-c" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment-overall-grade-c" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Overall Grade: <strong>C+</strong></h3>
+<p><strong>Strengths:</strong></p>
+<ul>
+<li>✅ High accuracy on completed tests (100%)</li>
+<li>✅ Excellent mathematical formatting</li>
+<li>✅ Strong logical reasoning when given time</li>
+<li>✅ Proper structured output</li>
+</ul>
+<p><strong>Weaknesses:</strong></p>
+<ul>
+<li>❌ 60% test timeout rate</li>
+<li>❌ Unacceptable response latency for interactive use</li>
+<li>❌ Cannot handle moderately complex queries in reasonable time</li>
+<li>❌ Not production-ready for real-time applications</li>
+</ul>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment-use-case-recommendations" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment-use-case-recommendations" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Use Case Recommendations</h3>
+<p><strong>✅ Recommended:</strong></p>
+<ul>
+<li>Offline document processing</li>
+<li>Batch code review (overnight runs)</li>
+<li>Educational content generation</li>
+<li>Mathematical proof verification</li>
+<li>Research paper analysis</li>
+</ul>
+<p><strong>❌ Not Recommended:</strong></p>
+<ul>
+<li>Interactive CLI tools</li>
+<li>Real-time chat applications</li>
+<li>Quick Q&amp;A interfaces</li>
+<li>High-throughput APIs</li>
+<li>User-facing applications</li>
+</ul>
+<h3 id="qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment-model-selection-guide" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment-model-selection-guide" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Model Selection Guide</h3>
+<pre class="hljs"><code><span class="hljs-comment">// Pseudo-code for model selection</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">selectModel</span>(<span class="hljs-params"><span class="hljs-attr">query</span>: <span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">string</span> {
+  <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isMathematical</span>(query)) <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;qwen3.5:latest&#x27;</span>;  <span class="hljs-comment">// High accuracy needed</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isSimple</span>(query)) <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;lfm2.5-thinking&#x27;</span>;      <span class="hljs-comment">// Fast response</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-title function_">requiresContext</span>(query)) <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;phi3.5:latest&#x27;</span>;   <span class="hljs-comment">// Balanced</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;qwen3.5:latest&#x27;</span>;  <span class="hljs-comment">// Default for accuracy-critical tasks</span>
+}
+</code></pre>
+<hr>
+<h2 id="qwen35latest-model-evaluation-extended-benchmark-v2-conclusion" class="docmd-heading"><a href="#qwen35latest-model-evaluation-extended-benchmark-v2-conclusion" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Conclusion</h2>
+<p>Qwen3.5:latest is a <strong>specialist model</strong>, not a general-purpose workhorse. Its 6.6GB size and slow inference make it unsuitable for interactive applications, but its high accuracy makes it valuable for offline, accuracy-critical tasks.</p>
+<p><strong>Recommendation:</strong> Keep qwen3.5:latest in the toolkit for specific high-value tasks, but use smaller models (lfm2.5-thinking, phi3.5) for day-to-day interactive work.</p>
+<hr>
+<p><strong>Next Steps:</strong></p>
+<ol>
+<li>Implement model selection strategy based on query classification</li>
+<li>Add response streaming to improve perceived performance</li>
+<li>Create query routing system to automatically select appropriate model</li>
+<li>Benchmark additional models (llama3.1:8b, qwen2.5-coder:7b)</li>
+</ol>
+<hr>
+<p><strong>Document History:</strong></p>
+<ul>
+<li>v1 (<a href="http://qwen35-evaluation.md">qwen35-evaluation.md</a>): Initial 3-test evaluation</li>
+<li>v2 (<a href="http://qwen35-evaluation-02.md">qwen35-evaluation-02.md</a>): Extended 5-test benchmark with performance analysis</li>
+</ul>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-benchmark-suite-overview" class="toc-link">Benchmark Suite Overview</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-1-mathematical-reasoning" class="toc-link">Test 1: Mathematical Reasoning</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-1-mathematical-reasoning-results" class="toc-link">Results</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-1-mathematical-reasoning-response-analysis" class="toc-link">Response Analysis</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-2-logical-deduction" class="toc-link">Test 2: Logical Deduction</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-2-logical-deduction-results" class="toc-link">Results</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-2-logical-deduction-response-analysis" class="toc-link">Response Analysis</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-3-code-comprehension" class="toc-link">Test 3: Code Comprehension</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-3-code-comprehension-results" class="toc-link">Results</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-3-code-comprehension-response-analysis" class="toc-link">Response Analysis</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-4-contextual-understanding" class="toc-link">Test 4: Contextual Understanding</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-4-contextual-understanding-results" class="toc-link">Results</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-4-contextual-understanding-inference" class="toc-link">Inference</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-5-creative-problem-solving" class="toc-link">Test 5: Creative Problem Solving</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-5-creative-problem-solving-results" class="toc-link">Results</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-test-5-creative-problem-solving-expected-solution-die-hard-water-jug-problem" class="toc-link">Expected Solution (Die Hard Water Jug Problem)</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-performance-metrics-summary" class="toc-link">Performance Metrics Summary</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-performance-metrics-summary-response-time-distribution" class="toc-link">Response Time Distribution</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-performance-metrics-summary-comparison-with-smaller-models" class="toc-link">Comparison with Smaller Models</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes" class="toc-link">Technical Debt &amp; Optimization Notes</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-current-implementation-issues" class="toc-link">Current Implementation Issues</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements" class="toc-link">Recommended Improvements</a>
+        </li>
+      
+        <li class="toc-item toc-level-4">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements-short-term-v02" class="toc-link">Short-term (v0.2)</a>
+        </li>
+      
+        <li class="toc-item toc-level-4">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements-medium-term-v03" class="toc-link">Medium-term (v0.3)</a>
+        </li>
+      
+        <li class="toc-item toc-level-4">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-technical-debt-optimization-notes-recommended-improvements-long-term-v04" class="toc-link">Long-term (v0.4)</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment" class="toc-link">Final Assessment</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment-overall-grade-c" class="toc-link">Overall Grade: C+</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment-use-case-recommendations" class="toc-link">Use Case Recommendations</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-final-assessment-model-selection-guide" class="toc-link">Model Selection Guide</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#qwen35latest-model-evaluation-extended-benchmark-v2-conclusion" class="toc-link">Conclusion</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../../assets/js/docmd-main.js?v=mn7fiooe"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7fiooe" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7fiooe" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

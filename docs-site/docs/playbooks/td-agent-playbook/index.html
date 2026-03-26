@@ -1,0 +1,2104 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../../../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../../../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "";
+      </script>
+      <title>
+        TD Agent Playbook
+      </title>
+      
+        <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7fdkey">
+        
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-light.css?v=mn7fdkey"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-dark.css?v=mn7fdkey"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../../../assets/css/docmd-theme-sky.css?v=mn7fdkey" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../../../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-integrity-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-retrofit/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-sdlc/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ai-friendly-code-patterns/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/biome-standards/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/cli-design-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/design-heuristics/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/edinburgh-protocol/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/git-workflow-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/just-bash/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/loading-process-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/local-memory-agents/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/mastra-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/origami-protocol/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/repo-init-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/secure-tool-design/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-skill-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/tiered-type-safety-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/typescript-standards/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ui-color-decision-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/vercel-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/visual-palette/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../briefs/brief-agentic-integrity-workflow/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ai-workflow-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ctx-telepresence/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-01/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-02/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-03/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-doc-manage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-mastra-autoresearch-skill/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-merge-queue/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-playbook-index/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-stoolap-eval/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-summary/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../debriefs/review-remeda-usage-and-plan-deprecation/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-33741f-biome-heuristics/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-3bdb2f/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-4b567d/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-64959e/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-770149/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-8c4038/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-bcf87d/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-c4a3cb/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fa8288/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fc7e38/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../docs/knowledge-sleeve/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/nushell-agent-usage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/architectural-insights/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/edinburgh-protocol-system-prompt/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/dev-setup-macos-zed/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/playbook-loading-process-tracker/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-usage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-workflow-diagram/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/safe-agi/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/test-mermaid/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/tomatoes/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  TD Agent Playbook
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                
+                                    <h1 id="td-agent-playbook">TD Agent Playbook</h1>
+<h2 id="td-agent-playbook-table-of-contents" class="docmd-heading"><a href="#td-agent-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
+<ul>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#core-principles">Core Principles</a></li>
+<li><a href="#mandatory-directives">Mandatory Directives</a>
+<ul>
+<li><a href="#mandatory-session-check">Mandatory Session Check</a></li>
+<li><a href="#mandatory-task-creation">Mandatory Task Creation</a></li>
+<li><a href="#start-and-focus">Start and Focus</a></li>
+<li><a href="#track-progress-and-decisions">Track Progress and Decisions</a></li>
+<li><a href="#mandatory-handoff-crucial">Mandatory Handoff (Crucial)</a></li>
+<li><a href="#review-workflow-separation">Review Workflow Separation</a></li>
+</ul>
+</li>
+<li><a href="#standard-workflow">Standard Workflow</a>
+<ul>
+<li><a href="#plan">Plan</a></li>
+<li><a href="#implement">Implement</a></li>
+<li><a href="#handoff">Handoff</a></li>
+<li><a href="#review">Review</a></li>
+<li><a href="#review-agent-checklist-gh-api">Review Agent Checklist (GH API)</a></li>
+</ul>
+</li>
+<li><a href="#querying-state">Querying State</a></li>
+<li><a href="#parallel-sessions-build-+-review">Parallel Sessions: Build + Review</a>
+<ul>
+<li><a href="#session-a-%E2%80%94-build-agent">Session A — Build Agent</a></li>
+<li><a href="#session-b-%E2%80%94-review-agent-separate-session">Session B — Review Agent (Separate Session)</a></li>
+<li><a href="#practical-setup">Practical Setup</a></li>
+</ul>
+</li>
+<li><a href="#do--don't">Do / Don’t</a>
+<ul>
+<li><a href="#do">Do</a></li>
+<li><a href="#don't">Don’t</a></li>
+</ul>
+</li>
+<li><a href="#session-end-checklist">Session End Checklist</a></li>
+<li><a href="#summary-checklist">Summary Checklist</a></li>
+<li><a href="#best-practices">Best Practices</a>
+<ul>
+<li><a href="#1-always-start-with-session-check">1. Always Start with Session Check</a></li>
+<li><a href="#2-create-tasks-before-starting-work">2. Create Tasks Before Starting Work</a></li>
+<li><a href="#3-log-decisions-explicitly">3. Log Decisions Explicitly</a></li>
+<li><a href="#4-always-perform-handoffs">4. Always Perform Handoffs</a></li>
+<li><a href="#5-never-approve-your-own-work">5. Never Approve Your Own Work</a></li>
+</ul>
+</li>
+<li><a href="#common-pitfalls">Common Pitfalls</a>
+<ul>
+<li><a href="#pitfall-1-starting-work-without-a-task">Pitfall 1: Starting Work Without a Task</a></li>
+<li><a href="#pitfall-2-forgetting-handoffs">Pitfall 2: Forgetting Handoffs</a></li>
+<li><a href="#pitfall-3-approving-own-code">Pitfall 3: Approving Own Code</a></li>
+<li><a href="#pitfall-4-not-logging-decisions">Pitfall 4: Not Logging Decisions</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="td-agent-playbook-purpose" class="docmd-heading"><a href="#td-agent-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
+<p>This playbook defines how AI agents must use the <code>td</code> CLI as structured external memory to ensure continuity across sessions, clear accountability, and reliable review workflows. For Nushell-based structured querying, see <code>playbooks/nushell-agent-playbook.md</code>.</p>
+<p><strong>Core Philosophy:</strong> Tasks before work. Never start implementation without a task. Record key decisions and blockers in <code>td</code> logs. Every session must end with a <code>td handoff</code>. The implementation session cannot approve its own work.</p>
+<h2 id="td-agent-playbook-core-principles" class="docmd-heading"><a href="#td-agent-playbook-core-principles" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Core Principles</h2>
+<ol>
+<li><strong>Tasks before work</strong>: Never start implementation without a task.</li>
+<li><strong>Traceable decisions</strong>: Record key decisions and blockers in <code>td</code> logs.</li>
+<li><strong>Reliable handoffs</strong>: Every session must end with a <code>td handoff</code>.</li>
+<li><strong>Review separation</strong>: The implementation session cannot approve its own work.</li>
+</ol>
+<h2 id="td-agent-playbook-mandatory-directives" class="docmd-heading"><a href="#td-agent-playbook-mandatory-directives" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Mandatory Directives</h2>
+<h3 id="td-agent-playbook-mandatory-directives-mandatory-session-check" class="docmd-heading"><a href="#td-agent-playbook-mandatory-directives-mandatory-session-check" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Mandatory Session Check</h3>
+<p>Always begin by reviewing open work and epics:</p>
+<pre class="hljs"><code>td usage --new-session
+</code></pre>
+<p><strong>Why:</strong> This initializes your session ID and provides the current “Work Territory” map. It’s your mandatory ground signal.</p>
+<h3 id="td-agent-playbook-mandatory-directives-mandatory-task-creation" class="docmd-heading"><a href="#td-agent-playbook-mandatory-directives-mandatory-task-creation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Mandatory Task Creation</h3>
+<p>If no task exists, create one before doing anything else.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Create an issue</span>
+td create <span class="hljs-string">&quot;Implement feature X&quot;</span> --<span class="hljs-built_in">type</span> feature --priority P1
+
+<span class="hljs-comment"># Create an epic</span>
+td epic create <span class="hljs-string">&quot;Feature X System&quot;</span> --priority P0
+
+<span class="hljs-comment"># Link a child issue to an epic</span>
+td create <span class="hljs-string">&quot;Child task&quot;</span> --parent td-abc123
+</code></pre>
+<p><strong>Why:</strong> Tasks provide structured external memory that persists context across sessions.</p>
+<h3 id="td-agent-playbook-mandatory-directives-start-and-focus" class="docmd-heading"><a href="#td-agent-playbook-mandatory-directives-start-and-focus" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Start and Focus</h3>
+<p>Ensure the active task is started and focused:</p>
+<pre class="hljs"><code>td start &lt;issue-id&gt;
+td focus &lt;issue-id&gt;
+</code></pre>
+<p><strong>Why:</strong> Marks the task as in progress and links it to your current session.</p>
+<h3 id="td-agent-playbook-mandatory-directives-track-progress-and-decisions" class="docmd-heading"><a href="#td-agent-playbook-mandatory-directives-track-progress-and-decisions" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Track Progress and Decisions</h3>
+<p>Log progress and decisions as you go:</p>
+<pre class="hljs"><code>td <span class="hljs-built_in">log</span> <span class="hljs-string">&quot;Implemented core logic&quot;</span>
+td <span class="hljs-built_in">log</span> --decision <span class="hljs-string">&quot;Chose approach A because of performance&quot;</span>
+td <span class="hljs-built_in">log</span> --blocker <span class="hljs-string">&quot;Waiting on API keys&quot;</span>
+</code></pre>
+<p><strong>Why:</strong> Provides breadcrumbs for reviewers and future agents.</p>
+<h3 id="td-agent-playbook-mandatory-directives-mandatory-handoff-crucial" class="docmd-heading"><a href="#td-agent-playbook-mandatory-directives-mandatory-handoff-crucial" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Mandatory Handoff (Crucial)</h3>
+<p>Before your context window ends, always run a handoff.</p>
+<pre class="hljs"><code>td handoff td-abc123 \
+  --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;Completed item 1, Completed item 2&quot;</span> \
+  --remaining <span class="hljs-string">&quot;Item 3, Item 4&quot;</span> \
+  --decision <span class="hljs-string">&quot;Used standard library to minimize dependencies&quot;</span> \
+  --uncertain <span class="hljs-string">&quot;Should we handle edge case Z?&quot;</span>
+</code></pre>
+<p><strong>Why:</strong> Preserves context for the next agent or developer and ensures continuity.</p>
+<p><strong>Required fields:</strong></p>
+<ul>
+<li><code>--done</code>: What has been completed</li>
+<li><code>--remaining</code>: What still needs to be done</li>
+<li><code>--decision</code>: Key decisions made during the session</li>
+</ul>
+<p><strong>Optional fields:</strong></p>
+<ul>
+<li><code>--uncertain</code>: Areas of uncertainty</li>
+<li><code>--blocked</code>: What’s blocking progress</li>
+</ul>
+<h3 id="td-agent-playbook-mandatory-directives-review-workflow-separation" class="docmd-heading"><a href="#td-agent-playbook-mandatory-directives-review-workflow-separation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Review Workflow Separation</h3>
+<p>The implementation session must not approve its own work. A separate review agent inspects the PR, resolves issues, and only then approves the task in <code>td</code>.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Submit your work for review</span>
+td review &lt;issue-id&gt;
+
+<span class="hljs-comment"># In a different session (review agent):</span>
+td reviewable
+td context &lt;issue-id&gt;
+td files &lt;issue-id&gt;
+<span class="hljs-comment"># Inspect PR checks + review comments, fix issues, push updates</span>
+<span class="hljs-comment"># When PR is clean and ready to merge:</span>
+td approve &lt;issue-id&gt;
+td reject &lt;issue-id&gt; --reason <span class="hljs-string">&quot;Missing tests&quot;</span>
+</code></pre>
+<p><strong>Why:</strong> Separate review catches issues the implementer missed and ensures quality.</p>
+<h2 id="td-agent-playbook-standard-workflow" class="docmd-heading"><a href="#td-agent-playbook-standard-workflow" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Standard Workflow</h2>
+<h3 id="td-agent-playbook-standard-workflow-plan" class="docmd-heading"><a href="#td-agent-playbook-standard-workflow-plan" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Plan</h3>
+<pre class="hljs"><code>td usage --new-session
+td list
+td create <span class="hljs-string">&quot;Fix authentication bug&quot;</span> --<span class="hljs-built_in">type</span> bug --priority P1
+td start &lt;issue-id&gt;
+</code></pre>
+<p><strong>What this does:</strong></p>
+<ul>
+<li>Initializes your session</li>
+<li>Lists existing tasks</li>
+<li>Creates a new task if needed</li>
+<li>Marks the task as in progress</li>
+</ul>
+<h3 id="td-agent-playbook-standard-workflow-implement" class="docmd-heading"><a href="#td-agent-playbook-standard-workflow-implement" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Implement</h3>
+<pre class="hljs"><code>td focus &lt;issue-id&gt;
+td <span class="hljs-built_in">log</span> --decision <span class="hljs-string">&quot;Selecting approach B for simpler rollback&quot;</span>
+td <span class="hljs-built_in">log</span> <span class="hljs-string">&quot;Added input validation and updated tests&quot;</span>
+</code></pre>
+<p><strong>What this does:</strong></p>
+<ul>
+<li>Focuses your session on the task</li>
+<li>Records key decisions</li>
+<li>Tracks progress</li>
+</ul>
+<h3 id="td-agent-playbook-standard-workflow-handoff" class="docmd-heading"><a href="#td-agent-playbook-standard-workflow-handoff" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Handoff</h3>
+<pre class="hljs"><code>td handoff &lt;issue-id&gt; \
+  --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;Implemented X and Y&quot;</span> \
+  --remaining <span class="hljs-string">&quot;Need to validate Z in staging&quot;</span> \
+  --decision <span class="hljs-string">&quot;Kept API surface unchanged&quot;</span>
+</code></pre>
+<p><strong>What this does:</strong></p>
+<ul>
+<li>Records what was completed</li>
+<li>Documents remaining work</li>
+<li>Captures key decisions</li>
+<li>Preserves context for next session</li>
+</ul>
+<h3 id="td-agent-playbook-standard-workflow-review" class="docmd-heading"><a href="#td-agent-playbook-standard-workflow-review" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Review</h3>
+<pre class="hljs"><code>td review &lt;issue-id&gt;
+<span class="hljs-comment"># Reviewer (separate session):</span>
+td reviewable
+td context &lt;issue-id&gt;
+<span class="hljs-comment"># Inspect PR checks + review comments, fix issues, push updates</span>
+td approve &lt;issue-id&gt;
+</code></pre>
+<p><strong>What this does:</strong></p>
+<ul>
+<li>Submits work for review</li>
+<li>Reviewer inspects the PR</li>
+<li>Reviewer approves when ready</li>
+</ul>
+<h3 id="td-agent-playbook-standard-workflow-review-agent-checklist-gh-api" class="docmd-heading"><a href="#td-agent-playbook-standard-workflow-review-agent-checklist-gh-api" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Review Agent Checklist (GH API)</h3>
+<p>When reviewing a PR, use the GitHub API to gather all relevant information:</p>
+<ul>
+<li><p><strong>Pull review comments (line-level):</strong></p>
+<pre class="hljs"><code>gh api repos/&lt;owner&gt;/&lt;repo&gt;/pulls/&lt;pr_number&gt;/comments
+</code></pre>
+</li>
+<li><p><strong>Pull review summaries:</strong></p>
+<pre class="hljs"><code>gh api repos/&lt;owner&gt;/&lt;repo&gt;/pulls/&lt;pr_number&gt;/reviews
+</code></pre>
+</li>
+<li><p><strong>Pull general PR comments:</strong></p>
+<pre class="hljs"><code>gh api repos/&lt;owner&gt;/&lt;repo&gt;/issues/&lt;pr_number&gt;/comments
+</code></pre>
+</li>
+<li><p><strong>Filter unresolved CodeRabbit items:</strong></p>
+<pre class="hljs"><code>gh api repos/&lt;owner&gt;/&lt;repo&gt;/pulls/&lt;pr_number&gt;/comments --jq <span class="hljs-string">&#x27;map(select(.body | contains(&quot;Addressed&quot;) | not))&#x27;</span>
+</code></pre>
+</li>
+<li><p><strong>Once all actionable items are resolved and checks are green:</strong></p>
+<pre class="hljs"><code>td reviewable
+td approve &lt;issue-id&gt;
+</code></pre>
+</li>
+</ul>
+<p><strong>Why:</strong> Comprehensive review ensures quality before approval.</p>
+<h2 id="td-agent-playbook-querying-state" class="docmd-heading"><a href="#td-agent-playbook-querying-state" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Querying State</h2>
+<pre class="hljs"><code>td list                          <span class="hljs-comment"># List open issues</span>
+td query <span class="hljs-string">&quot;status = in_progress&quot;</span>  <span class="hljs-comment"># Advanced query</span>
+td critical-path                 <span class="hljs-comment"># See optimal work sequence</span>
+td dep add &lt;issue&gt; &lt;depends&gt;     <span class="hljs-comment"># Add a dependency</span>
+</code></pre>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>Checking task status</li>
+<li>Finding work to do</li>
+<li>Understanding dependencies</li>
+<li>Planning work sequence</li>
+</ul>
+<h2 id="td-agent-playbook-parallel-sessions-build-review" class="docmd-heading"><a href="#td-agent-playbook-parallel-sessions-build-review" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Parallel Sessions: Build + Review</h2>
+<p>Use this when you want one agent to implement while another reviews in parallel. The key is <strong>separate sessions</strong> and <strong>separate <code>td usage --new-session</code> calls</strong>.</p>
+<h3 id="td-agent-playbook-parallel-sessions-build-review-session-a-build-agent" class="docmd-heading"><a href="#td-agent-playbook-parallel-sessions-build-review-session-a-build-agent" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Session A — Build Agent</h3>
+<pre class="hljs"><code>td usage --new-session
+td create <span class="hljs-string">&quot;Implement feature X&quot;</span> --<span class="hljs-built_in">type</span> feature --priority P1
+td start td-abc123
+td focus td-abc123
+td <span class="hljs-built_in">log</span> --decision <span class="hljs-string">&quot;Chose approach A for simpler rollback&quot;</span>
+<span class="hljs-comment"># ... implementation happens ...</span>
+td handoff td-abc123 \
+  --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;Implemented core logic and tests&quot;</span> \
+  --remaining <span class="hljs-string">&quot;Validate edge cases in staging&quot;</span>
+td review td-abc123
+</code></pre>
+<h3 id="td-agent-playbook-parallel-sessions-build-review-session-b-review-agent-separate-session" class="docmd-heading"><a href="#td-agent-playbook-parallel-sessions-build-review-session-b-review-agent-separate-session" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Session B — Review Agent (Separate Session)</h3>
+<pre class="hljs"><code>td usage --new-session
+td reviewable
+td context td-abc123
+td files td-abc123
+td approve td-abc123
+</code></pre>
+<h3 id="td-agent-playbook-parallel-sessions-build-review-practical-setup" class="docmd-heading"><a href="#td-agent-playbook-parallel-sessions-build-review-practical-setup" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Practical Setup</h3>
+<ul>
+<li>Two chat windows (or two terminals), one per agent</li>
+<li>Each session runs <code>td usage --new-session</code> once at start</li>
+<li>Only the reviewer approves</li>
+</ul>
+<p><strong>Why:</strong> Parallel development and review increases velocity while maintaining quality.</p>
+<h2 id="td-agent-playbook-do-dont" class="docmd-heading"><a href="#td-agent-playbook-do-dont" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Do / Don’t</h2>
+<h3 id="td-agent-playbook-do-dont-do" class="docmd-heading"><a href="#td-agent-playbook-do-dont-do" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Do</h3>
+<p>✅ Start with <code>td usage --new-session</code><br>
+✅ Create a task if none exists<br>
+✅ Log decisions and blockers<br>
+✅ Run a handoff before ending the session<br>
+✅ Submit for review and let a separate session approve</p>
+<h3 id="td-agent-playbook-do-dont-dont" class="docmd-heading"><a href="#td-agent-playbook-do-dont-dont" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Don’t</h3>
+<p>❌ Start work without a task<br>
+❌ Skip <code>td handoff</code><br>
+❌ Approve your own work in the same session<br>
+❌ Leave progress undocumented</p>
+<h2 id="td-agent-playbook-session-end-checklist" class="docmd-heading"><a href="#td-agent-playbook-session-end-checklist" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Session End Checklist</h2>
+<ul class="contains-task-list">
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Run <code>td handoff &lt;issue-id&gt; --done ... --remaining ... --decision ... --uncertain ...</code></li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Submit for review with <code>td review &lt;issue-id&gt;</code> (if implementation is complete)</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Never approve your own work in the same session</li>
+</ul>
+<h2 id="td-agent-playbook-summary-checklist" class="docmd-heading"><a href="#td-agent-playbook-summary-checklist" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Summary Checklist</h2>
+<ul class="contains-task-list">
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> <code>td usage --new-session</code></li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Task exists (create if missing)</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> <code>td start</code> and <code>td focus</code></li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Log decisions and blockers</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> <code>td handoff</code> at session end</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> <code>td review</code> and separate approval</li>
+</ul>
+<h2 id="td-agent-playbook-best-practices" class="docmd-heading"><a href="#td-agent-playbook-best-practices" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Best Practices</h2>
+<h3 id="td-agent-playbook-best-practices-1-always-start-with-session-check" class="docmd-heading"><a href="#td-agent-playbook-best-practices-1-always-start-with-session-check" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. Always Start with Session Check</h3>
+<p>Run <code>td usage --new-session</code> before any work.</p>
+<pre class="hljs"><code>td usage --new-session
+</code></pre>
+<p><strong>Why:</strong> Ensures your session ID is set and you have the current “Work Territory” map.</p>
+<h3 id="td-agent-playbook-best-practices-2-create-tasks-before-starting-work" class="docmd-heading"><a href="#td-agent-playbook-best-practices-2-create-tasks-before-starting-work" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Create Tasks Before Starting Work</h3>
+<p>Never start work without a task.</p>
+<pre class="hljs"><code>td create <span class="hljs-string">&quot;Task title&quot;</span> --<span class="hljs-built_in">type</span> feature --priority P1
+</code></pre>
+<p><strong>Why:</strong> Tasks provide structured external memory that persists context.</p>
+<h3 id="td-agent-playbook-best-practices-3-log-decisions-explicitly" class="docmd-heading"><a href="#td-agent-playbook-best-practices-3-log-decisions-explicitly" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. Log Decisions Explicitly</h3>
+<p>Use <code>td log --decision</code> to document key decisions.</p>
+<pre class="hljs"><code>td <span class="hljs-built_in">log</span> --decision <span class="hljs-string">&quot;Chose approach A because of performance&quot;</span>
+</code></pre>
+<p><strong>Why:</strong> Provides context for reviewers and prevents re-litigating settled decisions.</p>
+<h3 id="td-agent-playbook-best-practices-4-always-perform-handoffs" class="docmd-heading"><a href="#td-agent-playbook-best-practices-4-always-perform-handoffs" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>4. Always Perform Handoffs</h3>
+<p>Run <code>td handoff</code> before ending the session.</p>
+<pre class="hljs"><code>td handoff &lt;issue-id&gt; \
+  --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;Completed X&quot;</span> \
+  --remaining <span class="hljs-string">&quot;Need to do Y&quot;</span> \
+  --decision <span class="hljs-string">&quot;Chose approach Z&quot;</span>
+</code></pre>
+<p><strong>Why:</strong> Preserves context for the next agent or developer.</p>
+<h3 id="td-agent-playbook-best-practices-5-never-approve-your-own-work" class="docmd-heading"><a href="#td-agent-playbook-best-practices-5-never-approve-your-own-work" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>5. Never Approve Your Own Work</h3>
+<p>The session that implements code cannot approve it.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Bad</span>
+td start &lt;task-id&gt;
+<span class="hljs-comment"># ... implement ...</span>
+td approve &lt;task-id&gt;
+
+<span class="hljs-comment"># Good</span>
+td start &lt;task-id&gt;
+<span class="hljs-comment"># ... implement ...</span>
+td handoff &lt;task-id&gt; --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;Implemented X&quot;</span>
+<span class="hljs-comment"># ... new session ...</span>
+td approve &lt;task-id&gt;
+</code></pre>
+<p><strong>Why:</strong> Separate review catches issues the implementer missed.</p>
+<h2 id="td-agent-playbook-common-pitfalls" class="docmd-heading"><a href="#td-agent-playbook-common-pitfalls" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Common Pitfalls</h2>
+<h3 id="td-agent-playbook-common-pitfalls-pitfall-1-starting-work-without-a-task" class="docmd-heading"><a href="#td-agent-playbook-common-pitfalls-pitfall-1-starting-work-without-a-task" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 1: Starting Work Without a Task</h3>
+<p><strong>Problem:</strong> Beginning work without creating or linking a task.</p>
+<p><strong>Solution:</strong> Always create or link a task before starting work.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Bad</span>
+<span class="hljs-comment"># Just start coding without a task</span>
+
+<span class="hljs-comment"># Good</span>
+td create <span class="hljs-string">&quot;Implement feature X&quot;</span> --<span class="hljs-built_in">type</span> feature
+td start &lt;task-id&gt;
+<span class="hljs-comment"># Then start coding</span>
+</code></pre>
+<h3 id="td-agent-playbook-common-pitfalls-pitfall-2-forgetting-handoffs" class="docmd-heading"><a href="#td-agent-playbook-common-pitfalls-pitfall-2-forgetting-handoffs" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 2: Forgetting Handoffs</h3>
+<p><strong>Problem:</strong> Ending sessions without recording handoffs.</p>
+<p><strong>Solution:</strong> Always perform a handoff before ending the session.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Bad</span>
+<span class="hljs-comment"># Just end the session</span>
+
+<span class="hljs-comment"># Good</span>
+td handoff &lt;task-id&gt; \
+  --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;Completed X&quot;</span> \
+  --remaining <span class="hljs-string">&quot;Need to do Y&quot;</span> \
+  --decision <span class="hljs-string">&quot;Chose approach Z&quot;</span>
+</code></pre>
+<h3 id="td-agent-playbook-common-pitfalls-pitfall-3-approving-own-code" class="docmd-heading"><a href="#td-agent-playbook-common-pitfalls-pitfall-3-approving-own-code" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 3: Approving Own Code</h3>
+<p><strong>Problem:</strong> Approving code in the same session that implemented it.</p>
+<p><strong>Solution:</strong> Always perform a handoff and approve in a new session.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Bad</span>
+td start &lt;task-id&gt;
+<span class="hljs-comment"># ... implement ...</span>
+td approve &lt;task-id&gt;
+
+<span class="hljs-comment"># Good</span>
+td start &lt;task-id&gt;
+<span class="hljs-comment"># ... implement ...</span>
+td handoff &lt;task-id&gt; --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;Implemented X&quot;</span>
+<span class="hljs-comment"># ... new session ...</span>
+td approve &lt;task-id&gt;
+</code></pre>
+<h3 id="td-agent-playbook-common-pitfalls-pitfall-4-not-logging-decisions" class="docmd-heading"><a href="#td-agent-playbook-common-pitfalls-pitfall-4-not-logging-decisions" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 4: Not Logging Decisions</h3>
+<p><strong>Problem:</strong> Not recording key decisions and blockers.</p>
+<p><strong>Solution:</strong> Use <code>td log</code> to document progress and decisions.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Bad</span>
+<span class="hljs-comment"># Just implement without logging</span>
+
+<span class="hljs-comment"># Good</span>
+td <span class="hljs-built_in">log</span> --decision <span class="hljs-string">&quot;Chose approach A because of performance&quot;</span>
+td <span class="hljs-built_in">log</span> --blocker <span class="hljs-string">&quot;Waiting on API keys&quot;</span>
+</code></pre>
+<h2 id="td-agent-playbook-references" class="docmd-heading"><a href="#td-agent-playbook-references" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>References</h2>
+<ul>
+<li><a href="../../docs/td-cli">TD CLI Documentation</a> – Task management and context tracking</li>
+<li><a href="../git-workflow-playbook">Git Workflow Playbook</a> – Branching and review workflow</li>
+<li><a href="../sidecar-agent-playbook">Sidecar Agent Playbook</a> – Sidecar integration for agents</li>
+<li><a href="../loading-process-playbook">Loading Process Playbook</a> – Two-step loading process pattern</li>
+<li><a href="../agentic-integrity-playbook">Agentic Integrity Playbook</a> – Ensuring agent outputs are trustworthy</li>
+<li><a href="../nushell-agent-playbook">Nushell Agent Playbook</a> – Nushell integration for task state</li>
+</ul>
+<hr>
+<p><strong>Version:</strong> 1.0<br>
+<strong>Last Updated:</strong> 2026-03-21<br>
+<strong>Maintained by:</strong> PolyVis Development Team</p>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-table-of-contents" class="toc-link">Table of Contents</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-purpose" class="toc-link">Purpose</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-core-principles" class="toc-link">Core Principles</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-mandatory-directives" class="toc-link">Mandatory Directives</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-mandatory-directives-mandatory-session-check" class="toc-link">Mandatory Session Check</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-mandatory-directives-mandatory-task-creation" class="toc-link">Mandatory Task Creation</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-mandatory-directives-start-and-focus" class="toc-link">Start and Focus</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-mandatory-directives-track-progress-and-decisions" class="toc-link">Track Progress and Decisions</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-mandatory-directives-mandatory-handoff-crucial" class="toc-link">Mandatory Handoff (Crucial)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-mandatory-directives-review-workflow-separation" class="toc-link">Review Workflow Separation</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-standard-workflow" class="toc-link">Standard Workflow</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-standard-workflow-plan" class="toc-link">Plan</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-standard-workflow-implement" class="toc-link">Implement</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-standard-workflow-handoff" class="toc-link">Handoff</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-standard-workflow-review" class="toc-link">Review</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-standard-workflow-review-agent-checklist-gh-api" class="toc-link">Review Agent Checklist (GH API)</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-querying-state" class="toc-link">Querying State</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-parallel-sessions-build-review" class="toc-link">Parallel Sessions: Build + Review</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-parallel-sessions-build-review-session-a-build-agent" class="toc-link">Session A — Build Agent</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-parallel-sessions-build-review-session-b-review-agent-separate-session" class="toc-link">Session B — Review Agent (Separate Session)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-parallel-sessions-build-review-practical-setup" class="toc-link">Practical Setup</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-do-dont" class="toc-link">Do / Don’t</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-do-dont-do" class="toc-link">Do</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-do-dont-dont" class="toc-link">Don’t</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-session-end-checklist" class="toc-link">Session End Checklist</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-summary-checklist" class="toc-link">Summary Checklist</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-best-practices" class="toc-link">Best Practices</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-best-practices-1-always-start-with-session-check" class="toc-link">1. Always Start with Session Check</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-best-practices-2-create-tasks-before-starting-work" class="toc-link">2. Create Tasks Before Starting Work</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-best-practices-3-log-decisions-explicitly" class="toc-link">3. Log Decisions Explicitly</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-best-practices-4-always-perform-handoffs" class="toc-link">4. Always Perform Handoffs</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-best-practices-5-never-approve-your-own-work" class="toc-link">5. Never Approve Your Own Work</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-common-pitfalls" class="toc-link">Common Pitfalls</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-common-pitfalls-pitfall-1-starting-work-without-a-task" class="toc-link">Pitfall 1: Starting Work Without a Task</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-common-pitfalls-pitfall-2-forgetting-handoffs" class="toc-link">Pitfall 2: Forgetting Handoffs</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-common-pitfalls-pitfall-3-approving-own-code" class="toc-link">Pitfall 3: Approving Own Code</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#td-agent-playbook-common-pitfalls-pitfall-4-not-logging-decisions" class="toc-link">Pitfall 4: Not Logging Decisions</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#td-agent-playbook-references" class="toc-link">References</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../../../assets/js/docmd-main.js?v=mn7fdkey"></script>
+            <script src="../../../assets/js/docmd-image-lightbox.js?v=mn7fdkey" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../../../assets/js/docmd-search.js?v=mn7fdkey" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

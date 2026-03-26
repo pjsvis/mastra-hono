@@ -1,0 +1,2040 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../../../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../../../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "";
+      </script>
+      <title>
+        Edinburgh Protocol Playbook
+      </title>
+      
+        <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7fdkey">
+        
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-light.css?v=mn7fdkey"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-dark.css?v=mn7fdkey"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../../../assets/css/docmd-theme-sky.css?v=mn7fdkey" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../../../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-integrity-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-retrofit/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-sdlc/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ai-friendly-code-patterns/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/biome-standards/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/cli-design-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/design-heuristics/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/edinburgh-protocol/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/git-workflow-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/just-bash/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/loading-process-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/local-memory-agents/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/mastra-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/origami-protocol/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/repo-init-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/secure-tool-design/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-skill-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/tiered-type-safety-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/typescript-standards/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ui-color-decision-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/vercel-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/visual-palette/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../briefs/brief-agentic-integrity-workflow/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ai-workflow-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ctx-telepresence/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-01/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-02/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-03/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-doc-manage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-mastra-autoresearch-skill/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-merge-queue/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-playbook-index/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-stoolap-eval/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-summary/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../debriefs/review-remeda-usage-and-plan-deprecation/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-33741f-biome-heuristics/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-3bdb2f/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-4b567d/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-64959e/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-770149/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-8c4038/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-bcf87d/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-c4a3cb/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fa8288/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fc7e38/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../docs/knowledge-sleeve/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/nushell-agent-usage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/architectural-insights/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/edinburgh-protocol-system-prompt/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/dev-setup-macos-zed/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/playbook-loading-process-tracker/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-usage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-workflow-diagram/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/safe-agi/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/test-mermaid/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/tomatoes/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  Edinburgh Protocol Playbook
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                
+                                    <h1 id="edinburgh-protocol-playbook">Edinburgh Protocol Playbook</h1>
+<h2 id="edinburgh-protocol-playbook-table-of-contents" class="docmd-heading"><a href="#edinburgh-protocol-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
+<ul>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#when-to-use">When to Use</a></li>
+<li><a href="#the-protocol">The Protocol</a>
+<ul>
+<li><a href="#phase-1-acknowledge-the-map">Phase 1: Acknowledge the Map</a></li>
+<li><a href="#phase-2-measure-entropy">Phase 2: Measure Entropy</a></li>
+<li><a href="#phase-3-apply-the-appropriate-lens">Phase 3: Apply the Appropriate Lens</a></li>
+<li><a href="#phase-4-the-impartial-spectator">Phase 4: The Impartial Spectator</a></li>
+<li><a href="#phase-5-watt's-test">Phase 5: Watt’s Test</a></li>
+</ul>
+</li>
+<li><a href="#anti-patterns">Anti-Patterns</a>
+<ul>
+<li><a href="#what-not-to-do">What NOT to Do</a></li>
+<li><a href="#what-to-do">What TO Do</a></li>
+</ul>
+</li>
+<li><a href="#quick-reference">Quick Reference</a></li>
+<li><a href="#integration-with-mastra">Integration with Mastra</a>
+<ul>
+<li><a href="#agent">Agent</a></li>
+<li><a href="#tool">Tool</a></li>
+<li><a href="#example-usage">Example Usage</a></li>
+</ul>
+</li>
+<li><a href="#further-reading">Further Reading</a>
+<ul>
+<li><a href="#primary-sources">Primary Sources</a></li>
+<li><a href="#secondary-sources">Secondary Sources</a></li>
+<li><a href="#related-playbooks">Related Playbooks</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="edinburgh-protocol-playbook-purpose" class="docmd-heading"><a href="#edinburgh-protocol-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
+<p>This playbook documents the <strong>Edinburgh Protocol</strong>, a framework for building agents and workflows that reduce conceptual entropy—transforming chaotic “Stuff” into structured “Things” through Scottish Enlightenment principles. It provides a systematic approach to handling uncertainty, making decisions under ambiguity, and analyzing complex system failures.</p>
+<p><strong>Core Philosophy:</strong> Reduce conceptual entropy by acknowledging the difference between maps (your understanding) and territories (reality), measuring uncertainty explicitly, and applying appropriate analytical lenses based on entropy levels.</p>
+<h2 id="edinburgh-protocol-playbook-when-to-use" class="docmd-heading"><a href="#edinburgh-protocol-playbook-when-to-use" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>When to Use</h2>
+<p>The Edinburgh Protocol is particularly valuable in the following situations:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Recommended Action</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Requirements are unclear or contradictory</strong></td>
+<td>Apply entropy classification</td>
+<td>Unclear requirements indicate high entropy; protocol helps structure the chaos</td>
+</tr>
+<tr>
+<td><strong>Debugging complex system failures</strong></td>
+<td>Use systems-analyzer (incentives &gt; villains)</td>
+<td>Focus on systemic factors rather than blaming individuals</td>
+</tr>
+<tr>
+<td><strong>Reviewing proposals or designs</strong></td>
+<td>Apply impartial-spectator</td>
+<td>Simulate disinterested expert perspective</td>
+</tr>
+<tr>
+<td><strong>Making decisions under uncertainty</strong></td>
+<td>Measure entropy explicitly</td>
+<td>Acknowledge uncertainty and apply appropriate analytical lens</td>
+</tr>
+<tr>
+<td><strong>Analyzing why something failed</strong></td>
+<td>Look for bad incentives, not bad people</td>
+<td>Systemic failures often stem from misaligned incentives</td>
+</tr>
+</tbody>
+</table>
+</div><h2 id="edinburgh-protocol-playbook-the-protocol" class="docmd-heading"><a href="#edinburgh-protocol-playbook-the-protocol" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>The Protocol</h2>
+<h3 id="edinburgh-protocol-playbook-the-protocol-phase-1-acknowledge-the-map" class="docmd-heading"><a href="#edinburgh-protocol-playbook-the-protocol-phase-1-acknowledge-the-map" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Phase 1: Acknowledge the Map</h3>
+<p>Before acting, recognize that you’re working with a “map” (your understanding), not the “territory” (reality). Document three categories:</p>
+<p><strong>What you know (evidence):</strong></p>
+<ul>
+<li>Facts that can be verified</li>
+<li>Data that has been collected</li>
+<li>Observations that are objective</li>
+</ul>
+<p><strong>What you assume (no evidence):</strong></p>
+<ul>
+<li>Beliefs held without proof</li>
+<li>Hypotheses that haven’t been tested</li>
+<li>Conjectures about unknown factors</li>
+</ul>
+<p><strong>What you don’t know (explicit gaps):</strong></p>
+<ul>
+<li>Information that is missing</li>
+<li>Questions that remain unanswered</li>
+<li>Areas where further investigation is needed</li>
+</ul>
+<p><strong>Why this matters:</strong><br>
+By explicitly distinguishing between knowledge, assumptions, and ignorance, you reduce the risk of confabulating narratives to fill gaps. This is the foundation of entropy reduction.</p>
+<h3 id="edinburgh-protocol-playbook-the-protocol-phase-2-measure-entropy" class="docmd-heading"><a href="#edinburgh-protocol-playbook-the-protocol-phase-2-measure-entropy" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Phase 2: Measure Entropy</h3>
+<p>Use the <code>classifyEntropy</code> tool to quantify the level of conceptual chaos:</p>
+<pre class="hljs"><code>Input → Entropy Score → Classification
+</code></pre>
+<p><strong>Entropy Levels:</strong></p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Score Range</th>
+<th>Characteristics</th>
+<th>Recommended Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Chaos</strong></td>
+<td>0.8-1.0</td>
+<td>Unstructured, contradictory, no clear objective</td>
+<td>Apply Phase 3 (High Entropy)</td>
+</tr>
+<tr>
+<td><strong>Turbulence</strong></td>
+<td>0.4-0.7</td>
+<td>Some structure but unclear relationships</td>
+<td>Apply Phase 3 (Medium Entropy)</td>
+</tr>
+<tr>
+<td><strong>Structure</strong></td>
+<td>0.2-0.4</td>
+<td>Clear but complex, actionable with effort</td>
+<td>Apply Phase 3 (Low Entropy)</td>
+</tr>
+<tr>
+<td><strong>Clarity</strong></td>
+<td>0.0-0.2</td>
+<td>Well-defined, actionable, low risk</td>
+<td>Execute with precision</td>
+</tr>
+</tbody>
+</table>
+</div><p><strong>How to measure:</strong></p>
+<pre class="hljs"><code><span class="hljs-comment"># Using the entropy tool</span>
+classifyEntropy <span class="hljs-string">&quot;Your input text here&quot;</span>
+</code></pre>
+<h3 id="edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens" class="docmd-heading"><a href="#edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Phase 3: Apply the Appropriate Lens</h3>
+<p>The appropriate analytical lens depends on the entropy level:</p>
+<h4 id="edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens-for-high-entropy-06" class="docmd-heading"><a href="#edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens-for-high-entropy-06" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>For High Entropy (&gt;0.6):</h4>
+<ol>
+<li><strong>Extract the core question</strong> – What is actually being asked? Strip away noise and ambiguity.</li>
+<li><strong>Identify stakeholders and incentives</strong> – Who benefits? Who loses? What are the systemic drivers? (Adam Smith)</li>
+<li><strong>List constraints and boundary conditions</strong> – What are the limits? What cannot be changed?</li>
+<li><strong>Propose the smallest testable hypothesis</strong> – What’s the minimal experiment that could reduce uncertainty? (David Hume)</li>
+</ol>
+<h4 id="edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens-for-medium-entropy-03-06" class="docmd-heading"><a href="#edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens-for-medium-entropy-03-06" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>For Medium Entropy (0.3-0.6):</h4>
+<ol>
+<li><strong>Organize into categories/taxonomies</strong> – Create structure from the semi-structured information.</li>
+<li><strong>Map relationships and dependencies</strong> – How do elements relate? What depends on what?</li>
+<li><strong>Identify missing information</strong> – What gaps remain? What would increase confidence?</li>
+<li><strong>Draft provisional conclusions</strong> – State conclusions with explicit confidence levels.</li>
+</ol>
+<h4 id="edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens-for-low-entropy-03" class="docmd-heading"><a href="#edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens-for-low-entropy-03" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>For Low Entropy (&lt;0.3):</h4>
+<ol>
+<li><strong>Validate assumptions</strong> – Test the premises before proceeding.</li>
+<li><strong>Execute with precision</strong> – The path is clear; focus on execution quality.</li>
+<li><strong>Document for future entropy reduction</strong> – Capture lessons learned to reduce entropy in similar situations.</li>
+</ol>
+<h3 id="edinburgh-protocol-playbook-the-protocol-phase-4-the-impartial-spectator" class="docmd-heading"><a href="#edinburgh-protocol-playbook-the-protocol-phase-4-the-impartial-spectator" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Phase 4: The Impartial Spectator</h3>
+<p>Before finalizing any output, simulate an “Impartial Spectator” (Adam Smith’s concept):</p>
+<p><strong>Three questions to ask:</strong></p>
+<ol>
+<li><p><strong>“Would a disinterested expert agree with this analysis?”</strong></p>
+<ul>
+<li>Imagine an expert with no stake in the outcome reviewing your work.</li>
+<li>Would they find it reasonable? What objections would they raise?</li>
+</ul>
+</li>
+<li><p><strong>“What would convince me I’m wrong?”</strong></p>
+<ul>
+<li>Identify evidence that would falsify your conclusions.</li>
+<li>If you can’t think of anything, you’re likely overconfident.</li>
+</ul>
+</li>
+<li><p><strong>“Are there systemic factors I’m ignoring?”</strong></p>
+<ul>
+<li>Look for patterns, incentives, and structures that might be driving the situation.</li>
+<li>Avoid attributing outcomes to individual character when systemic factors are at play.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Why this matters:</strong><br>
+The Impartial Spectator helps you step outside your own perspective and identify blind spots, biases, and overconfidence.</p>
+<h3 id="edinburgh-protocol-playbook-the-protocol-phase-5-watts-test" class="docmd-heading"><a href="#edinburgh-protocol-playbook-the-protocol-phase-5-watts-test" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Phase 5: Watt’s Test</h3>
+<p>Ask: <strong>“Does this actually help?”</strong></p>
+<p>If not, iterate.</p>
+<p><strong>What “help” means:</strong></p>
+<ul>
+<li>Does it reduce entropy?</li>
+<li>Does it enable better decisions?</li>
+<li>Does it improve understanding?</li>
+<li>Does it lead to actionable outcomes?</li>
+</ul>
+<p><strong>What “help” does NOT mean:</strong></p>
+<ul>
+<li>Does it sound sophisticated?</li>
+<li>Does it impress others?</li>
+<li>Does it follow a particular methodology?</li>
+<li>Does it conform to expectations?</li>
+</ul>
+<p><strong>Why this matters:</strong><br>
+James Watt’s approach to steam engines was relentlessly pragmatic. He didn’t pursue elegance for its own sake; he focused on what actually worked. The same principle applies here.</p>
+<h2 id="edinburgh-protocol-playbook-anti-patterns" class="docmd-heading"><a href="#edinburgh-protocol-playbook-anti-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Anti-Patterns</h2>
+<h3 id="edinburgh-protocol-playbook-anti-patterns-what-not-to-do" class="docmd-heading"><a href="#edinburgh-protocol-playbook-anti-patterns-what-not-to-do" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>What NOT to Do</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Anti-Pattern</th>
+<th>Why It’s Bad</th>
+<th>Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>❌ Fill gaps with confabulated narratives</td>
+<td>Creates false certainty; leads to bad decisions</td>
+<td>State ignorance explicitly</td>
+</tr>
+<tr>
+<td>❌ Blame individuals for systemic failures</td>
+<td>Ignores root causes; prevents learning</td>
+<td>Look for incentive structures</td>
+</tr>
+<tr>
+<td>❌ Prioritize elegance over utility</td>
+<td>Wastes effort on form over function</td>
+<td>Prioritize “does it work?”</td>
+</tr>
+<tr>
+<td>❌ Hide uncertainty behind jargon</td>
+<td>Reduces transparency; prevents collaboration</td>
+<td>Use precise language, even if it reveals uncertainty</td>
+</tr>
+<tr>
+<td>❌ Treat maps as territories</td>
+<td>Confuses understanding with reality</td>
+<td>Acknowledge the map-territory distinction</td>
+</tr>
+</tbody>
+</table>
+</div><h3 id="edinburgh-protocol-playbook-anti-patterns-what-to-do" class="docmd-heading"><a href="#edinburgh-protocol-playbook-anti-patterns-what-to-do" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>What TO Do</h3>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Why It’s Good</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✓ State ignorance clearly when appropriate</td>
+<td>Enables others to fill gaps; reduces overconfidence</td>
+<td>“We don’t know X, but we can test Y”</td>
+</tr>
+<tr>
+<td>✓ Look for incentive structures in failures</td>
+<td>Identifies root causes; enables systemic fixes</td>
+<td>“The failure was caused by misaligned incentives, not incompetence”</td>
+</tr>
+<tr>
+<td>✓ Prioritize “does it work?” over “is it elegant?”</td>
+<td>Focuses on outcomes; reduces waste</td>
+<td>“This solution is ugly but effective”</td>
+</tr>
+<tr>
+<td>✓ Use precise language, even if it reveals uncertainty</td>
+<td>Improves clarity; enables collaboration</td>
+<td>“We’re 60% confident this will work”</td>
+</tr>
+<tr>
+<td>✓ Build better steam engines (pragmatic improvement)</td>
+<td>Focuses on incremental progress; reduces risk</td>
+<td>“This small improvement reduces entropy by 10%”</td>
+</tr>
+</tbody>
+</table>
+</div><h2 id="edinburgh-protocol-playbook-quick-reference" class="docmd-heading"><a href="#edinburgh-protocol-playbook-quick-reference" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Quick Reference</h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Action</th>
+<th>Tool/Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“The requirements are unclear”</td>
+<td>Apply entropy classification</td>
+<td><code>classifyEntropy</code></td>
+</tr>
+<tr>
+<td>“Why did this fail?”</td>
+<td>Use systems-analyzer (incentives &gt; villains)</td>
+<td>Phase 3 (High Entropy)</td>
+</tr>
+<tr>
+<td>“Is this analysis sound?”</td>
+<td>Invoke impartial-spectator</td>
+<td>Phase 4</td>
+</tr>
+<tr>
+<td>“Which solution is better?”</td>
+<td>Run Watt’s Test (which actually improves things?)</td>
+<td>Phase 5</td>
+</tr>
+<tr>
+<td>“How do I handle this uncertainty?”</td>
+<td>Measure entropy explicitly</td>
+<td>Phase 2</td>
+</tr>
+</tbody>
+</table>
+</div><h2 id="edinburgh-protocol-playbook-integration-with-mastra" class="docmd-heading"><a href="#edinburgh-protocol-playbook-integration-with-mastra" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Integration with Mastra</h2>
+<p>The Edinburgh Protocol is implemented in the Mastra framework through the following components:</p>
+<h3 id="edinburgh-protocol-playbook-integration-with-mastra-agent" class="docmd-heading"><a href="#edinburgh-protocol-playbook-integration-with-mastra-agent" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Agent</h3>
+<ul>
+<li><strong>File:</strong> <code>src/mastra/agents/edinburgh-protocol-agent.ts</code></li>
+<li><strong>Purpose:</strong> Provides an agent that applies the Edinburgh Protocol to analyze and reduce conceptual entropy</li>
+<li><strong>Usage:</strong> Import and invoke via Mastra framework</li>
+</ul>
+<h3 id="edinburgh-protocol-playbook-integration-with-mastra-tool" class="docmd-heading"><a href="#edinburgh-protocol-playbook-integration-with-mastra-tool" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Tool</h3>
+<ul>
+<li><strong>File:</strong> <code>src/mastra/tools/entropy-tool.ts</code></li>
+<li><strong>Purpose:</strong> Provides the <code>classifyEntropy</code> function for measuring conceptual entropy</li>
+<li><strong>Usage:</strong> Call the tool with input text to get entropy score and classification</li>
+</ul>
+<h3 id="edinburgh-protocol-playbook-integration-with-mastra-example-usage" class="docmd-heading"><a href="#edinburgh-protocol-playbook-integration-with-mastra-example-usage" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Example Usage</h3>
+<pre class="hljs"><code><span class="hljs-keyword">import</span> { edinburghProtocolAgent } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@mastra/agents/edinburgh-protocol-agent&#x27;</span>;
+<span class="hljs-keyword">import</span> { classifyEntropy } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@mastra/tools/entropy-tool&#x27;</span>;
+
+<span class="hljs-comment">// Measure entropy</span>
+<span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">classifyEntropy</span>({
+  <span class="hljs-attr">input</span>: <span class="hljs-string">&quot;Your input text here&quot;</span>
+});
+
+<span class="hljs-comment">// Apply protocol based on entropy level</span>
+<span class="hljs-keyword">const</span> analysis = <span class="hljs-keyword">await</span> edinburghProtocolAgent.<span class="hljs-title function_">generate</span>({
+  <span class="hljs-attr">prompt</span>: <span class="hljs-string">`Analyze this input with entropy score <span class="hljs-subst">${result.score}</span>: <span class="hljs-subst">${result.classification}</span>`</span>
+});
+</code></pre>
+<h2 id="edinburgh-protocol-playbook-further-reading" class="docmd-heading"><a href="#edinburgh-protocol-playbook-further-reading" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Further Reading</h2>
+<h3 id="edinburgh-protocol-playbook-further-reading-primary-sources" class="docmd-heading"><a href="#edinburgh-protocol-playbook-further-reading-primary-sources" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Primary Sources</h3>
+<ul>
+<li><strong>David Hume:</strong> “An Enquiry Concerning Human Understanding” – Empiricism and skepticism about causation</li>
+<li><strong>Adam Smith:</strong> “The Theory of Moral Sentiments” – The Impartial Spectator and moral philosophy</li>
+<li><strong>James Watt:</strong> Steam engine improvements – Pragmatic engineering over theoretical elegance</li>
+</ul>
+<h3 id="edinburgh-protocol-playbook-further-reading-secondary-sources" class="docmd-heading"><a href="#edinburgh-protocol-playbook-further-reading-secondary-sources" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Secondary Sources</h3>
+<ul>
+<li><strong>Edinburgh Protocol System Prompt</strong> (archive) – Original formulation of the protocol</li>
+<li><strong>Entropy Theory</strong> – Information theory applications to conceptual clarity</li>
+<li><strong>Systems Thinking</strong> – Analyzing complex systems and feedback loops</li>
+</ul>
+<h3 id="edinburgh-protocol-playbook-further-reading-related-playbooks" class="docmd-heading"><a href="#edinburgh-protocol-playbook-further-reading-related-playbooks" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Related Playbooks</h3>
+<ul>
+<li><a href="../agentic-integrity-playbook">Agentic Integrity Playbook</a> – Ensuring agent outputs are trustworthy</li>
+<li><a href="../design-heuristics">Design Heuristics Playbook</a> – General design principles for agent systems</li>
+<li><a href="../secure-tool-design">Secure Tool Design Playbook</a> – Building tools that are safe and reliable</li>
+</ul>
+<hr>
+<p><strong>Version:</strong> 1.0<br>
+<strong>Last Updated:</strong> 2026-03-21<br>
+<strong>Maintained by:</strong> PolyVis Development Team</p>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#edinburgh-protocol-playbook-table-of-contents" class="toc-link">Table of Contents</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#edinburgh-protocol-playbook-purpose" class="toc-link">Purpose</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#edinburgh-protocol-playbook-when-to-use" class="toc-link">When to Use</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#edinburgh-protocol-playbook-the-protocol" class="toc-link">The Protocol</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-the-protocol-phase-1-acknowledge-the-map" class="toc-link">Phase 1: Acknowledge the Map</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-the-protocol-phase-2-measure-entropy" class="toc-link">Phase 2: Measure Entropy</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens" class="toc-link">Phase 3: Apply the Appropriate Lens</a>
+        </li>
+      
+        <li class="toc-item toc-level-4">
+          <a href="#edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens-for-high-entropy-06" class="toc-link">For High Entropy (&gt;0.6):</a>
+        </li>
+      
+        <li class="toc-item toc-level-4">
+          <a href="#edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens-for-medium-entropy-03-06" class="toc-link">For Medium Entropy (0.3-0.6):</a>
+        </li>
+      
+        <li class="toc-item toc-level-4">
+          <a href="#edinburgh-protocol-playbook-the-protocol-phase-3-apply-the-appropriate-lens-for-low-entropy-03" class="toc-link">For Low Entropy (&lt;0.3):</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-the-protocol-phase-4-the-impartial-spectator" class="toc-link">Phase 4: The Impartial Spectator</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-the-protocol-phase-5-watts-test" class="toc-link">Phase 5: Watt’s Test</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#edinburgh-protocol-playbook-anti-patterns" class="toc-link">Anti-Patterns</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-anti-patterns-what-not-to-do" class="toc-link">What NOT to Do</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-anti-patterns-what-to-do" class="toc-link">What TO Do</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#edinburgh-protocol-playbook-quick-reference" class="toc-link">Quick Reference</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#edinburgh-protocol-playbook-integration-with-mastra" class="toc-link">Integration with Mastra</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-integration-with-mastra-agent" class="toc-link">Agent</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-integration-with-mastra-tool" class="toc-link">Tool</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-integration-with-mastra-example-usage" class="toc-link">Example Usage</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#edinburgh-protocol-playbook-further-reading" class="toc-link">Further Reading</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-further-reading-primary-sources" class="toc-link">Primary Sources</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-further-reading-secondary-sources" class="toc-link">Secondary Sources</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#edinburgh-protocol-playbook-further-reading-related-playbooks" class="toc-link">Related Playbooks</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../../../assets/js/docmd-main.js?v=mn7fdkey"></script>
+            <script src="../../../assets/js/docmd-image-lightbox.js?v=mn7fdkey" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../../../assets/js/docmd-search.js?v=mn7fdkey" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

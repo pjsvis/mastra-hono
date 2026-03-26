@@ -1,0 +1,2068 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../../../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../../../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "";
+      </script>
+      <title>
+        TypeScript Standards Playbook
+      </title>
+      
+        <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7fdkey">
+        
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-light.css?v=mn7fdkey"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-dark.css?v=mn7fdkey"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../../../assets/css/docmd-theme-sky.css?v=mn7fdkey" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../../../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-integrity-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-retrofit/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-sdlc/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ai-friendly-code-patterns/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/biome-standards/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/cli-design-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/design-heuristics/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/edinburgh-protocol/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/git-workflow-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/just-bash/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/loading-process-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/local-memory-agents/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/mastra-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/origami-protocol/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/repo-init-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/secure-tool-design/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-agent-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-skill-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-user-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/tiered-type-safety-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/typescript-standards/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ui-color-decision-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/vercel-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/visual-palette/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../briefs/brief-agentic-integrity-workflow/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ai-workflow-playbook/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ctx-telepresence/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-01/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-02/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-03/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-doc-manage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-mastra-autoresearch-skill/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-merge-queue/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-playbook-index/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-stoolap-eval/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-summary/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../debriefs/review-remeda-usage-and-plan-deprecation/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-33741f-biome-heuristics/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-3bdb2f/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-4b567d/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-64959e/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-770149/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-8c4038/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-bcf87d/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-c4a3cb/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fa8288/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fc7e38/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../docs/knowledge-sleeve/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/nushell-agent-usage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/architectural-insights/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/edinburgh-protocol-system-prompt/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/dev-setup-macos-zed/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/playbook-loading-process-tracker/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-usage/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-workflow-diagram/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/safe-agi/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/test-mermaid/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/tomatoes/index.html" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  TypeScript Standards Playbook
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                
+                                    <h1 id="typescript-standards-playbook">TypeScript Standards Playbook</h1>
+<h2 id="typescript-standards-playbook-table-of-contents" class="docmd-heading"><a href="#typescript-standards-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
+<ul>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#loose-autocomplete">Loose Autocomplete</a></li>
+<li><a href="#branded-types-nominal-typing">Branded Types (Nominal Typing)</a></li>
+<li><a href="#exhaustive-switches">Exhaustive Switches</a></li>
+<li><a href="#result-pattern-error-handling">Result Pattern (Error Handling)</a></li>
+<li><a href="#zod-type-inference">Zod Type Inference</a></li>
+<li><a href="#bun-first-patterns">Bun-First Patterns</a>
+<ul>
+<li><a href="#explicit-main-check">Explicit Main Check</a></li>
+<li><a href="#path-resolution">Path Resolution</a></li>
+</ul>
+</li>
+<li><a href="#ai-friendly-typing">AI-Friendly Typing</a></li>
+<li><a href="#best-practices">Best Practices</a>
+<ul>
+<li><a href="#1-always-use-zod-for-data-structures">1. Always Use Zod for Data Structures</a></li>
+<li><a href="#2-use-branded-types-for-ids">2. Use Branded Types for IDs</a></li>
+<li><a href="#3-use-exhaustive-switches">3. Use Exhaustive Switches</a></li>
+<li><a href="#4-use-result-pattern-for-error-handling">4. Use Result Pattern for Error Handling</a></li>
+<li><a href="#5-use-explicit-return-types">5. Use Explicit Return Types</a></li>
+</ul>
+</li>
+<li><a href="#common-pitfalls">Common Pitfalls</a>
+<ul>
+<li><a href="#pitfall-1-using-%60any%60-instead-of-%60unknown%60">Pitfall 1: Using <code>any</code> Instead of <code>unknown</code></a></li>
+<li><a href="#pitfall-2-not-using-branded-types-for-ids">Pitfall 2: Not Using Branded Types for IDs</a></li>
+<li><a href="#pitfall-3-missing-exhaustive-switch-cases">Pitfall 3: Missing Exhaustive Switch Cases</a></li>
+<li><a href="#pitfall-4-not-deriving-types-from-zod-schemas">Pitfall 4: Not Deriving Types from Zod Schemas</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="typescript-standards-playbook-purpose" class="docmd-heading"><a href="#typescript-standards-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
+<p>This playbook defines idiomatic TypeScript patterns used in the Mastra-Hono project. These patterns are selected for high type-safety, excellent developer experience (IDE autocomplete), and AI-maintainability. It provides comprehensive guidelines for writing TypeScript code that is both human-readable and AI-friendly.</p>
+<p><strong>Core Philosophy:</strong> Write TypeScript that is type-safe, maintainable, and AI-friendly. Use explicit types, avoid <code>any</code>, prefer Zod for validation, and follow patterns that enhance IDE autocomplete and make code easier for AI agents to understand and modify.</p>
+<h2 id="typescript-standards-playbook-loose-autocomplete" class="docmd-heading"><a href="#typescript-standards-playbook-loose-autocomplete" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Loose Autocomplete</h2>
+<p>When you want to provide a set of known string literals but still allow any string, use the <code>(string &amp; {})</code> trick. This prevents TypeScript from collapsing the union into a simple <code>string</code> type, preserving IDE suggestions.</p>
+<pre class="hljs"><code><span class="hljs-comment">// ✅ Standard Pattern</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">ModelNames</span> = <span class="hljs-string">&quot;gpt-4o&quot;</span> | <span class="hljs-string">&quot;claude-3-5-sonnet&quot;</span> | <span class="hljs-string">&quot;nemo-3&quot;</span> | (<span class="hljs-built_in">string</span> &amp; {});
+
+<span class="hljs-comment">// Usage:</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">model</span>: <span class="hljs-title class_">ModelNames</span> = <span class="hljs-string">&quot;&quot;</span>; <span class="hljs-comment">// IDE will suggest the literals above</span>
+</code></pre>
+<p><strong>Why this matters:</strong></p>
+<ul>
+<li><strong>IDE Autocomplete:</strong> Provides suggestions for known values</li>
+<li><strong>Flexibility:</strong> Still allows arbitrary strings if needed</li>
+<li><strong>Type Safety:</strong> Maintains type information for known values</li>
+<li><strong>AI-Friendly:</strong> AI agents can see the available options</li>
+</ul>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>When you have a set of known values but want to allow extensions</li>
+<li>When you want IDE suggestions for common values</li>
+<li>When you need to support both known and unknown values</li>
+</ul>
+<h2 id="typescript-standards-playbook-branded-types-nominal-typing" class="docmd-heading"><a href="#typescript-standards-playbook-branded-types-nominal-typing" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Branded Types (Nominal Typing)</h2>
+<p>Use branded types to prevent passing the wrong ID to a function (e.g., passing a <code>UserId</code> where a <code>TaskId</code> is expected), even if both are strings.</p>
+<pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Brand</span>&lt;K, T&gt; = K &amp; { <span class="hljs-attr">__brand</span>: T };
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">TaskId</span> = <span class="hljs-title class_">Brand</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-string">&quot;TaskId&quot;</span>&gt;;
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">UserId</span> = <span class="hljs-title class_">Brand</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-string">&quot;UserId&quot;</span>&gt;;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getTask</span>(<span class="hljs-params"><span class="hljs-attr">id</span>: <span class="hljs-title class_">TaskId</span></span>) { <span class="hljs-comment">/* ... */</span> }
+
+<span class="hljs-keyword">const</span> myUserId = <span class="hljs-string">&quot;user_123&quot;</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">UserId</span>;
+<span class="hljs-comment">// getTask(myUserId); // ❌ Compile error: UserId is not assignable to TaskId</span>
+</code></pre>
+<p><strong>Why this matters:</strong></p>
+<ul>
+<li><strong>Type Safety:</strong> Prevents mixing different ID types</li>
+<li><strong>Compile-Time Errors:</strong> Catches mistakes at compile time</li>
+<li><strong>Self-Documenting:</strong> Makes the purpose of IDs explicit</li>
+<li><strong>AI-Friendly:</strong> AI agents understand the distinction between ID types</li>
+</ul>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>When you have different types of IDs (TaskId, UserId, etc.)</li>
+<li>When you want to prevent accidental misuse</li>
+<li>When you need nominal typing in TypeScript</li>
+</ul>
+<h2 id="typescript-standards-playbook-exhaustive-switches" class="docmd-heading"><a href="#typescript-standards-playbook-exhaustive-switches" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Exhaustive Switches</h2>
+<p>Ensure that all possible cases of a union (e.g., an enum or literal union) are handled at compile-time using the <code>never</code> type.</p>
+<pre class="hljs"><code><span class="hljs-keyword">type</span> <span class="hljs-title class_">Status</span> = <span class="hljs-string">&quot;open&quot;</span> | <span class="hljs-string">&quot;in_progress&quot;</span> | <span class="hljs-string">&quot;closed&quot;</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">handleStatus</span>(<span class="hljs-params"><span class="hljs-attr">status</span>: <span class="hljs-title class_">Status</span></span>) {
+  <span class="hljs-keyword">switch</span> (status) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;open&quot;</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Starting...&quot;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;in_progress&quot;</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Working...&quot;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;closed&quot;</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Done.&quot;</span>;
+    <span class="hljs-attr">default</span>: {
+      <span class="hljs-comment">// If a new status is added to the union, this will fail to compile</span>
+      <span class="hljs-keyword">const</span> <span class="hljs-attr">_exhaustiveCheck</span>: <span class="hljs-built_in">never</span> = status;
+      <span class="hljs-keyword">return</span> _exhaustiveCheck;
+    }
+  }
+}
+</code></pre>
+<p><strong>Why this matters:</strong></p>
+<ul>
+<li><strong>Compile-Time Safety:</strong> Ensures all cases are handled</li>
+<li><strong>Future-Proof:</strong> Adding new cases forces you to update all switches</li>
+<li><strong>AI-Friendly:</strong> AI agents can see all possible cases</li>
+<li><strong>Maintainability:</strong> Prevents missing case bugs</li>
+</ul>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>When handling union types or enums</li>
+<li>When you want to ensure all cases are covered</li>
+<li>When you want compile-time guarantees</li>
+</ul>
+<h2 id="typescript-standards-playbook-result-pattern-error-handling" class="docmd-heading"><a href="#typescript-standards-playbook-result-pattern-error-handling" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Result Pattern (Error Handling)</h2>
+<p>Prefer the <code>[error, data]</code> tuple pattern (via <code>await-to-js</code>) over try/catch blocks for cleaner control flow and explicit error handling that AI agents can easily follow.</p>
+<pre class="hljs"><code><span class="hljs-keyword">import</span> { to } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;await-to-js&quot;</span>;
+
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">fetchData</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> [err, data] = <span class="hljs-keyword">await</span> <span class="hljs-title function_">to</span>(<span class="hljs-title function_">fetch</span>(<span class="hljs-string">&quot;...&quot;</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">r</span> =&gt;</span> r.<span class="hljs-title function_">json</span>()));
+  
+  <span class="hljs-keyword">if</span> (err) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&quot;Failed to fetch:&quot;</span>, err);
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  }
+  
+  <span class="hljs-keyword">return</span> data;
+}
+</code></pre>
+<p><strong>Why this matters:</strong></p>
+<ul>
+<li><strong>Explicit Error Handling:</strong> Errors are handled explicitly</li>
+<li><strong>Cleaner Control Flow:</strong> No nested try/catch blocks</li>
+<li><strong>AI-Friendly:</strong> AI agents can easily follow the error handling pattern</li>
+<li><strong>Consistent:</strong> Provides a consistent error handling pattern</li>
+</ul>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>When handling async operations</li>
+<li>When you want explicit error handling</li>
+<li>When you want to avoid try/catch nesting</li>
+</ul>
+<h2 id="typescript-standards-playbook-zod-type-inference" class="docmd-heading"><a href="#typescript-standards-playbook-zod-type-inference" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Zod Type Inference</h2>
+<p>Always derive types from Zod schemas to ensure your runtime validation and compile-time types are perfectly in sync.</p>
+<pre class="hljs"><code><span class="hljs-keyword">import</span> { z } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;zod&quot;</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">UserSchema</span> = z.<span class="hljs-title function_">object</span>({
+  <span class="hljs-attr">id</span>: z.<span class="hljs-title function_">string</span>(),
+  <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>(),
+  <span class="hljs-attr">email</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">email</span>(),
+});
+
+<span class="hljs-comment">// ✅ Derive the type from the schema</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">User</span> = z.<span class="hljs-property">infer</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">UserSchema</span>&gt;;
+</code></pre>
+<p><strong>Why this matters:</strong></p>
+<ul>
+<li><strong>Type Safety:</strong> Runtime validation matches compile-time types</li>
+<li><strong>Single Source of Truth:</strong> Schema defines both validation and types</li>
+<li><strong>Maintainability:</strong> Changes to schema automatically update types</li>
+<li><strong>AI-Friendly:</strong> AI agents can see the schema and types together</li>
+</ul>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>When defining data structures</li>
+<li>When you need runtime validation</li>
+<li>When you want to keep types and schemas in sync</li>
+</ul>
+<h2 id="typescript-standards-playbook-bun-first-patterns" class="docmd-heading"><a href="#typescript-standards-playbook-bun-first-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Bun-First Patterns</h2>
+<h3 id="typescript-standards-playbook-bun-first-patterns-explicit-main-check" class="docmd-heading"><a href="#typescript-standards-playbook-bun-first-patterns-explicit-main-check" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Explicit Main Check</h3>
+<p>Use <code>import.meta.main</code> to detect if a file is being run directly.</p>
+<pre class="hljs"><code><span class="hljs-keyword">if</span> (<span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">main</span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Running script directly...&quot;</span>);
+}
+</code></pre>
+<p><strong>Why this matters:</strong></p>
+<ul>
+<li><strong>Explicit:</strong> Clear indication when file is run directly</li>
+<li><strong>Bun-Specific:</strong> Leverages Bun’s import.meta.main feature</li>
+<li><strong>AI-Friendly:</strong> AI agents can understand when code runs</li>
+</ul>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>When you have scripts that can be imported or run directly</li>
+<li>When you need to detect execution context</li>
+</ul>
+<h3 id="typescript-standards-playbook-bun-first-patterns-path-resolution" class="docmd-heading"><a href="#typescript-standards-playbook-bun-first-patterns-path-resolution" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Path Resolution</h3>
+<p>Use <code>import.meta.dirname</code> for reliable path resolution relative to the current file.</p>
+<pre class="hljs"><code><span class="hljs-keyword">import</span> { join } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>;
+<span class="hljs-keyword">const</span> configPath = <span class="hljs-title function_">join</span>(<span class="hljs-keyword">import</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">dirname</span>, <span class="hljs-string">&quot;config.json&quot;</span>);
+</code></pre>
+<p><strong>Why this matters:</strong></p>
+<ul>
+<li><strong>Reliable:</strong> Works consistently across different execution contexts</li>
+<li><strong>Bun-Specific:</strong> Leverages Bun’s import.meta.dirname feature</li>
+<li><strong>AI-Friendly:</strong> AI agents can understand path resolution</li>
+</ul>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>When you need to resolve paths relative to the current file</li>
+<li>When you need to load configuration files</li>
+</ul>
+<h2 id="typescript-standards-playbook-ai-friendly-typing" class="docmd-heading"><a href="#typescript-standards-playbook-ai-friendly-typing" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>AI-Friendly Typing</h2>
+<ul>
+<li><strong>Avoid <code>any</code></strong>: Always use <code>unknown</code> if the type is truly unknown, then narrow it.</li>
+<li><strong>Prefer Interfaces for Objects</strong>: They generally provide better error messages and performance than type aliases for complex objects.</li>
+<li><strong>Explicit Return Types</strong>: While TS can infer them, explicit return types on exported functions help both humans and AI understand the contract without digging into the implementation.</li>
+</ul>
+<pre class="hljs"><code><span class="hljs-comment">// ✅ AI-Friendly</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">processTask</span>(<span class="hljs-params"><span class="hljs-attr">id</span>: <span class="hljs-title class_">TaskId</span></span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p><strong>Why this matters:</strong></p>
+<ul>
+<li><strong>Type Safety:</strong> Avoiding <code>any</code> maintains type safety</li>
+<li><strong>Better Error Messages:</strong> Interfaces provide clearer error messages</li>
+<li><strong>Explicit Contracts:</strong> Return types make the API clear</li>
+<li><strong>AI-Friendly:</strong> AI agents can understand the API without reading implementation</li>
+</ul>
+<p><strong>When to use:</strong></p>
+<ul>
+<li>Always avoid <code>any</code></li>
+<li>Use interfaces for complex objects</li>
+<li>Use explicit return types for exported functions</li>
+</ul>
+<h2 id="typescript-standards-playbook-best-practices" class="docmd-heading"><a href="#typescript-standards-playbook-best-practices" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Best Practices</h2>
+<h3 id="typescript-standards-playbook-best-practices-1-always-use-zod-for-data-structures" class="docmd-heading"><a href="#typescript-standards-playbook-best-practices-1-always-use-zod-for-data-structures" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. Always Use Zod for Data Structures</h3>
+<p>Define data structures with Zod schemas and derive types from them.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">UserSchema</span> = z.<span class="hljs-title function_">object</span>({
+  <span class="hljs-attr">id</span>: z.<span class="hljs-title function_">string</span>(),
+  <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>(),
+});
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">User</span> = z.<span class="hljs-property">infer</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">UserSchema</span>&gt;;
+
+<span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">User</span> = {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+};
+</code></pre>
+<p><strong>Why:</strong> Maintains type safety and runtime validation in sync.</p>
+<h3 id="typescript-standards-playbook-best-practices-2-use-branded-types-for-ids" class="docmd-heading"><a href="#typescript-standards-playbook-best-practices-2-use-branded-types-for-ids" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Use Branded Types for IDs</h3>
+<p>Use branded types to prevent ID confusion.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">TaskId</span> = <span class="hljs-title class_">Brand</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-string">&quot;TaskId&quot;</span>&gt;;
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">UserId</span> = <span class="hljs-title class_">Brand</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-string">&quot;UserId&quot;</span>&gt;;
+
+<span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">TaskId</span> = <span class="hljs-built_in">string</span>;
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">UserId</span> = <span class="hljs-built_in">string</span>;
+</code></pre>
+<p><strong>Why:</strong> Prevents passing wrong IDs to functions.</p>
+<h3 id="typescript-standards-playbook-best-practices-3-use-exhaustive-switches" class="docmd-heading"><a href="#typescript-standards-playbook-best-practices-3-use-exhaustive-switches" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. Use Exhaustive Switches</h3>
+<p>Ensure all cases are handled in switches.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">handleStatus</span>(<span class="hljs-params"><span class="hljs-attr">status</span>: <span class="hljs-title class_">Status</span></span>) {
+  <span class="hljs-keyword">switch</span> (status) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;open&quot;</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Starting...&quot;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;in_progress&quot;</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Working...&quot;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;closed&quot;</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Done.&quot;</span>;
+    <span class="hljs-attr">default</span>: {
+      <span class="hljs-keyword">const</span> <span class="hljs-attr">_exhaustiveCheck</span>: <span class="hljs-built_in">never</span> = status;
+      <span class="hljs-keyword">return</span> _exhaustiveCheck;
+    }
+  }
+}
+
+<span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">handleStatus</span>(<span class="hljs-params"><span class="hljs-attr">status</span>: <span class="hljs-title class_">Status</span></span>) {
+  <span class="hljs-keyword">if</span> (status === <span class="hljs-string">&quot;open&quot;</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Starting...&quot;</span>;
+  <span class="hljs-keyword">if</span> (status === <span class="hljs-string">&quot;in_progress&quot;</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Working...&quot;</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Done.&quot;</span>; <span class="hljs-comment">// Missing case for &quot;closed&quot;</span>
+}
+</code></pre>
+<p><strong>Why:</strong> Ensures all cases are handled at compile time.</p>
+<h3 id="typescript-standards-playbook-best-practices-4-use-result-pattern-for-error-handling" class="docmd-heading"><a href="#typescript-standards-playbook-best-practices-4-use-result-pattern-for-error-handling" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>4. Use Result Pattern for Error Handling</h3>
+<p>Prefer <code>[error, data]</code> tuples over try/catch.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">const</span> [err, data] = <span class="hljs-keyword">await</span> <span class="hljs-title function_">to</span>(<span class="hljs-title function_">fetch</span>(<span class="hljs-string">&quot;...&quot;</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">r</span> =&gt;</span> r.<span class="hljs-title function_">json</span>()));
+<span class="hljs-keyword">if</span> (err) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&quot;Failed to fetch:&quot;</span>, err);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+
+<span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(<span class="hljs-string">&quot;...&quot;</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">r</span> =&gt;</span> r.<span class="hljs-title function_">json</span>());
+  <span class="hljs-keyword">return</span> data;
+} <span class="hljs-keyword">catch</span> (err) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&quot;Failed to fetch:&quot;</span>, err);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+}
+</code></pre>
+<p><strong>Why:</strong> Cleaner control flow and explicit error handling.</p>
+<h3 id="typescript-standards-playbook-best-practices-5-use-explicit-return-types" class="docmd-heading"><a href="#typescript-standards-playbook-best-practices-5-use-explicit-return-types" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>5. Use Explicit Return Types</h3>
+<p>Add explicit return types to exported functions.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">processTask</span>(<span class="hljs-params"><span class="hljs-attr">id</span>: <span class="hljs-title class_">TaskId</span></span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
+  <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">processTask</span>(<span class="hljs-params"><span class="hljs-attr">id</span>: <span class="hljs-title class_">TaskId</span></span>) {
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<p><strong>Why:</strong> Makes the API clear without reading implementation.</p>
+<h2 id="typescript-standards-playbook-common-pitfalls" class="docmd-heading"><a href="#typescript-standards-playbook-common-pitfalls" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Common Pitfalls</h2>
+<h3 id="typescript-standards-playbook-common-pitfalls-pitfall-1-using-any-instead-of-unknown" class="docmd-heading"><a href="#typescript-standards-playbook-common-pitfalls-pitfall-1-using-any-instead-of-unknown" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 1: Using <code>any</code> Instead of <code>unknown</code></h3>
+<p><strong>Problem:</strong> Using <code>any</code> loses type safety.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">processData</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-built_in">any</span></span>) {
+  <span class="hljs-keyword">return</span> data.<span class="hljs-property">value</span>; <span class="hljs-comment">// May fail at runtime</span>
+}
+
+<span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">processData</span>(<span class="hljs-params"><span class="hljs-attr">data</span>: <span class="hljs-built_in">unknown</span></span>) {
+  <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isValidData</span>(data)) {
+    <span class="hljs-keyword">return</span> (data <span class="hljs-keyword">as</span> <span class="hljs-title class_">DataType</span>).<span class="hljs-property">value</span>;
+  }
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Invalid data&quot;</span>);
+}
+</code></pre>
+<p><strong>Solution:</strong> Use <code>unknown</code> and type guards.</p>
+<h3 id="typescript-standards-playbook-common-pitfalls-pitfall-2-not-using-branded-types-for-ids" class="docmd-heading"><a href="#typescript-standards-playbook-common-pitfalls-pitfall-2-not-using-branded-types-for-ids" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 2: Not Using Branded Types for IDs</h3>
+<p><strong>Problem:</strong> Different ID types can be confused.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">TaskId</span> = <span class="hljs-built_in">string</span>;
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">UserId</span> = <span class="hljs-built_in">string</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getTask</span>(<span class="hljs-params"><span class="hljs-attr">id</span>: <span class="hljs-title class_">TaskId</span></span>) { <span class="hljs-comment">/* ... */</span> }
+<span class="hljs-keyword">const</span> userId = <span class="hljs-string">&quot;user_123&quot;</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">UserId</span>;
+<span class="hljs-title function_">getTask</span>(userId); <span class="hljs-comment">// No error!</span>
+
+<span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">TaskId</span> = <span class="hljs-title class_">Brand</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-string">&quot;TaskId&quot;</span>&gt;;
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">UserId</span> = <span class="hljs-title class_">Brand</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-string">&quot;UserId&quot;</span>&gt;;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getTask</span>(<span class="hljs-params"><span class="hljs-attr">id</span>: <span class="hljs-title class_">TaskId</span></span>) { <span class="hljs-comment">/* ... */</span> }
+<span class="hljs-keyword">const</span> userId = <span class="hljs-string">&quot;user_123&quot;</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">UserId</span>;
+<span class="hljs-title function_">getTask</span>(userId); <span class="hljs-comment">// Compile error!</span>
+</code></pre>
+<p><strong>Solution:</strong> Use branded types for IDs.</p>
+<h3 id="typescript-standards-playbook-common-pitfalls-pitfall-3-missing-exhaustive-switch-cases" class="docmd-heading"><a href="#typescript-standards-playbook-common-pitfalls-pitfall-3-missing-exhaustive-switch-cases" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 3: Missing Exhaustive Switch Cases</h3>
+<p><strong>Problem:</strong> New cases added to unions are not handled.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">handleStatus</span>(<span class="hljs-params"><span class="hljs-attr">status</span>: <span class="hljs-title class_">Status</span></span>) {
+  <span class="hljs-keyword">if</span> (status === <span class="hljs-string">&quot;open&quot;</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Starting...&quot;</span>;
+  <span class="hljs-keyword">if</span> (status === <span class="hljs-string">&quot;in_progress&quot;</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Working...&quot;</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Done.&quot;</span>; <span class="hljs-comment">// Missing &quot;closed&quot; case</span>
+}
+
+<span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">handleStatus</span>(<span class="hljs-params"><span class="hljs-attr">status</span>: <span class="hljs-title class_">Status</span></span>) {
+  <span class="hljs-keyword">switch</span> (status) {
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;open&quot;</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Starting...&quot;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;in_progress&quot;</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Working...&quot;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;closed&quot;</span>: <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Done.&quot;</span>;
+    <span class="hljs-attr">default</span>: {
+      <span class="hljs-keyword">const</span> <span class="hljs-attr">_exhaustiveCheck</span>: <span class="hljs-built_in">never</span> = status;
+      <span class="hljs-keyword">return</span> _exhaustiveCheck;
+    }
+  }
+}
+</code></pre>
+<p><strong>Solution:</strong> Use exhaustive switches with <code>never</code> type.</p>
+<h3 id="typescript-standards-playbook-common-pitfalls-pitfall-4-not-deriving-types-from-zod-schemas" class="docmd-heading"><a href="#typescript-standards-playbook-common-pitfalls-pitfall-4-not-deriving-types-from-zod-schemas" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 4: Not Deriving Types from Zod Schemas</h3>
+<p><strong>Problem:</strong> Types and schemas can get out of sync.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">User</span> = {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+  <span class="hljs-attr">email</span>: <span class="hljs-built_in">string</span>;
+};
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">UserSchema</span> = z.<span class="hljs-title function_">object</span>({
+  <span class="hljs-attr">id</span>: z.<span class="hljs-title function_">string</span>(),
+  <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>(),
+  <span class="hljs-comment">// Missing email!</span>
+});
+
+<span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">UserSchema</span> = z.<span class="hljs-title function_">object</span>({
+  <span class="hljs-attr">id</span>: z.<span class="hljs-title function_">string</span>(),
+  <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>(),
+  <span class="hljs-attr">email</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">email</span>(),
+});
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">User</span> = z.<span class="hljs-property">infer</span>&lt;<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">UserSchema</span>&gt;;
+</code></pre>
+<p><strong>Solution:</strong> Always derive types from Zod schemas.</p>
+<h2 id="typescript-standards-playbook-references" class="docmd-heading"><a href="#typescript-standards-playbook-references" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>References</h2>
+<ul>
+<li><a href="https://www.typescriptlang.org/docs/">TypeScript Handbook</a> – Official TypeScript documentation</li>
+<li><a href="https://zod.dev/">Zod Documentation</a> – Schema validation library</li>
+<li><a href="https://github.com/scopsy/await-to-js">await-to-js Documentation</a> – Error handling library</li>
+<li><a href="https://bun.sh/docs">Bun Documentation</a> – Bun runtime documentation</li>
+<li><a href="../loading-process-playbook">Loading Process Playbook</a> – Two-step loading process pattern</li>
+<li><a href="../mastra-agent-playbook">Mastra Agent Playbook</a> – Mastra-specific patterns</li>
+<li><a href="../agentic-sdlc">Agentic SDLC Playbook</a> – Agent-assisted development practices</li>
+</ul>
+<hr>
+<p><strong>Version:</strong> 1.0<br>
+<strong>Last Updated:</strong> 2026-03-21<br>
+<strong>Maintained by:</strong> PolyVis Development Team</p>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-table-of-contents" class="toc-link">Table of Contents</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-purpose" class="toc-link">Purpose</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-loose-autocomplete" class="toc-link">Loose Autocomplete</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-branded-types-nominal-typing" class="toc-link">Branded Types (Nominal Typing)</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-exhaustive-switches" class="toc-link">Exhaustive Switches</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-result-pattern-error-handling" class="toc-link">Result Pattern (Error Handling)</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-zod-type-inference" class="toc-link">Zod Type Inference</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-bun-first-patterns" class="toc-link">Bun-First Patterns</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#typescript-standards-playbook-bun-first-patterns-explicit-main-check" class="toc-link">Explicit Main Check</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#typescript-standards-playbook-bun-first-patterns-path-resolution" class="toc-link">Path Resolution</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-ai-friendly-typing" class="toc-link">AI-Friendly Typing</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-best-practices" class="toc-link">Best Practices</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#typescript-standards-playbook-best-practices-1-always-use-zod-for-data-structures" class="toc-link">1. Always Use Zod for Data Structures</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#typescript-standards-playbook-best-practices-2-use-branded-types-for-ids" class="toc-link">2. Use Branded Types for IDs</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#typescript-standards-playbook-best-practices-3-use-exhaustive-switches" class="toc-link">3. Use Exhaustive Switches</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#typescript-standards-playbook-best-practices-4-use-result-pattern-for-error-handling" class="toc-link">4. Use Result Pattern for Error Handling</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#typescript-standards-playbook-best-practices-5-use-explicit-return-types" class="toc-link">5. Use Explicit Return Types</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-common-pitfalls" class="toc-link">Common Pitfalls</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#typescript-standards-playbook-common-pitfalls-pitfall-1-using-any-instead-of-unknown" class="toc-link">Pitfall 1: Using any Instead of unknown</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#typescript-standards-playbook-common-pitfalls-pitfall-2-not-using-branded-types-for-ids" class="toc-link">Pitfall 2: Not Using Branded Types for IDs</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#typescript-standards-playbook-common-pitfalls-pitfall-3-missing-exhaustive-switch-cases" class="toc-link">Pitfall 3: Missing Exhaustive Switch Cases</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#typescript-standards-playbook-common-pitfalls-pitfall-4-not-deriving-types-from-zod-schemas" class="toc-link">Pitfall 4: Not Deriving Types from Zod Schemas</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#typescript-standards-playbook-references" class="toc-link">References</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../../../assets/js/docmd-main.js?v=mn7fdkey"></script>
+            <script src="../../../assets/js/docmd-image-lightbox.js?v=mn7fdkey" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../../../assets/js/docmd-search.js?v=mn7fdkey" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

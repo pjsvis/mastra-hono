@@ -1,0 +1,2274 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "/";
+      </script>
+      <title>
+        CLI Design Playbook
+      </title>
+      
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7fiooe">
+        
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7fiooe"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7fiooe"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7fiooe" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="active-parent collapsible expanded nav-group"  aria-expanded="true" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-integrity-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-retrofit/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/agentic-sdlc/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/ai-friendly-code-patterns/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/biome-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="active" >
+      
+        <a href="../../playbooks/cli-design-playbook/" class="active "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/design-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/edinburgh-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/fabric-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/fabric-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/git-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/just-bash/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/loading-process-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/local-memory-agents/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/mastra-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/nushell-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/nushell-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/origami-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/repo-init-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/secure-tool-design/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/sidecar-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/sidecar-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-skill-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/td-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/tiered-type-safety-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/typescript-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/ui-color-decision-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/vercel-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../playbooks/visual-palette/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../briefs/brief-agentic-integrity-workflow/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-ai-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-ctx-telepresence/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-01/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-02/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-dev-cli-03/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-doc-manage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-mastra-autoresearch-skill/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-merge-queue/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-playbook-index/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-stoolap-eval/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-summary/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../debriefs/review-remeda-usage-and-plan-deprecation/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-33741f-biome-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-3bdb2f/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-4b567d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-64959e/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-770149/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-8c4038/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-bcf87d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-c4a3cb/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-fa8288/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../debriefs/td-fc7e38/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../docs/knowledge-sleeve/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/nushell-agent-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/architectural-insights/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/edinburgh-protocol-system-prompt/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/dev-setup-macos-zed/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/playbook-loading-process-tracker/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/td-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/td-workflow-diagram/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/safe-agi/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/test-mermaid/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../docs/tomatoes/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  CLI Design Playbook
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                  <nav aria-label="breadcrumb" class="docmd-breadcrumbs">
+                                    <ol>
+                                      
+                                        <li class="breadcrumb-item " >
+                                          
+                                            <span>Playbooks</span>
+                                          
+                                          
+                                            <span class="breadcrumb-separator">
+<svg class="lucide-icon icon-chevron-right " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+                                          
+                                        </li>
+                                      
+                                        <li class="breadcrumb-item active" aria-current=&#34;page&#34;>
+                                          
+                                            <span>CLI Design</span>
+                                          
+                                          
+                                        </li>
+                                      
+                                    </ol>
+                                  </nav>
+                                
+                                
+                                    <h1 id="cli-design-playbook">CLI Design Playbook</h1>
+<h2 id="cli-design-playbook-table-of-contents" class="docmd-heading"><a href="#cli-design-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
+<ul>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#technology-stack">Technology Stack</a></li>
+<li><a href="#when-to-use-citty-vs-native-%60utilparseargs%60">When to Use citty vs Native <code>util.parseArgs</code></a></li>
+<li><a href="#mandatory-directives">Mandatory Directives</a>
+<ul>
+<li><a href="#command-structure">Command Structure</a></li>
+<li><a href="#arg-definition-pattern">Arg Definition Pattern</a></li>
+<li><a href="#handler-structure">Handler Structure</a></li>
+<li><a href="#error-handling">Error Handling</a></li>
+<li><a href="#output-formatting">Output Formatting</a></li>
+<li><a href="#help-text-quality">Help Text Quality</a></li>
+</ul>
+</li>
+<li><a href="#integration-patterns">Integration Patterns</a>
+<ul>
+<li><a href="#pattern-1-subcommand-delegation">Pattern 1: Subcommand Delegation</a></li>
+<li><a href="#pattern-2-shared-arguments">Pattern 2: Shared Arguments</a></li>
+<li><a href="#pattern-3-external-tool-integration">Pattern 3: External Tool Integration</a></li>
+</ul>
+</li>
+<li><a href="#testing-cli-commands">Testing CLI Commands</a></li>
+<li><a href="#type-safety-requirements">Type Safety Requirements</a></li>
+<li><a href="#performance-considerations">Performance Considerations</a></li>
+<li><a href="#migration-from-%60utilparseargs%60">Migration from <code>util.parseArgs</code></a></li>
+<li><a href="#dependencies">Dependencies</a></li>
+<li><a href="#compliance-checklist">Compliance Checklist</a></li>
+<li><a href="#best-practices">Best Practices</a>
+<ul>
+<li><a href="#1-keep-commands-focused">1. Keep Commands Focused</a></li>
+<li><a href="#2-use-descriptive-names">2. Use Descriptive Names</a></li>
+<li><a href="#3-provide-clear-error-messages">3. Provide Clear Error Messages</a></li>
+<li><a href="#4-test-help-text">4. Test Help Text</a></li>
+<li><a href="#5-use-exit-codes-consistently">5. Use Exit Codes Consistently</a></li>
+</ul>
+</li>
+<li><a href="#common-pitfalls">Common Pitfalls</a>
+<ul>
+<li><a href="#pitfall-1-not-using-%60required-true%60">Pitfall 1: Not Using <code>required: true</code></a></li>
+<li><a href="#pitfall-2-missing-descriptions">Pitfall 2: Missing Descriptions</a></li>
+<li><a href="#pitfall-3-inconsistent-exit-codes">Pitfall 3: Inconsistent Exit Codes</a></li>
+<li><a href="#pitfall-4-not-cleaning-up-external-processes">Pitfall 4: Not Cleaning Up External Processes</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="cli-design-playbook-purpose" class="docmd-heading"><a href="#cli-design-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
+<p>This playbook defines the design patterns and standards for building CLI tools in the Mastra-Hono project, ensuring consistency, type safety, and maintainability. It provides guidelines for using the citty framework and ensures that all CLI tools follow a consistent structure and user experience.</p>
+<p><strong>Core Philosophy:</strong> Use declarative command structures with citty for complex CLIs, and native <code>util.parseArgs</code> for simple tools. Prioritize type safety, clear help text, and consistent error handling.</p>
+<h2 id="cli-design-playbook-technology-stack" class="docmd-heading"><a href="#cli-design-playbook-technology-stack" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Technology Stack</h2>
+<ul>
+<li><strong>Runtime</strong>: Bun (v1.3+)</li>
+<li><strong>CLI Framework</strong>: <a href="https://github.com/unjs/citty">citty</a> by UnJS</li>
+<li><strong>Parsing</strong>: Native <code>util.parseArgs</code> for basic cases, citty for complex CLIs</li>
+<li><strong>Language</strong>: TypeScript (strict mode)</li>
+</ul>
+<h2 id="cli-design-playbook-when-to-use-citty-vs-native-utilparseargs" class="docmd-heading"><a href="#cli-design-playbook-when-to-use-citty-vs-native-utilparseargs" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>When to Use citty vs Native <code>util.parseArgs</code></h2>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Recommended</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Single-command tool</td>
+<td><code>util.parseArgs</code></td>
+<td>Minimal overhead, built-in</td>
+</tr>
+<tr>
+<td>Multiple subcommands</td>
+<td><strong>citty</strong></td>
+<td>Declarative structure, auto-help</td>
+</tr>
+<tr>
+<td>Type-safe args</td>
+<td><strong>citty</strong></td>
+<td>Inferred types from definition</td>
+</tr>
+<tr>
+<td>POSIX-compliant</td>
+<td><strong>citty</strong></td>
+<td>Built-in validations</td>
+</tr>
+<tr>
+<td>Auto-generated help</td>
+<td><strong>citty</strong></td>
+<td>Zero-effort documentation</td>
+</tr>
+</tbody>
+</table>
+</div><h2 id="cli-design-playbook-mandatory-directives" class="docmd-heading"><a href="#cli-design-playbook-mandatory-directives" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Mandatory Directives</h2>
+<h3 id="cli-design-playbook-mandatory-directives-command-structure" class="docmd-heading"><a href="#cli-design-playbook-mandatory-directives-command-structure" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Command Structure</h3>
+<p>Define a clear hierarchy using nested <code>defineCommand</code> calls:</p>
+<pre class="hljs"><code><span class="hljs-comment">// src/cli/index.ts</span>
+<span class="hljs-keyword">import</span> { defineCommand, runMain } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;citty&#x27;</span>;
+
+<span class="hljs-keyword">const</span> main = <span class="hljs-title function_">defineCommand</span>({
+  <span class="hljs-attr">meta</span>: {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;mastra-cli&#x27;</span>,
+    <span class="hljs-attr">version</span>: <span class="hljs-string">&#x27;0.1.0&#x27;</span>,
+    <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Mastra Agent CLI - Interact with your AI agents&#x27;</span>,
+  },
+  <span class="hljs-attr">subCommands</span>: {
+    <span class="hljs-attr">agent</span>: agentCommand,  <span class="hljs-comment">// Subcommand definitions</span>
+  },
+});
+
+<span class="hljs-title function_">runMain</span>(main);
+</code></pre>
+<p><strong>Why this matters:</strong></p>
+<ul>
+<li>Clear command hierarchy</li>
+<li>Auto-generated help for all commands</li>
+<li>Type-safe argument handling</li>
+<li>Consistent structure across all CLI tools</li>
+</ul>
+<h3 id="cli-design-playbook-mandatory-directives-arg-definition-pattern" class="docmd-heading"><a href="#cli-design-playbook-mandatory-directives-arg-definition-pattern" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Arg Definition Pattern</h3>
+<p>Always use descriptive arg definitions with types and aliases:</p>
+<pre class="hljs"><code><span class="hljs-keyword">const</span> myCommand = <span class="hljs-title function_">defineCommand</span>({
+  <span class="hljs-attr">meta</span>: {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;run&#x27;</span>,
+    <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Execute a single prompt and exit&#x27;</span>,
+  },
+  <span class="hljs-attr">args</span>: {
+    <span class="hljs-attr">agent</span>: {
+      <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;positional&#x27;</span>,
+      <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;The agent ID to use&#x27;</span>,
+    },
+    <span class="hljs-attr">prompt</span>: {
+      <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+      <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;The prompt to send to the agent&#x27;</span>,
+      <span class="hljs-attr">alias</span>: <span class="hljs-string">&#x27;p&#x27;</span>,
+      <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+    },
+    <span class="hljs-attr">model</span>: {
+      <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+      <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Override the default model&#x27;</span>,
+      <span class="hljs-attr">alias</span>: <span class="hljs-string">&#x27;m&#x27;</span>,
+    },
+  },
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">{ args }</span>) {
+    <span class="hljs-comment">// Args are fully typed here</span>
+    <span class="hljs-keyword">const</span> { agent, prompt, model } = args;
+    <span class="hljs-comment">// ...</span>
+  },
+});
+</code></pre>
+<p><strong>Best practices:</strong></p>
+<ul>
+<li>Use descriptive names for arguments</li>
+<li>Provide clear descriptions</li>
+<li>Use aliases for common flags</li>
+<li>Mark required arguments explicitly</li>
+<li>Use appropriate types (positional, string, boolean)</li>
+</ul>
+<h3 id="cli-design-playbook-mandatory-directives-handler-structure" class="docmd-heading"><a href="#cli-design-playbook-mandatory-directives-handler-structure" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Handler Structure</h3>
+<p>Keep handlers clean and focused:</p>
+<pre class="hljs"><code><span class="hljs-keyword">async</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">{ args }</span>) {
+  <span class="hljs-comment">// 1. Extract and validate args</span>
+  <span class="hljs-keyword">const</span> agentId = args.<span class="hljs-property">agent</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">AgentId</span>;
+  
+  <span class="hljs-comment">// 2. Validate business logic</span>
+  <span class="hljs-keyword">if</span> (!<span class="hljs-title function_">isValidAgent</span>(agentId)) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">`❌ Error: Unknown agent ID &quot;<span class="hljs-subst">${agentId}</span>&quot;`</span>);
+    process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>);
+  }
+  
+  <span class="hljs-comment">// 3. Execute</span>
+  <span class="hljs-keyword">await</span> <span class="hljs-title function_">executeCommand</span>(agentId, args);
+}
+</code></pre>
+<p><strong>Why this structure:</strong></p>
+<ul>
+<li>Clear separation of concerns</li>
+<li>Early validation prevents wasted work</li>
+<li>Error handling is explicit</li>
+<li>Easy to test and maintain</li>
+</ul>
+<h3 id="cli-design-playbook-mandatory-directives-error-handling" class="docmd-heading"><a href="#cli-design-playbook-mandatory-directives-error-handling" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Error Handling</h3>
+<p>Use exit codes consistently:</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th>Exit Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Success</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>General error / validation failure</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td>Missing required argument</td>
+</tr>
+<tr>
+<td><code>127</code></td>
+<td>Command not found</td>
+</tr>
+</tbody>
+</table>
+</div><p><strong>Implementation:</strong></p>
+<pre class="hljs"><code><span class="hljs-keyword">if</span> (!<span class="hljs-title function_">isValidAgent</span>(agentId)) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">`❌ Error: Unknown agent ID &quot;<span class="hljs-subst">${agentId}</span>&quot;`</span>);
+  process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>);
+}
+</code></pre>
+<h3 id="cli-design-playbook-mandatory-directives-output-formatting" class="docmd-heading"><a href="#cli-design-playbook-mandatory-directives-output-formatting" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Output Formatting</h3>
+<p>Use emoji prefixes for consistent UX:</p>
+<pre class="hljs"><code><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`✅ Success: <span class="hljs-subst">${message}</span>`</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">`❌ Error: <span class="hljs-subst">${message}</span>`</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">warn</span>(<span class="hljs-string">`⚠️ Warning: <span class="hljs-subst">${message}</span>`</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">`ℹ️ Info: <span class="hljs-subst">${message}</span>`</span>);
+</code></pre>
+<p><strong>Why emoji prefixes:</strong></p>
+<ul>
+<li>Visual distinction at a glance</li>
+<li>Consistent user experience</li>
+<li>Easy to scan output</li>
+<li>Industry-standard convention</li>
+</ul>
+<h3 id="cli-design-playbook-mandatory-directives-help-text-quality" class="docmd-heading"><a href="#cli-design-playbook-mandatory-directives-help-text-quality" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Help Text Quality</h3>
+<p>Ensure every command has:</p>
+<pre class="hljs"><code><span class="hljs-attr">meta</span>: {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;command-name&#x27;</span>,
+  <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Clear, one-sentence description&#x27;</span>,
+}
+<span class="hljs-attr">args</span>: {
+  <span class="hljs-attr">myArg</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>,
+    <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;What this arg does and what values are accepted&#x27;</span>,
+  },
+}
+</code></pre>
+<p><strong>Guidelines:</strong></p>
+<ul>
+<li>Keep descriptions concise (one sentence)</li>
+<li>Explain what the argument does</li>
+<li>Mention valid values if applicable</li>
+<li>Use active voice</li>
+</ul>
+<h2 id="cli-design-playbook-integration-patterns" class="docmd-heading"><a href="#cli-design-playbook-integration-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Integration Patterns</h2>
+<h3 id="cli-design-playbook-integration-patterns-pattern-1-subcommand-delegation" class="docmd-heading"><a href="#cli-design-playbook-integration-patterns-pattern-1-subcommand-delegation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern 1: Subcommand Delegation</h3>
+<p>Delegate to subcommand modules for maintainability:</p>
+<pre class="hljs"><code><span class="hljs-comment">// src/cli/commands/agent.ts</span>
+<span class="hljs-keyword">import</span> { runCommand } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./run&#x27;</span>;
+<span class="hljs-keyword">import</span> { chatCommand } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./chat&#x27;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> agentCommand = <span class="hljs-title function_">defineCommand</span>({
+  <span class="hljs-attr">meta</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;agent&#x27;</span>, <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Agent commands&#x27;</span> },
+  <span class="hljs-attr">subCommands</span>: {
+    <span class="hljs-attr">run</span>: runCommand,
+    <span class="hljs-attr">chat</span>: chatCommand,
+  },
+});
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Modular command structure</li>
+<li>Easy to add new subcommands</li>
+<li>Clear separation of concerns</li>
+<li>Better code organization</li>
+</ul>
+<h3 id="cli-design-playbook-integration-patterns-pattern-2-shared-arguments" class="docmd-heading"><a href="#cli-design-playbook-integration-patterns-pattern-2-shared-arguments" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern 2: Shared Arguments</h3>
+<p>Export reusable arg definitions:</p>
+<pre class="hljs"><code><span class="hljs-comment">// src/cli/commands/agent.ts</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> modelArg = {
+  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span> <span class="hljs-keyword">as</span> <span class="hljs-keyword">const</span>,
+  <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Override the default model&#x27;</span>,
+  <span class="hljs-attr">alias</span>: <span class="hljs-string">&#x27;m&#x27;</span>,
+};
+
+<span class="hljs-comment">// In consumer:</span>
+<span class="hljs-attr">args</span>: {
+  <span class="hljs-attr">model</span>: modelArg,
+}
+</code></pre>
+<p><strong>Benefits:</strong></p>
+<ul>
+<li>Consistent argument definitions</li>
+<li>Single source of truth</li>
+<li>Easy to update across commands</li>
+<li>Type-safe reuse</li>
+</ul>
+<h3 id="cli-design-playbook-integration-patterns-pattern-3-external-tool-integration" class="docmd-heading"><a href="#cli-design-playbook-integration-patterns-pattern-3-external-tool-integration" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pattern 3: External Tool Integration</h3>
+<p>When spawning external tools (like <code>gum</code>):</p>
+<pre class="hljs"><code><span class="hljs-keyword">const</span> spinner = <span class="hljs-title function_">spawn</span>(
+  <span class="hljs-string">&#x27;gum&#x27;</span>,
+  [<span class="hljs-string">&#x27;spin&#x27;</span>, <span class="hljs-string">&#x27;--spinner&#x27;</span>, <span class="hljs-string">&#x27;dot&#x27;</span>, <span class="hljs-string">&#x27;--title&#x27;</span>, <span class="hljs-string">&#x27;Thinking...&#x27;</span>, <span class="hljs-string">&#x27;--&#x27;</span>, <span class="hljs-string">&#x27;sleep&#x27;</span>, <span class="hljs-string">&#x27;10000&#x27;</span>],
+  { <span class="hljs-attr">stdio</span>: <span class="hljs-string">&#x27;inherit&#x27;</span> }
+);
+
+<span class="hljs-comment">// Always clean up on error</span>
+<span class="hljs-keyword">try</span> {
+  result = <span class="hljs-keyword">await</span> agent.<span class="hljs-title function_">generate</span>(prompt);
+} <span class="hljs-keyword">finally</span> {
+  spinner.<span class="hljs-title function_">kill</span>();
+  process.<span class="hljs-property">stdout</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&#x27;\r\x1b[K&#x27;</span>); <span class="hljs-comment">// Clear spinner line</span>
+}
+</code></pre>
+<p><strong>Best practices:</strong></p>
+<ul>
+<li>Always clean up external processes</li>
+<li>Use try/finally for cleanup</li>
+<li>Handle process termination gracefully</li>
+<li>Clear spinner output on completion</li>
+</ul>
+<h2 id="cli-design-playbook-testing-cli-commands" class="docmd-heading"><a href="#cli-design-playbook-testing-cli-commands" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Testing CLI Commands</h2>
+<p>Test commands in isolation:</p>
+<pre class="hljs"><code><span class="hljs-comment"># Test help generation</span>
+bun run cli --<span class="hljs-built_in">help</span>
+
+<span class="hljs-comment"># Test subcommand help</span>
+bun run cli agent --<span class="hljs-built_in">help</span>
+bun run cli agent run --<span class="hljs-built_in">help</span>
+
+<span class="hljs-comment"># Test validation</span>
+bun run cli agent run  <span class="hljs-comment"># Should error: missing agent ID</span>
+</code></pre>
+<p><strong>What to test:</strong></p>
+<ul>
+<li>Help text generation</li>
+<li>Argument validation</li>
+<li>Error handling</li>
+<li>Subcommand routing</li>
+<li>Exit codes</li>
+</ul>
+<h2 id="cli-design-playbook-type-safety-requirements" class="docmd-heading"><a href="#cli-design-playbook-type-safety-requirements" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Type Safety Requirements</h2>
+<ol>
+<li>All args must be typed (citty handles this automatically)</li>
+<li>Validate positional args with type guards:<pre class="hljs"><code><span class="hljs-keyword">const</span> agentId = args.<span class="hljs-property">agent</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">AgentId</span>;
+<span class="hljs-keyword">if</span> (!agentIds.<span class="hljs-title function_">includes</span>(agentId)) { <span class="hljs-comment">/* ... */</span> }
+</code></pre>
+</li>
+<li>Use <code>const</code> assertions for shared arg definitions</li>
+</ol>
+<p><strong>Why type safety matters:</strong></p>
+<ul>
+<li>Catches errors at compile time</li>
+<li>Improves IDE autocomplete</li>
+<li>Reduces runtime errors</li>
+<li>Makes code more maintainable</li>
+</ul>
+<h2 id="cli-design-playbook-performance-considerations" class="docmd-heading"><a href="#cli-design-playbook-performance-considerations" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Performance Considerations</h2>
+<ul>
+<li>citty is ~5KB - minimal bundle impact</li>
+<li>Lazy loading: subcommands only load their imports</li>
+<li>Bun’s fast startup keeps CLI snappy</li>
+</ul>
+<p><strong>Optimization tips:</strong></p>
+<ul>
+<li>Use lazy imports for subcommands</li>
+<li>Avoid heavy initialization in command definitions</li>
+<li>Keep handlers lightweight</li>
+<li>Use async operations for long-running tasks</li>
+</ul>
+<h2 id="cli-design-playbook-migration-from-utilparseargs" class="docmd-heading"><a href="#cli-design-playbook-migration-from-utilparseargs" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Migration from <code>util.parseArgs</code></h2>
+<ol>
+<li>Identify subcommand boundaries</li>
+<li>Create <code>src/cli/commands/&lt;name&gt;.ts</code> for each subcommand</li>
+<li>Move arg definitions to <code>args</code> property</li>
+<li>Convert validation logic to the <code>run</code> function</li>
+<li>Wire up in parent via <code>subCommands</code></li>
+<li>Remove manual <code>parseArgs</code> calls and routing</li>
+</ol>
+<p><strong>Example migration:</strong></p>
+<p><strong>Before (util.parseArgs):</strong></p>
+<pre class="hljs"><code><span class="hljs-keyword">const</span> args = <span class="hljs-title function_">parseArgs</span>({
+  <span class="hljs-attr">args</span>: process.<span class="hljs-property">argv</span>.<span class="hljs-title function_">slice</span>(<span class="hljs-number">2</span>),
+  <span class="hljs-attr">options</span>: {
+    <span class="hljs-attr">agent</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span> },
+    <span class="hljs-attr">prompt</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span> },
+  },
+});
+
+<span class="hljs-keyword">if</span> (args.<span class="hljs-property">agent</span> === <span class="hljs-string">&#x27;run&#x27;</span>) {
+  <span class="hljs-comment">// Handle run command</span>
+}
+</code></pre>
+<p><strong>After (citty):</strong></p>
+<pre class="hljs"><code><span class="hljs-keyword">const</span> runCommand = <span class="hljs-title function_">defineCommand</span>({
+  <span class="hljs-attr">meta</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;run&#x27;</span>, <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Execute a prompt&#x27;</span> },
+  <span class="hljs-attr">args</span>: {
+    <span class="hljs-attr">agent</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;positional&#x27;</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">prompt</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+  },
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">{ args }</span>) {
+    <span class="hljs-comment">// Handle run command</span>
+  },
+});
+</code></pre>
+<h2 id="cli-design-playbook-dependencies" class="docmd-heading"><a href="#cli-design-playbook-dependencies" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Dependencies</h2>
+<pre class="hljs"><code><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;dependencies&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;citty&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;^0.2.0&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<h2 id="cli-design-playbook-compliance-checklist" class="docmd-heading"><a href="#cli-design-playbook-compliance-checklist" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Compliance Checklist</h2>
+<ul class="contains-task-list">
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Uses <code>defineCommand</code> for all commands</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Has descriptive <code>meta.name</code> and <code>meta.description</code></li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> All args have <code>description</code></li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Positional args use <code>type: 'positional'</code></li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Optional string args use <code>type: 'string'</code></li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Boolean flags use <code>type: 'boolean'</code></li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Aliases defined with <code>alias</code> property</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Required args marked with <code>required: true</code></li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Business validation in <code>run</code> function</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Proper exit codes used</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Error messages use emoji prefixes</li>
+</ul>
+<h2 id="cli-design-playbook-best-practices" class="docmd-heading"><a href="#cli-design-playbook-best-practices" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Best Practices</h2>
+<h3 id="cli-design-playbook-best-practices-1-keep-commands-focused" class="docmd-heading"><a href="#cli-design-playbook-best-practices-1-keep-commands-focused" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. Keep Commands Focused</h3>
+<p>Each command should do one thing well. If a command becomes too complex, consider splitting it into subcommands.</p>
+<p><strong>Good:</strong></p>
+<pre class="hljs"><code><span class="hljs-keyword">const</span> runCommand = <span class="hljs-title function_">defineCommand</span>({
+  <span class="hljs-attr">meta</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;run&#x27;</span>, <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Execute a single prompt&#x27;</span> },
+  <span class="hljs-comment">// ... focused implementation</span>
+});
+</code></pre>
+<p><strong>Bad:</strong></p>
+<pre class="hljs"><code><span class="hljs-keyword">const</span> agentCommand = <span class="hljs-title function_">defineCommand</span>({
+  <span class="hljs-attr">meta</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;agent&#x27;</span>, <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Do everything&#x27;</span> },
+  <span class="hljs-comment">// ... complex implementation with multiple modes</span>
+});
+</code></pre>
+<h3 id="cli-design-playbook-best-practices-2-use-descriptive-names" class="docmd-heading"><a href="#cli-design-playbook-best-practices-2-use-descriptive-names" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Use Descriptive Names</h3>
+<p>Use clear, descriptive names for commands and arguments.</p>
+<p><strong>Good:</strong></p>
+<pre class="hljs"><code><span class="hljs-attr">args</span>: {
+  <span class="hljs-string">&#x27;model&#x27;</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>, <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Override the default model&#x27;</span> },
+}
+</code></pre>
+<p><strong>Bad:</strong></p>
+<pre class="hljs"><code><span class="hljs-attr">args</span>: {
+  <span class="hljs-string">&#x27;m&#x27;</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>, <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Model&#x27;</span> },
+}
+</code></pre>
+<h3 id="cli-design-playbook-best-practices-3-provide-clear-error-messages" class="docmd-heading"><a href="#cli-design-playbook-best-practices-3-provide-clear-error-messages" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. Provide Clear Error Messages</h3>
+<p>Error messages should be actionable and helpful.</p>
+<p><strong>Good:</strong></p>
+<pre class="hljs"><code><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">`❌ Error: Unknown agent ID &quot;<span class="hljs-subst">${agentId}</span>&quot;. Available agents: <span class="hljs-subst">${agentIds.join(<span class="hljs-string">&#x27;, &#x27;</span>)}</span>`</span>);
+</code></pre>
+<p><strong>Bad:</strong></p>
+<pre class="hljs"><code><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Error&#x27;</span>);
+</code></pre>
+<h3 id="cli-design-playbook-best-practices-4-test-help-text" class="docmd-heading"><a href="#cli-design-playbook-best-practices-4-test-help-text" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>4. Test Help Text</h3>
+<p>Always test the generated help text to ensure it’s clear and helpful.</p>
+<pre class="hljs"><code>bun run cli --<span class="hljs-built_in">help</span>
+bun run cli agent --<span class="hljs-built_in">help</span>
+bun run cli agent run --<span class="hljs-built_in">help</span>
+</code></pre>
+<h3 id="cli-design-playbook-best-practices-5-use-exit-codes-consistently" class="docmd-heading"><a href="#cli-design-playbook-best-practices-5-use-exit-codes-consistently" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>5. Use Exit Codes Consistently</h3>
+<p>Follow the exit code conventions to ensure proper integration with other tools.</p>
+<pre class="hljs"><code>process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">0</span>);  <span class="hljs-comment">// Success</span>
+process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>);  <span class="hljs-comment">// Error</span>
+process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">2</span>);  <span class="hljs-comment">// Missing argument</span>
+</code></pre>
+<h2 id="cli-design-playbook-common-pitfalls" class="docmd-heading"><a href="#cli-design-playbook-common-pitfalls" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Common Pitfalls</h2>
+<h3 id="cli-design-playbook-common-pitfalls-pitfall-1-not-using-required-true" class="docmd-heading"><a href="#cli-design-playbook-common-pitfalls-pitfall-1-not-using-required-true" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 1: Not Using <code>required: true</code></h3>
+<p><strong>Problem:</strong> Optional arguments that should be required.</p>
+<p><strong>Solution:</strong> Mark required arguments explicitly.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Bad</span>
+<span class="hljs-attr">args</span>: {
+  <span class="hljs-attr">agent</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;positional&#x27;</span> },
+}
+
+<span class="hljs-comment">// Good</span>
+<span class="hljs-attr">args</span>: {
+  <span class="hljs-attr">agent</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;positional&#x27;</span>, <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span> },
+}
+</code></pre>
+<h3 id="cli-design-playbook-common-pitfalls-pitfall-2-missing-descriptions" class="docmd-heading"><a href="#cli-design-playbook-common-pitfalls-pitfall-2-missing-descriptions" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 2: Missing Descriptions</h3>
+<p><strong>Problem:</strong> Arguments without descriptions make help text unclear.</p>
+<p><strong>Solution:</strong> Always provide descriptions.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Bad</span>
+<span class="hljs-attr">args</span>: {
+  <span class="hljs-attr">model</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span> },
+}
+
+<span class="hljs-comment">// Good</span>
+<span class="hljs-attr">args</span>: {
+  <span class="hljs-attr">model</span>: { <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;string&#x27;</span>, <span class="hljs-attr">description</span>: <span class="hljs-string">&#x27;Override the default model&#x27;</span> },
+}
+</code></pre>
+<h3 id="cli-design-playbook-common-pitfalls-pitfall-3-inconsistent-exit-codes" class="docmd-heading"><a href="#cli-design-playbook-common-pitfalls-pitfall-3-inconsistent-exit-codes" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 3: Inconsistent Exit Codes</h3>
+<p><strong>Problem:</strong> Using random exit codes.</p>
+<p><strong>Solution:</strong> Follow the standard exit code conventions.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Bad</span>
+process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">42</span>);
+
+<span class="hljs-comment">// Good</span>
+process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>);  <span class="hljs-comment">// General error</span>
+</code></pre>
+<h3 id="cli-design-playbook-common-pitfalls-pitfall-4-not-cleaning-up-external-processes" class="docmd-heading"><a href="#cli-design-playbook-common-pitfalls-pitfall-4-not-cleaning-up-external-processes" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 4: Not Cleaning Up External Processes</h3>
+<p><strong>Problem:</strong> External processes left running after command completion.</p>
+<p><strong>Solution:</strong> Always clean up in finally blocks.</p>
+<pre class="hljs"><code><span class="hljs-comment">// Bad</span>
+<span class="hljs-keyword">const</span> spinner = <span class="hljs-title function_">spawn</span>(<span class="hljs-string">&#x27;gum&#x27;</span>, [<span class="hljs-string">&#x27;spin&#x27;</span>]);
+<span class="hljs-keyword">await</span> <span class="hljs-title function_">doWork</span>();
+spinner.<span class="hljs-title function_">kill</span>();
+
+<span class="hljs-comment">// Good</span>
+<span class="hljs-keyword">const</span> spinner = <span class="hljs-title function_">spawn</span>(<span class="hljs-string">&#x27;gum&#x27;</span>, [<span class="hljs-string">&#x27;spin&#x27;</span>]);
+<span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">await</span> <span class="hljs-title function_">doWork</span>();
+} <span class="hljs-keyword">finally</span> {
+  spinner.<span class="hljs-title function_">kill</span>();
+}
+</code></pre>
+<h2 id="cli-design-playbook-references" class="docmd-heading"><a href="#cli-design-playbook-references" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>References</h2>
+<ul>
+<li><a href="https://github.com/unjs/citty">citty Documentation</a> – CLI framework by UnJS</li>
+<li><a href="https://nodejs.org/api/util.html#utilparseargsconfig">Node.js util.parseArgs</a> – Native argument parsing</li>
+<li><a href="https://bun.sh/docs">Bun Documentation</a> – Bun runtime documentation</li>
+<li><a href="../loading-process-playbook">Loading Process Playbook</a> – Two-step loading process pattern</li>
+<li><a href="../mastra-agent-playbook">Mastra Agent Playbook</a> – Mastra-specific patterns</li>
+<li><a href="../agentic-sdlc">Agentic SDLC Playbook</a> – Agent-assisted development practices</li>
+</ul>
+<hr>
+<p><strong>Version:</strong> 1.0<br>
+<strong>Last Updated:</strong> 2026-03-21<br>
+<strong>Maintained by:</strong> PolyVis Development Team</p>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-table-of-contents" class="toc-link">Table of Contents</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-purpose" class="toc-link">Purpose</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-technology-stack" class="toc-link">Technology Stack</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-when-to-use-citty-vs-native-utilparseargs" class="toc-link">When to Use citty vs Native util.parseArgs</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-mandatory-directives" class="toc-link">Mandatory Directives</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-mandatory-directives-command-structure" class="toc-link">Command Structure</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-mandatory-directives-arg-definition-pattern" class="toc-link">Arg Definition Pattern</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-mandatory-directives-handler-structure" class="toc-link">Handler Structure</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-mandatory-directives-error-handling" class="toc-link">Error Handling</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-mandatory-directives-output-formatting" class="toc-link">Output Formatting</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-mandatory-directives-help-text-quality" class="toc-link">Help Text Quality</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-integration-patterns" class="toc-link">Integration Patterns</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-integration-patterns-pattern-1-subcommand-delegation" class="toc-link">Pattern 1: Subcommand Delegation</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-integration-patterns-pattern-2-shared-arguments" class="toc-link">Pattern 2: Shared Arguments</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-integration-patterns-pattern-3-external-tool-integration" class="toc-link">Pattern 3: External Tool Integration</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-testing-cli-commands" class="toc-link">Testing CLI Commands</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-type-safety-requirements" class="toc-link">Type Safety Requirements</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-performance-considerations" class="toc-link">Performance Considerations</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-migration-from-utilparseargs" class="toc-link">Migration from util.parseArgs</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-dependencies" class="toc-link">Dependencies</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-compliance-checklist" class="toc-link">Compliance Checklist</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-best-practices" class="toc-link">Best Practices</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-best-practices-1-keep-commands-focused" class="toc-link">1. Keep Commands Focused</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-best-practices-2-use-descriptive-names" class="toc-link">2. Use Descriptive Names</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-best-practices-3-provide-clear-error-messages" class="toc-link">3. Provide Clear Error Messages</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-best-practices-4-test-help-text" class="toc-link">4. Test Help Text</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-best-practices-5-use-exit-codes-consistently" class="toc-link">5. Use Exit Codes Consistently</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-common-pitfalls" class="toc-link">Common Pitfalls</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-common-pitfalls-pitfall-1-not-using-required-true" class="toc-link">Pitfall 1: Not Using required: true</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-common-pitfalls-pitfall-2-missing-descriptions" class="toc-link">Pitfall 2: Missing Descriptions</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-common-pitfalls-pitfall-3-inconsistent-exit-codes" class="toc-link">Pitfall 3: Inconsistent Exit Codes</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#cli-design-playbook-common-pitfalls-pitfall-4-not-cleaning-up-external-processes" class="toc-link">Pitfall 4: Not Cleaning Up External Processes</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#cli-design-playbook-references" class="toc-link">References</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../../assets/js/docmd-main.js?v=mn7fiooe"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7fiooe" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7fiooe" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>

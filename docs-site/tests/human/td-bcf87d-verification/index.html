@@ -1,0 +1,1895 @@
+<!--
+  ---------------------------------------------------------------
+  docmd : the minimalist, zero-config documentation generator.
+  @website https://docmd.io
+  [docmd-source] - Please do not remove this header.
+  ---------------------------------------------------------------
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="docmd v0.5.x">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+    <style>
+      html {
+        visibility: hidden;
+      }
+    </style>
+    
+      <script>
+        var root = "../../../";
+        if (root && !root.endsWith('/')) root += '/';
+        if (root === '') root = './';
+        window.DOCMD_ROOT = root;
+
+        var siteRoot = "../../../";
+        if (siteRoot && !siteRoot.endsWith('/')) siteRoot += '/';
+        if (siteRoot === '') siteRoot = './';
+        window.DOCMD_SITE_ROOT = siteRoot;
+
+        window.DOCMD_APPEARANCE = "system";
+        window.DOCMD_VERSION_ROOT = "/";
+      </script>
+      <title>
+        Test Plan: TD Workflow E2E Validation
+      </title>
+      
+        <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7fiooe">
+        
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-light.css?v=mn7fiooe"
+            id="hljs-light" >
+
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-dark.css?v=mn7fiooe"
+            id="hljs-dark" disabled>
+          
+            
+<link rel="stylesheet" href="../../../assets/css/docmd-theme-sky.css?v=mn7fiooe" >
+              
+                  <script>/**
+ * --------------------------------------------------------------------
+ * docmd : the minimalist, zero-config documentation generator.
+ *
+ * @package     @docmd/core (and ecosystem)
+ * @website     https://docmd.io
+ * @repository  https://github.com/docmd-io/docmd
+ * @license     MIT
+ * @copyright   Copyright (c) 2025-present docmd.io
+ *
+ * [docmd-source] - Please do not remove this header.
+ * --------------------------------------------------------------------
+ */
+
+(function () {
+  try {
+    // 1. Determine Theme
+    var localValue = localStorage.getItem('docmd-theme');
+    var configValue = window.DOCMD_DEFAULT_MODE || 'light';
+    var theme = localValue ? localValue : configValue;
+
+    if (theme === 'system') {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // 2. Apply to Root
+    document.documentElement.setAttribute('data-theme', theme);
+
+    // 3. Highlight.js Toggle Strategy
+    var lightLink = document.getElementById('hljs-light');
+    var darkLink = document.getElementById('hljs-dark');
+
+    if (lightLink && darkLink) {
+      if (theme === 'dark') {
+        lightLink.disabled = true;
+        darkLink.disabled = false;
+      } else {
+        lightLink.disabled = false;
+        darkLink.disabled = true;
+      }
+    }
+
+    document.documentElement.style.visibility = "visible";
+  } catch (e) {
+    document.documentElement.style.visibility = "visible";
+    console.error('Theme init failed', e);
+  }
+})();</script>
+</head>
+
+<body
+  class="sidebar-collapsible"
+  data-default-collapsed="false"
+  data-copy-code-enabled="false" data-spa-enabled="true">
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  
+
+        
+          <aside class="sidebar">
+            <div class="sidebar-header">
+              
+                  <h1><a href="../../../index.html">
+                      PolyVis Knowledge Sleeve
+                    </a></h1>
+                  
+                    <span class="mobile-view sidebar-menu-button float-right">
+                      
+<svg class="lucide-icon icon-menu " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-menu"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M4 5h16" />
+  <path d="M4 12h16" />
+  <path d="M4 19h16" />
+</svg>
+
+                    </span>
+            </div>
+
+            <div class="sidebar-top-group">
+              
+                  
+            </div>
+
+            
+
+<nav class="sidebar-nav" aria-label="Main Navigation">
+  <ul>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Playbooks
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-integrity-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-retrofit/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Retrofit
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/agentic-sdlc/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic SDLC
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ai-friendly-code-patterns/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI-Friendly Code Patterns
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/biome-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Biome Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/cli-design-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CLI Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/design-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Design Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/edinburgh-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/fabric-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Fabric User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/git-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Git Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/just-bash/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Just Bash
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/loading-process-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/local-memory-agents/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Local Memory Agents
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/mastra-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/nushell-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/origami-protocol/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Origami Protocol
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/repo-init-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Repo Init
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/secure-tool-design/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Secure Tool Design
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/sidecar-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Sidecar User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-agent-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Agent
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-skill-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/td-user-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD User
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/tiered-type-safety-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tiered Type Safety
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/typescript-standards/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TypeScript Standards
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/ui-color-decision-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            UI Color Decision
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/vercel-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Vercel
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../playbooks/visual-palette/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Visual Palette
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Active Briefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../briefs/brief-agentic-integrity-workflow/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Agentic Integrity Workflow
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ai-workflow-playbook/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            AI Workflow Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-ctx-telepresence/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            CTX Telepresence
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-01/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 01
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-02/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 02
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-dev-cli-03/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev CLI 03
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-doc-manage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Doc Manage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-mastra-autoresearch-skill/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Mastra Autoresearch Skill
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-merge-queue/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Merge Queue
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-playbook-index/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Index
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-stoolap-eval/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            STOOLAP Eval
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../briefs/brief-summary/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Summary
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            Debriefs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../debriefs/review-remeda-usage-and-plan-deprecation/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Remeda Usage Review
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-33741f-biome-heuristics/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 33741f - Biome Heuristics
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-3bdb2f/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 3bdb2f
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-4b567d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 4b567d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-64959e/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 64959e
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-770149/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 770149
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-8c4038/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD 8c4038
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-bcf87d/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD bcf87d
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-c4a3cb/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD c4a3cb
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fa8288/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fa8288
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../debriefs/td-fc7e38/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD fc7e38
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+      <li class="collapsible nav-group"  aria-expanded="false" >
+      
+        <span class="nav-label nav-group">
+          
+          <span class="nav-item-title">
+            System Docs
+          </span>
+          
+            <span class="collapse-icon-wrapper">
+<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevron-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m9 18 6-6-6-6" />
+</svg>
+</span>
+          
+        </span>
+        
+
+        
+          <ul class="submenu">
+            
+      <li class="" >
+      
+        <a href="../../../docs/knowledge-sleeve/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Knowledge Sleeve
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/nushell-agent-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Nushell Agent Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/architectural-insights/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Architectural Insights
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/edinburgh-protocol-system-prompt/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Edinburgh Protocol System Prompt
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/dev-setup-macos-zed/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Dev Setup macOS + Zed
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/playbook-loading-process-tracker/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Playbook Loading Process
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-usage/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Usage
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/td-workflow-diagram/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            TD Workflow Diagram
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/safe-agi/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Safe AGI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/test-mermaid/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Test Mermaid
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../../docs/tomatoes/" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Tomatoes
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+          </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+              <div class="sidebar-bottom-group mt-auto">
+                
+                    
+              </div>
+          </aside>
+          
+            <div class="main-content-wrapper">
+              
+                    
+                      <header class="page-header">
+                        <div class="header-left">
+                          
+                            <button id="sidebar-toggle-button" class="sidebar-toggle-button"
+                              aria-label="Toggle Sidebar">
+                              
+<svg class="lucide-icon icon-panel-left-close " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-panel-left-close"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <rect width="18" height="18" x="3" y="3" rx="2" />
+  <path d="M9 3v18" />
+  <path d="m16 15-3-3 3-3" />
+</svg>
+
+                            </button>
+                            
+                              <div class="header-titles-wrapper">
+                                <span class="header-title">
+                                  Test Plan: TD Workflow E2E Validation
+                                </span>
+                              </div>
+                        </div>
+
+                        <div class="header-right">
+                          
+                            
+
+
+<div class="docmd-options-menu">
+    
+    <button class="docmd-search-trigger" aria-label="Search">
+        
+<svg class="lucide-icon icon-search " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-search"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" />
+</svg>
+
+        <span class="search-label">Search</span>
+        <span class="search-keys"><kbd class="docmd-kbd">⌘</kbd><kbd class="docmd-kbd">K</kbd></span>
+    </button>
+    
+
+    
+    <button class="theme-toggle-button" aria-label="Toggle theme">
+        
+<svg class="lucide-icon icon-sun icon-sun" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+ 
+<svg class="lucide-icon icon-moon icon-moon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+</svg>
+
+    </button>
+    
+
+    
+</div>
+
+                              
+                        </div>
+                      </header>
+                      
+                        <div class="content-theme-cover">
+                          <main class="content-area" id="main-content">
+                            <div class="content-layout">
+                              <div class="main-content">
+                                
+                                
+                                    <h1 id="test-plan-td-workflow-e2e-validation">Test Plan: TD Workflow E2E Validation</h1>
+<p><strong>Task ID:</strong> td-bcf87d<br>
+<strong>Brief:</strong> briefs/e2e-test-brief-1772459719.md<br>
+<strong>Status:</strong> Ready for Verification</p>
+<h2 id="test-plan-td-workflow-e2e-validation-overview" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-overview" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Overview</h2>
+<p>This test plan validates the complete TD workflow from brief creation through task completion, following the manual workflow (forge script has been removed).</p>
+<h2 id="test-plan-td-workflow-e2e-validation-changes-made" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-changes-made" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Changes Made</h2>
+<h3 id="test-plan-td-workflow-e2e-validation-changes-made-1-removed-forge-script" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-changes-made-1-removed-forge-script" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. Removed Forge Script</h3>
+<ul>
+<li>✅ Removed <code>scripts/forge.sh</code> (already deleted)</li>
+<li>✅ Removed <code>&quot;forge&quot;: &quot;bash scripts/forge.sh&quot;</code> from package.json</li>
+<li>✅ Updated <a href="http://AGENTS.md">AGENTS.md</a> to remove “The Forge Lifecycle” section</li>
+<li>✅ Replaced with “The Manual Task Lifecycle” section</li>
+</ul>
+<h3 id="test-plan-td-workflow-e2e-validation-changes-made-2-simplified-e2e-test" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-changes-made-2-simplified-e2e-test" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Simplified E2E Test</h3>
+<ul>
+<li>✅ Reduced <code>scripts/test-workflow-e2e.sh</code> from 583 to ~300 lines</li>
+<li>✅ Removed non-essential sections:
+<ul>
+<li>Stale Task Cleanup (Dry Run)</li>
+<li>Feature Branch Cleanup</li>
+<li>Final Recommendations (redundant)</li>
+</ul>
+</li>
+<li>✅ Added automatic cleanup via trap on exit</li>
+<li>✅ Added GitHub CLI authentication check</li>
+<li>✅ Streamlined success/failure counting</li>
+</ul>
+<h3 id="test-plan-td-workflow-e2e-validation-changes-made-3-updated-documentation" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-changes-made-3-updated-documentation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. Updated Documentation</h3>
+<ul>
+<li>✅ Updated <a href="http://AGENTS.md">AGENTS.md</a> to reflect manual workflow</li>
+<li>✅ Updated briefs to remove forge references</li>
+<li>✅ Updated success criteria to match manual workflow</li>
+</ul>
+<h2 id="test-plan-td-workflow-e2e-validation-test-sections" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-sections" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Test Sections</h2>
+<h3 id="test-plan-td-workflow-e2e-validation-test-sections-section-1-brief-creation" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-sections-section-1-brief-creation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Section 1: Brief Creation</h3>
+<p><strong>Objective:</strong> Verify that test briefs can be created successfully</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Run: <code>bash scripts/test-workflow-e2e.sh</code></li>
+<li>Observe: Brief creation succeeds</li>
+<li>Verify: Brief file is created in <code>briefs/</code> directory</li>
+</ol>
+<p><strong>Expected Result:</strong></p>
+<pre class="hljs"><code>✅ Brief created: /path/to/briefs/e2e-test-brief-&lt;timestamp&gt;.md
+</code></pre>
+<h3 id="test-plan-td-workflow-e2e-validation-test-sections-section-2-task-creation-manual" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-sections-section-2-task-creation-manual" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Section 2: Task Creation (Manual)</h3>
+<p><strong>Objective:</strong> Verify that tasks can be manually created with brief and playbook references</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Observe: Task creation output</li>
+<li>Verify: Task ID is extracted successfully</li>
+<li>Verify: Brief and playbook are linked</li>
+</ol>
+<p><strong>Expected Result:</strong></p>
+<pre class="hljs"><code>✅ Task created: td-&lt;id&gt;
+✅ Brief linked: &lt;path-to-brief&gt;
+</code></pre>
+<h3 id="test-plan-td-workflow-e2e-validation-test-sections-section-3-task-start" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-sections-section-3-task-start" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Section 3: Task Start</h3>
+<p><strong>Objective:</strong> Verify that tasks can be started and set to in_progress status</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Observe: Task start output</li>
+<li>Verify: Task is focused with <code>td current</code></li>
+<li>Verify: Task status is in_progress</li>
+</ol>
+<p><strong>Expected Result:</strong></p>
+<pre class="hljs"><code>✅ Task started
+✅ Task is focused
+✅ Task status is in_progress
+</code></pre>
+<h3 id="test-plan-td-workflow-e2e-validation-test-sections-section-4-development-workflow" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-sections-section-4-development-workflow" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Section 4: Development Workflow</h3>
+<p><strong>Objective:</strong> Verify that test changes can be committed</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Observe: Commit creation</li>
+<li>Verify: Commit hash is displayed</li>
+</ol>
+<p><strong>Expected Result:</strong></p>
+<pre class="hljs"><code>✅ Committed: &lt;hash&gt;
+</code></pre>
+<h3 id="test-plan-td-workflow-e2e-validation-test-sections-section-5-pr-creation" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-sections-section-5-pr-creation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Section 5: PR Creation</h3>
+<p><strong>Objective:</strong> Verify that PR can be created and task status updates automatically</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Observe: PR creation output</li>
+<li>Verify: Task status transitions to in_review</li>
+</ol>
+<p><strong>Expected Result:</strong></p>
+<pre class="hljs"><code>✅ PR created
+✅ Task status correctly transitioned to: in_review
+</code></pre>
+<h3 id="test-plan-td-workflow-e2e-validation-test-sections-section-6-status-transition" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-sections-section-6-status-transition" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Section 6: Status Transition</h3>
+<p><strong>Objective:</strong> Verify automatic status transition to in_review</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Check: Task status after PR creation</li>
+<li>Verify: Status is in_review</li>
+</ol>
+<p><strong>Expected Result:</strong></p>
+<pre class="hljs"><code>✅ Task status correctly transitioned to: in_review
+</code></pre>
+<h3 id="test-plan-td-workflow-e2e-validation-test-sections-section-7-task-handoff" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-sections-section-7-task-handoff" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Section 7: Task Handoff</h3>
+<p><strong>Objective:</strong> Verify that tasks can be handed off with proper flags</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Observe: Handoff output</li>
+<li>Verify: Done, remaining, and decision flags are present</li>
+</ol>
+<p><strong>Expected Result:</strong></p>
+<pre class="hljs"><code>✅ Task handed off
+</code></pre>
+<h2 id="test-plan-td-workflow-e2e-validation-manual-verification-checklist" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-manual-verification-checklist" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Manual Verification Checklist</h2>
+<h3 id="test-plan-td-workflow-e2e-validation-manual-verification-checklist-core-workflow" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-manual-verification-checklist-core-workflow" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Core Workflow</h3>
+<ul class="contains-task-list">
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Brief can be created successfully</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Task can be manually created with brief/playbook references</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Task can be started and set to in_progress</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Task is focused after starting</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Test commit can be created</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> PR can be created with <code>bun run create-pr</code></li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Task status automatically updates to in_review</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Task can be handed off with done/remaining/decision</li>
+</ul>
+<h3 id="test-plan-td-workflow-e2e-validation-manual-verification-checklist-cleanup-idempotency" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-manual-verification-checklist-cleanup-idempotency" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Cleanup &amp; Idempotency</h3>
+<ul class="contains-task-list">
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Test brief is removed after test completion</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Test commit is undone after test completion</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Test can be run multiple times without errors</li>
+</ul>
+<h3 id="test-plan-td-workflow-e2e-validation-manual-verification-checklist-documentation" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-manual-verification-checklist-documentation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Documentation</h3>
+<ul class="contains-task-list">
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> <a href="http://AGENTS.md">AGENTS.md</a> no longer references forge</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> package.json no longer has forge script</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Briefs use manual workflow language</li>
+<li><input class="task-list-item-checkbox" disabled="" type="checkbox"> Success criteria match manual workflow</li>
+</ul>
+<h2 id="test-plan-td-workflow-e2e-validation-test-execution" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-execution" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Test Execution</h2>
+<h3 id="test-plan-td-workflow-e2e-validation-test-execution-automated-test" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-execution-automated-test" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Automated Test</h3>
+<p>Run the complete e2e test:</p>
+<pre class="hljs"><code>bash scripts/test-workflow-e2e.sh
+</code></pre>
+<p><strong>Expected Outcome:</strong></p>
+<ul>
+<li>All 7 sections pass</li>
+<li>Success count = 8 (brief, task, start, focus, status, commit, pr, handoff)</li>
+<li>Fail count = 0</li>
+</ul>
+<h3 id="test-plan-td-workflow-e2e-validation-test-execution-manual-component-test" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-execution-manual-component-test" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Manual Component Test</h3>
+<p>Test individual workflow steps:</p>
+<pre class="hljs"><code><span class="hljs-comment"># 1. Create brief</span>
+<span class="hljs-built_in">cat</span> &gt; briefs/manual-test.md &lt;&lt; <span class="hljs-string">&#x27;EOF&#x27;</span>
+<span class="hljs-comment"># Manual Test</span>
+Brief <span class="hljs-keyword">for</span> manual workflow <span class="hljs-built_in">test</span>
+EOF
+
+<span class="hljs-comment"># 2. Create task</span>
+td create <span class="hljs-string">&quot;Manual Test&quot;</span> \
+  --brief <span class="hljs-string">&quot;briefs/manual-test.md&quot;</span> \
+  --playbook <span class="hljs-string">&quot;playbooks/test-playbook.md&quot;</span> \
+  --<span class="hljs-built_in">type</span> task \
+  --description <span class="hljs-string">&quot;Manual test&quot;</span>
+
+<span class="hljs-comment"># 3. Start task</span>
+TASK_ID=$(td current --json | jq -r <span class="hljs-string">&#x27;.id&#x27;</span>)
+td start <span class="hljs-string">&quot;<span class="hljs-variable">$TASK_ID</span>&quot;</span>
+
+<span class="hljs-comment"># 4. Make commit</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;test&quot;</span> &gt; test.txt
+git add test.txt
+git commit -m <span class="hljs-string">&quot;Test commit&quot;</span>
+
+<span class="hljs-comment"># 5. Create PR</span>
+bun run create-pr
+
+<span class="hljs-comment"># 6. Verify status</span>
+td context <span class="hljs-string">&quot;<span class="hljs-variable">$TASK_ID</span>&quot;</span> --json | jq -r <span class="hljs-string">&#x27;.status&#x27;</span>
+
+<span class="hljs-comment"># 7. Handoff</span>
+td handoff <span class="hljs-string">&quot;<span class="hljs-variable">$TASK_ID</span>&quot;</span> \
+  --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;Manual test complete&quot;</span> \
+  --remaining <span class="hljs-string">&quot;&quot;</span> \
+  --decision <span class="hljs-string">&quot;Manual workflow validated&quot;</span>
+</code></pre>
+<h3 id="test-plan-td-workflow-e2e-validation-test-execution-cleanup-test" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-test-execution-cleanup-test" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Cleanup Test</h3>
+<p>Verify cleanup works correctly:</p>
+<pre class="hljs"><code><span class="hljs-comment"># Check if test artifacts exist after test run</span>
+<span class="hljs-built_in">ls</span> -la briefs/e2e-test-brief-*.md
+<span class="hljs-built_in">ls</span> -la test-e2e-*.txt
+
+<span class="hljs-comment"># Verify last commit is not a test commit</span>
+git <span class="hljs-built_in">log</span> -1 --pretty=%s
+</code></pre>
+<h2 id="test-plan-td-workflow-e2e-validation-success-criteria" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-success-criteria" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Success Criteria</h2>
+<p>The test is considered successful if:</p>
+<ol>
+<li><strong>All automated sections pass</strong> (8/8 successes, 0 failures)</li>
+<li><strong>Manual verification checklist is complete</strong> (all items checked)</li>
+<li><strong>No test artifacts remain</strong> after test completion</li>
+<li><strong>Documentation is updated</strong> and references are correct</li>
+<li><strong>Workflow is repeatable</strong> (can run multiple times without errors)</li>
+</ol>
+<h2 id="test-plan-td-workflow-e2e-validation-known-issues-limitations" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-known-issues-limitations" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Known Issues &amp; Limitations</h2>
+<ol>
+<li><strong>GitHub CLI Required:</strong> PR creation requires <code>gh</code> CLI to be authenticated</li>
+<li><strong>Test Mode:</strong> If GH CLI is not authenticated, test skips PR creation</li>
+<li><strong>No Real Development:</strong> Test simulates development with dummy commits</li>
+<li><strong>No PR Merge:</strong> Test does not actually merge the PR (as expected)</li>
+</ol>
+<h2 id="test-plan-td-workflow-e2e-validation-rollback-plan" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-rollback-plan" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Rollback Plan</h2>
+<p>If issues are found:</p>
+<ol>
+<li><strong>Forge Script:</strong> No rollback needed (forge was already failing)</li>
+<li><strong>Documentation:</strong> Revert <a href="http://AGENTS.md">AGENTS.md</a> to forge lifecycle if needed</li>
+<li><strong>Test Script:</strong> Restore original <a href="http://test-workflow-e2e.sh">test-workflow-e2e.sh</a> from git</li>
+<li><strong>Package.json:</strong> Restore forge script reference if needed</li>
+</ol>
+<h2 id="test-plan-td-workflow-e2e-validation-sign-off" class="docmd-heading"><a href="#test-plan-td-workflow-e2e-validation-sign-off" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Sign-off</h2>
+<p><strong>Tested By:</strong> _________________<br>
+<strong>Date:</strong> _________________<br>
+<strong>Result:</strong> [ ] Pass  [ ] Fail  [ ] Partial</p>
+<p><strong>Notes:</strong></p>
+<hr>
+<hr>
+<hr>
+
+                                      
+                              </div>
+                              <div class="toc-sidebar">
+                                
+
+
+  <div class="toc-container">
+    <h2 class="toc-title">On This Page<span class="mobile-view toc-menu-button float-right">
+<svg class="lucide-icon icon-chevrons-down-up " width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+  class="lucide lucide-chevrons-down-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m7 20 5-5 5 5" />
+  <path d="m7 4 5 5 5-5" />
+</svg>
+</span></h2>
+    <ul class="toc-list">
+      
+        <li class="toc-item toc-level-2">
+          <a href="#test-plan-td-workflow-e2e-validation-overview" class="toc-link">Overview</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#test-plan-td-workflow-e2e-validation-changes-made" class="toc-link">Changes Made</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-changes-made-1-removed-forge-script" class="toc-link">1. Removed Forge Script</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-changes-made-2-simplified-e2e-test" class="toc-link">2. Simplified E2E Test</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-changes-made-3-updated-documentation" class="toc-link">3. Updated Documentation</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#test-plan-td-workflow-e2e-validation-test-sections" class="toc-link">Test Sections</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-test-sections-section-1-brief-creation" class="toc-link">Section 1: Brief Creation</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-test-sections-section-2-task-creation-manual" class="toc-link">Section 2: Task Creation (Manual)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-test-sections-section-3-task-start" class="toc-link">Section 3: Task Start</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-test-sections-section-4-development-workflow" class="toc-link">Section 4: Development Workflow</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-test-sections-section-5-pr-creation" class="toc-link">Section 5: PR Creation</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-test-sections-section-6-status-transition" class="toc-link">Section 6: Status Transition</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-test-sections-section-7-task-handoff" class="toc-link">Section 7: Task Handoff</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#test-plan-td-workflow-e2e-validation-manual-verification-checklist" class="toc-link">Manual Verification Checklist</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-manual-verification-checklist-core-workflow" class="toc-link">Core Workflow</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-manual-verification-checklist-cleanup-idempotency" class="toc-link">Cleanup &amp; Idempotency</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-manual-verification-checklist-documentation" class="toc-link">Documentation</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#test-plan-td-workflow-e2e-validation-test-execution" class="toc-link">Test Execution</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-test-execution-automated-test" class="toc-link">Automated Test</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-test-execution-manual-component-test" class="toc-link">Manual Component Test</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#test-plan-td-workflow-e2e-validation-test-execution-cleanup-test" class="toc-link">Cleanup Test</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#test-plan-td-workflow-e2e-validation-success-criteria" class="toc-link">Success Criteria</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#test-plan-td-workflow-e2e-validation-known-issues-limitations" class="toc-link">Known Issues &amp; Limitations</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#test-plan-td-workflow-e2e-validation-rollback-plan" class="toc-link">Rollback Plan</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
+          <a href="#test-plan-td-workflow-e2e-validation-sign-off" class="toc-link">Sign-off</a>
+        </li>
+      
+    </ul>
+  </div>
+
+                              </div>
+                            </div>
+                            <div class="page-footer-actions">
+                              
+                            </div>
+                          </main>
+                          
+
+
+<footer class="page-footer">
+    <div class="footer-content">
+        <div class="user-footer"></div>
+        
+        <div class="branding-footer">
+            Built with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"></path><path d="m18 15-2-2"></path><path d="m15 18-2-2"></path></svg> <a href="https://docmd.io" target="_blank" rel="noopener">docmd.</a>
+        </div>
+        
+    </div>
+</footer>
+
+                        </div>
+            </div>
+            <script src="../../../assets/js/docmd-main.js?v=mn7fiooe"></script>
+            <script src="../../../assets/js/docmd-image-lightbox.js?v=mn7fiooe" ></script>
+<script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
+<script src="../../../assets/js/docmd-search.js?v=mn7fiooe" ></script>
+
+  <!-- Search Modal (Injected by @docmd/plugin-search) -->
+  <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
+      <div class="docmd-search-box">
+          <div class="docmd-search-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-search"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+              <input type="text" id="docmd-search-input" placeholder="Search documentation..." autocomplete="off" spellcheck="false">
+              <button onclick="window.closeDocmdSearch()" class="docmd-search-close" aria-label="Close search">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-icon icon-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+              </button>
+          </div>
+          <div id="docmd-search-results" class="docmd-search-results"></div>
+          <div class="docmd-search-footer">
+              <span><kbd class="docmd-kbd">↑</kbd> <kbd class="docmd-kbd">↓</kbd> to navigate</span>
+              <span><kbd class="docmd-kbd">ESC</kbd> to close</span>
+          </div>
+      </div>
+  </div>
+              
+</body>
+
+</html>
