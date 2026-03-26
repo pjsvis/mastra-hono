@@ -85,16 +85,16 @@
         Local Memory Agents Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,59 +2318,6 @@
                                 
                                 
                                     <h1 id="local-memory-agents-playbook">Local Memory Agents Playbook</h1>
-<h2 id="local-memory-agents-playbook-table-of-contents" class="docmd-heading"><a href="#local-memory-agents-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#core-principles">Core Principles</a>
-<ul>
-<li><a href="#data-sovereignty">Data Sovereignty</a></li>
-<li><a href="#fail-fast-tools">Fail-Fast Tools</a></li>
-<li><a href="#aggressive-orientation">Aggressive Orientation</a></li>
-</ul>
-</li>
-<li><a href="#implementation-pattern">Implementation Pattern</a>
-<ul>
-<li><a href="#basic-setup">Basic Setup</a></li>
-<li><a href="#storage-options">Storage Options</a></li>
-<li><a href="#tool-design-for-observability">Tool Design for Observability</a></li>
-</ul>
-</li>
-<li><a href="#testing-the-learning-loop">Testing the Learning Loop</a>
-<ul>
-<li><a href="#step-by-step-testing-process">Step-by-Step Testing Process</a></li>
-<li><a href="#automated-test-example">Automated Test Example</a></li>
-</ul>
-</li>
-<li><a href="#verification-checklist">Verification Checklist</a>
-<ul>
-<li><a href="#memory-configuration">Memory Configuration</a></li>
-<li><a href="#tool-design">Tool Design</a></li>
-<li><a href="#model-requirements">Model Requirements</a></li>
-<li><a href="#testing">Testing</a></li>
-</ul>
-</li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-start-with-low-token-thresholds">1. Start with Low Token Thresholds</a></li>
-<li><a href="#2-use-descriptive-error-messages">2. Use Descriptive Error Messages</a></li>
-<li><a href="#3-include-warnings-for-non-critical-issues">3. Include Warnings for Non-Critical Issues</a></li>
-<li><a href="#4-test-learning-scenarios">4. Test Learning Scenarios</a></li>
-<li><a href="#5-monitor-memory-growth">5. Monitor Memory Growth</a></li>
-<li><a href="#6-version-your-models">6. Version Your Models</a></li>
-</ul>
-</li>
-<li><a href="#common-pitfalls">Common Pitfalls</a>
-<ul>
-<li><a href="#pitfall-1-throwing-exceptions-instead-of-returning-errors">Pitfall 1: Throwing Exceptions Instead of Returning Errors</a></li>
-<li><a href="#pitfall-2-using-cloud-models-for-observation">Pitfall 2: Using Cloud Models for Observation</a></li>
-<li><a href="#pitfall-3-setting-token-thresholds-too-high">Pitfall 3: Setting Token Thresholds Too High</a></li>
-<li><a href="#pitfall-4-not-testing-learning-behavior">Pitfall 4: Not Testing Learning Behavior</a></li>
-<li><a href="#pitfall-5-using-insufficient-model-capacity">Pitfall 5: Using Insufficient Model Capacity</a></li>
-<li><a href="#pitfall-6-ignoring-memory-storage">Pitfall 6: Ignoring Memory Storage</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="local-memory-agents-playbook-purpose" class="docmd-heading"><a href="#local-memory-agents-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>This playbook outlines the heuristics for building agents that learn from their environment using local Mastra Observational Memory. It provides guidelines for implementing agents that can observe their actions, learn from failures, and improve over time without relying on external cloud services.</p>
 <p><strong>Core Philosophy:</strong> Build agents that learn locally and autonomously. Use local model providers for observation and reflection to maintain data sovereignty. Design tools that fail explicitly so agents can learn from their mistakes.</p>
@@ -2895,10 +2807,6 @@
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#local-memory-agents-playbook-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#local-memory-agents-playbook-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -3063,10 +2971,10 @@
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

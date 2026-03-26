@@ -85,16 +85,16 @@
         TD Skill Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,66 +2318,6 @@
                                 
                                 
                                     <h1 id="td-skill-playbook">TD Skill Playbook</h1>
-<h2 id="td-skill-playbook-table-of-contents" class="docmd-heading"><a href="#td-skill-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#quick-start">Quick Start</a>
-<ul>
-<li><a href="#session-start-every-time">Session Start (Every Time)</a></li>
-<li><a href="#single-issue-workflow">Single-Issue Workflow</a></li>
-<li><a href="#multi-issue-workflow-recommended-for-agents">Multi-Issue Workflow (Recommended for Agents)</a></li>
-</ul>
-</li>
-<li><a href="#key-workflows">Key Workflows</a>
-<ul>
-<li><a href="#workflow-1-starting-new-work">Workflow 1: Starting New Work</a></li>
-<li><a href="#workflow-2-handing-off-work">Workflow 2: Handing Off Work</a></li>
-<li><a href="#workflow-3-reviewing-code">Workflow 3: Reviewing Code</a></li>
-<li><a href="#workflow-4-handling-blockers">Workflow 4: Handling Blockers</a></li>
-</ul>
-</li>
-<li><a href="#commands-by-category">Commands by Category</a>
-<ul>
-<li><a href="#checking-status">Checking Status</a></li>
-<li><a href="#working-on-issues">Working on Issues</a></li>
-<li><a href="#handing-off">Handing Off</a></li>
-<li><a href="#reviews">Reviews</a></li>
-<li><a href="#creatingmanaging-issues">Creating/Managing Issues</a></li>
-<li><a href="#file-tracking">File Tracking</a></li>
-<li><a href="#other">Other</a></li>
-</ul>
-</li>
-<li><a href="#resources">Resources</a>
-<ul>
-<li>[<a href="../references/quick_reference">quick_reference.md</a>](#[quick_referencemd]referencesquick_referencemd)</li>
-<li>[<a href="../references/ai_agent_workflows">ai_agent_workflows.md</a>](#[ai_agent_workflowsmd]referencesai_agent_workflowsmd)</li>
-</ul>
-</li>
-<li><a href="#issue-lifecycle">Issue Lifecycle</a></li>
-<li><a href="#key-principles">Key Principles</a></li>
-<li><a href="#for-ai-agents">For AI Agents</a></li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-always-start-with-session-check">1. Always Start with Session Check</a></li>
-<li><a href="#2-use-structured-handoffs">2. Use Structured Handoffs</a></li>
-<li><a href="#3-log-decisions-explicitly">3. Log Decisions Explicitly</a></li>
-<li><a href="#4-track-blockers">4. Track Blockers</a></li>
-<li><a href="#5-link-files-to-issues">5. Link Files to Issues</a></li>
-<li><a href="#6-never-approve-your-own-work">6. Never Approve Your Own Work</a></li>
-</ul>
-</li>
-<li><a href="#common-pitfalls">Common Pitfalls</a>
-<ul>
-<li><a href="#pitfall-1-not-starting-with-session-check">Pitfall 1: Not Starting with Session Check</a></li>
-<li><a href="#pitfall-2-skipping-handoffs">Pitfall 2: Skipping Handoffs</a></li>
-<li><a href="#pitfall-3-approving-own-work">Pitfall 3: Approving Own Work</a></li>
-<li><a href="#pitfall-4-not-logging-decisions">Pitfall 4: Not Logging Decisions</a></li>
-<li><a href="#pitfall-5-not-tracking-blockers">Pitfall 5: Not Tracking Blockers</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="td-skill-playbook-purpose" class="docmd-heading"><a href="#td-skill-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p><code>td</code> is a minimalist CLI for tracking tasks and maintaining agent memory across context windows. When your AI session ends, <code>td</code> captures what was done, what remains, and what decisions were made—so the next session picks up exactly where the last one left off. This playbook provides comprehensive guidelines for using <code>td</code> in AI-assisted development workflows.</p>
 <p><strong>Core Philosophy:</strong> Run <code>td usage</code> and get everything needed for the next action—current focus, pending reviews, open issues, recent decisions. Maintain structured handoffs to ensure continuity across sessions.</p>
@@ -2751,10 +2656,6 @@ td <span class="hljs-built_in">log</span> --blocker <span class="hljs-string">&q
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#td-skill-playbook-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#td-skill-playbook-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -2935,10 +2836,10 @@ td <span class="hljs-built_in">log</span> --blocker <span class="hljs-string">&q
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

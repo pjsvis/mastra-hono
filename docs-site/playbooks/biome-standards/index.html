@@ -85,16 +85,16 @@
         Biome Standards Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,73 +2318,6 @@
                                 
                                 
                                     <h1 id="biome-standards-playbook">Biome Standards Playbook</h1>
-<h2 id="biome-standards-playbook-table-of-contents" class="docmd-heading"><a href="#biome-standards-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#proactive-fixing-formatting-vs-linting">Proactive Fixing (Formatting vs Linting)</a>
-<ul>
-<li><a href="#formatter-biome">Formatter: Biome</a></li>
-<li><a href="#linter-oxlint">Linter: OxLint</a></li>
-</ul>
-</li>
-<li><a href="#handling-%22any%22-noexplicitany">Handling “any” (noExplicitAny)</a>
-<ul>
-<li><a href="#prefer-%60unknown%60">Prefer <code>unknown</code></a></li>
-<li><a href="#selective-suppression">Selective Suppression</a></li>
-<li><a href="#reasoning-required">Reasoning Required</a></li>
-</ul>
-</li>
-<li><a href="#formatting-standards">Formatting Standards</a>
-<ul>
-<li><a href="#indentation">Indentation</a></li>
-<li><a href="#quotes">Quotes</a></li>
-<li><a href="#semicolons">Semicolons</a></li>
-<li><a href="#trailing-commas">Trailing Commas</a></li>
-</ul>
-</li>
-<li><a href="#the-%22scripts-lab%22-exception">The “Scripts Lab” Exception</a>
-<ul>
-<li><a href="#what-goes-in-%60scriptslab%60">What Goes in <code>scripts/lab/</code></a></li>
-<li><a href="#configuration">Configuration</a></li>
-<li><a href="#oxlint-configuration">OxLint Configuration</a></li>
-</ul>
-</li>
-<li><a href="#pre-commit-vs-ci">Pre-commit vs. CI</a>
-<ul>
-<li><a href="#pre-commit-light-and-fast">Pre-commit: Light and Fast</a></li>
-<li><a href="#ci--verify-comprehensive">CI / Verify: Comprehensive</a></li>
-<li><a href="#when-in-doubt">When in Doubt</a></li>
-</ul>
-</li>
-<li><a href="#oxlint-responsibilities-best-practice-baseline">OxLint Responsibilities (Best-Practice Baseline)</a>
-<ul>
-<li><a href="#oxlint-is-the-lint-engine">OxLint is the Lint Engine</a></li>
-<li><a href="#avoid-stylistic-overlap">Avoid Stylistic Overlap</a></li>
-<li><a href="#type-checking-remains-%60tsc---noemit%60">Type Checking Remains <code>tsc --noEmit</code></a></li>
-<li><a href="#recommended-baseline">Recommended Baseline</a></li>
-</ul>
-</li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-run-formatting-before-committing">1. Run Formatting Before Committing</a></li>
-<li><a href="#2-fix-linting-issues-before-pushing">2. Fix Linting Issues Before Pushing</a></li>
-<li><a href="#3-use-type-guards-instead-of-%60any%60">3. Use Type Guards Instead of <code>any</code></a></li>
-<li><a href="#4-document-ignore-comments">4. Document Ignore Comments</a></li>
-<li><a href="#5-use-scripts-lab-for-experiments">5. Use Scripts Lab for Experiments</a></li>
-<li><a href="#6-run-verify-before-pushing">6. Run Verify Before Pushing</a></li>
-</ul>
-</li>
-<li><a href="#common-pitfalls">Common Pitfalls</a>
-<ul>
-<li><a href="#pitfall-1-mixing-formatting-and-linting">Pitfall 1: Mixing Formatting and Linting</a></li>
-<li><a href="#pitfall-2-using-%60any%60-without-reasoning">Pitfall 2: Using <code>any</code> Without Reasoning</a></li>
-<li><a href="#pitfall-3-forgetting-trailing-commas">Pitfall 3: Forgetting Trailing Commas</a></li>
-<li><a href="#pitfall-4-not-running-verify-before-pushing">Pitfall 4: Not Running Verify Before Pushing</a></li>
-<li><a href="#pitfall-5-putting-experimental-code-in-production">Pitfall 5: Putting Experimental Code in Production</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="biome-standards-playbook-purpose" class="docmd-heading"><a href="#biome-standards-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>This playbook defines our standards for using <strong>Biome (formatting)</strong> and <strong>OxLint (linting)</strong> together without overlap, plus TypeScript for authoritative type checking. It provides comprehensive guidelines for maintaining consistent code quality across the project while avoiding conflicts between different tools.</p>
 <p><strong>Core Philosophy:</strong> Separate responsibilities to avoid overlap and conflicting rules. Biome handles formatting, OxLint handles linting, and TypeScript handles type checking. Each tool has a clear, non-overlapping domain.</p>
@@ -2823,10 +2721,6 @@ src/experiment.ts
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#biome-standards-playbook-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#biome-standards-playbook-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -3011,10 +2905,10 @@ src/experiment.ts
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

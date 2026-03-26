@@ -85,16 +85,16 @@
         Agentic Integrity Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2316,66 +2281,6 @@
                                 
                                 
                                     <h1 id="agentic-integrity-playbook">Agentic Integrity Playbook</h1>
-<h2 id="agentic-integrity-playbook-table-of-contents" class="docmd-heading"><a href="#agentic-integrity-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#prerequisites">Prerequisites</a>
-<ul>
-<li><a href="#required-tools">Required Tools</a></li>
-<li><a href="#infrastructure-requirements">Infrastructure Requirements</a></li>
-<li><a href="#verification">Verification</a></li>
-</ul>
-</li>
-<li><a href="#infrastructure-setup">Infrastructure Setup</a>
-<ul>
-<li><a href="#local-%22gumption%22-layer">Local “Gumption” Layer</a></li>
-<li><a href="#cloud-%22sovereignty%22-layer">Cloud “Sovereignty” Layer</a></li>
-</ul>
-</li>
-<li><a href="#artefact-generation">Artefact Generation</a>
-<ul>
-<li><a href="#a-%60agentsmd%60-the-constitution">A. <code>AGENTS.md</code> (The Constitution)</a></li>
-<li><a href="#b-%60reviewmd%60-the-cloud-reviewer">B. <code>review.md</code> (The Cloud Reviewer)</a></li>
-<li><a href="#c-%60conceptual-lexiconjson%60">C. <code>conceptual-lexicon.json</code></a></li>
-</ul>
-</li>
-<li><a href="#the-canonical-workflow-loop">The Canonical Workflow Loop</a>
-<ul>
-<li><a href="#phase-a-%E2%80%94-delivery-agent-build-+-pr">Phase A — Delivery Agent (Build + PR)</a></li>
-<li><a href="#phase-b-%E2%80%94-review-agent-pr-health-gate">Phase B — Review Agent (PR Health Gate)</a></li>
-<li><a href="#phase-c-%E2%80%94-human-merge-+-tidy">Phase C — Human Merge + Tidy</a></li>
-</ul>
-</li>
-<li><a href="#deployment-heuristics">Deployment Heuristics</a>
-<ul>
-<li><a href="#start-with-mastra-hono">Start with Mastra-Hono</a></li>
-<li><a href="#fail-fast">Fail Fast</a></li>
-<li><a href="#human-in-the-loop">Human in the Loop</a></li>
-</ul>
-</li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-always-start-with-%60td-usage---new-session%60">1. Always Start with <code>td usage --new-session</code></a></li>
-<li><a href="#2-use-%60bun-run-ask%60-for-clarification">2. Use <code>bun run ask</code> for Clarification</a></li>
-<li><a href="#3-run-%60bun-run-check%60-before-committing">3. Run <code>bun run check</code> Before Committing</a></li>
-<li><a href="#4-perform-handoffs-before-context-window-ends">4. Perform Handoffs Before Context Window Ends</a></li>
-<li><a href="#5-keep-worktrees-until-approval">5. Keep Worktrees Until Approval</a></li>
-<li><a href="#6-use-descriptive-commit-messages">6. Use Descriptive Commit Messages</a></li>
-<li><a href="#7-test-edge-cases">7. Test Edge Cases</a></li>
-<li><a href="#8-document-decisions">8. Document Decisions</a></li>
-</ul>
-</li>
-<li><a href="#common-pitfalls">Common Pitfalls</a>
-<ul>
-<li><a href="#pitfall-1-skipping-pre-commit-checks">Pitfall 1: Skipping Pre-Commit Checks</a></li>
-<li><a href="#pitfall-2-not-performing-handoffs">Pitfall 2: Not Performing Handoffs</a></li>
-<li><a href="#pitfall-3-ignoring-review-feedback">Pitfall 3: Ignoring Review Feedback</a></li>
-<li><a href="#pitfall-4-deleting-worktrees-too-early">Pitfall 4: Deleting Worktrees Too Early</a></li>
-<li><a href="#pitfall-5-spamming-notifications">Pitfall 5: Spamming Notifications</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="agentic-integrity-playbook-purpose" class="docmd-heading"><a href="#agentic-integrity-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>This playbook outlines how to replicate the “Agentic Integrity” workflow in any new or existing project. It is based on the <strong>Symmetric Mentation</strong> principle: splitting high-velocity execution from sovereign auditing. This ensures that agents can work quickly while maintaining quality through automated review processes.</p>
 <p><strong>Core Philosophy:</strong> Separate delivery (local execution) from review (cloud auditing) to maintain both velocity and integrity in agentic development workflows.</p>
@@ -3022,10 +2927,6 @@ notify <span class="hljs-string">&quot;PR #123 lint check passed&quot;</span>
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#agentic-integrity-playbook-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#agentic-integrity-playbook-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -3286,10 +3187,10 @@ notify <span class="hljs-string">&quot;PR #123 lint check passed&quot;</span>
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

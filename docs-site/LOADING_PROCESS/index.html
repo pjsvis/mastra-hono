@@ -85,16 +85,16 @@
         Loading Process
       </title>
       
-        <link rel="stylesheet" href="../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2488,108 +2453,41 @@ Brief description of what this playbook covers and why it exists.
 </code></pre>
 <h3 id="loading-process-implementation-guide-step-3-create-table-of-contents" class="docmd-heading"><a href="#loading-process-implementation-guide-step-3-create-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 3: Create Table of Contents</h3>
 <p>List all major sections with anchor links:</p>
-<pre class="hljs"><code><span class="hljs-section">## Table of Contents</span>
+<pre class="hljs"><code><span class="hljs-section">## Frontmatter Metadata</span>
 
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Purpose</span>](<span class="hljs-link">#purpose</span>)
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Table of Contents</span>](<span class="hljs-link">#table-of-contents</span>)
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Section 1</span>](<span class="hljs-link">#section-1</span>)
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Section 2</span>](<span class="hljs-link">#section-2</span>)
-<span class="hljs-bullet">  -</span> [<span class="hljs-string">Subsection 2.1</span>](<span class="hljs-link">#subsection-21</span>)
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Section 3</span>](<span class="hljs-link">#section-3</span>)
-</code></pre>
-<h3 id="loading-process-implementation-guide-step-4-add-loading-process-section" class="docmd-heading"><a href="#loading-process-implementation-guide-step-4-add-loading-process-section" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 4: Add Loading Process Section</h3>
-<p>Include this file:</p>
-<pre class="hljs"><code>source &quot;$(pwd)/LOADING_PROCESS.md&quot;
-</code></pre>
-<h3 id="loading-process-implementation-guide-step-5-write-selfcontained-sections" class="docmd-heading"><a href="#loading-process-implementation-guide-step-5-write-selfcontained-sections" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 5: Write Self‑Contained Sections</h3>
-<p>Each major section should:</p>
-<ul>
-<li>Start with a brief description</li>
-<li>Use subsections for organization</li>
-<li>Include examples where appropriate</li>
-<li>Be readable in isolation</li>
-</ul>
-<h3 id="loading-process-implementation-guide-step-6-test-extraction" class="docmd-heading"><a href="#loading-process-implementation-guide-step-6-test-extraction" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 6: Test Extraction</h3>
-<p>Verify that sections can be extracted correctly:</p>
-<pre class="hljs"><code><span class="hljs-comment"># Test extracting a section</span>
-ast-grep -p <span class="hljs-string">&#x27;## Section Name&#x27;</span> -A 50 playbooks/your-playbook.md
+<span class="hljs-section">### Required Fields</span>
 
-<span class="hljs-comment"># Verify the output is complete and readable</span>
-</code></pre>
-<h2 id="loading-process-frontmatter-metadata" class="docmd-heading"><a href="#loading-process-frontmatter-metadata" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Frontmatter Metadata</h2>
-<h3 id="loading-process-frontmatter-metadata-required-fields" class="docmd-heading"><a href="#loading-process-frontmatter-metadata-required-fields" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Required Fields</h3>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Format</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>date</code></td>
-<td>YYYY-MM-DD</td>
-<td>Creation date</td>
-</tr>
-<tr>
-<td><code>tags</code></td>
-<td>Array of strings</td>
-<td>Categorization and searchability</td>
-</tr>
-<tr>
-<td><code>version</code></td>
-<td>X.Y</td>
-<td>Semantic versioning</td>
-</tr>
-<tr>
-<td><code>last_updated</code></td>
-<td>YYYY-MM-DD</td>
-<td>Last modification date</td>
-</tr>
-</tbody>
-</table>
-</div><h3 id="loading-process-frontmatter-metadata-optional-fields" class="docmd-heading"><a href="#loading-process-frontmatter-metadata-optional-fields" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Optional Fields</h3>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Format</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>agent</code></td>
-<td>String</td>
-<td>Which agent created the document</td>
-</tr>
-<tr>
-<td><code>environment</code></td>
-<td>String</td>
-<td>Target environment (local, dev, prod)</td>
-</tr>
-<tr>
-<td><code>status</code></td>
-<td>String</td>
-<td>Document status (draft, review, published)</td>
-</tr>
-</tbody>
-</table>
-</div><h3 id="loading-process-frontmatter-metadata-example-frontmatter" class="docmd-heading"><a href="#loading-process-frontmatter-metadata-example-frontmatter" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Example Frontmatter</h3>
-<pre class="hljs"><code><span class="hljs-meta">---</span>
-<span class="hljs-attr">date:</span> <span class="hljs-number">2026-03-21</span>
-<span class="hljs-attr">tags:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-string">playbook</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-string">documentation</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-string">process</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-string">workflow</span>
-<span class="hljs-attr">version:</span> <span class="hljs-number">1.0</span>
-<span class="hljs-attr">last_updated:</span> <span class="hljs-number">2026-03-21</span>
-<span class="hljs-attr">agent:</span> <span class="hljs-string">local-ai</span>
-<span class="hljs-attr">environment:</span> <span class="hljs-string">development</span>
-<span class="hljs-attr">status:</span> <span class="hljs-string">published</span>
-<span class="hljs-meta">---
+| Field | Format | Purpose |
+|-------|--------|---------|
+| <span class="hljs-code">`date`</span> | YYYY-MM-DD | Creation date |
+| <span class="hljs-code">`tags`</span> | Array of strings | Categorization and searchability |
+| <span class="hljs-code">`version`</span> | X.Y | Semantic versioning |
+| <span class="hljs-code">`last_updated`</span> | YYYY-MM-DD | Last modification date |
+
+<span class="hljs-section">### Optional Fields</span>
+
+| Field | Format | Purpose |
+|-------|--------|---------|
+| <span class="hljs-code">`agent`</span> | String | Which agent created the document |
+| <span class="hljs-code">`environment`</span> | String | Target environment (local, dev, prod) |
+| <span class="hljs-code">`status`</span> | String | Document status (draft, review, published) |
+
+<span class="hljs-section">### Example Frontmatter</span>
+
+<span class="hljs-section">```yaml
+---</span>
+date: 2026-03-21
+tags:
+<span class="hljs-bullet">  -</span> playbook
+<span class="hljs-bullet">  -</span> documentation
+<span class="hljs-bullet">  -</span> process
+<span class="hljs-bullet">  -</span> workflow
+version: 1.0
+last<span class="hljs-emphasis">_updated: 2026-03-21
+agent: local-ai
+environment: development
+status: published
+---
 </span></code></pre>
 <h2 id="loading-process-table-of-contents-structure" class="docmd-heading"><a href="#loading-process-table-of-contents-structure" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents Structure</h2>
 <h3 id="loading-process-table-of-contents-structure-best-practices" class="docmd-heading"><a href="#loading-process-table-of-contents-structure-best-practices" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Best Practices</h3>
@@ -2601,38 +2499,31 @@ ast-grep -p <span class="hljs-string">&#x27;## Section Name&#x27;</span> -A 50 p
 <li><strong>Update when adding sections</strong> – Always update the table of contents when adding new sections.</li>
 </ol>
 <h3 id="loading-process-table-of-contents-structure-example-structure" class="docmd-heading"><a href="#loading-process-table-of-contents-structure-example-structure" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Example Structure</h3>
-<pre class="hljs"><code><span class="hljs-section">## Table of Contents</span>
+<pre class="hljs"><code><span class="hljs-section">## Section Extraction</span>
 
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Purpose</span>](<span class="hljs-link">#purpose</span>)
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Table of Contents</span>](<span class="hljs-link">#table-of-contents</span>)
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Section 1</span>](<span class="hljs-link">#section-1</span>)
-<span class="hljs-bullet">  -</span> [<span class="hljs-string">Subsection 1.1</span>](<span class="hljs-link">#subsection-11</span>)
-<span class="hljs-bullet">  -</span> [<span class="hljs-string">Subsection 1.2</span>](<span class="hljs-link">#subsection-12</span>)
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Section 2</span>](<span class="hljs-link">#section-2</span>)
-<span class="hljs-bullet">-</span> [<span class="hljs-string">Section 3</span>](<span class="hljs-link">#section-3</span>)
-<span class="hljs-bullet">  -</span> [<span class="hljs-string">Subsection 3.1</span>](<span class="hljs-link">#subsection-31</span>)
-<span class="hljs-bullet">-</span> [<span class="hljs-string">References</span>](<span class="hljs-link">#references</span>)
+<span class="hljs-section">### Using `ast-grep`</span>
+
+<span class="hljs-code">`ast-grep`</span> is ideal for structured markdown because it parses the document into an AST, making extraction more reliable than pattern matching.
+
+<span class="hljs-section">#### Common Patterns</span>
+
+<span class="hljs-code">```bash
+# Extract by heading
+ast-grep -p &#x27;## Section Name&#x27; -A 50 playbook.md
+
+# Extract code blocks
+ast-grep -p &#x27;```</span>bash&#x27; -A 10 playbook.md
+
+<span class="hljs-section"># Extract tables</span>
+ast-grep -p &#x27;| Header 1 | Header 2&#x27; -A 20 playbook.md
+
+<span class="hljs-section"># Extract checklists</span>
+ast-grep -p &#x27;- [ ]&#x27; -A 1 playbook.md
+
+<span class="hljs-section"># Extract multiple sections</span>
+ast-grep -p &#x27;## (Section 1|Section 2)&#x27; -A 50 playbook.md
 </code></pre>
-<h2 id="loading-process-section-extraction" class="docmd-heading"><a href="#loading-process-section-extraction" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Section Extraction</h2>
-<h3 id="loading-process-section-extraction-using-ast-grep" class="docmd-heading"><a href="#loading-process-section-extraction-using-ast-grep" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Using <code>ast-grep</code></h3>
-<p><code>ast-grep</code> is ideal for structured markdown because it parses the document into an AST, making extraction more reliable than pattern matching.</p>
-<h4 id="loading-process-section-extraction-using-ast-grep-common-patterns" class="docmd-heading"><a href="#loading-process-section-extraction-using-ast-grep-common-patterns" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Common Patterns</h4>
-<pre class="hljs"><code><span class="hljs-comment"># Extract by heading</span>
-ast-grep -p <span class="hljs-string">&#x27;## Section Name&#x27;</span> -A 50 playbook.md
-
-<span class="hljs-comment"># Extract code blocks</span>
-ast-grep -p <span class="hljs-string">&#x27;```bash&#x27;</span> -A 10 playbook.md
-
-<span class="hljs-comment"># Extract tables</span>
-ast-grep -p <span class="hljs-string">&#x27;| Header 1 | Header 2&#x27;</span> -A 20 playbook.md
-
-<span class="hljs-comment"># Extract checklists</span>
-ast-grep -p <span class="hljs-string">&#x27;- [ ]&#x27;</span> -A 1 playbook.md
-
-<span class="hljs-comment"># Extract multiple sections</span>
-ast-grep -p <span class="hljs-string">&#x27;## (Section 1|Section 2)&#x27;</span> -A 50 playbook.md
-</code></pre>
-<h4 id="loading-process-section-extraction-using-ast-grep-programmatic-extraction" class="docmd-heading"><a href="#loading-process-section-extraction-using-ast-grep-programmatic-extraction" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Programmatic Extraction</h4>
+<h4 id="loading-process-table-of-contents-structure-example-structure-programmatic-extraction" class="docmd-heading"><a href="#loading-process-table-of-contents-structure-example-structure-programmatic-extraction" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Programmatic Extraction</h4>
 <p>Create a reusable script for extracting sections:</p>
 <pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
 <span class="hljs-comment"># extract-section.sh</span>
@@ -2649,14 +2540,14 @@ ast-grep -p <span class="hljs-string">&quot;## <span class="hljs-variable">$SECT
 <p>Usage:</p>
 <pre class="hljs"><code>./extract-section.sh <span class="hljs-string">&quot;Loading Process&quot;</span> playbooks/git-playbook.md
 </code></pre>
-<h3 id="loading-process-section-extraction-alternative-methods" class="docmd-heading"><a href="#loading-process-section-extraction-alternative-methods" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Alternative Methods</h3>
-<h4 id="loading-process-section-extraction-alternative-methods-grep-quick-and-dirty" class="docmd-heading"><a href="#loading-process-section-extraction-alternative-methods-grep-quick-and-dirty" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a><code>grep</code> (quick and dirty)</h4>
+<h3 id="loading-process-table-of-contents-structure-alternative-methods" class="docmd-heading"><a href="#loading-process-table-of-contents-structure-alternative-methods" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Alternative Methods</h3>
+<h4 id="loading-process-table-of-contents-structure-alternative-methods-grep-quick-and-dirty" class="docmd-heading"><a href="#loading-process-table-of-contents-structure-alternative-methods-grep-quick-and-dirty" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a><code>grep</code> (quick and dirty)</h4>
 <pre class="hljs"><code>grep -A 30 <span class="hljs-string">&quot;## Section Name&quot;</span> playbook.md
 </code></pre>
-<h4 id="loading-process-section-extraction-alternative-methods-sed-precise-line-ranges" class="docmd-heading"><a href="#loading-process-section-extraction-alternative-methods-sed-precise-line-ranges" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a><code>sed</code> (precise line ranges)</h4>
+<h4 id="loading-process-table-of-contents-structure-alternative-methods-sed-precise-line-ranges" class="docmd-heading"><a href="#loading-process-table-of-contents-structure-alternative-methods-sed-precise-line-ranges" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a><code>sed</code> (precise line ranges)</h4>
 <pre class="hljs"><code>sed -n <span class="hljs-string">&#x27;/## Section Name/,/^## /p&#x27;</span> playbook.md | <span class="hljs-built_in">head</span> -n -1
 </code></pre>
-<h4 id="loading-process-section-extraction-alternative-methods-awk-structured-extraction" class="docmd-heading"><a href="#loading-process-section-extraction-alternative-methods-awk-structured-extraction" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a><code>awk</code> (structured extraction)</h4>
+<h4 id="loading-process-table-of-contents-structure-alternative-methods-awk-structured-extraction" class="docmd-heading"><a href="#loading-process-table-of-contents-structure-alternative-methods-awk-structured-extraction" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a><code>awk</code> (structured extraction)</h4>
 <pre class="hljs"><code>awk <span class="hljs-string">&#x27;/## Section Name/,/^## [^#]/ {print}&#x27;</span> playbook.md | <span class="hljs-built_in">head</span> -n -1
 </code></pre>
 <h2 id="loading-process-best-practices" class="docmd-heading"><a href="#loading-process-best-practices" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Best Practices</h2>
@@ -2831,34 +2722,6 @@ ast-grep -p <span class="hljs-string">&quot;## <span class="hljs-variable">$SECT
           <a href="#loading-process-implementation-guide-step-3-create-table-of-contents" class="toc-link">Step 3: Create Table of Contents</a>
         </li>
       
-        <li class="toc-item toc-level-3">
-          <a href="#loading-process-implementation-guide-step-4-add-loading-process-section" class="toc-link">Step 4: Add Loading Process Section</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#loading-process-implementation-guide-step-5-write-selfcontained-sections" class="toc-link">Step 5: Write Self‑Contained Sections</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#loading-process-implementation-guide-step-6-test-extraction" class="toc-link">Step 6: Test Extraction</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#loading-process-frontmatter-metadata" class="toc-link">Frontmatter Metadata</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#loading-process-frontmatter-metadata-required-fields" class="toc-link">Required Fields</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#loading-process-frontmatter-metadata-optional-fields" class="toc-link">Optional Fields</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#loading-process-frontmatter-metadata-example-frontmatter" class="toc-link">Example Frontmatter</a>
-        </li>
-      
         <li class="toc-item toc-level-2">
           <a href="#loading-process-table-of-contents-structure" class="toc-link">Table of Contents Structure</a>
         </li>
@@ -2871,36 +2734,24 @@ ast-grep -p <span class="hljs-string">&quot;## <span class="hljs-variable">$SECT
           <a href="#loading-process-table-of-contents-structure-example-structure" class="toc-link">Example Structure</a>
         </li>
       
-        <li class="toc-item toc-level-2">
-          <a href="#loading-process-section-extraction" class="toc-link">Section Extraction</a>
+        <li class="toc-item toc-level-4">
+          <a href="#loading-process-table-of-contents-structure-example-structure-programmatic-extraction" class="toc-link">Programmatic Extraction</a>
         </li>
       
         <li class="toc-item toc-level-3">
-          <a href="#loading-process-section-extraction-using-ast-grep" class="toc-link">Using ast-grep</a>
+          <a href="#loading-process-table-of-contents-structure-alternative-methods" class="toc-link">Alternative Methods</a>
         </li>
       
         <li class="toc-item toc-level-4">
-          <a href="#loading-process-section-extraction-using-ast-grep-common-patterns" class="toc-link">Common Patterns</a>
+          <a href="#loading-process-table-of-contents-structure-alternative-methods-grep-quick-and-dirty" class="toc-link">grep (quick and dirty)</a>
         </li>
       
         <li class="toc-item toc-level-4">
-          <a href="#loading-process-section-extraction-using-ast-grep-programmatic-extraction" class="toc-link">Programmatic Extraction</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#loading-process-section-extraction-alternative-methods" class="toc-link">Alternative Methods</a>
+          <a href="#loading-process-table-of-contents-structure-alternative-methods-sed-precise-line-ranges" class="toc-link">sed (precise line ranges)</a>
         </li>
       
         <li class="toc-item toc-level-4">
-          <a href="#loading-process-section-extraction-alternative-methods-grep-quick-and-dirty" class="toc-link">grep (quick and dirty)</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#loading-process-section-extraction-alternative-methods-sed-precise-line-ranges" class="toc-link">sed (precise line ranges)</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#loading-process-section-extraction-alternative-methods-awk-structured-extraction" class="toc-link">awk (structured extraction)</a>
+          <a href="#loading-process-table-of-contents-structure-alternative-methods-awk-structured-extraction" class="toc-link">awk (structured extraction)</a>
         </li>
       
         <li class="toc-item toc-level-2">
@@ -2968,10 +2819,10 @@ ast-grep -p <span class="hljs-string">&quot;## <span class="hljs-variable">$SECT
 
                         </div>
             </div>
-            <script src="../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

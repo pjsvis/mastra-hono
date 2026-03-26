@@ -85,16 +85,16 @@
         Agentic SDLC Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,81 +2318,6 @@
                                 
                                 
                                     <h1 id="agentic-sdlc-playbook">Agentic SDLC Playbook</h1>
-<h2 id="agentic-sdlc-playbook-table-of-contents" class="docmd-heading"><a href="#agentic-sdlc-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#verifiable-goals-tdd-as-agent-rails">Verifiable Goals (TDD as Agent Rails)</a>
-<ul>
-<li><a href="#the-problem">The Problem</a></li>
-<li><a href="#the-solution">The Solution</a></li>
-<li><a href="#practice">Practice</a></li>
-<li><a href="#example">Example</a></li>
-<li><a href="#benefits">Benefits</a></li>
-</ul>
-</li>
-<li><a href="#context-density-over-context-volume">Context Density over Context Volume</a>
-<ul>
-<li><a href="#the-problem">The Problem</a></li>
-<li><a href="#the-solution">The Solution</a></li>
-<li><a href="#practice">Practice</a></li>
-<li><a href="#benefits">Benefits</a></li>
-</ul>
-</li>
-<li><a href="#declarative-state-over-imperative-mutation">Declarative State over Imperative Mutation</a>
-<ul>
-<li><a href="#the-problem">The Problem</a></li>
-<li><a href="#the-solution">The Solution</a></li>
-<li><a href="#practice">Practice</a></li>
-<li><a href="#benefits">Benefits</a></li>
-</ul>
-</li>
-<li><a href="#the-%22why%22-in-code-comments">The “Why” in Code Comments</a>
-<ul>
-<li><a href="#the-problem">The Problem</a></li>
-<li><a href="#the-solution">The Solution</a></li>
-<li><a href="#practice">Practice</a></li>
-<li><a href="#benefits">Benefits</a></li>
-</ul>
-</li>
-<li><a href="#tool-chaining-the-unix-philosophy-for-agents">Tool Chaining (The Unix Philosophy for Agents)</a>
-<ul>
-<li><a href="#the-problem">The Problem</a></li>
-<li><a href="#the-solution">The Solution</a></li>
-<li><a href="#practice">Practice</a></li>
-<li><a href="#benefits">Benefits</a></li>
-</ul>
-</li>
-<li><a href="#deterministic-environments">Deterministic Environments</a>
-<ul>
-<li><a href="#the-problem">The Problem</a></li>
-<li><a href="#the-solution">The Solution</a></li>
-<li><a href="#practice">Practice</a></li>
-<li><a href="#benefits">Benefits</a></li>
-</ul>
-</li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-always-write-tests-first">1. Always Write Tests First</a></li>
-<li><a href="#2-keep-context-focused">2. Keep Context Focused</a></li>
-<li><a href="#3-use-pure-functions">3. Use Pure Functions</a></li>
-<li><a href="#4-document-the-%22why%22">4. Document the “Why”</a></li>
-<li><a href="#5-build-small-tools">5. Build Small Tools</a></li>
-<li><a href="#6-enforce-deterministic-environments">6. Enforce Deterministic Environments</a></li>
-<li><a href="#7-provide-clear-success-criteria">7. Provide Clear Success Criteria</a></li>
-<li><a href="#8-review-agent-output">8. Review Agent Output</a></li>
-</ul>
-</li>
-<li><a href="#common-pitfalls">Common Pitfalls</a>
-<ul>
-<li><a href="#pitfall-1-giving-open-ended-instructions">Pitfall 1: Giving Open-Ended Instructions</a></li>
-<li><a href="#pitfall-2-overloading-context">Pitfall 2: Overloading Context</a></li>
-<li><a href="#pitfall-3-ignoring-environment-issues">Pitfall 3: Ignoring Environment Issues</a></li>
-<li><a href="#pitfall-4-not-testing-agent-output">Pitfall 4: Not Testing Agent Output</a></li>
-<li><a href="#pitfall-5-building-monolithic-tools">Pitfall 5: Building Monolithic Tools</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="agentic-sdlc-playbook-purpose" class="docmd-heading"><a href="#agentic-sdlc-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>This playbook outlines heuristics for an Agentic Software Development Life Cycle (SDLC). As software development evolves to include autonomous and semi-autonomous AI agents, our practices must adapt to maximize their leverage. This document provides guidance on how to structure code, context, and workflows to enable effective agent-assisted development.</p>
 <p><strong>Core Philosophy:</strong> Design software and workflows that align with how agents think and work. Agents excel at pattern matching, constraint satisfaction, and declarative reasoning. By structuring our code and processes accordingly, we can maximize agent effectiveness while maintaining quality and reliability.</p>
@@ -2835,10 +2725,6 @@ bun run typecheck
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#agentic-sdlc-playbook-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#agentic-sdlc-playbook-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -3055,10 +2941,10 @@ bun run typecheck
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

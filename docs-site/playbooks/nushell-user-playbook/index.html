@@ -85,16 +85,16 @@
         Nushell User Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,88 +2318,6 @@
                                 
                                 
                                     <h1 id="nushell-user-playbook">Nushell User Playbook</h1>
-<h2 id="nushell-user-playbook-table-of-contents" class="docmd-heading"><a href="#nushell-user-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#installation">Installation</a>
-<ul>
-<li><a href="#system-requirements">System Requirements</a></li>
-<li><a href="#installation-methods">Installation Methods</a></li>
-<li><a href="#verification">Verification</a></li>
-</ul>
-</li>
-<li><a href="#configuration">Configuration</a>
-<ul>
-<li><a href="#config-file-location">Config File Location</a></li>
-<li><a href="#locate-configuration-files">Locate Configuration Files</a></li>
-<li><a href="#edit-configuration">Edit Configuration</a></li>
-<li><a href="#basic-config-structure">Basic Config Structure</a></li>
-<li><a href="#environment-variables">Environment Variables</a></li>
-</ul>
-</li>
-<li><a href="#project-shortcuts">Project Shortcuts</a>
-<ul>
-<li><a href="#manual-sourcing">Manual Sourcing</a></li>
-<li><a href="#persistent-sourcing-global">Persistent Sourcing (Global)</a></li>
-<li><a href="#available-aliases">Available Aliases</a></li>
-<li><a href="#help-command">Help Command</a></li>
-</ul>
-</li>
-<li><a href="#automated-deployment">Automated Deployment</a>
-<ul>
-<li><a href="#deployment-script-%60scriptssetup-nushellnu%60">Deployment Script: <code>scripts/setup-nushell.nu</code></a></li>
-</ul>
-</li>
-<li><a href="#multi-shell-access">Multi-Shell Access</a>
-<ul>
-<li><a href="#available-commands">Available Commands</a></li>
-<li><a href="#via-mastra-cli">Via Mastra CLI</a></li>
-<li><a href="#cross-shell-compatibility">Cross-Shell Compatibility</a></li>
-</ul>
-</li>
-<li><a href="#usage-guide">Usage Guide</a>
-<ul>
-<li><a href="#everyday-shortcuts">Everyday Shortcuts</a></li>
-</ul>
-</li>
-<li><a href="#daily-workflow">Daily Workflow</a>
-<ul>
-<li><a href="#morning-routine">Morning Routine</a></li>
-<li><a href="#during-development">During Development</a></li>
-<li><a href="#end-of-day">End of Day</a></li>
-</ul>
-</li>
-<li><a href="#troubleshooting">Troubleshooting</a>
-<ul>
-<li><a href="#common-issues">Common Issues</a></li>
-<li><a href="#debugging">Debugging</a></li>
-</ul>
-</li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-use-structured-data">1. Use Structured Data</a></li>
-<li><a href="#2-leverage-type-safety">2. Leverage Type Safety</a></li>
-<li><a href="#3-keep-functions-small">3. Keep Functions Small</a></li>
-<li><a href="#4-document-your-code">4. Document Your Code</a></li>
-<li><a href="#5-use-meaningful-names">5. Use Meaningful Names</a></li>
-<li><a href="#6-test-your-aliases">6. Test Your Aliases</a></li>
-</ul>
-</li>
-<li><a href="#examples">Examples</a>
-<ul>
-<li><a href="#example-1-task-dashboard">Example 1: Task Dashboard</a></li>
-<li><a href="#example-2-git-summary">Example 2: Git Summary</a></li>
-<li><a href="#example-3-file-analyzer">Example 3: File Analyzer</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a>
-<ul>
-<li><a href="#official-documentation">Official Documentation</a></li>
-<li><a href="#project-documentation">Project Documentation</a></li>
-<li><a href="#related-playbooks">Related Playbooks</a></li>
-</ul>
-</li>
-</ul>
 <h2 id="nushell-user-playbook-purpose" class="docmd-heading"><a href="#nushell-user-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>This playbook provides a complete guide for setting up <strong>Nushell (nu)</strong> as your primary or auxiliary shell for interacting with the Mastra-Hono project. It covers installation, configuration patterns, automated deployment of project shortcuts, and daily workflows. The goal is to help developers become productive with Nushell quickly and leverage its power for structured data manipulation and automation.</p>
 <p><strong>Core Philosophy:</strong> Nushell is a <strong>modern, type‑safe shell</strong> that treats data as structured values (tables, records, lists) rather than raw text. This makes it ideal for working with JSON, APIs, and complex data pipelines.</p>
@@ -3033,10 +2916,6 @@ analyze-files &quot;*.ts&quot; | to json
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#nushell-user-playbook-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#nushell-user-playbook-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -3317,10 +3196,10 @@ analyze-files &quot;*.ts&quot; | to json
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

@@ -85,16 +85,16 @@
         Agentic Integrity Retrofit Guide
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,80 +2318,6 @@
                                 
                                 
                                     <h1 id="agentic-integrity-retrofit-guide">Agentic Integrity Retrofit Guide</h1>
-<h2 id="agentic-integrity-retrofit-guide-table-of-contents" class="docmd-heading"><a href="#agentic-integrity-retrofit-guide-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#core-script-porting">Core Script Porting</a>
-<ul>
-<li><a href="#required-scripts">Required Scripts</a></li>
-<li><a href="#script-customization">Script Customization</a></li>
-<li><a href="#verification">Verification</a></li>
-</ul>
-</li>
-<li><a href="#directory-structure">Directory Structure</a>
-<ul>
-<li><a href="#required-directories">Required Directories</a></li>
-<li><a href="#directory-purposes">Directory Purposes</a></li>
-<li><a href="#optional-directories">Optional Directories</a></li>
-</ul>
-</li>
-<li><a href="#packagejson-integration">package.json Integration</a>
-<ul>
-<li><a href="#required-scripts">Required Scripts</a></li>
-<li><a href="#script-descriptions">Script Descriptions</a></li>
-<li><a href="#customizing-the-%60verify%60-script">Customizing the <code>verify</code> Script</a></li>
-</ul>
-</li>
-<li><a href="#the-agent-constitution-agentsmd">The Agent Constitution (AGENTS.md)</a>
-<ul>
-<li><a href="#required-sections">Required Sections</a></li>
-<li><a href="#example-template">Example Template</a></li>
-</ul>
-</li>
-<li><a href="#local-environment-setup">Local Environment Setup</a>
-<ul>
-<li><a href="#step-1-initialize-%60td%60">Step 1: Initialize <code>td</code></a></li>
-<li><a href="#step-2-haptic-alias-optional-but-recommended">Step 2: Haptic Alias (Optional but Recommended)</a></li>
-<li><a href="#step-3-verify-setup">Step 3: Verify Setup</a></li>
-</ul>
-</li>
-<li><a href="#the-%22map-of-knowledge%22-protocol">The “Map of Knowledge” Protocol</a>
-<ul>
-<li><a href="#required-links">Required Links</a></li>
-<li><a href="#implementation">Implementation</a></li>
-<li><a href="#benefits">Benefits</a></li>
-</ul>
-</li>
-<li><a href="#retrofit-checklist">Retrofit Checklist</a>
-<ul>
-<li><a href="#infrastructure">Infrastructure</a></li>
-<li><a href="#scripts">Scripts</a></li>
-<li><a href="#configuration">Configuration</a></li>
-<li><a href="#testing">Testing</a></li>
-<li><a href="#documentation">Documentation</a></li>
-</ul>
-</li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-keep-scripts-simple">1. Keep Scripts Simple</a></li>
-<li><a href="#2-use-absolute-paths-where-possible">2. Use Absolute Paths Where Possible</a></li>
-<li><a href="#3-make-scripts-executable">3. Make Scripts Executable</a></li>
-<li><a href="#4-test-scripts-before-committing">4. Test Scripts Before Committing</a></li>
-<li><a href="#5-document-customizations">5. Document Customizations</a></li>
-<li><a href="#6-keep-%60agentsmd%60-up-to-date">6. Keep <code>AGENTS.md</code> Up to Date</a></li>
-</ul>
-</li>
-<li><a href="#common-issues">Common Issues</a>
-<ul>
-<li><a href="#issue-1-scripts-not-executable">Issue 1: Scripts Not Executable</a></li>
-<li><a href="#issue-2-%60ntfy_topic%60-not-configured">Issue 2: <code>NTFY_TOPIC</code> Not Configured</a></li>
-<li><a href="#issue-3-%60verify%60-script-fails">Issue 3: <code>verify</code> Script Fails</a></li>
-<li><a href="#issue-4-%60td%60-not-initialized">Issue 4: <code>td</code> Not Initialized</a></li>
-<li><a href="#issue-5-directories-not-created">Issue 5: Directories Not Created</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="agentic-integrity-retrofit-guide-purpose" class="docmd-heading"><a href="#agentic-integrity-retrofit-guide-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>This guide provides the technical steps to port the <strong>Agentic Integrity Workflow</strong> (Symmetric Mentation) to any new or existing repository. It serves as a comprehensive migration guide for teams adopting the workflow, ensuring consistency across projects while allowing for project-specific customization.</p>
 <p><strong>Core Philosophy:</strong> Standardize the workflow infrastructure while allowing flexibility in implementation details. The workflow should be portable and reproducible across different tech stacks.</p>
@@ -2977,10 +2868,6 @@ Edit <code>scripts/ask.sh</code> and set the correct topic:</p>
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#agentic-integrity-retrofit-guide-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#agentic-integrity-retrofit-guide-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -3181,10 +3068,10 @@ Edit <code>scripts/ask.sh</code> and set the correct topic:</p>
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

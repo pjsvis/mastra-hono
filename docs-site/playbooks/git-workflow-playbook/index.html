@@ -85,16 +85,16 @@
         Git &amp; TD Workflow Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,47 +2318,6 @@
                                 
                                 
                                     <h1 id="git-td-workflow-playbook">Git &amp; TD Workflow Playbook</h1>
-<h2 id="git-td-workflow-playbook-table-of-contents" class="docmd-heading"><a href="#git-td-workflow-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#branching-&amp;-workspaces">Branching &amp; Workspaces</a>
-<ul>
-<li><a href="#core-rules">Core Rules</a></li>
-<li><a href="#why-this-matters">Why This Matters</a></li>
-</ul>
-</li>
-<li><a href="#the-td-flow">The TD Flow</a>
-<ul>
-<li><a href="#picking-up-work">Picking Up Work</a></li>
-<li><a href="#during-development">During Development</a></li>
-<li><a href="#context-handoffs">Context Handoffs</a></li>
-</ul>
-</li>
-<li><a href="#reviews-&amp;-merging">Reviews &amp; Merging</a>
-<ul>
-<li><a href="#the-review-process">The Review Process</a></li>
-<li><a href="#why-this-separation-matters">Why This Separation Matters</a></li>
-</ul>
-</li>
-<li><a href="#resolving-conflicts">Resolving Conflicts</a>
-<ul>
-<li><a href="#what-not-to-do">What NOT to Do</a></li>
-<li><a href="#what-to-do">What TO Do</a></li>
-<li><a href="#common-issues-and-solutions">Common Issues and Solutions</a></li>
-</ul>
-</li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-always-link-workspaces-to-tasks">1. Always Link Workspaces to Tasks</a></li>
-<li><a href="#2-perform-handoffs-before-context-window-ends">2. Perform Handoffs Before Context Window Ends</a></li>
-<li><a href="#3-keep-worktrees-until-approval">3. Keep Worktrees Until Approval</a></li>
-<li><a href="#4-never-skip-quality-checks">4. Never Skip Quality Checks</a></li>
-<li><a href="#5-log-decisions-explicitly">5. Log Decisions Explicitly</a></li>
-<li><a href="#6-test-before-submitting-for-review">6. Test Before Submitting for Review</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="git-td-workflow-playbook-purpose" class="docmd-heading"><a href="#git-td-workflow-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>This playbook defines our expected workflow for branching, using Sidecar workspaces, and managing task reviews using the <code>td</code> CLI. It provides a systematic approach to parallel development, context management, and code review processes.</p>
 <p><strong>Core Philosophy:</strong> Maintain clean separation between implementation, automated review, and approval while preserving context across sessions and agents.</p>
@@ -2579,10 +2503,6 @@ td approve &lt;issue-id&gt;
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#git-td-workflow-playbook-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#git-td-workflow-playbook-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -2699,10 +2619,10 @@ td approve &lt;issue-id&gt;
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

@@ -85,16 +85,16 @@
         Nushell Agent Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,46 +2318,6 @@
                                 
                                 
                                     <h1 id="nushell-agent-playbook">Nushell Agent Playbook</h1>
-<h2 id="nushell-agent-playbook-table-of-contents" class="docmd-heading"><a href="#nushell-agent-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#modes-of-use">Modes of Use</a>
-<ul>
-<li><a href="#mode-1-everyday-mode-shortcuts">Mode 1: Everyday Mode (Shortcuts)</a></li>
-<li><a href="#mode-2-development-mode-tooling">Mode 2: Development Mode (Tooling)</a></li>
-</ul>
-</li>
-<li><a href="#approved-integration-rules">Approved Integration Rules</a>
-<ul>
-<li><a href="#what-to-do">What TO Do</a></li>
-<li><a href="#what-not-to-do">What NOT to Do</a></li>
-</ul>
-</li>
-<li><a href="#troubleshooting">Troubleshooting</a>
-<ul>
-<li><a href="#common-issues">Common Issues</a></li>
-</ul>
-</li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-always-start-with-%60td-usage---new-session%60">1. Always Start with <code>td usage --new-session</code></a></li>
-<li><a href="#2-use-aliases-for-common-operations">2. Use Aliases for Common Operations</a></li>
-<li><a href="#3-validate-output-structures">3. Validate Output Structures</a></li>
-<li><a href="#4-prefer-pipes-over-variables">4. Prefer Pipes Over Variables</a></li>
-<li><a href="#5-test-transformations-interactively">5. Test Transformations Interactively</a></li>
-<li><a href="#6-keep-functions-small">6. Keep Functions Small</a></li>
-</ul>
-</li>
-<li><a href="#examples">Examples</a>
-<ul>
-<li><a href="#example-1-extract-task-summary">Example 1: Extract Task Summary</a></li>
-<li><a href="#example-2-filter-tasks-by-multiple-criteria">Example 2: Filter Tasks by Multiple Criteria</a></li>
-<li><a href="#example-3-generate-task-report">Example 3: Generate Task Report</a></li>
-<li><a href="#example-4-monitor-task-changes">Example 4: Monitor Task Changes</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="nushell-agent-playbook-purpose" class="docmd-heading"><a href="#nushell-agent-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>Use Nushell (<code>nu</code>) as a <strong>sensory layer</strong> to extract structured truth from <code>td</code> and related tools. This playbook defines the two operating modes and the approved usage patterns for agents working with task state and structured data.</p>
 <p><strong>Core Philosophy:</strong> Prefer structured data (JSON/tables) over raw text. Use Nushell transforms to extract and manipulate data without coupling to storage implementations.</p>
@@ -2803,10 +2728,6 @@ loop {
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#nushell-agent-playbook-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#nushell-agent-playbook-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -2951,10 +2872,10 @@ loop {
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

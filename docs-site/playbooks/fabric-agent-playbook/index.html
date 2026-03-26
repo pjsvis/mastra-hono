@@ -85,16 +85,16 @@
         Fabric Agent Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,114 +2318,6 @@
                                 
                                 
                                     <h1 id="fabric-agent-playbook">Fabric Agent Playbook</h1>
-<h2 id="fabric-agent-playbook-table-of-contents" class="docmd-heading"><a href="#fabric-agent-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#core-principles">Core Principles</a></li>
-<li><a href="#mandatory-directives">Mandatory Directives</a>
-<ul>
-<li><a href="#1-use-fabric-for-repetitive-ai-tasks">1) Use Fabric for Repetitive AI Tasks</a></li>
-<li><a href="#2-always-stream-large-content">2) Always Stream Large Content</a></li>
-<li><a href="#3-generate-documentation-systematically">3) Generate Documentation Systematically</a></li>
-</ul>
-</li>
-<li><a href="#standard-workflows">Standard Workflows</a>
-<ul>
-<li><a href="#code-review-&amp;-analysis">Code Review &amp; Analysis</a></li>
-<li><a href="#documentation-generation">Documentation Generation</a></li>
-<li><a href="#content-summarization">Content Summarization</a></li>
-<li><a href="#writing-enhancement">Writing Enhancement</a></li>
-</ul>
-</li>
-<li><a href="#integration-patterns">Integration Patterns</a>
-<ul>
-<li><a href="#with-git-workflows">With Git Workflows</a></li>
-<li><a href="#with-code-review">With Code Review</a></li>
-<li><a href="#with-documentation">With Documentation</a></li>
-<li><a href="#with-testing">With Testing</a></li>
-</ul>
-</li>
-<li><a href="#pattern-selection-guide">Pattern Selection Guide</a>
-<ul>
-<li><a href="#when-to-use-which-pattern">When to Use Which Pattern</a></li>
-</ul>
-</li>
-<li><a href="#advanced-usage">Advanced Usage</a>
-<ul>
-<li><a href="#chaining-patterns">Chaining Patterns</a></li>
-<li><a href="#context-management">Context Management</a></li>
-<li><a href="#model-selection">Model Selection</a></li>
-<li><a href="#output-management">Output Management</a></li>
-</ul>
-</li>
-<li><a href="#agent-specific-patterns">Agent-Specific Patterns</a>
-<ul>
-<li><a href="#code-analysis-flow">Code Analysis Flow</a></li>
-<li><a href="#documentation-generation-flow">Documentation Generation Flow</a></li>
-<li><a href="#pr-review-flow">PR Review Flow</a></li>
-</ul>
-</li>
-<li><a href="#do--don't">Do / Don’t</a>
-<ul>
-<li><a href="#do">Do</a></li>
-<li><a href="#don't">Don’t</a></li>
-</ul>
-</li>
-<li><a href="#pattern-library-reference">Pattern Library Reference</a>
-<ul>
-<li><a href="#most-useful-for-agents">Most Useful for Agents</a></li>
-</ul>
-</li>
-<li><a href="#performance-considerations">Performance Considerations</a>
-<ul>
-<li><a href="#when-to-stream">When to Stream</a></li>
-<li><a href="#model-selection-strategy">Model Selection Strategy</a></li>
-</ul>
-</li>
-<li><a href="#integration-with-other-tools">Integration with Other Tools</a>
-<ul>
-<li><a href="#with-td-task-management">With td (Task Management)</a></li>
-<li><a href="#with-github-cli">With GitHub CLI</a></li>
-<li><a href="#with-testing-tools">With Testing Tools</a></li>
-</ul>
-</li>
-<li><a href="#custom-pattern-creation-for-agents">Custom Pattern Creation for Agents</a>
-<ul>
-<li><a href="#pattern-template">Pattern Template</a></li>
-<li><a href="#example-pr-review-pattern">Example: PR Review Pattern</a></li>
-</ul>
-</li>
-<li><a href="#summary">Summary</a></li>
-<li><a href="#issues-found">Issues Found</a></li>
-<li><a href="#suggestions">Suggestions</a></li>
-<li><a href="#approval-status">Approval Status</a></li>
-<li><a href="#troubleshooting">Troubleshooting</a>
-<ul>
-<li><a href="#pattern-not-working-as-expected">Pattern Not Working as Expected</a></li>
-<li><a href="#performance-issues">Performance Issues</a></li>
-</ul>
-</li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-always-check-for-existing-patterns">1. Always Check for Existing Patterns</a></li>
-<li><a href="#2-stream-large-inputs">2. Stream Large Inputs</a></li>
-<li><a href="#3-chain-patterns-for-complex-workflows">3. Chain Patterns for Complex Workflows</a></li>
-<li><a href="#4-save-context-for-multi-turn-analysis">4. Save Context for Multi-Turn Analysis</a></li>
-<li><a href="#5-document-pattern-usage">5. Document Pattern Usage</a></li>
-<li><a href="#6-update-patterns-regularly">6. Update Patterns Regularly</a></li>
-</ul>
-</li>
-<li><a href="#common-pitfalls">Common Pitfalls</a>
-<ul>
-<li><a href="#pitfall-1-writing-custom-prompts-for-common-tasks">Pitfall 1: Writing Custom Prompts for Common Tasks</a></li>
-<li><a href="#pitfall-2-not-streaming-large-inputs">Pitfall 2: Not Streaming Large Inputs</a></li>
-<li><a href="#pitfall-3-mixing-unrelated-patterns">Pitfall 3: Mixing Unrelated Patterns</a></li>
-<li><a href="#pitfall-4-forgetting-model-selection">Pitfall 4: Forgetting Model Selection</a></li>
-<li><a href="#pitfall-5-using-patterns-for-code-execution">Pitfall 5: Using Patterns for Code Execution</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="fabric-agent-playbook-purpose" class="docmd-heading"><a href="#fabric-agent-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>This playbook defines how AI agents should use the <code>fabric</code> CLI to enhance their capabilities with pre-built AI patterns for code analysis, content summarization, documentation generation, and more. It provides comprehensive guidelines for leveraging fabric’s 250+ patterns to improve agent efficiency and output quality.</p>
 <p><strong>Core Philosophy:</strong> Leverage existing fabric patterns instead of crafting similar prompts from scratch. Compose patterns with other tools for complex tasks, and always stream large inputs for better performance.</p>
@@ -3356,10 +3213,6 @@ bun run script.ts
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#fabric-agent-playbook-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#fabric-agent-playbook-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -3620,10 +3473,10 @@ bun run script.ts
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

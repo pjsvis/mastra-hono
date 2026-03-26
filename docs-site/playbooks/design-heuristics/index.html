@@ -85,16 +85,16 @@
         Design Heuristics
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,63 +2318,6 @@
                                 
                                 
                                     <h1 id="design-heuristics">Design Heuristics</h1>
-<h2 id="design-heuristics-table-of-contents" class="docmd-heading"><a href="#design-heuristics-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#the-resultoption-return-pattern">The Result/Option Return Pattern</a>
-<ul>
-<li><a href="#why">Why?</a></li>
-<li><a href="#example">Example</a></li>
-<li><a href="#benefits">Benefits</a></li>
-</ul>
-</li>
-<li><a href="#type-safety-strictness-zones">Type-Safety Strictness Zones</a>
-<ul>
-<li><a href="#the-%60@src%60-zone">The <code>@src</code> Zone</a></li>
-<li><a href="#the-%60tests%60-&amp;-%60@scripts%60-zone">The <code>tests</code> &amp; <code>@scripts</code> Zone</a></li>
-<li><a href="#the-%60scriptslab%60-zone">The <code>scripts/lab</code> Zone</a></li>
-</ul>
-</li>
-<li><a href="#separation-of-review-&amp;-implementation">Separation of Review &amp; Implementation</a>
-<ul>
-<li><a href="#implementation">Implementation</a></li>
-<li><a href="#why-this-matters">Why this matters</a></li>
-</ul>
-</li>
-<li><a href="#pipeline-resiliency-&amp;-idempotency">Pipeline Resiliency &amp; Idempotency</a>
-<ul>
-<li><a href="#key-practices">Key Practices</a></li>
-<li><a href="#benefits">Benefits</a></li>
-</ul>
-</li>
-<li><a href="#intermediate-artifacts-&amp;-jsonl">Intermediate Artifacts &amp; JSONL</a>
-<ul>
-<li><a href="#why">Why?</a></li>
-<li><a href="#example">Example</a></li>
-<li><a href="#benefits">Benefits</a></li>
-</ul>
-</li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-always-return-result-objects">1. Always Return Result Objects</a></li>
-<li><a href="#2-respect-type-safety-zones">2. Respect Type-Safety Zones</a></li>
-<li><a href="#3-separate-implementation-from-review">3. Separate Implementation from Review</a></li>
-<li><a href="#4-design-for-failure">4. Design for Failure</a></li>
-<li><a href="#5-emit-intermediate-artifacts">5. Emit Intermediate Artifacts</a></li>
-<li><a href="#6-use-jsonl-for-large-datasets">6. Use JSONL for Large Datasets</a></li>
-</ul>
-</li>
-<li><a href="#common-pitfalls">Common Pitfalls</a>
-<ul>
-<li><a href="#pitfall-1-throwing-exceptions-from-tools">Pitfall 1: Throwing Exceptions from Tools</a></li>
-<li><a href="#pitfall-2-using-%60any%60-in-production-code">Pitfall 2: Using <code>any</code> in Production Code</a></li>
-<li><a href="#pitfall-3-approving-own-code">Pitfall 3: Approving Own Code</a></li>
-<li><a href="#pitfall-4-fragile-pipelines">Pitfall 4: Fragile Pipelines</a></li>
-<li><a href="#pitfall-5-no-intermediate-artifacts">Pitfall 5: No Intermediate Artifacts</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="design-heuristics-purpose" class="docmd-heading"><a href="#design-heuristics-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>This document outlines the core architectural and design heuristics for the Mastra Agent Forge repository. While playbooks provide concrete workflows and step-by-step guides, these heuristics describe <em>why</em> and <em>how</em> we shape our systems. These principles guide our decision-making and ensure consistency across the codebase.</p>
 <p><strong>Core Philosophy:</strong> Design systems that are resilient, maintainable, and agent-friendly. Prioritize graceful error handling, strict type safety in production, and clear separation of concerns.</p>
@@ -2798,10 +2706,6 @@ td approve &lt;task-id&gt;
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#design-heuristics-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#design-heuristics-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -2970,10 +2874,10 @@ td approve &lt;task-id&gt;
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

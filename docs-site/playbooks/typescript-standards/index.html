@@ -85,16 +85,16 @@
         TypeScript Standards Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,40 +2318,6 @@
                                 
                                 
                                     <h1 id="typescript-standards-playbook">TypeScript Standards Playbook</h1>
-<h2 id="typescript-standards-playbook-table-of-contents" class="docmd-heading"><a href="#typescript-standards-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#loose-autocomplete">Loose Autocomplete</a></li>
-<li><a href="#branded-types-nominal-typing">Branded Types (Nominal Typing)</a></li>
-<li><a href="#exhaustive-switches">Exhaustive Switches</a></li>
-<li><a href="#result-pattern-error-handling">Result Pattern (Error Handling)</a></li>
-<li><a href="#zod-type-inference">Zod Type Inference</a></li>
-<li><a href="#bun-first-patterns">Bun-First Patterns</a>
-<ul>
-<li><a href="#explicit-main-check">Explicit Main Check</a></li>
-<li><a href="#path-resolution">Path Resolution</a></li>
-</ul>
-</li>
-<li><a href="#ai-friendly-typing">AI-Friendly Typing</a></li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-always-use-zod-for-data-structures">1. Always Use Zod for Data Structures</a></li>
-<li><a href="#2-use-branded-types-for-ids">2. Use Branded Types for IDs</a></li>
-<li><a href="#3-use-exhaustive-switches">3. Use Exhaustive Switches</a></li>
-<li><a href="#4-use-result-pattern-for-error-handling">4. Use Result Pattern for Error Handling</a></li>
-<li><a href="#5-use-explicit-return-types">5. Use Explicit Return Types</a></li>
-</ul>
-</li>
-<li><a href="#common-pitfalls">Common Pitfalls</a>
-<ul>
-<li><a href="#pitfall-1-using-%60any%60-instead-of-%60unknown%60">Pitfall 1: Using <code>any</code> Instead of <code>unknown</code></a></li>
-<li><a href="#pitfall-2-not-using-branded-types-for-ids">Pitfall 2: Not Using Branded Types for IDs</a></li>
-<li><a href="#pitfall-3-missing-exhaustive-switch-cases">Pitfall 3: Missing Exhaustive Switch Cases</a></li>
-<li><a href="#pitfall-4-not-deriving-types-from-zod-schemas">Pitfall 4: Not Deriving Types from Zod Schemas</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="typescript-standards-playbook-purpose" class="docmd-heading"><a href="#typescript-standards-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>This playbook defines idiomatic TypeScript patterns used in the Mastra-Hono project. These patterns are selected for high type-safety, excellent developer experience (IDE autocomplete), and AI-maintainability. It provides comprehensive guidelines for writing TypeScript code that is both human-readable and AI-friendly.</p>
 <p><strong>Core Philosophy:</strong> Write TypeScript that is type-safe, maintainable, and AI-friendly. Use explicit types, avoid <code>any</code>, prefer Zod for validation, and follow patterns that enhance IDE autocomplete and make code easier for AI agents to understand and modify.</p>
@@ -2786,10 +2717,6 @@
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#typescript-standards-playbook-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#typescript-standards-playbook-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -2902,10 +2829,10 @@
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

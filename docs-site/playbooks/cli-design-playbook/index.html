@@ -85,16 +85,16 @@
         CLI Design Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7gj3h4">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7haxos">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7haxos"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7gj3h4"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7haxos"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7gj3h4" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7haxos" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -441,6 +441,22 @@
           
           <span class="nav-item-title">
             Dev-Box Utility CLI
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
+        <a href="../../briefs/brief-docmd-integration-notes" class=" "
+          >
+          
+          <span class="nav-item-title">
+            Docmd Integration Notes
             </span>
           
           
@@ -2133,57 +2149,6 @@
         
       </li>
     
-      <li class="collapsible nav-group"  aria-expanded="false" >
-      
-        <span class="nav-label nav-group">
-          
-          <span class="nav-item-title">
-            Scratchpad
-          </span>
-          
-            <span class="collapse-icon-wrapper">
-<svg class="lucide-icon icon-chevron-right collapse-icon" width="1em" height="1em" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
-  class="lucide lucide-chevron-right"
-  xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
->
-  <path d="m9 18 6-6-6-6" />
-</svg>
-</span>
-          
-        </span>
-        
-
-        
-          <ul class="submenu">
-            
-      <li class="" >
-      
-        <a href="../../scratchpad" class=" "
-          >
-          
-          <span class="nav-item-title">
-            Brainstorming: Knowledge Substrate &amp; Stoolap Integration
-            </span>
-          
-          
-        </a>
-        
-
-        
-      </li>
-    
-          </ul>
-        
-      </li>
-    
   </ul>
 </nav>
 
@@ -2353,53 +2318,6 @@
                                 
                                 
                                     <h1 id="cli-design-playbook">CLI Design Playbook</h1>
-<h2 id="cli-design-playbook-table-of-contents" class="docmd-heading"><a href="#cli-design-playbook-table-of-contents" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Table of Contents</h2>
-<ul>
-<li><a href="#purpose">Purpose</a></li>
-<li><a href="#technology-stack">Technology Stack</a></li>
-<li><a href="#when-to-use-citty-vs-native-%60utilparseargs%60">When to Use citty vs Native <code>util.parseArgs</code></a></li>
-<li><a href="#mandatory-directives">Mandatory Directives</a>
-<ul>
-<li><a href="#command-structure">Command Structure</a></li>
-<li><a href="#arg-definition-pattern">Arg Definition Pattern</a></li>
-<li><a href="#handler-structure">Handler Structure</a></li>
-<li><a href="#error-handling">Error Handling</a></li>
-<li><a href="#output-formatting">Output Formatting</a></li>
-<li><a href="#help-text-quality">Help Text Quality</a></li>
-</ul>
-</li>
-<li><a href="#integration-patterns">Integration Patterns</a>
-<ul>
-<li><a href="#pattern-1-subcommand-delegation">Pattern 1: Subcommand Delegation</a></li>
-<li><a href="#pattern-2-shared-arguments">Pattern 2: Shared Arguments</a></li>
-<li><a href="#pattern-3-external-tool-integration">Pattern 3: External Tool Integration</a></li>
-</ul>
-</li>
-<li><a href="#testing-cli-commands">Testing CLI Commands</a></li>
-<li><a href="#type-safety-requirements">Type Safety Requirements</a></li>
-<li><a href="#performance-considerations">Performance Considerations</a></li>
-<li><a href="#migration-from-%60utilparseargs%60">Migration from <code>util.parseArgs</code></a></li>
-<li><a href="#dependencies">Dependencies</a></li>
-<li><a href="#compliance-checklist">Compliance Checklist</a></li>
-<li><a href="#best-practices">Best Practices</a>
-<ul>
-<li><a href="#1-keep-commands-focused">1. Keep Commands Focused</a></li>
-<li><a href="#2-use-descriptive-names">2. Use Descriptive Names</a></li>
-<li><a href="#3-provide-clear-error-messages">3. Provide Clear Error Messages</a></li>
-<li><a href="#4-test-help-text">4. Test Help Text</a></li>
-<li><a href="#5-use-exit-codes-consistently">5. Use Exit Codes Consistently</a></li>
-</ul>
-</li>
-<li><a href="#common-pitfalls">Common Pitfalls</a>
-<ul>
-<li><a href="#pitfall-1-not-using-%60required-true%60">Pitfall 1: Not Using <code>required: true</code></a></li>
-<li><a href="#pitfall-2-missing-descriptions">Pitfall 2: Missing Descriptions</a></li>
-<li><a href="#pitfall-3-inconsistent-exit-codes">Pitfall 3: Inconsistent Exit Codes</a></li>
-<li><a href="#pitfall-4-not-cleaning-up-external-processes">Pitfall 4: Not Cleaning Up External Processes</a></li>
-</ul>
-</li>
-<li><a href="#references">References</a></li>
-</ul>
 <h2 id="cli-design-playbook-purpose" class="docmd-heading"><a href="#cli-design-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
 <p>This playbook defines the design patterns and standards for building CLI tools in the Mastra-Hono project, ensuring consistency, type safety, and maintainability. It provides guidelines for using the citty framework and ensures that all CLI tools follow a consistent structure and user experience.</p>
 <p><strong>Core Philosophy:</strong> Use declarative command structures with citty for complex CLIs, and native <code>util.parseArgs</code> for simple tools. Prioritize type safety, clear help text, and consistent error handling.</p>
@@ -2915,10 +2833,6 @@ spinner.<span class="hljs-title function_">kill</span>();
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#cli-design-playbook-table-of-contents" class="toc-link">Table of Contents</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
           <a href="#cli-design-playbook-purpose" class="toc-link">Purpose</a>
         </li>
       
@@ -3071,10 +2985,10 @@ spinner.<span class="hljs-title function_">kill</span>();
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7gj3h4"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7gj3h4" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7haxos"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7haxos" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7gj3h4" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7haxos" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
