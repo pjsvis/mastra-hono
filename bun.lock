@@ -14,6 +14,7 @@
         "@mastra/mcp": "^1.0.2",
         "@mastra/memory": "^1.3.0",
         "@mastra/observability": "^1.2.0",
+        "@stoolap/node": "^0.3.7",
         "citty": "^0.2.1",
         "hono": "^4.11.9",
         "just-bash": "^2.10.2",
@@ -417,6 +418,18 @@
     "@standard-community/standard-openapi": ["@standard-community/standard-openapi@0.2.9", "", { "peerDependencies": { "@standard-community/standard-json": "^0.3.5", "@standard-schema/spec": "^1.0.0", "arktype": "^2.1.20", "effect": "^3.17.14", "openapi-types": "^12.1.3", "sury": "^10.0.0", "typebox": "^1.0.0", "valibot": "^1.1.0", "zod": "^3.25.0 || ^4.0.0", "zod-openapi": "^4" }, "optionalPeers": ["arktype", "effect", "sury", "typebox", "valibot", "zod-openapi"] }, "sha512-htj+yldvN1XncyZi4rehbf9kLbu8os2Ke/rfqoZHCMHuw34kiF3LP/yQPdA0tQ940y8nDq3Iou8R3wG+AGGyvg=="],
 
     "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
+
+    "@stoolap/lib-darwin-arm64": ["@stoolap/lib-darwin-arm64@0.3.7", "", { "os": "darwin", "cpu": "arm64" }, "sha512-q07ej4n2Y60YT/Zy0UTvkOz1z7b8ZoccNJI4dQe868qSp3c06p6m40hNdgMYlTgUjXRb/eQNZF1M9ylI4iw5CQ=="],
+
+    "@stoolap/lib-darwin-x64": ["@stoolap/lib-darwin-x64@0.3.7", "", { "os": "darwin", "cpu": "x64" }, "sha512-wIyzTJm3t471yxsSUlrcN1h6v+D3KGyleTyUhlxtBACsJXRm5WEgJdqXHg2xw7opjd66WGPu1HSL6kEkuUTP8Q=="],
+
+    "@stoolap/lib-linux-arm64-gnu": ["@stoolap/lib-linux-arm64-gnu@0.3.7", "", { "os": "linux", "cpu": "arm64" }, "sha512-hQ7yYXdAGbDiplt4RXMArLjUFIWj5Hn5quLh78XCFqRm34Ho+FO2L3WM8MKy+tjALTB/vRsrZLFIxG/om3TeRA=="],
+
+    "@stoolap/lib-linux-x64-gnu": ["@stoolap/lib-linux-x64-gnu@0.3.7", "", { "os": "linux", "cpu": "x64" }, "sha512-1UBcMpBx0+Jc8ItUN1CNa+yf4/dyliU1ZagYC9ZykSgBSvcLOQF/TEMd4n2iEAuJ7pnpEBI+fG3dcszx4xnh9w=="],
+
+    "@stoolap/lib-win32-x64-msvc": ["@stoolap/lib-win32-x64-msvc@0.3.7", "", { "os": "win32", "cpu": "x64" }, "sha512-N2ONmMJ0GmnLXH9whiiWRKNR9Gqe8cgUHigDjunRnMVizVx+k0a0bysbhKQGruMZKEiXVgVo6KGOqH8tXJvq5g=="],
+
+    "@stoolap/node": ["@stoolap/node@0.3.7", "", { "optionalDependencies": { "@stoolap/lib-darwin-arm64": "0.3.7", "@stoolap/lib-darwin-x64": "0.3.7", "@stoolap/lib-linux-arm64-gnu": "0.3.7", "@stoolap/lib-linux-x64-gnu": "0.3.7", "@stoolap/lib-win32-x64-msvc": "0.3.7" } }, "sha512-DPsk98wAG4YR0IdO0iSp84FP5JM59jGHhgOsiCHVWq59MFwyyB4/OXmDsa8p7hKjxV+prcWJgZI9RJ0KwwO4lw=="],
 
     "@tokenizer/inflate": ["@tokenizer/inflate@0.4.1", "", { "dependencies": { "debug": "^4.4.3", "token-types": "^6.1.1" } }, "sha512-2mAv+8pkG6GIZiF1kNg1jAjh27IDxEPKwdGul3snfztFerfPGI1LjDezZp3i7BElXompqEtPmoPx6c2wgtWsOA=="],
 
