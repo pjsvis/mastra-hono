@@ -48,8 +48,8 @@ export default defineConfig({
     './', // This docs folder
   ],
 
-  // Output directory for generated docs
-  out: './dist',
+  // Output directory for generated docs (avoid collision with TypeScript ./dist)
+  out: './docs-site',
 
   // Theme configuration
   theme: {

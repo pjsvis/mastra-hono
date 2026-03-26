@@ -44,15 +44,15 @@ export async function runDocsCommand(args: string[]) {
     });
 
     // Copy llms files to docs folder for agent access
-    const distLlms = resolve(join(import.meta.dir, '..', '..', 'dist', 'llms.txt'));
-    const distLlmsFull = resolve(join(import.meta.dir, '..', '..', 'dist', 'llms-full.txt'));
+    const siteLlms = resolve(join(import.meta.dir, '..', '..', 'docs-site', 'llms.txt'));
+    const siteLlmsFull = resolve(join(import.meta.dir, '..', '..', 'docs-site', 'llms-full.txt'));
     const docsLlms = resolve(join(import.meta.dir, '..', '..', 'docs', 'llms.txt'));
     const docsLlmsFull = resolve(join(import.meta.dir, '..', '..', 'docs', 'llms-full.txt'));
 
-    if (existsSync(distLlms)) {
+    if (existsSync(siteLlms)) {
       const { copyFileSync } = await import('fs');
-      copyFileSync(distLlms, docsLlms);
-      copyFileSync(distLlmsFull, docsLlmsFull);
+      copyFileSync(siteLlms, docsLlms);
+      copyFileSync(siteLlmsFull, docsLlmsFull);
       console.log('\n✅ Documentation generated successfully');
       console.log('📄 llms.txt copied to docs/ folder');
     }
