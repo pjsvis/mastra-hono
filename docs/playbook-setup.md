@@ -134,3 +134,17 @@ curl -fsSL https://raw.githubusercontent.com/danielmiessler/fabric/main/scripts/
 # Update patterns (for fabric)
 fabric --updatepatterns
 ```
+
+---
+
+## Sidecar
+
+**macOS:**
+```bash
+brew install marcus/tap/sidecar
+```
+
+**Verify:**
+```bash
+sidecar --version
+```

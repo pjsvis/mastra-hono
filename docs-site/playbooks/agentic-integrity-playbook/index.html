@@ -85,16 +85,16 @@
         Agentic Integrity Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7hu8bu">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7i066o">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7hu8bu"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7i066o"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7hu8bu"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7i066o"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7hu8bu" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7i066o" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -2297,624 +2297,125 @@
                                 
                                 
                                     <h1 id="agentic-integrity-playbook">Agentic Integrity Playbook</h1>
-<h2 id="agentic-integrity-playbook-purpose" class="docmd-heading"><a href="#agentic-integrity-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
-<p>This playbook outlines how to replicate the “Agentic Integrity” workflow in any new or existing project. It is based on the <strong>Symmetric Mentation</strong> principle: splitting high-velocity execution from sovereign auditing. This ensures that agents can work quickly while maintaining quality through automated review processes.</p>
-<p><strong>Core Philosophy:</strong> Separate delivery (local execution) from review (cloud auditing) to maintain both velocity and integrity in agentic development workflows.</p>
-<h2 id="agentic-integrity-playbook-prerequisites" class="docmd-heading"><a href="#agentic-integrity-playbook-prerequisites" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Prerequisites</h2>
-<p>Before implementing the Agentic Integrity workflow, ensure you have the following tools and infrastructure in place.</p>
-<h3 id="agentic-integrity-playbook-prerequisites-required-tools" class="docmd-heading"><a href="#agentic-integrity-playbook-prerequisites-required-tools" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Required Tools</h3>
+<p>Symmetric Mentation: split <strong>delivery</strong> (local execution) from <strong>review</strong> (cloud auditing) to maintain velocity and integrity.</p>
+<p><strong>Core Philosophy:</strong> High-velocity execution + sovereign auditing = quality without slowdown.</p>
+<h2 id="agentic-integrity-playbook-workflow" class="docmd-heading"><a href="#agentic-integrity-playbook-workflow" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Workflow</h2>
+<h3 id="agentic-integrity-playbook-workflow-phase-a-delivery-local" class="docmd-heading"><a href="#agentic-integrity-playbook-workflow-phase-a-delivery-local" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Phase A: Delivery (Local)</h3>
+<pre class="hljs"><code><span class="hljs-comment"># 1. Start session</span>
+td usage --new-session
+
+<span class="hljs-comment"># 2. Forge (pick brief → create task)</span>
+bun run forge
+
+<span class="hljs-comment"># 3. Implement following AGENTS.md</span>
+
+<span class="hljs-comment"># 4. Local verify</span>
+bun run check
+
+<span class="hljs-comment"># 5. Finish (auto-checks + debrief + PR)</span>
+bun run finish
+
+<span class="hljs-comment"># 6. Handoff</span>
+td handoff &lt;<span class="hljs-built_in">id</span>&gt; --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;...&quot;</span> --remaining <span class="hljs-string">&quot;...&quot;</span> --decision <span class="hljs-string">&quot;...&quot;</span>
+</code></pre>
+<h3 id="agentic-integrity-playbook-workflow-phase-b-review-cloud" class="docmd-heading"><a href="#agentic-integrity-playbook-workflow-phase-b-review-cloud" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Phase B: Review (Cloud)</h3>
+<pre class="hljs"><code><span class="hljs-comment"># 1. Check PRs</span>
+gh <span class="hljs-built_in">pr</span> list
+
+<span class="hljs-comment"># 2. Fix issues → push</span>
+
+<span class="hljs-comment"># 3. Verify</span>
+bun run check
+
+<span class="hljs-comment"># 4. Approve</span>
+td reviewable
+td approve &lt;<span class="hljs-built_in">id</span>&gt;
+</code></pre>
+<h3 id="agentic-integrity-playbook-workflow-phase-c-human-merge" class="docmd-heading"><a href="#agentic-integrity-playbook-workflow-phase-c-human-merge" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Phase C: Human Merge</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Merge in GitHub UI or:</span>
+gh <span class="hljs-built_in">pr</span> merge &lt;pr-number&gt; --merge
+
+<span class="hljs-comment"># Cleanup</span>
+td close &lt;<span class="hljs-built_in">id</span>&gt;
+</code></pre>
+<hr>
+<h2 id="agentic-integrity-playbook-reference" class="docmd-heading"><a href="#agentic-integrity-playbook-reference" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Reference</h2>
+<h3 id="agentic-integrity-playbook-reference-required-artifacts" class="docmd-heading"><a href="#agentic-integrity-playbook-reference-required-artifacts" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Required Artifacts</h3>
+<ol>
+<li><strong><a href="http://AGENTS.md">AGENTS.md</a></strong> — Constitution for agents (tech stack, patterns, forbidden actions)</li>
+<li><strong><a href="http://review.md">review.md</a></strong> — Cloud reviewer instructions</li>
+<li><strong>conceptual-lexicon.json</strong> — Agent persona alignment</li>
+</ol>
+<h3 id="agentic-integrity-playbook-reference-key-commands" class="docmd-heading"><a href="#agentic-integrity-playbook-reference-key-commands" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Key Commands</h3>
 <div class="table-wrapper"><table>
 <thead>
 <tr>
-<th>Tool</th>
+<th>Command</th>
 <th>Purpose</th>
-<th>Installation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>gh</code> CLI</td>
-<td>GitHub command-line interface</td>
-<td><code>brew install gh</code></td>
+<td><code>td usage --new-session</code></td>
+<td>Initialize session, see work territory</td>
 </tr>
 <tr>
-<td><code>gh-aw</code> extension</td>
-<td>GitHub Actions workflow automation</td>
-<td><code>gh extension install github/gh-actions-workflow</code></td>
+<td><code>bun run forge</code></td>
+<td>Pick brief → create task</td>
 </tr>
 <tr>
-<td><code>td</code> CLI</td>
-<td>Task management and context tracking</td>
-<td>See TD documentation</td>
+<td><code>bun run check</code></td>
+<td>Local verification (lint + types + tests)</td>
 </tr>
 <tr>
-<td><code>ntfy</code> app (optional)</td>
-<td>Push notifications to mobile device</td>
-<td>Download from <a href="http://ntfy.sh">ntfy.sh</a></td>
+<td><code>bun run finish</code></td>
+<td>Auto-check + debrief + PR</td>
+</tr>
+<tr>
+<td><code>bun run ask &quot;?&quot;</code></td>
+<td>Ping human via ntfy</td>
+</tr>
+<tr>
+<td><code>td handoff</code></td>
+<td>Record context for next agent</td>
 </tr>
 </tbody>
 </table>
-</div><h3 id="agentic-integrity-playbook-prerequisites-infrastructure-requirements" class="docmd-heading"><a href="#agentic-integrity-playbook-prerequisites-infrastructure-requirements" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Infrastructure Requirements</h3>
-<ul>
-<li><strong>Git Worktrees Support</strong>: Your Git installation must support worktrees for isolated development environments</li>
-<li><strong>GitHub Actions</strong>: Repository must have GitHub Actions enabled</li>
-<li><strong>Secrets Management</strong>: Ability to store secrets in GitHub repository settings</li>
-</ul>
-<h3 id="agentic-integrity-playbook-prerequisites-verification" class="docmd-heading"><a href="#agentic-integrity-playbook-prerequisites-verification" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Verification</h3>
-<p>Before proceeding, verify your setup:</p>
-<pre class="hljs"><code><span class="hljs-comment"># Check gh CLI</span>
-gh --version
+</div><h3 id="agentic-integrity-playbook-reference-infra-setup" class="docmd-heading"><a href="#agentic-integrity-playbook-reference-infra-setup" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Infra Setup</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Local</span>
+td init --name &lt;project&gt;
+<span class="hljs-built_in">alias</span> notify=<span class="hljs-string">&#x27;curl -d &quot;$1&quot; ntfy.sh/&lt;topic&gt;&#x27;</span>
 
-<span class="hljs-comment"># Check gh-aw extension</span>
+<span class="hljs-comment"># Cloud</span>
+gh aw init
+gh secret <span class="hljs-built_in">set</span> NTFY_URL --body <span class="hljs-string">&quot;https://ntfy.sh/&lt;topic&gt;&quot;</span>
+</code></pre>
+<h3 id="agentic-integrity-playbook-reference-verification" class="docmd-heading"><a href="#agentic-integrity-playbook-reference-verification" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Verification</h3>
+<pre class="hljs"><code>gh --version
 gh aw --version
-
-<span class="hljs-comment"># Check td CLI</span>
 td --version
-
-<span class="hljs-comment"># Check git worktree support</span>
 git worktree --version
 </code></pre>
-<h2 id="agentic-integrity-playbook-infrastructure-setup" class="docmd-heading"><a href="#agentic-integrity-playbook-infrastructure-setup" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Infrastructure Setup</h2>
-<p>The Agentic Integrity workflow requires two layers: a local “Gumption” layer for execution and a cloud “Sovereignty” layer for review.</p>
-<h3 id="agentic-integrity-playbook-infrastructure-setup-local-gumption-layer" class="docmd-heading"><a href="#agentic-integrity-playbook-infrastructure-setup-local-gumption-layer" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Local “Gumption” Layer</h3>
-<p>The local layer provides the execution environment where agents work on tasks.</p>
-<h4 id="agentic-integrity-playbook-infrastructure-setup-local-gumption-layer-step-1-initialize-td" class="docmd-heading"><a href="#agentic-integrity-playbook-infrastructure-setup-local-gumption-layer-step-1-initialize-td" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 1: Initialize <code>td</code></h4>
-<p>Initialize the task management system for your project:</p>
-<pre class="hljs"><code>td init --name &lt;project-name&gt;
-</code></pre>
-<p><strong>What this does:</strong></p>
-<ul>
-<li>Creates a <code>.td/</code> directory in your project root</li>
-<li>Sets up the task database</li>
-<li>Configures the project-specific task context</li>
-</ul>
-<h4 id="agentic-integrity-playbook-infrastructure-setup-local-gumption-layer-step-2-haptic-link" class="docmd-heading"><a href="#agentic-integrity-playbook-infrastructure-setup-local-gumption-layer-step-2-haptic-link" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 2: Haptic Link</h4>
-<p>Create a notification alias to receive alerts on your mobile device:</p>
-<pre class="hljs"><code><span class="hljs-comment"># Add to your shell config (~/.bashrc, ~/.zshrc, or ~/.config/nushell/config.nu)</span>
-<span class="hljs-built_in">alias</span> notify=<span class="hljs-string">&#x27;curl -d &quot;$1&quot; ntfy.sh/&lt;private-topic-id&gt;&#x27;</span>
-</code></pre>
-<p><strong>How to get your topic ID:</strong></p>
-<ol>
-<li>Visit <a href="https://ntfy.sh/">ntfy.sh</a></li>
-<li>Choose a topic name (e.g., <code>my-project-alerts</code>)</li>
-<li>Subscribe to the topic on your mobile device</li>
-<li>Use the topic name in your notify alias</li>
-</ol>
-<p><strong>Usage:</strong></p>
-<pre class="hljs"><code>notify <span class="hljs-string">&quot;Task completed successfully&quot;</span>
-notify <span class="hljs-string">&quot;PR needs review: #123&quot;</span>
-</code></pre>
-<h3 id="agentic-integrity-playbook-infrastructure-setup-cloud-sovereignty-layer" class="docmd-heading"><a href="#agentic-integrity-playbook-infrastructure-setup-cloud-sovereignty-layer" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Cloud “Sovereignty” Layer</h3>
-<p>The cloud layer provides automated review and quality gates.</p>
-<h4 id="agentic-integrity-playbook-infrastructure-setup-cloud-sovereignty-layer-step-1-initialize-ghaw" class="docmd-heading"><a href="#agentic-integrity-playbook-infrastructure-setup-cloud-sovereignty-layer-step-1-initialize-ghaw" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 1: Initialize GHAW</h4>
-<p>Set up GitHub Actions workflow automation:</p>
-<pre class="hljs"><code>gh aw init
-</code></pre>
-<p><strong>What this does:</strong></p>
-<ul>
-<li>Creates <code>.github/workflows/</code> directory structure</li>
-<li>Sets up workflow templates</li>
-<li>Configures GitHub Actions integration</li>
-</ul>
-<h4 id="agentic-integrity-playbook-infrastructure-setup-cloud-sovereignty-layer-step-2-repo-secrets" class="docmd-heading"><a href="#agentic-integrity-playbook-infrastructure-setup-cloud-sovereignty-layer-step-2-repo-secrets" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 2: Repo Secrets</h4>
-<p>Add the ntfy URL to your GitHub repository secrets:</p>
-<pre class="hljs"><code><span class="hljs-comment"># Using gh CLI</span>
-gh secret <span class="hljs-built_in">set</span> NTFY_URL --body <span class="hljs-string">&quot;https://ntfy.sh/&lt;private-topic-id&gt;&quot;</span>
-
-<span class="hljs-comment"># Or via GitHub UI:</span>
-<span class="hljs-comment"># Settings → Secrets and variables → Actions → New repository secret</span>
-<span class="hljs-comment"># Name: NTFY_URL</span>
-<span class="hljs-comment"># Value: https://ntfy.sh/&lt;private-topic-id&gt;</span>
-</code></pre>
-<p><strong>Why this matters:</strong></p>
-<ul>
-<li>Allows cloud workflows to send notifications</li>
-<li>Keeps credentials secure</li>
-<li>Enables real-time feedback on PR status</li>
-</ul>
-<h2 id="agentic-integrity-playbook-artefact-generation" class="docmd-heading"><a href="#agentic-integrity-playbook-artefact-generation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Artefact Generation</h2>
-<p>Every project implementing Agentic Integrity needs three core anchors that define the workflow and quality standards.</p>
-<h3 id="agentic-integrity-playbook-artefact-generation-a-agentsmd-the-constitution" class="docmd-heading"><a href="#agentic-integrity-playbook-artefact-generation-a-agentsmd-the-constitution" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>A. <code>AGENTS.md</code> (The Constitution)</h3>
-<p>Place at <code>/AGENTS.md</code> in your project root. This document serves as the “constitution” for all agents working on the project.</p>
-<h4 id="agentic-integrity-playbook-artefact-generation-a-agentsmd-the-constitution-required-sections" class="docmd-heading"><a href="#agentic-integrity-playbook-artefact-generation-a-agentsmd-the-constitution-required-sections" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Required Sections</h4>
-<p><strong>Tech Stack and Patterns:</strong></p>
-<pre class="hljs"><code><span class="hljs-section">## Tech Stack</span>
-
-<span class="hljs-bullet">-</span> <span class="hljs-strong">**Framework**</span>: [Your framework]
-<span class="hljs-bullet">-</span> <span class="hljs-strong">**Language**</span>: [Your language]
-<span class="hljs-bullet">-</span> <span class="hljs-strong">**Package Manager**</span>: [Your package manager]
-
-<span class="hljs-section">## Mandatory Library Patterns</span>
-
-<span class="hljs-bullet">-</span> All tools must use Zod schemas for validation
-<span class="hljs-bullet">-</span> No <span class="hljs-code">`any`</span> types allowed in production code
-<span class="hljs-bullet">-</span> All functions must have explicit type annotations
-</code></pre>
-<p><strong>Coding Standards:</strong></p>
-<pre class="hljs"><code><span class="hljs-section">## Coding Standards</span>
-
-<span class="hljs-bullet">-</span> No <span class="hljs-code">`any`</span> types
-<span class="hljs-bullet">-</span> Zod for all schemas
-<span class="hljs-bullet">-</span> Explicit error handling
-<span class="hljs-bullet">-</span> Comprehensive test coverage
-</code></pre>
-<p><strong>Forbidden Actions:</strong></p>
-<pre class="hljs"><code><span class="hljs-section">## Forbidden Actions</span>
-
-<span class="hljs-bullet">-</span> Do not touch <span class="hljs-code">`.env`</span> files directly
-<span class="hljs-bullet">-</span> Do not commit secrets
-<span class="hljs-bullet">-</span> Do not bypass pre-commit hooks
-<span class="hljs-bullet">-</span> Do not use <span class="hljs-code">`--no-verify`</span> for commits
-</code></pre>
-<h4 id="agentic-integrity-playbook-artefact-generation-a-agentsmd-the-constitution-example" class="docmd-heading"><a href="#agentic-integrity-playbook-artefact-generation-a-agentsmd-the-constitution-example" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Example</h4>
-<pre class="hljs"><code>---
-date: 2026-03-21
-tags: [constitution, agents, standards]
-version: 1.0
-<span class="hljs-section">last<span class="hljs-emphasis">_updated: 2026-03-21
----
-
-# AGENTS.md
-
-## Purpose
-This document defines the constitution for all agents working on this project.
-
-## Tech Stack
-- <span class="hljs-strong">**Framework**</span>: Hono
-- <span class="hljs-strong">**Language**</span>: TypeScript
-- <span class="hljs-strong">**Package Manager**</span>: Bun
-
-## Mandatory Library Patterns
-- All tools must use Zod schemas for validation
-- No `any` types allowed in production code
-- All functions must have explicit type annotations
-
-## Coding Standards
-- No `any` types
-- Zod for all schemas
-- Explicit error handling
-- Comprehensive test coverage
-
-## Forbidden Actions
-- Do not touch `.env` files directly
-- Do not commit secrets
-- Do not bypass pre-commit hooks
-- Do not use `--no-verify` for commits
-</span></span></code></pre>
-<h3 id="agentic-integrity-playbook-artefact-generation-b-reviewmd-the-cloud-reviewer" class="docmd-heading"><a href="#agentic-integrity-playbook-artefact-generation-b-reviewmd-the-cloud-reviewer" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>B. <code>review.md</code> (The Cloud Reviewer)</h3>
-<p>Place at <code>.github/workflows/review.md</code>. This document provides instructions for the sovereign reviewer agent.</p>
-<h4 id="agentic-integrity-playbook-artefact-generation-b-reviewmd-the-cloud-reviewer-required-sections" class="docmd-heading"><a href="#agentic-integrity-playbook-artefact-generation-b-reviewmd-the-cloud-reviewer-required-sections" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Required Sections</h4>
-<p><strong>Review Instructions:</strong></p>
-<pre class="hljs"><code><span class="hljs-section">## Review Instructions</span>
-
-You are a sovereign reviewer agent. Your job is to ensure code quality before merge.
-
-<span class="hljs-section">### Validation Steps</span>
-
-<span class="hljs-bullet">1.</span> Run all tests: <span class="hljs-code">`bun test`</span>
-<span class="hljs-bullet">2.</span> Check types: <span class="hljs-code">`tsc --noEmit`</span>
-<span class="hljs-bullet">3.</span> Lint code: <span class="hljs-code">`bun run lint`</span>
-<span class="hljs-bullet">4.</span> Review changes for security issues
-<span class="hljs-bullet">5.</span> Check for proper documentation
-</code></pre>
-<p><strong>Notification Logic:</strong></p>
-<pre class="hljs"><code><span class="hljs-section">## Notification Logic</span>
-
-Send notifications via ntfy when:
-<span class="hljs-bullet">-</span> PR is ready for review
-<span class="hljs-bullet">-</span> PR has issues that need attention
-<span class="hljs-bullet">-</span> PR is approved and ready to merge
-</code></pre>
-<h4 id="agentic-integrity-playbook-artefact-generation-b-reviewmd-the-cloud-reviewer-example" class="docmd-heading"><a href="#agentic-integrity-playbook-artefact-generation-b-reviewmd-the-cloud-reviewer-example" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Example</h4>
-<pre class="hljs"><code>---
-date: 2026-03-21
-tags: [review, workflow, automation]
-version: 1.0
-<span class="hljs-section">last<span class="hljs-emphasis">_updated: 2026-03-21
----
-
-# Review Workflow
-
-## Purpose
-Automated review process for pull requests.
-
-## Review Instructions
-
-You are a sovereign reviewer agent. Your job is to ensure code quality before merge.
-
-### Validation Steps
-
-1. Run all tests: `bun test`
-2. Check types: `tsc --noEmit`
-3. Lint code: `bun run lint`
-4. Review changes for security issues
-5. Check for proper documentation
-
-### Success Criteria
-
-- All tests pass
-- No type errors
-- No lint errors
-- Security review passes
-- Documentation is complete
-
-## Notification Logic
-
-Send notifications via ntfy when:
-- PR is ready for review
-- PR has issues that need attention
-- PR is approved and ready to merge
-
-## Failure Handling
-
-If any validation fails:
-1. Comment on the PR with specific issues
-2. Send notification to developer
-3. Block merge until issues are resolved
-</span></span></code></pre>
-<h3 id="agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson" class="docmd-heading"><a href="#agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>C. <code>conceptual-lexicon.json</code></h3>
-<p>Sync the latest Lexicon (<code>v1.79+</code>) to ensure agent persona alignment across local and cloud environments.</p>
-<h4 id="agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson-location" class="docmd-heading"><a href="#agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson-location" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Location</h4>
-<p>Place at <code>.github/conceptual-lexicon.json</code> or in your project root.</p>
-<h4 id="agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson-purpose" class="docmd-heading"><a href="#agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h4>
-<p>The conceptual lexicon ensures that all agents (local and cloud) use consistent terminology and persona definitions.</p>
-<h4 id="agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson-example" class="docmd-heading"><a href="#agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson-example" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Example</h4>
-<pre class="hljs"><code><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1.79&quot;</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;personas&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">&quot;delivery-agent&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Delivery Agent&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;High-velocity execution agent focused on implementation&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;capabilities&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
-        <span class="hljs-string">&quot;code generation&quot;</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-string">&quot;testing&quot;</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-string">&quot;documentation&quot;</span>
-      <span class="hljs-punctuation">]</span>
-    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;review-agent&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Review Agent&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Sovereign auditing agent focused on quality&quot;</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">&quot;capabilities&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
-        <span class="hljs-string">&quot;code review&quot;</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-string">&quot;security analysis&quot;</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-string">&quot;quality gates&quot;</span>
-      <span class="hljs-punctuation">]</span>
-    <span class="hljs-punctuation">}</span>
-  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">&quot;terminology&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">&quot;gumption&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Local execution layer&quot;</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;sovereignty&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Cloud review layer&quot;</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">&quot;handoff&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Context transfer between agents&quot;</span>
-  <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">}</span>
-</code></pre>
-<h2 id="agentic-integrity-playbook-the-canonical-workflow-loop" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>The Canonical Workflow Loop</h2>
-<p>This is the end-to-end, canonical loop using the tools we already have. It consists of three phases: Delivery, Review, and Human Merge.</p>
-<h3 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Phase A — Delivery Agent (Build + PR)</h3>
-<p>The delivery agent works locally to implement features and create pull requests.</p>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-1-identify" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-1-identify" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 1: Identify</h4>
-<p>Run <code>td usage --new-session</code> to see the work territory:</p>
-<pre class="hljs"><code>td usage --new-session
-</code></pre>
-<p><strong>What this does:</strong></p>
-<ul>
-<li>Initializes your session ID</li>
-<li>Provides the current “Work Territory” map</li>
-<li>Shows ready-to-start tasks</li>
-</ul>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-2-forge" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-2-forge" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 2: Forge</h4>
-<p>Run <code>bun run forge</code> to pick a Brief and link it to a Task:</p>
-<pre class="hljs"><code>bun run forge
-</code></pre>
-<p><strong>What this does:</strong></p>
-<ul>
-<li>Lists available briefs</li>
-<li>Creates or links to a task</li>
-<li>Sets up the development context</li>
-</ul>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-3-implement" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-3-implement" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 3: Implement</h4>
-<p>The local agent follows <code>AGENTS.md</code> to implement the task.</p>
-<p><strong>If confused, it runs:</strong></p>
-<pre class="hljs"><code>bun run ask <span class="hljs-string">&quot;your question here&quot;</span>
-</code></pre>
-<p>This pings the developer’s iPhone via ntfy for clarification.</p>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-4-local-verify" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-4-local-verify" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 4: Local Verify</h4>
-<p>Run local verification checks:</p>
-<pre class="hljs"><code>bun run check
-</code></pre>
-<p><strong>What this does:</strong></p>
-<ul>
-<li>Runs linters</li>
-<li>Checks types</li>
-<li>Runs tests</li>
-<li>Validates code quality</li>
-</ul>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-5-finish" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-5-finish" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 5: Finish</h4>
-<p>Run <code>bun run finish</code> to complete the task:</p>
-<pre class="hljs"><code>bun run finish
-</code></pre>
-<p><strong>What this does:</strong></p>
-<ul>
-<li>Auto-checks quality (lint + types + tests)</li>
-<li>Auto-generates a Debrief</li>
-<li>Links artifacts to the task</li>
-<li>Triggers the Cloud Audit</li>
-<li>Creates a GitHub PR</li>
-</ul>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-6-handoff" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-6-handoff" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 6: Handoff</h4>
-<p>Ensure a <code>td handoff</code> is recorded before ending the session:</p>
-<pre class="hljs"><code>td handoff &lt;issue-id&gt; \
-  --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;Implemented feature X&quot;</span> \
-  --remaining <span class="hljs-string">&quot;Need to test edge case Y&quot;</span> \
-  --decision <span class="hljs-string">&quot;Used approach Z for performance&quot;</span>
-</code></pre>
-<p><strong>Required fields:</strong></p>
-<ul>
-<li><code>--done</code>: What has been completed</li>
-<li><code>--remaining</code>: What still needs to be done</li>
-<li><code>--decision</code>: Key decisions made</li>
-</ul>
-<h3 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Phase B — Review Agent (PR Health Gate)</h3>
-<p>The review agent works in the cloud to ensure PR quality before merge.</p>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-1-inspect-prs" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-1-inspect-prs" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 1: Inspect PRs</h4>
-<p>Use <code>gh</code> to list open PRs and check status + review comments:</p>
-<pre class="hljs"><code>gh <span class="hljs-built_in">pr</span> list
-gh <span class="hljs-built_in">pr</span> view &lt;pr-number&gt;
-</code></pre>
-<p><strong>What to check:</strong></p>
-<ul>
-<li>CI status (passing/failing)</li>
-<li>Review comments</li>
-<li>CodeRabbit feedback</li>
-<li>Security alerts</li>
-</ul>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-2-fix-push" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-2-fix-push" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 2: Fix &amp; Push</h4>
-<p>Address actionable issues and push updates:</p>
-<pre class="hljs"><code><span class="hljs-comment"># Make fixes locally</span>
-git add .
-git commit -m <span class="hljs-string">&quot;Fix review feedback&quot;</span>
-
-<span class="hljs-comment"># Push updates</span>
-git push
-</code></pre>
-<p><strong>Common issues to address:</strong></p>
-<ul>
-<li>Failing tests</li>
-<li>Type errors</li>
-<li>Lint violations</li>
-<li>Security vulnerabilities</li>
-<li>Code review comments</li>
-</ul>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-3-re-check" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-3-re-check" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 3: Re-check</h4>
-<p>Re-run <code>bun run check</code> until the PR is clean:</p>
-<pre class="hljs"><code>bun run check
-</code></pre>
-<p><strong>Success criteria:</strong></p>
-<ul>
-<li>All tests pass</li>
-<li>No type errors</li>
-<li>No lint errors</li>
-<li>All review comments addressed</li>
-</ul>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-4-td-approval-gate" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-4-td-approval-gate" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 4: TD Approval Gate</h4>
-<p>Once the PR is clean and review-ready, run:</p>
-<pre class="hljs"><code>td reviewable
-td approve &lt;issue-id&gt;
-</code></pre>
-<p><strong>What this does:</strong></p>
-<ul>
-<li>Marks the task as reviewable</li>
-<li>Approves the task for merge</li>
-<li>Updates task status</li>
-</ul>
-<h3 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-c-human-merge-tidy" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-c-human-merge-tidy" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Phase C — Human Merge + Tidy</h3>
-<p>The human in the loop performs final merge and cleanup.</p>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-c-human-merge-tidy-step-1-merge" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-c-human-merge-tidy-step-1-merge" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 1: Merge</h4>
-<p>Merge the PR in GitHub:</p>
-<pre class="hljs"><code><span class="hljs-comment"># Via gh CLI</span>
-gh <span class="hljs-built_in">pr</span> merge &lt;pr-number&gt; --merge
-
-<span class="hljs-comment"># Or via GitHub UI</span>
-<span class="hljs-comment"># Click &quot;Merge pull request&quot; button</span>
-</code></pre>
-<h4 id="agentic-integrity-playbook-the-canonical-workflow-loop-phase-c-human-merge-tidy-step-2-cleanup" class="docmd-heading"><a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-c-human-merge-tidy-step-2-cleanup" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Step 2: Cleanup</h4>
-<p>Clean up the task in <code>td</code>:</p>
-<pre class="hljs"><code><span class="hljs-comment"># Final tidy-up and closeout</span>
-td close &lt;issue-id&gt;
-
-<span class="hljs-comment"># Delete worktree if applicable</span>
-git worktree remove &lt;worktree-path&gt;
-</code></pre>
-<p><strong>What to clean up:</strong></p>
-<ul>
-<li>Close the task</li>
-<li>Delete worktrees</li>
-<li>Remove temporary branches</li>
-<li>Archive related artifacts</li>
-</ul>
-<h2 id="agentic-integrity-playbook-deployment-heuristics" class="docmd-heading"><a href="#agentic-integrity-playbook-deployment-heuristics" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Deployment Heuristics</h2>
-<p>Guidelines for deploying the Agentic Integrity workflow to new projects.</p>
-<h3 id="agentic-integrity-playbook-deployment-heuristics-start-with-mastra-hono" class="docmd-heading"><a href="#agentic-integrity-playbook-deployment-heuristics-start-with-mastra-hono" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Start with Mastra-Hono</h3>
-<p>This stack is low-entropy and high-visibility, making it the perfect “Pilot” for the workflow.</p>
-<p><strong>Why Mastra-Hono:</strong></p>
-<ul>
-<li>Well-structured codebase</li>
-<li>Comprehensive documentation</li>
-<li>Strong type safety</li>
-<li>Clear separation of concerns</li>
-<li>Active development</li>
-</ul>
-<p><strong>Pilot approach:</strong></p>
-<ol>
-<li>Implement workflow in Mastra-Hono first</li>
-<li>Test and refine the process</li>
-<li>Document lessons learned</li>
-<li>Apply to other projects</li>
-</ol>
-<h3 id="agentic-integrity-playbook-deployment-heuristics-fail-fast" class="docmd-heading"><a href="#agentic-integrity-playbook-deployment-heuristics-fail-fast" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Fail Fast</h3>
-<p>The cloud agent should fail the PR immediately if <code>tsc</code> or <code>lint</code> fails.</p>
-<p><strong>Why fail fast:</strong></p>
-<ul>
-<li>Prevents bad code from entering review</li>
-<li>Saves reviewer time</li>
-<li>Encourages quality at the source</li>
-<li>Reduces feedback loop time</li>
-</ul>
-<p><strong>Implementation:</strong></p>
-<pre class="hljs"><code><span class="hljs-comment"># In .github/workflows/review.yml</span>
-<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Type</span> <span class="hljs-string">Check</span>
-  <span class="hljs-attr">run:</span> <span class="hljs-string">tsc</span> <span class="hljs-string">--noEmit</span>
-  <span class="hljs-attr">continue-on-error:</span> <span class="hljs-literal">false</span>  <span class="hljs-comment"># Fail immediately</span>
-
-<span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Lint</span>
-  <span class="hljs-attr">run:</span> <span class="hljs-string">bun</span> <span class="hljs-string">run</span> <span class="hljs-string">lint</span>
-  <span class="hljs-attr">continue-on-error:</span> <span class="hljs-literal">false</span>  <span class="hljs-comment"># Fail immediately</span>
-</code></pre>
-<h3 id="agentic-integrity-playbook-deployment-heuristics-human-in-the-loop" class="docmd-heading"><a href="#agentic-integrity-playbook-deployment-heuristics-human-in-the-loop" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Human in the Loop</h3>
-<p>Only use <code>ntfy</code> for signals requiring immediate attention. Don’t spam the “Haptic Link”.</p>
-<p><strong>When to notify:</strong></p>
-<ul>
-<li>PR is ready for review (✅)</li>
-<li>PR has critical issues (❌)</li>
-<li>Build is failing (❌)</li>
-<li>Security vulnerabilities found (❌)</li>
-</ul>
-<p><strong>When NOT to notify:</strong></p>
-<ul>
-<li>Routine status updates</li>
-<li>Minor lint warnings</li>
-<li>Informational messages</li>
-<li>Success confirmations (unless critical)</li>
-</ul>
-<p><strong>Notification best practices:</strong></p>
-<ul>
-<li>Keep messages concise</li>
-<li>Include actionable information</li>
-<li>Use clear status indicators</li>
-<li>Avoid notification fatigue</li>
-</ul>
+<hr>
 <h2 id="agentic-integrity-playbook-best-practices" class="docmd-heading"><a href="#agentic-integrity-playbook-best-practices" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Best Practices</h2>
-<h3 id="agentic-integrity-playbook-best-practices-1-always-start-with-td-usage-new-session" class="docmd-heading"><a href="#agentic-integrity-playbook-best-practices-1-always-start-with-td-usage-new-session" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. Always Start with <code>td usage --new-session</code></h3>
-<p>Before any work, initialize your session:</p>
-<pre class="hljs"><code>td usage --new-session
-</code></pre>
-<p><strong>Why:</strong> Ensures your session ID is set and you have the current “Work Territory” map.</p>
-<h3 id="agentic-integrity-playbook-best-practices-2-use-bun-run-ask-for-clarification" class="docmd-heading"><a href="#agentic-integrity-playbook-best-practices-2-use-bun-run-ask-for-clarification" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Use <code>bun run ask</code> for Clarification</h3>
-<p>When confused, ping the human:</p>
-<pre class="hljs"><code>bun run ask <span class="hljs-string">&quot;I&#x27;m not sure how to handle this edge case&quot;</span>
-</code></pre>
-<p><strong>Why:</strong> Prevents agents from making incorrect assumptions and ensures alignment.</p>
-<h3 id="agentic-integrity-playbook-best-practices-3-run-bun-run-check-before-committing" class="docmd-heading"><a href="#agentic-integrity-playbook-best-practices-3-run-bun-run-check-before-committing" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. Run <code>bun run check</code> Before Committing</h3>
-<p>Always verify code quality before committing:</p>
-<pre class="hljs"><code>bun run check
-</code></pre>
-<p><strong>Why:</strong> Catches issues early and reduces review iteration time.</p>
-<h3 id="agentic-integrity-playbook-best-practices-4-perform-handoffs-before-context-window-ends" class="docmd-heading"><a href="#agentic-integrity-playbook-best-practices-4-perform-handoffs-before-context-window-ends" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>4. Perform Handoffs Before Context Window Ends</h3>
-<p>If you’re an agent, perform a handoff before your context window fills up:</p>
-<pre class="hljs"><code>td handoff &lt;issue-id&gt; \
-  --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;Completed X&quot;</span> \
-  --remaining <span class="hljs-string">&quot;Need to do Y&quot;</span> \
-  --decision <span class="hljs-string">&quot;Chose approach Z&quot;</span>
-</code></pre>
-<p><strong>Why:</strong> Preserves context for the next agent or developer.</p>
-<h3 id="agentic-integrity-playbook-best-practices-5-keep-worktrees-until-approval" class="docmd-heading"><a href="#agentic-integrity-playbook-best-practices-5-keep-worktrees-until-approval" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>5. Keep Worktrees Until Approval</h3>
-<p>Don’t delete worktrees immediately after creating a PR:</p>
-<pre class="hljs"><code><span class="hljs-comment"># Keep worktree until PR is approved</span>
-git worktree list
-
-<span class="hljs-comment"># Delete only after merge</span>
-git worktree remove &lt;worktree-path&gt;
-</code></pre>
-<p><strong>Why:</strong> Avoids reinstalling dependencies during review iterations.</p>
-<h3 id="agentic-integrity-playbook-best-practices-6-use-descriptive-commit-messages" class="docmd-heading"><a href="#agentic-integrity-playbook-best-practices-6-use-descriptive-commit-messages" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>6. Use Descriptive Commit Messages</h3>
-<p>Write clear, descriptive commit messages:</p>
-<pre class="hljs"><code>git commit -m <span class="hljs-string">&quot;feat: implement user authentication
-
-- Add login endpoint
-- Implement JWT validation
-- Add error handling
-
-Closes #123&quot;</span>
-</code></pre>
-<p><strong>Why:</strong> Makes review easier and provides context for future developers.</p>
-<h3 id="agentic-integrity-playbook-best-practices-7-test-edge-cases" class="docmd-heading"><a href="#agentic-integrity-playbook-best-practices-7-test-edge-cases" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>7. Test Edge Cases</h3>
-<p>Don’t just test the happy path:</p>
-<pre class="hljs"><code><span class="hljs-comment">// Test edge cases</span>
-<span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;should handle empty input&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; { <span class="hljs-comment">/* ... */</span> });
-<span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;should handle null values&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; { <span class="hljs-comment">/* ... */</span> });
-<span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;should handle maximum values&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; { <span class="hljs-comment">/* ... */</span> });
-</code></pre>
-<p><strong>Why:</strong> Ensures robustness and prevents production issues.</p>
-<h3 id="agentic-integrity-playbook-best-practices-8-document-decisions" class="docmd-heading"><a href="#agentic-integrity-playbook-best-practices-8-document-decisions" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>8. Document Decisions</h3>
-<p>Use <code>td log --decision</code> to document key decisions:</p>
-<pre class="hljs"><code>td <span class="hljs-built_in">log</span> --decision <span class="hljs-string">&quot;Used Redis for caching because of low latency&quot;</span>
-</code></pre>
-<p><strong>Why:</strong> Provides context for reviewers and prevents re-litigating settled decisions.</p>
-<h2 id="agentic-integrity-playbook-common-pitfalls" class="docmd-heading"><a href="#agentic-integrity-playbook-common-pitfalls" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Common Pitfalls</h2>
-<h3 id="agentic-integrity-playbook-common-pitfalls-pitfall-1-skipping-pre-commit-checks" class="docmd-heading"><a href="#agentic-integrity-playbook-common-pitfalls-pitfall-1-skipping-pre-commit-checks" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 1: Skipping Pre-Commit Checks</h3>
-<p><strong>Problem:</strong> Using <code>--no-verify</code> to bypass checks.</p>
-<p><strong>Solution:</strong> Fix the issues properly. If you need to skip checks, work in <code>scripts/lab/</code>.</p>
-<pre class="hljs"><code><span class="hljs-comment"># Bad</span>
-git commit --no-verify
-
-<span class="hljs-comment"># Good</span>
-bun run check
-git commit
-</code></pre>
-<h3 id="agentic-integrity-playbook-common-pitfalls-pitfall-2-not-performing-handoffs" class="docmd-heading"><a href="#agentic-integrity-playbook-common-pitfalls-pitfall-2-not-performing-handoffs" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 2: Not Performing Handoffs</h3>
-<p><strong>Problem:</strong> Ending sessions without recording handoffs.</p>
-<p><strong>Solution:</strong> Always perform a handoff before ending the session.</p>
-<pre class="hljs"><code>td handoff &lt;issue-id&gt; \
-  --<span class="hljs-keyword">done</span> <span class="hljs-string">&quot;Completed X&quot;</span> \
-  --remaining <span class="hljs-string">&quot;Need to do Y&quot;</span> \
-  --decision <span class="hljs-string">&quot;Chose approach Z&quot;</span>
-</code></pre>
-<h3 id="agentic-integrity-playbook-common-pitfalls-pitfall-3-ignoring-review-feedback" class="docmd-heading"><a href="#agentic-integrity-playbook-common-pitfalls-pitfall-3-ignoring-review-feedback" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 3: Ignoring Review Feedback</h3>
-<p><strong>Problem:</strong> Pushing updates without addressing review comments.</p>
-<p><strong>Solution:</strong> Address all review comments before pushing updates.</p>
-<pre class="hljs"><code><span class="hljs-comment"># Read review comments</span>
-gh <span class="hljs-built_in">pr</span> view &lt;pr-number&gt; --comments
-
-<span class="hljs-comment"># Make fixes</span>
-<span class="hljs-comment"># ...</span>
-
-<span class="hljs-comment"># Push updates</span>
-git push
-</code></pre>
-<h3 id="agentic-integrity-playbook-common-pitfalls-pitfall-4-deleting-worktrees-too-early" class="docmd-heading"><a href="#agentic-integrity-playbook-common-pitfalls-pitfall-4-deleting-worktrees-too-early" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 4: Deleting Worktrees Too Early</h3>
-<p><strong>Problem:</strong> Deleting worktrees immediately after creating a PR.</p>
-<p><strong>Solution:</strong> Keep worktrees until the PR is approved.</p>
-<pre class="hljs"><code><span class="hljs-comment"># Keep worktree</span>
-git worktree list
-
-<span class="hljs-comment"># Delete only after merge</span>
-git worktree remove &lt;worktree-path&gt;
-</code></pre>
-<h3 id="agentic-integrity-playbook-common-pitfalls-pitfall-5-spamming-notifications" class="docmd-heading"><a href="#agentic-integrity-playbook-common-pitfalls-pitfall-5-spamming-notifications" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Pitfall 5: Spamming Notifications</h3>
-<p><strong>Problem:</strong> Sending notifications for routine events.</p>
-<p><strong>Solution:</strong> Only notify for signals requiring immediate attention.</p>
-<pre class="hljs"><code><span class="hljs-comment"># Good - notify for critical issues</span>
-notify <span class="hljs-string">&quot;PR #123 has critical security vulnerabilities&quot;</span>
-
-<span class="hljs-comment"># Bad - notify for routine updates</span>
-notify <span class="hljs-string">&quot;PR #123 lint check passed&quot;</span>
-</code></pre>
-<h2 id="agentic-integrity-playbook-references" class="docmd-heading"><a href="#agentic-integrity-playbook-references" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>References</h2>
 <ul>
-<li><a href="../../AGENTS">AGENTS.md</a> – Project constitution and agent guidelines</li>
-<li><a href="../loading-process-playbook">Loading Process Playbook</a> – Two-step loading process pattern</li>
-<li><a href="../git-workflow-playbook">Git Workflow Playbook</a> – Branching and review workflow</li>
-<li><a href="../mastra-agent-playbook">Mastra Agent Playbook</a> – Mastra-specific patterns and best practices</li>
-<li><a href="../nushell-agent-playbook">Nushell Agent Playbook</a> – Nushell integration for task state</li>
-<li><a href="../edinburgh-protocol">Edinburgh Protocol Playbook</a> – Decision-making under uncertainty</li>
-<li><a href="../../docs/td-cli">TD CLI Documentation</a> – Task management and context tracking</li>
-<li><a href="https://docs.github.com/en/actions">GitHub Actions Documentation</a> – Workflow automation</li>
-<li><a href="https://ntfy.sh/">ntfy.sh Documentation</a> – Push notification service</li>
+<li><strong>Always start with</strong> <code>td usage --new-session</code></li>
+<li><strong>Use</strong> <code>bun run ask</code> when confused</li>
+<li><strong>Run</strong> <code>bun run check</code> before committing</li>
+<li><strong>Perform handoffs</strong> before context window ends</li>
+<li><strong>Keep worktrees</strong> until PR is approved</li>
+<li><strong>Notify only</strong> for signals requiring immediate attention</li>
 </ul>
 <hr>
-<p><strong>Version:</strong> 1.0<br>
-<strong>Last Updated:</strong> 2026-03-21<br>
-<strong>Maintained by:</strong> PolyVis Development Team</p>
+<h2 id="agentic-integrity-playbook-setup" class="docmd-heading"><a href="#agentic-integrity-playbook-setup" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Setup</h2>
+<p><strong>Installation &amp; Configuration:</strong> See <a href="../../playbook-setup">Playbook Setup Guide</a></p>
+<hr>
+<h2 id="agentic-integrity-playbook-see-also" class="docmd-heading"><a href="#agentic-integrity-playbook-see-also" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>See Also</h2>
+<ul>
+<li><a href="../git-workflow-playbook">Git Workflow Playbook</a> – Branching and PR workflow</li>
+<li><a href="../loading-process-playbook">Loading Process Playbook</a> – Two-step loading pattern</li>
+<li><a href="../../playbook-setup">Playbook Setup Guide</a> – Tool installation</li>
+</ul>
 
                                       
                               </div>
@@ -2943,239 +2444,51 @@ notify <span class="hljs-string">&quot;PR #123 lint check passed&quot;</span>
     <ul class="toc-list">
       
         <li class="toc-item toc-level-2">
-          <a href="#agentic-integrity-playbook-purpose" class="toc-link">Purpose</a>
+          <a href="#agentic-integrity-playbook-workflow" class="toc-link">Workflow</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#agentic-integrity-playbook-workflow-phase-a-delivery-local" class="toc-link">Phase A: Delivery (Local)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#agentic-integrity-playbook-workflow-phase-b-review-cloud" class="toc-link">Phase B: Review (Cloud)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#agentic-integrity-playbook-workflow-phase-c-human-merge" class="toc-link">Phase C: Human Merge</a>
         </li>
       
         <li class="toc-item toc-level-2">
-          <a href="#agentic-integrity-playbook-prerequisites" class="toc-link">Prerequisites</a>
+          <a href="#agentic-integrity-playbook-reference" class="toc-link">Reference</a>
         </li>
       
         <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-prerequisites-required-tools" class="toc-link">Required Tools</a>
+          <a href="#agentic-integrity-playbook-reference-required-artifacts" class="toc-link">Required Artifacts</a>
         </li>
       
         <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-prerequisites-infrastructure-requirements" class="toc-link">Infrastructure Requirements</a>
+          <a href="#agentic-integrity-playbook-reference-key-commands" class="toc-link">Key Commands</a>
         </li>
       
         <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-prerequisites-verification" class="toc-link">Verification</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#agentic-integrity-playbook-infrastructure-setup" class="toc-link">Infrastructure Setup</a>
+          <a href="#agentic-integrity-playbook-reference-infra-setup" class="toc-link">Infra Setup</a>
         </li>
       
         <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-infrastructure-setup-local-gumption-layer" class="toc-link">Local “Gumption” Layer</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-infrastructure-setup-local-gumption-layer-step-1-initialize-td" class="toc-link">Step 1: Initialize td</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-infrastructure-setup-local-gumption-layer-step-2-haptic-link" class="toc-link">Step 2: Haptic Link</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-infrastructure-setup-cloud-sovereignty-layer" class="toc-link">Cloud “Sovereignty” Layer</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-infrastructure-setup-cloud-sovereignty-layer-step-1-initialize-ghaw" class="toc-link">Step 1: Initialize GHAW</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-infrastructure-setup-cloud-sovereignty-layer-step-2-repo-secrets" class="toc-link">Step 2: Repo Secrets</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#agentic-integrity-playbook-artefact-generation" class="toc-link">Artefact Generation</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-artefact-generation-a-agentsmd-the-constitution" class="toc-link">A. AGENTS.md (The Constitution)</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-artefact-generation-a-agentsmd-the-constitution-required-sections" class="toc-link">Required Sections</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-artefact-generation-a-agentsmd-the-constitution-example" class="toc-link">Example</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-artefact-generation-b-reviewmd-the-cloud-reviewer" class="toc-link">B. review.md (The Cloud Reviewer)</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-artefact-generation-b-reviewmd-the-cloud-reviewer-required-sections" class="toc-link">Required Sections</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-artefact-generation-b-reviewmd-the-cloud-reviewer-example" class="toc-link">Example</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson" class="toc-link">C. conceptual-lexicon.json</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson-location" class="toc-link">Location</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson-purpose" class="toc-link">Purpose</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-artefact-generation-c-conceptual-lexiconjson-example" class="toc-link">Example</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop" class="toc-link">The Canonical Workflow Loop</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr" class="toc-link">Phase A — Delivery Agent (Build + PR)</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-1-identify" class="toc-link">Step 1: Identify</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-2-forge" class="toc-link">Step 2: Forge</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-3-implement" class="toc-link">Step 3: Implement</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-4-local-verify" class="toc-link">Step 4: Local Verify</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-5-finish" class="toc-link">Step 5: Finish</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-a-delivery-agent-build-pr-step-6-handoff" class="toc-link">Step 6: Handoff</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate" class="toc-link">Phase B — Review Agent (PR Health Gate)</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-1-inspect-prs" class="toc-link">Step 1: Inspect PRs</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-2-fix-push" class="toc-link">Step 2: Fix &amp; Push</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-3-re-check" class="toc-link">Step 3: Re-check</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-b-review-agent-pr-health-gate-step-4-td-approval-gate" class="toc-link">Step 4: TD Approval Gate</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-c-human-merge-tidy" class="toc-link">Phase C — Human Merge + Tidy</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-c-human-merge-tidy-step-1-merge" class="toc-link">Step 1: Merge</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#agentic-integrity-playbook-the-canonical-workflow-loop-phase-c-human-merge-tidy-step-2-cleanup" class="toc-link">Step 2: Cleanup</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#agentic-integrity-playbook-deployment-heuristics" class="toc-link">Deployment Heuristics</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-deployment-heuristics-start-with-mastra-hono" class="toc-link">Start with Mastra-Hono</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-deployment-heuristics-fail-fast" class="toc-link">Fail Fast</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-deployment-heuristics-human-in-the-loop" class="toc-link">Human in the Loop</a>
+          <a href="#agentic-integrity-playbook-reference-verification" class="toc-link">Verification</a>
         </li>
       
         <li class="toc-item toc-level-2">
           <a href="#agentic-integrity-playbook-best-practices" class="toc-link">Best Practices</a>
         </li>
       
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-best-practices-1-always-start-with-td-usage-new-session" class="toc-link">1. Always Start with td usage --new-session</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-best-practices-2-use-bun-run-ask-for-clarification" class="toc-link">2. Use bun run ask for Clarification</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-best-practices-3-run-bun-run-check-before-committing" class="toc-link">3. Run bun run check Before Committing</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-best-practices-4-perform-handoffs-before-context-window-ends" class="toc-link">4. Perform Handoffs Before Context Window Ends</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-best-practices-5-keep-worktrees-until-approval" class="toc-link">5. Keep Worktrees Until Approval</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-best-practices-6-use-descriptive-commit-messages" class="toc-link">6. Use Descriptive Commit Messages</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-best-practices-7-test-edge-cases" class="toc-link">7. Test Edge Cases</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-best-practices-8-document-decisions" class="toc-link">8. Document Decisions</a>
+        <li class="toc-item toc-level-2">
+          <a href="#agentic-integrity-playbook-setup" class="toc-link">Setup</a>
         </li>
       
         <li class="toc-item toc-level-2">
-          <a href="#agentic-integrity-playbook-common-pitfalls" class="toc-link">Common Pitfalls</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-common-pitfalls-pitfall-1-skipping-pre-commit-checks" class="toc-link">Pitfall 1: Skipping Pre-Commit Checks</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-common-pitfalls-pitfall-2-not-performing-handoffs" class="toc-link">Pitfall 2: Not Performing Handoffs</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-common-pitfalls-pitfall-3-ignoring-review-feedback" class="toc-link">Pitfall 3: Ignoring Review Feedback</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-common-pitfalls-pitfall-4-deleting-worktrees-too-early" class="toc-link">Pitfall 4: Deleting Worktrees Too Early</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#agentic-integrity-playbook-common-pitfalls-pitfall-5-spamming-notifications" class="toc-link">Pitfall 5: Spamming Notifications</a>
-        </li>
-      
-        <li class="toc-item toc-level-2">
-          <a href="#agentic-integrity-playbook-references" class="toc-link">References</a>
+          <a href="#agentic-integrity-playbook-see-also" class="toc-link">See Also</a>
         </li>
       
     </ul>
@@ -3203,10 +2516,10 @@ notify <span class="hljs-string">&quot;PR #123 lint check passed&quot;</span>
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7hu8bu"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7hu8bu" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mn7i066o"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7i066o" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7hu8bu" ></script>
+<script src="../../assets/js/docmd-search.js?v=mn7i066o" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
