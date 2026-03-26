@@ -155,43 +155,6 @@ Brief description of what this playbook covers and why it exists.
 List all major sections with anchor links:
 
 ```markdown
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Section 1](#section-1)
-- [Section 2](#section-2)
-  - [Subsection 2.1](#subsection-21)
-- [Section 3](#section-3)
-```
-
-### Step 4: Add Loading Process Section
-
-Include this file:
-
-```nu
-source "$(pwd)/LOADING_PROCESS.md"
-```
-
-### Step 5: Write Self‑Contained Sections
-
-Each major section should:
-- Start with a brief description
-- Use subsections for organization
-- Include examples where appropriate
-- Be readable in isolation
-
-### Step 6: Test Extraction
-
-Verify that sections can be extracted correctly:
-
-```bash
-# Test extracting a section
-ast-grep -p '## Section Name' -A 50 playbooks/your-playbook.md
-
-# Verify the output is complete and readable
-```
-
 ## Frontmatter Metadata
 
 ### Required Fields
@@ -242,19 +205,6 @@ status: published
 ### Example Structure
 
 ```markdown
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Table of Contents](#table-of-contents)
-- [Section 1](#section-1)
-  - [Subsection 1.1](#subsection-11)
-  - [Subsection 1.2](#subsection-12)
-- [Section 2](#section-2)
-- [Section 3](#section-3)
-  - [Subsection 3.1](#subsection-31)
-- [References](#references)
-```
-
 ## Section Extraction
 
 ### Using `ast-grep`
