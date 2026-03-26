@@ -102,3 +102,12 @@ Context-as-Code documentation for the PolyVis project
 - [Human Test Plan: Worktree Cleanup Script (`td-211bd9`)](https://polyvis.local/tests/human/td-211bd9-verification/)
 - [Test Plan: TD Workflow E2E Validation](https://polyvis.local/tests/human/td-bcf87d-verification/)
 - [Human Test Plan: Observational Memory (`td-fa8288`)](https://polyvis.local/tests/human/td-fa8288-verification/)
+---
+
+## Source Documentation (Doc Map)
+
+- [Mastra Core (`src/mastra/`)](https://polyvis.local/src/mastra/)
+- [Utilities (`src/utils/`)](https://polyvis.local/src/utils/)
+- [CLI (`src/cli/`)](https://polyvis.local/src/cli/)
+- [Source Code (`src/`)](https://polyvis.local/src/)
+- [Libraries (`src/lib/`)](https://polyvis.local/src/lib/)
