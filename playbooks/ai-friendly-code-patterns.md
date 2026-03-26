@@ -9,35 +9,6 @@ tags: [playbook]
 
 # AI-Friendly Code Patterns Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Executive Summary](#executive-summary)
-- [Case Study: Git Worktree Cleanup Implementation](#case-study-git-worktree-cleanup-implementation)
-  - [The Experiment](#the-experiment)
-  - [Human Readability Verdict](#human-readability-verdict)
-  - [AI Agent Maintainability Verdict](#ai-agent-maintainability-verdict)
-- [The Counterexample: await-to-js](#the-counterexample-await-to-js)
-  - [Why This Package Works Well](#why-this-package-works-well)
-- [Comparative Analysis](#comparative-analysis)
-- [Package Selection Guidelines](#package-selection-guidelines)
-  - [✅ Keep (AI-Friendly)](#✅-keep-ai-friendly)
-  - [❌ Deprecate (AI-Unfriendly)](#❌-deprecate-ai-unfriendly)
-- [Practical Guidelines for This Project](#practical-guidelines-for-this-project)
-  - [When to Use Imperative Code](#when-to-use-imperative-code)
-  - [When Functional Code is Acceptable](#when-functional-code-is-acceptable)
-  - [Anti-Patterns to Avoid](#anti-patterns-to-avoid)
-- [Opinion: Should We Deprecate Remeda?](#opinion-should-we-deprecate-remeda)
-  - [Rationale](#rationale)
-  - [Migration Strategy](#migration-strategy)
-  - [Keep: await-to-js](#keep-await-to-js)
-- [Key Takeaways](#key-takeaways)
-  - [For Developers](#for-developers)
-  - [For Code Review](#for-code-review)
-  - [For Package Selection](#for-package-selection)
-- [Conclusion](#conclusion)
-- [References](#references)
-
 ## Purpose
 This playbook documents when to prefer imperative over functional programming for maximum AI agent maintainability. It provides guidelines for writing code that is both human-readable and AI-maintainable, based on empirical evidence from real-world experiments.
 

@@ -9,24 +9,6 @@ tags: [playbook]
 
 # Loading Process Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [When to Use This Pattern](#when-to-use-this-pattern)
-  - [Ideal Use Cases](#ideal-use-cases)
-  - [When NOT to Use This Pattern](#when-not-to-use-this-pattern)
-- [Design Principles](#design-principles)
-- [Implementation Guide](#implementation-guide)
-- [Section Extraction](#section-extraction)
-  - [Using ast-grep](#using-ast-grep)
-  - [Alternative Methods](#alternative-methods)
-- [Template](#template)
-- [Best Practices](#best-practices)
-- [Examples](#examples)
-  - [Example 1: Simple Playbook](#example-1-simple-playbook)
-  - [Example 2: Complex Playbook](#example-2-complex-playbook)
-- [References](#references)
-
 ## Purpose
 This playbook documents the **two‑step loading process** pattern for structured markdown documentation. It explains why this pattern exists, when to use it, how to implement it, and provides best practices for creating maintainable, discoverable documentation.
 
@@ -112,11 +94,6 @@ tags: [playbook]
 ---
 
 # Playbook Title
-
-## Table of Contents
-- [Purpose](#purpose)
-- [Section 1](#section-1)
-- [References](#references)
 
 ## Purpose
 Brief description of what this playbook covers.

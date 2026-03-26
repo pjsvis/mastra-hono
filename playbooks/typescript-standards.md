@@ -9,31 +9,6 @@ tags: [playbook]
 
 # TypeScript Standards Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Loose Autocomplete](#loose-autocomplete)
-- [Branded Types (Nominal Typing)](#branded-types-nominal-typing)
-- [Exhaustive Switches](#exhaustive-switches)
-- [Result Pattern (Error Handling)](#result-pattern-error-handling)
-- [Zod Type Inference](#zod-type-inference)
-- [Bun-First Patterns](#bun-first-patterns)
-  - [Explicit Main Check](#explicit-main-check)
-  - [Path Resolution](#path-resolution)
-- [AI-Friendly Typing](#ai-friendly-typing)
-- [Best Practices](#best-practices)
-  - [1. Always Use Zod for Data Structures](#1-always-use-zod-for-data-structures)
-  - [2. Use Branded Types for IDs](#2-use-branded-types-for-ids)
-  - [3. Use Exhaustive Switches](#3-use-exhaustive-switches)
-  - [4. Use Result Pattern for Error Handling](#4-use-result-pattern-for-error-handling)
-  - [5. Use Explicit Return Types](#5-use-explicit-return-types)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Using `any` Instead of `unknown`](#pitfall-1-using-`any`-instead-of-`unknown`)
-  - [Pitfall 2: Not Using Branded Types for IDs](#pitfall-2-not-using-branded-types-for-ids)
-  - [Pitfall 3: Missing Exhaustive Switch Cases](#pitfall-3-missing-exhaustive-switch-cases)
-  - [Pitfall 4: Not Deriving Types from Zod Schemas](#pitfall-4-not-deriving-types-from-zod-schemas)
-- [References](#references)
-
 ## Purpose
 This playbook defines idiomatic TypeScript patterns used in the Mastra-Hono project. These patterns are selected for high type-safety, excellent developer experience (IDE autocomplete), and AI-maintainability. It provides comprehensive guidelines for writing TypeScript code that is both human-readable and AI-friendly.
 

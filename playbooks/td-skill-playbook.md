@@ -9,48 +9,6 @@ tags: [playbook]
 
 # TD Skill Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Overview](#overview)
-- [Quick Start](#quick-start)
-  - [Session Start (Every Time)](#session-start-every-time)
-  - [Single-Issue Workflow](#single-issue-workflow)
-  - [Multi-Issue Workflow (Recommended for Agents)](#multi-issue-workflow-recommended-for-agents)
-- [Key Workflows](#key-workflows)
-  - [Workflow 1: Starting New Work](#workflow-1-starting-new-work)
-  - [Workflow 2: Handing Off Work](#workflow-2-handing-off-work)
-  - [Workflow 3: Reviewing Code](#workflow-3-reviewing-code)
-  - [Workflow 4: Handling Blockers](#workflow-4-handling-blockers)
-- [Commands by Category](#commands-by-category)
-  - [Checking Status](#checking-status)
-  - [Working on Issues](#working-on-issues)
-  - [Handing Off](#handing-off)
-  - [Reviews](#reviews)
-  - [Creating/Managing Issues](#creatingmanaging-issues)
-  - [File Tracking](#file-tracking)
-  - [Other](#other)
-- [Resources](#resources)
-  - [[quick_reference.md](references/quick_reference.md)](#[quick_referencemd]referencesquick_referencemd)
-  - [[ai_agent_workflows.md](references/ai_agent_workflows.md)](#[ai_agent_workflowsmd]referencesai_agent_workflowsmd)
-- [Issue Lifecycle](#issue-lifecycle)
-- [Key Principles](#key-principles)
-- [For AI Agents](#for-ai-agents)
-- [Best Practices](#best-practices)
-  - [1. Always Start with Session Check](#1-always-start-with-session-check)
-  - [2. Use Structured Handoffs](#2-use-structured-handoffs)
-  - [3. Log Decisions Explicitly](#3-log-decisions-explicitly)
-  - [4. Track Blockers](#4-track-blockers)
-  - [5. Link Files to Issues](#5-link-files-to-issues)
-  - [6. Never Approve Your Own Work](#6-never-approve-your-own-work)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Not Starting with Session Check](#pitfall-1-not-starting-with-session-check)
-  - [Pitfall 2: Skipping Handoffs](#pitfall-2-skipping-handoffs)
-  - [Pitfall 3: Approving Own Work](#pitfall-3-approving-own-work)
-  - [Pitfall 4: Not Logging Decisions](#pitfall-4-not-logging-decisions)
-  - [Pitfall 5: Not Tracking Blockers](#pitfall-5-not-tracking-blockers)
-- [References](#references)
-
 ## Purpose
 `td` is a minimalist CLI for tracking tasks and maintaining agent memory across context windows. When your AI session ends, `td` captures what was done, what remains, and what decisions were made—so the next session picks up exactly where the last one left off. This playbook provides comprehensive guidelines for using `td` in AI-assisted development workflows.
 

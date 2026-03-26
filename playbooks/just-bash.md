@@ -9,36 +9,6 @@ tags: [playbook]
 
 # Just-Bash Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Key Features](#key-features)
-- [Usage Guidelines](#usage-guidelines)
-  - [Installation](#installation)
-  - [Basic API Usage (TypeScript)](#basic-api-usage-typescript)
-  - [Filesystem Modes](#filesystem-modes)
-  - [Security & Network](#security-&-network)
-  - [Integration with Mastra / AI Agents](#integration-with-mastra--ai-agents)
-- [Best Practices](#best-practices)
-  - [1. Use New Instances for Unrelated Tasks](#1-use-new-instances-for-unrelated-tasks)
-  - [2. Always Set Execution Limits](#2-always-set-execution-limits)
-  - [3. Test Before Production Execution](#3-test-before-production-execution)
-  - [4. Use OverlayFs for Codebase Exploration](#4-use-overlayfs-for-codebase-exploration)
-  - [5. Validate Output Before Using](#5-validate-output-before-using)
-- [Real-World Example: Worktree Cleanup](#real-world-example-worktree-cleanup)
-  - [The Problem](#the-problem)
-  - [Testing Strategy](#testing-strategy)
-  - [Key Benefits](#key-benefits)
-  - [When to Use This Pattern](#when-to-use-this-pattern)
-  - [Production Execution](#production-execution)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Reusing Instances for Unrelated Tasks](#pitfall-1-reusing-instances-for-unrelated-tasks)
-  - [Pitfall 2: Not Setting Execution Limits](#pitfall-2-not-setting-execution-limits)
-  - [Pitfall 3: Assuming Persistence Across Instances](#pitfall-3-assuming-persistence-across-instances)
-  - [Pitfall 4: Forgetting to Validate Output](#pitfall-4-forgetting-to-validate-output)
-  - [Pitfall 5: Using ReadWriteFs Without Caution](#pitfall-5-using-readwritefs-without-caution)
-- [References](#references)
-
 ## Purpose
 `just-bash` provides a simulated, secure, and sandboxed Bash environment with an in-memory virtual filesystem. It is designed for AI agents to execute commands safely without risking the host system. This playbook provides comprehensive guidelines for using just-bash in development workflows, particularly for testing shell logic and integrating with AI agents.
 

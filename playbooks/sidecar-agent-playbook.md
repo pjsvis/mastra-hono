@@ -9,43 +9,6 @@ tags: [playbook]
 
 # Sidecar Agent Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Mandatory Directives](#mandatory-directives)
-  - [Mandatory Session Check](#mandatory-session-check)
-  - [Mandatory Task Creation](#mandatory-task-creation)
-  - [Tracking Progress](#tracking-progress)
-  - [Mandatory Handoffs (Crucial)](#mandatory-handoffs-crucial)
-  - [Review Workflow](#review-workflow)
-  - [Querying State](#querying-state)
-- [Integration Patterns](#integration-patterns)
-  - [Pattern 1: Plugin Development Guidelines](#pattern-1-plugin-development-guidelines)
-  - [Pattern 2: Workspace Workflow](#pattern-2-workspace-workflow)
-  - [Pattern 3: Git Operations via Sidecar](#pattern-3-git-operations-via-sidecar)
-  - [Pattern 4: Conversation Tracking](#pattern-4-conversation-tracking)
-- [Configuration & Development Workflow](#configuration-&-development-workflow)
-  - [Workspace tmux Preview](#workspace-tmux-preview)
-  - [Build & Version Standards](#build-&-version-standards)
-- [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
-- [Best Practices](#best-practices)
-  - [1. Always Start with Session Check](#1-always-start-with-session-check)
-  - [2. Always Create Tasks Before Starting Work](#2-always-create-tasks-before-starting-work)
-  - [3. Always Perform Handoffs Before Ending Sessions](#3-always-perform-handoffs-before-ending-sessions)
-  - [4. Follow Plugin Height Constraints](#4-follow-plugin-height-constraints)
-  - [5. Use Short Command Names](#5-use-short-command-names)
-  - [6. Never Render Footers in Plugin View()](#6-never-render-footers-in-plugin-view)
-  - [7. Never Approve Your Own Code](#7-never-approve-your-own-code)
-  - [8. Run Tests Before Committing](#8-run-tests-before-committing)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Starting Work Without a Task](#pitfall-1-starting-work-without-a-task)
-  - [Pitfall 2: Forgetting Handoffs](#pitfall-2-forgetting-handoffs)
-  - [Pitfall 3: Exceeding Plugin Height](#pitfall-3-exceeding-plugin-height)
-  - [Pitfall 4: Rendering Footers in View()](#pitfall-4-rendering-footers-in-view)
-  - [Pitfall 5: Approving Own Code](#pitfall-5-approving-own-code)
-  - [Pitfall 6: Committing Without Tests](#pitfall-6-committing-without-tests)
-- [References](#references)
-
 ## Purpose
 This playbook defines how AI agents should integrate with Sidecar for development workflows, task tracking, workspace management, and code quality standards. It is critical for agents to use `td` as structured external memory to persist context across sessions. This playbook provides comprehensive guidelines for effective agent-sidecar integration.
 

@@ -9,40 +9,6 @@ tags: [playbook]
 
 # Secure Tool Design Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [How Tool Calling Actually Works](#how-tool-calling-actually-works)
-  - [The Execution Loop](#the-execution-loop)
-  - [Key Insight](#key-insight)
-- [The Danger of "God Tools"](#the-danger-of-"god-tools")
-  - [The Anti-Pattern](#the-anti-pattern)
-  - [The Heuristic: Principle of Least Privilege](#the-heuristic-principle-of-least-privilege)
-- [Defense in Depth: Sandboxing & Boundaries](#defense-in-depth-sandboxing-&-boundaries)
-  - [Zod Input Validation](#zod-input-validation)
-  - [Ephemeral Sandboxes](#ephemeral-sandboxes)
-  - [Human-in-the-Loop (HITL)](#human-in-the-loop-hitl)
-- [Observational Memory & Local Models](#observational-memory-&-local-models)
-  - [Why this is powerful with `lfm2.5-thinking`](#why-this-is-powerful-with-`lfm25-thinking`)
-  - [The Agentic Workflow](#the-agentic-workflow)
-- [Best Practices](#best-practices)
-  - [1. Apply the Principle of Least Privilege](#1-apply-the-principle-of-least-privilege)
-  - [2. Validate All Inputs](#2-validate-all-inputs)
-  - [3. Use Sandboxes for Code Execution](#3-use-sandboxes-for-code-execution)
-  - [4. Require Human Approval for Critical Actions](#4-require-human-approval-for-critical-actions)
-  - [5. Leverage Observational Memory](#5-leverage-observational-memory)
-  - [6. Use Local Models for Sensitive Data](#6-use-local-models-for-sensitive-data)
-  - [7. Monitor and Audit Tool Usage](#7-monitor-and-audit-tool-usage)
-  - [8. Implement Rate Limiting](#8-implement-rate-limiting)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Creating "God Tools"](#pitfall-1-creating-"god-tools")
-  - [Pitfall 2: Skipping Input Validation](#pitfall-2-skipping-input-validation)
-  - [Pitfall 3: Executing Code on Host](#pitfall-3-executing-code-on-host)
-  - [Pitfall 4: No Human Oversight](#pitfall-4-no-human-oversight)
-  - [Pitfall 5: Not Using Observational Memory](#pitfall-5-not-using-observational-memory)
-  - [Pitfall 6: Leaking Sensitive Data to Cloud](#pitfall-6-leaking-sensitive-data-to-cloud)
-- [References](#references)
-
 ## Purpose
 This playbook covers how to design secure tools and leverage Mastra's Observational Memory, especially when paired with capable local models like `lfm2.5-thinking`. Building autonomous agents is an exercise in managing trust and blast radius. LLMs do not "run" code; they predict text that frameworks like Mastra convert into function calls. Therefore, the safety of your system is entirely dependent on the boundaries of the tools you provide.
 

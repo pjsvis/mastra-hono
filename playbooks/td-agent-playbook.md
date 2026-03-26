@@ -9,46 +9,6 @@ tags: [playbook]
 
 # TD Agent Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Core Principles](#core-principles)
-- [Mandatory Directives](#mandatory-directives)
-  - [Mandatory Session Check](#mandatory-session-check)
-  - [Mandatory Task Creation](#mandatory-task-creation)
-  - [Start and Focus](#start-and-focus)
-  - [Track Progress and Decisions](#track-progress-and-decisions)
-  - [Mandatory Handoff (Crucial)](#mandatory-handoff-crucial)
-  - [Review Workflow Separation](#review-workflow-separation)
-- [Standard Workflow](#standard-workflow)
-  - [Plan](#plan)
-  - [Implement](#implement)
-  - [Handoff](#handoff)
-  - [Review](#review)
-  - [Review Agent Checklist (GH API)](#review-agent-checklist-gh-api)
-- [Querying State](#querying-state)
-- [Parallel Sessions: Build + Review](#parallel-sessions-build-+-review)
-  - [Session A — Build Agent](#session-a-—-build-agent)
-  - [Session B — Review Agent (Separate Session)](#session-b-—-review-agent-separate-session)
-  - [Practical Setup](#practical-setup)
-- [Do / Don't](#do--don't)
-  - [Do](#do)
-  - [Don't](#don't)
-- [Session End Checklist](#session-end-checklist)
-- [Summary Checklist](#summary-checklist)
-- [Best Practices](#best-practices)
-  - [1. Always Start with Session Check](#1-always-start-with-session-check)
-  - [2. Create Tasks Before Starting Work](#2-create-tasks-before-starting-work)
-  - [3. Log Decisions Explicitly](#3-log-decisions-explicitly)
-  - [4. Always Perform Handoffs](#4-always-perform-handoffs)
-  - [5. Never Approve Your Own Work](#5-never-approve-your-own-work)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Starting Work Without a Task](#pitfall-1-starting-work-without-a-task)
-  - [Pitfall 2: Forgetting Handoffs](#pitfall-2-forgetting-handoffs)
-  - [Pitfall 3: Approving Own Code](#pitfall-3-approving-own-code)
-  - [Pitfall 4: Not Logging Decisions](#pitfall-4-not-logging-decisions)
-- [References](#references)
-
 ## Purpose
 This playbook defines how AI agents must use the `td` CLI as structured external memory to ensure continuity across sessions, clear accountability, and reliable review workflows. For Nushell-based structured querying, see `playbooks/nushell-agent-playbook.md`.
 

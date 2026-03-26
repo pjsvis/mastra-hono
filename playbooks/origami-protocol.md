@@ -9,49 +9,6 @@ tags: [playbook]
 
 # Origami Protocol Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Philosophy](#philosophy)
-- [The Mantra](#the-mantra)
-- [Core Principle](#core-principle)
-- [Prerequisite: JSON or Nothing](#prerequisite-json-or-nothing)
-  - [Supported Input Formats](#supported-input-formats)
-  - [The Check](#the-check)
-- [The Folds](#the-folds)
-  - [Flat Fold → `table`](#flat-fold-→-`table`)
-  - [Stacked Fold → `table -e`](#stacked-fold-→-`table--e`)
-  - [Rolled Fold → `csv`](#rolled-fold-→-`csv`)
-  - [Nested Fold → `nuon`](#nested-fold-→-`nuon`)
-  - [Pressed Fold → `json`](#pressed-fold-→-`json`)
-  - [Wrapped Fold → `html`](#wrapped-fold-→-`html`)
-- [Debugging Ingestion Pipelines](#debugging-ingestion-pipelines)
-  - [The Fold Debug Pattern](#the-fold-debug-pattern)
-  - [Fold Selection by Pipeline Stage](#fold-selection-by-pipeline-stage)
-  - [Common Pipeline Debug Commands](#common-pipeline-debug-commands)
-- [The Origami Grammar](#the-origami-grammar)
-  - [Command Pattern](#command-pattern)
-  - [Transform Verbs](#transform-verbs)
-  - [Examples](#examples)
-- [Catalog: When to Use Which Fold](#catalog-when-to-use-which-fold)
-- [Entropy Reduction](#entropy-reduction)
-- [Integration with Edinburgh Protocol](#integration-with-edinburgh-protocol)
-- [Best Practices](#best-practices)
-  - [1. Always Start with JSON](#1-always-start-with-json)
-  - [2. Choose the Right Fold for the Task](#2-choose-the-right-fold-for-the-task)
-  - [3. Chain Transforms Before Folding](#3-chain-transforms-before-folding)
-  - [4. Use `nuon` for Chaining](#4-use-`nuon`-for-chaining)
-  - [5. Debug with Multiple Folds](#5-debug-with-multiple-folds)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Forgetting to Parse JSON](#pitfall-1-forgetting-to-parse-json)
-  - [Pitfall 2: Folding Too Early](#pitfall-2-folding-too-early)
-  - [Pitfall 3: Using Wrong Fold for Task](#pitfall-3-using-wrong-fold-for-task)
-  - [Pitfall 4: Not Verifying Input Structure](#pitfall-4-not-verifying-input-structure)
-  - [Pitfall 5: Ignoring Null Values](#pitfall-5-ignoring-null-values)
-- [References](#references)
-- [Quick Reference](#quick-reference)
-- [Environment](#environment)
-
 ## Purpose
 The Origami Protocol is a **lexicon for data folding** — transforming structured data into predictable shapes without losing information. Like origami, we start with a single sheet (raw data) and fold it into forms that reveal different aspects. This playbook provides comprehensive guidelines for using the origami protocol to structure, transform, and debug data ingestion pipelines.
 

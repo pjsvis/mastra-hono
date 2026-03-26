@@ -9,53 +9,6 @@ tags: [playbook]
 
 # Agentic Integrity Retrofit Guide
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Core Script Porting](#core-script-porting)
-  - [Required Scripts](#required-scripts)
-  - [Script Customization](#script-customization)
-  - [Verification](#verification)
-- [Directory Structure](#directory-structure)
-  - [Required Directories](#required-directories)
-  - [Directory Purposes](#directory-purposes)
-  - [Optional Directories](#optional-directories)
-- [package.json Integration](#packagejson-integration)
-  - [Required Scripts](#required-scripts)
-  - [Script Descriptions](#script-descriptions)
-  - [Customizing the `verify` Script](#customizing-the-`verify`-script)
-- [The Agent Constitution (AGENTS.md)](#the-agent-constitution-agentsmd)
-  - [Required Sections](#required-sections)
-  - [Example Template](#example-template)
-- [Local Environment Setup](#local-environment-setup)
-  - [Step 1: Initialize `td`](#step-1-initialize-`td`)
-  - [Step 2: Haptic Alias (Optional but Recommended)](#step-2-haptic-alias-optional-but-recommended)
-  - [Step 3: Verify Setup](#step-3-verify-setup)
-- [The "Map of Knowledge" Protocol](#the-"map-of-knowledge"-protocol)
-  - [Required Links](#required-links)
-  - [Implementation](#implementation)
-  - [Benefits](#benefits)
-- [Retrofit Checklist](#retrofit-checklist)
-  - [Infrastructure](#infrastructure)
-  - [Scripts](#scripts)
-  - [Configuration](#configuration)
-  - [Testing](#testing)
-  - [Documentation](#documentation)
-- [Best Practices](#best-practices)
-  - [1. Keep Scripts Simple](#1-keep-scripts-simple)
-  - [2. Use Absolute Paths Where Possible](#2-use-absolute-paths-where-possible)
-  - [3. Make Scripts Executable](#3-make-scripts-executable)
-  - [4. Test Scripts Before Committing](#4-test-scripts-before-committing)
-  - [5. Document Customizations](#5-document-customizations)
-  - [6. Keep `AGENTS.md` Up to Date](#6-keep-`agentsmd`-up-to-date)
-- [Common Issues](#common-issues)
-  - [Issue 1: Scripts Not Executable](#issue-1-scripts-not-executable)
-  - [Issue 2: `NTFY_TOPIC` Not Configured](#issue-2-`ntfy_topic`-not-configured)
-  - [Issue 3: `verify` Script Fails](#issue-3-`verify`-script-fails)
-  - [Issue 4: `td` Not Initialized](#issue-4-`td`-not-initialized)
-  - [Issue 5: Directories Not Created](#issue-5-directories-not-created)
-- [References](#references)
-
 ## Purpose
 This guide provides the technical steps to port the **Agentic Integrity Workflow** (Symmetric Mentation) to any new or existing repository. It serves as a comprehensive migration guide for teams adopting the workflow, ensuring consistency across projects while allowing for project-specific customization.
 

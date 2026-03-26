@@ -9,31 +9,6 @@ tags: [playbook]
 
 # Nushell Agent Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Modes of Use](#modes-of-use)
-  - [Mode 1: Everyday Mode (Shortcuts)](#mode-1-everyday-mode-shortcuts)
-  - [Mode 2: Development Mode (Tooling)](#mode-2-development-mode-tooling)
-- [Approved Integration Rules](#approved-integration-rules)
-  - [What TO Do](#what-to-do)
-  - [What NOT to Do](#what-not-to-do)
-- [Troubleshooting](#troubleshooting)
-  - [Common Issues](#common-issues)
-- [Best Practices](#best-practices)
-  - [1. Always Start with `td usage --new-session`](#1-always-start-with-`td-usage---new-session`)
-  - [2. Use Aliases for Common Operations](#2-use-aliases-for-common-operations)
-  - [3. Validate Output Structures](#3-validate-output-structures)
-  - [4. Prefer Pipes Over Variables](#4-prefer-pipes-over-variables)
-  - [5. Test Transformations Interactively](#5-test-transformations-interactively)
-  - [6. Keep Functions Small](#6-keep-functions-small)
-- [Examples](#examples)
-  - [Example 1: Extract Task Summary](#example-1-extract-task-summary)
-  - [Example 2: Filter Tasks by Multiple Criteria](#example-2-filter-tasks-by-multiple-criteria)
-  - [Example 3: Generate Task Report](#example-3-generate-task-report)
-  - [Example 4: Monitor Task Changes](#example-4-monitor-task-changes)
-- [References](#references)
-
 ## Purpose
 Use Nushell (`nu`) as a **sensory layer** to extract structured truth from `td` and related tools. This playbook defines the two operating modes and the approved usage patterns for agents working with task state and structured data.
 

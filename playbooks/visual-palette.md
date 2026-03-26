@@ -9,38 +9,6 @@ tags: [playbook]
 
 # Visual Palette Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Philosophy](#philosophy)
-- [The Palette](#the-palette)
-- [Quick Reference](#quick-reference)
-  - [td list (all tasks)](#td-list-all-tasks)
-  - [td current (focused task)](#td-current-focused-task)
-- [Output Examples](#output-examples)
-  - [table](#table)
-  - [compact (table -e)](#compact-table--e)
-  - [csv](#csv)
-  - [nuon](#nuon)
-  - [json](#json)
-  - [html](#html)
-- [Why This Matters](#why-this-matters)
-- [Integration with Edinburgh Protocol](#integration-with-edinburgh-protocol)
-- [Best Practices](#best-practices)
-  - [1. Choose Format Based on Use Case](#1-choose-format-based-on-use-case)
-  - [2. Use Table for Human Overview](#2-use-table-for-human-overview)
-  - [3. Use Compact for Focused View](#3-use-compact-for-focused-view)
-  - [4. Use CSV for Export](#4-use-csv-for-export)
-  - [5. Use NUON for Chaining](#5-use-nuon-for-chaining)
-  - [6. Use JSON for Debugging](#6-use-json-for-debugging)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Using Wrong Format for Use Case](#pitfall-1-using-wrong-format-for-use-case)
-  - [Pitfall 2: Not Using Compact for Focused View](#pitfall-2-not-using-compact-for-focused-view)
-  - [Pitfall 3: Not Using NUON for Chaining](#pitfall-3-not-using-nuon-for-chaining)
-  - [Pitfall 4: Using JSON for Human Overview](#pitfall-4-using-json-for-human-overview)
-  - [Pitfall 5: Not Using CSV for Export](#pitfall-5-not-using-csv-for-export)
-- [References](#references)
-
 ## Purpose
 This playbook defines a limited palette of structured output formats for deterministic display. It provides guidelines for choosing the right format when displaying structured data, ensuring consistency and clarity across all tools and workflows.
  

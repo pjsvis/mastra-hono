@@ -9,49 +9,6 @@ tags: [playbook]
 
 # Biome Standards Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Proactive Fixing (Formatting vs Linting)](#proactive-fixing-formatting-vs-linting)
-  - [Formatter: Biome](#formatter-biome)
-  - [Linter: OxLint](#linter-oxlint)
-- [Handling "any" (noExplicitAny)](#handling-"any"-noexplicitany)
-  - [Prefer `unknown`](#prefer-`unknown`)
-  - [Selective Suppression](#selective-suppression)
-  - [Reasoning Required](#reasoning-required)
-- [Formatting Standards](#formatting-standards)
-  - [Indentation](#indentation)
-  - [Quotes](#quotes)
-  - [Semicolons](#semicolons)
-  - [Trailing Commas](#trailing-commas)
-- [The "Scripts Lab" Exception](#the-"scripts-lab"-exception)
-  - [What Goes in `scripts/lab/`](#what-goes-in-`scriptslab`)
-  - [Configuration](#configuration)
-  - [OxLint Configuration](#oxlint-configuration)
-- [Pre-commit vs. CI](#pre-commit-vs-ci)
-  - [Pre-commit: Light and Fast](#pre-commit-light-and-fast)
-  - [CI / Verify: Comprehensive](#ci--verify-comprehensive)
-  - [When in Doubt](#when-in-doubt)
-- [OxLint Responsibilities (Best-Practice Baseline)](#oxlint-responsibilities-best-practice-baseline)
-  - [OxLint is the Lint Engine](#oxlint-is-the-lint-engine)
-  - [Avoid Stylistic Overlap](#avoid-stylistic-overlap)
-  - [Type Checking Remains `tsc --noEmit`](#type-checking-remains-`tsc---noemit`)
-  - [Recommended Baseline](#recommended-baseline)
-- [Best Practices](#best-practices)
-  - [1. Run Formatting Before Committing](#1-run-formatting-before-committing)
-  - [2. Fix Linting Issues Before Pushing](#2-fix-linting-issues-before-pushing)
-  - [3. Use Type Guards Instead of `any`](#3-use-type-guards-instead-of-`any`)
-  - [4. Document Ignore Comments](#4-document-ignore-comments)
-  - [5. Use Scripts Lab for Experiments](#5-use-scripts-lab-for-experiments)
-  - [6. Run Verify Before Pushing](#6-run-verify-before-pushing)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Mixing Formatting and Linting](#pitfall-1-mixing-formatting-and-linting)
-  - [Pitfall 2: Using `any` Without Reasoning](#pitfall-2-using-`any`-without-reasoning)
-  - [Pitfall 3: Forgetting Trailing Commas](#pitfall-3-forgetting-trailing-commas)
-  - [Pitfall 4: Not Running Verify Before Pushing](#pitfall-4-not-running-verify-before-pushing)
-  - [Pitfall 5: Putting Experimental Code in Production](#pitfall-5-putting-experimental-code-in-production)
-- [References](#references)
-
 ## Purpose
 This playbook defines our standards for using **Biome (formatting)** and **OxLint (linting)** together without overlap, plus TypeScript for authoritative type checking. It provides comprehensive guidelines for maintaining consistent code quality across the project while avoiding conflicts between different tools.
 

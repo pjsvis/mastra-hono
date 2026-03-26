@@ -9,41 +9,6 @@ tags: [playbook]
 
 # Local Memory Agents Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Core Principles](#core-principles)
-  - [Data Sovereignty](#data-sovereignty)
-  - [Fail-Fast Tools](#fail-fast-tools)
-  - [Aggressive Orientation](#aggressive-orientation)
-- [Implementation Pattern](#implementation-pattern)
-  - [Basic Setup](#basic-setup)
-  - [Storage Options](#storage-options)
-  - [Tool Design for Observability](#tool-design-for-observability)
-- [Testing the Learning Loop](#testing-the-learning-loop)
-  - [Step-by-Step Testing Process](#step-by-step-testing-process)
-  - [Automated Test Example](#automated-test-example)
-- [Verification Checklist](#verification-checklist)
-  - [Memory Configuration](#memory-configuration)
-  - [Tool Design](#tool-design)
-  - [Model Requirements](#model-requirements)
-  - [Testing](#testing)
-- [Best Practices](#best-practices)
-  - [1. Start with Low Token Thresholds](#1-start-with-low-token-thresholds)
-  - [2. Use Descriptive Error Messages](#2-use-descriptive-error-messages)
-  - [3. Include Warnings for Non-Critical Issues](#3-include-warnings-for-non-critical-issues)
-  - [4. Test Learning Scenarios](#4-test-learning-scenarios)
-  - [5. Monitor Memory Growth](#5-monitor-memory-growth)
-  - [6. Version Your Models](#6-version-your-models)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Throwing Exceptions Instead of Returning Errors](#pitfall-1-throwing-exceptions-instead-of-returning-errors)
-  - [Pitfall 2: Using Cloud Models for Observation](#pitfall-2-using-cloud-models-for-observation)
-  - [Pitfall 3: Setting Token Thresholds Too High](#pitfall-3-setting-token-thresholds-too-high)
-  - [Pitfall 4: Not Testing Learning Behavior](#pitfall-4-not-testing-learning-behavior)
-  - [Pitfall 5: Using Insufficient Model Capacity](#pitfall-5-using-insufficient-model-capacity)
-  - [Pitfall 6: Ignoring Memory Storage](#pitfall-6-ignoring-memory-storage)
-- [References](#references)
-
 ## Purpose
 This playbook outlines the heuristics for building agents that learn from their environment using local Mastra Observational Memory. It provides guidelines for implementing agents that can observe their actions, learn from failures, and improve over time without relying on external cloud services.
 

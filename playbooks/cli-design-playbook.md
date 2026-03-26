@@ -9,41 +9,6 @@ tags: [playbook]
 
 # CLI Design Playbook
 
-## Table of Contents
-
-- [Purpose](#purpose)
-- [Technology Stack](#technology-stack)
-- [When to Use citty vs Native `util.parseArgs`](#when-to-use-citty-vs-native-`utilparseargs`)
-- [Mandatory Directives](#mandatory-directives)
-  - [Command Structure](#command-structure)
-  - [Arg Definition Pattern](#arg-definition-pattern)
-  - [Handler Structure](#handler-structure)
-  - [Error Handling](#error-handling)
-  - [Output Formatting](#output-formatting)
-  - [Help Text Quality](#help-text-quality)
-- [Integration Patterns](#integration-patterns)
-  - [Pattern 1: Subcommand Delegation](#pattern-1-subcommand-delegation)
-  - [Pattern 2: Shared Arguments](#pattern-2-shared-arguments)
-  - [Pattern 3: External Tool Integration](#pattern-3-external-tool-integration)
-- [Testing CLI Commands](#testing-cli-commands)
-- [Type Safety Requirements](#type-safety-requirements)
-- [Performance Considerations](#performance-considerations)
-- [Migration from `util.parseArgs`](#migration-from-`utilparseargs`)
-- [Dependencies](#dependencies)
-- [Compliance Checklist](#compliance-checklist)
-- [Best Practices](#best-practices)
-  - [1. Keep Commands Focused](#1-keep-commands-focused)
-  - [2. Use Descriptive Names](#2-use-descriptive-names)
-  - [3. Provide Clear Error Messages](#3-provide-clear-error-messages)
-  - [4. Test Help Text](#4-test-help-text)
-  - [5. Use Exit Codes Consistently](#5-use-exit-codes-consistently)
-- [Common Pitfalls](#common-pitfalls)
-  - [Pitfall 1: Not Using `required: true`](#pitfall-1-not-using-`required-true`)
-  - [Pitfall 2: Missing Descriptions](#pitfall-2-missing-descriptions)
-  - [Pitfall 3: Inconsistent Exit Codes](#pitfall-3-inconsistent-exit-codes)
-  - [Pitfall 4: Not Cleaning Up External Processes](#pitfall-4-not-cleaning-up-external-processes)
-- [References](#references)
-
 ## Purpose
 This playbook defines the design patterns and standards for building CLI tools in the Mastra-Hono project, ensuring consistency, type safety, and maintainability. It provides guidelines for using the citty framework and ensures that all CLI tools follow a consistent structure and user experience.
 
