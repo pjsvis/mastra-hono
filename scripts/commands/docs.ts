@@ -297,10 +297,10 @@ function findExports(dir: string, results: Export[] = []): Export[] {
  */
 async function postProcessScrollReset() {
   const docsSiteDir = resolve(join(import.meta.dir, '..', '..', 'docs-site'));
-  
+
   // CSS to force scroll to top
   const scrollCSS = `<style>html{scroll-behavior:auto!important}html:focus{outline:none}body{scroll-behavior:auto!important}</style>`;
-  
+
   // Aggressive scroll reset - run immediately and patch docmd
   const scrollResetScript = `<script>
 (function(){
