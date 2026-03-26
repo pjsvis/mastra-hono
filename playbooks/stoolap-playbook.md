@@ -173,6 +173,35 @@ mkdir -p data
 
 ---
 
+## Browser (WASM)
+
+```javascript
+// Load WASM
+const wasm = await import('/assets/wasm/stoolap.js');
+await wasm.default();
+
+const db = new wasm.StoolapDB();
+
+// Use same SQL API
+db.execute_batch(`
+  CREATE TABLE products (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+  );
+  INSERT INTO products VALUES (1, 'Laptop');
+`);
+
+const results = db.query("SELECT * FROM products");
+```
+
+### Benefits
+- Zero backend
+- Offline capable
+- Sync when online
+- Edge functions (Cloudflare Workers, Deno Deploy)
+
+---
+
 ## Migration from SQLite
 
 ### SQLite → Stoolap Mapping
