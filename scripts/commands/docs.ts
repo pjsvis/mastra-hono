@@ -133,7 +133,7 @@ async function cleanDocs() {
   if (cleaned > 0) {
     console.log('✅ Documentation cleaned');
   } else {
-    console.log('ℹ️  Nothing to clean');
+    console.log('i️  Nothing to clean');
   }
 }
 
@@ -293,22 +293,42 @@ function findExports(dir: string, results: Export[] = []): Export[] {
 /**
  * Post-process generated HTML to ensure scroll position resets on navigation.
  * Inject as first script in <head> to run before any other scripts.
- * Also inject CSS to force scroll behavior.
+ * Also patch docmd's SPA navigation function.
  */
 async function postProcessScrollReset() {
   const docsSiteDir = resolve(join(import.meta.dir, '..', '..', 'docs-site'));
   
   // CSS to force scroll to top
-  const scrollCSS = `<style>html{scroll-behavior:auto!important}html:focus{outline:none}</style>`;
+  const scrollCSS = `<style>html{scroll-behavior:auto!important}html:focus{outline:none}body{scroll-behavior:auto!important}</style>`;
   
-  // Aggressive scroll reset - inject in <head> to run first
-  const scrollResetScript = `<script>window.scrollTo({top:0,left:0});
-document.addEventListener('click',function(){setTimeout(function(){window.scrollTo({top:0,left:0})},200)},false);
-window.addEventListener('popstate',function(){window.scrollTo({top:0,left:0})});
-// Override docmd's SPA function scroll - use MutationObserver
-var sio=window.scrollTo.bind(window);
-window.scrollTo=function(){sio({top:0,left:0})};
-new MutationObserver(function(){window.scrollTo({top:0,left:0})}).observe(document.body,{attributes:true,childList:true,characterData:true,subtree:true});</script>`;
+  // Aggressive scroll reset - run immediately and patch docmd
+  const scrollResetScript = `<script>
+(function(){
+  // Immediate scroll
+  window.scrollTo(0,0);
+  
+  // Patch MutationObserver to catch docmd updates
+  var origObserve = MutationObserver.prototype.observe;
+  MutationObserver.prototype.observe = function(el, opts) {
+    var self = this;
+    window.scrollTo(0,0);
+    return origObserve.call(this, el, opts);
+  };
+  
+  // Continuous scroll reset using rAF
+  function keepScrollTop() {
+    if(window.scrollY !== 0) window.scrollTo(0,0);
+    requestAnimationFrame(keepScrollTop);
+  }
+  setTimeout(keepScrollTop, 100);
+  
+  // Patch scrollTo on docmd:page-mounted
+  document.addEventListener('docmd:page-mounted', function() {
+    window.scrollTo(0,0);
+    setTimeout(function(){window.scrollTo(0,0)}, 300);
+  });
+})();
+</script>`;
 
   // Find all HTML files in docs-site
   const htmlFiles = findHtmlFiles(docsSiteDir);

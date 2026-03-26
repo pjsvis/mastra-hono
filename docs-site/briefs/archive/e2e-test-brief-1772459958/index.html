@@ -10,14 +10,34 @@
 <html lang="en">
 
 <head>
-<style>html{scroll-behavior:auto!important}html:focus{outline:none}</style>
-<script>window.scrollTo({top:0,left:0});
-document.addEventListener('click',function(){setTimeout(function(){window.scrollTo({top:0,left:0})},200)},false);
-window.addEventListener('popstate',function(){window.scrollTo({top:0,left:0})});
-// Override docmd's SPA function scroll - use MutationObserver
-var sio=window.scrollTo.bind(window);
-window.scrollTo=function(){sio({top:0,left:0})};
-new MutationObserver(function(){window.scrollTo({top:0,left:0})}).observe(document.body,{attributes:true,childList:true,characterData:true,subtree:true});</script>
+<style>html{scroll-behavior:auto!important}html:focus{outline:none}body{scroll-behavior:auto!important}</style>
+<script>
+(function(){
+  // Immediate scroll
+  window.scrollTo(0,0);
+  
+  // Patch MutationObserver to catch docmd updates
+  var origObserve = MutationObserver.prototype.observe;
+  MutationObserver.prototype.observe = function(el, opts) {
+    var self = this;
+    window.scrollTo(0,0);
+    return origObserve.call(this, el, opts);
+  };
+  
+  // Continuous scroll reset using rAF
+  function keepScrollTop() {
+    if(window.scrollY !== 0) window.scrollTo(0,0);
+    requestAnimationFrame(keepScrollTop);
+  }
+  setTimeout(keepScrollTop, 100);
+  
+  // Patch scrollTo on docmd:page-mounted
+  document.addEventListener('docmd:page-mounted', function() {
+    window.scrollTo(0,0);
+    setTimeout(function(){window.scrollTo(0,0)}, 300);
+  });
+})();
+</script>
   <meta charset="UTF-8">
   <meta name="generator" content="docmd v0.5.x">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,16 +113,16 @@ new MutationObserver(function(){window.scrollTo({top:0,left:0})}).observe(docume
         Test Brief: E2E Workflow Validation
       </title>
       
-        <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7isbx8">
+        <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7iv83e">
         
-          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-light.css?v=mn7isbx8"
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-light.css?v=mn7iv83e"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-dark.css?v=mn7isbx8"
+          <link rel="stylesheet" href="../../../assets/css/docmd-highlight-dark.css?v=mn7iv83e"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../../assets/css/docmd-theme-sky.css?v=mn7isbx8" >
+<link rel="stylesheet" href="../../../assets/css/docmd-theme-sky.css?v=mn7iv83e" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -2514,10 +2534,10 @@ that workflow works correctly and all automation is functioning.</p>
 
                         </div>
             </div>
-            <script src="../../../assets/js/docmd-main.js?v=mn7isbx8"></script>
-            <script src="../../../assets/js/docmd-image-lightbox.js?v=mn7isbx8" ></script>
+            <script src="../../../assets/js/docmd-main.js?v=mn7iv83e"></script>
+            <script src="../../../assets/js/docmd-image-lightbox.js?v=mn7iv83e" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../../assets/js/docmd-search.js?v=mn7isbx8" ></script>
+<script src="../../../assets/js/docmd-search.js?v=mn7iv83e" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">
