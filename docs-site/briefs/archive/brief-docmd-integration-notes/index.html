@@ -110,7 +110,7 @@
         window.DOCMD_VERSION_ROOT = "/";
       </script>
       <title>
-        
+        Docmd Integration Notes
       </title>
       
         <link rel="stylesheet" href="../../../assets/css/docmd-main.css?v=mn7lvv0g">
@@ -573,9 +573,9 @@
         
       </li>
     
-      <li class="active" >
+      <li class="" >
       
-        <a href="../../../briefs/archive/brief-merge-queue" class="active "
+        <a href="../../../briefs/archive/brief-merge-queue" class=" "
           >
           
           <span class="nav-item-title">
@@ -813,9 +813,9 @@
         
       </li>
     
-      <li class="" >
+      <li class="active" >
       
-        <a href="../../../briefs/archive/brief-docmd-integration-notes" class=" "
+        <a href="../../../briefs/archive/brief-docmd-integration-notes" class="active "
           >
           
           <span class="nav-item-title">
@@ -2299,7 +2299,7 @@
                             
                               <div class="header-titles-wrapper">
                                 <span class="header-title">
-                                  
+                                  Docmd Integration Notes
                                 </span>
                               </div>
                         </div>
@@ -2443,7 +2443,7 @@
                                       
                                         <li class="breadcrumb-item active" aria-current=&#34;page&#34;>
                                           
-                                            <span>Brief Merge Queue</span>
+                                            <span>Docmd Integration Notes</span>
                                           
                                           
                                         </li>
@@ -2452,97 +2452,45 @@
                                   </nav>
                                 
                                 
-                                    <h3 id="mentation-integrated-pr-queue-ai-review-protocol" class="docmd-heading"><a href="#mentation-integrated-pr-queue-ai-review-protocol" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Mentation: Integrated PR Queue &amp; AI-Review Protocol</h3>
-<p>This brief outlines a robust workflow for transitioning from local tasks (<code>td</code>) to an automated, AI-gated merge queue using <strong>Mergify</strong>, <strong>CodeRabbit/Qodo</strong>, and <strong>Local Work-trees</strong>.</p>
-<hr>
-<h3 id="1-the-workflow-brief-atomic-to-main" class="docmd-heading"><a href="#1-the-workflow-brief-atomic-to-main" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. The Workflow Brief: “Atomic-to-Main”</h3>
-<p>The goal is to move from unstructured “Stuff” (local code changes) to structured “Things” (merged main-branch features) while ensuring every step is validated by both AI agents and CI protocols.</p>
-<div class="table-wrapper"><table>
-<thead>
-<tr>
-<th>Phase</th>
-<th>Responsibility</th>
-<th>Operational Protocol</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>I: Tasking</strong></td>
-<td>Local (<code>td</code>)</td>
-<td>Identify the atomic goal. Use <strong>COG-12</strong> (Minimalism).</td>
-</tr>
-<tr>
-<td><strong>II: Mentation</strong></td>
-<td>Work-tree</td>
-<td>Create a dedicated <code>git worktree</code> for the branch. This keeps your primary environment clean for context-switching.</td>
-</tr>
-<tr>
-<td><strong>III: Feedback</strong></td>
-<td>CodeRabbit / Qodo</td>
-<td>Upon <code>git push</code>, AI reviewers analyze the diff. They provide the “External Mentation” required to identify logical edge cases.</td>
-</tr>
-<tr>
-<td><strong>IV: Iteration</strong></td>
-<td>Local / Push</td>
-<td>Stay in the work-tree. Address AI comments. Push fixes. Repeat until the “Lobbying Phase” is complete.</td>
-</tr>
-<tr>
-<td><strong>V: Enqueue</strong></td>
-<td>Mergify</td>
-<td>Once conditions (Approval + CI) are met, Mergify automatically enqueues the PR to prevent “The Rebase Race.”</td>
-</tr>
-</tbody>
-</table>
-</div><hr>
-<h3 id="2-mergify-recommendations-ai-specific-tuning" class="docmd-heading"><a href="#2-mergify-recommendations-ai-specific-tuning" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Mergify Recommendations: AI-Specific Tuning</h3>
-<p>To optimize Mergify for an AI-heavy review environment, I recommend the following configuration strategies in your <code>.mergify.yml</code>:</p>
-<h4 id="2-mergify-recommendations-ai-specific-tuning-a-the-ai-staged-approval-gate" class="docmd-heading"><a href="#2-mergify-recommendations-ai-specific-tuning-a-the-ai-staged-approval-gate" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>A. The “AI-Staged” Approval Gate</h4>
-<p>Configure Mergify to wait specifically for your AI agents’ status checks.</p>
-<ul>
-<li><strong>Recommendation:</strong> Use <code>check-success</code> for the specific status names reported by CodeRabbit or Qodo.</li>
-<li><strong>Why:</strong> This ensures no human (or bot) merges a PR that the AI has flagged with a high-risk score.</li>
-</ul>
-<h4 id="2-mergify-recommendations-ai-specific-tuning-b-speculative-batching-speculative-checks" class="docmd-heading"><a href="#2-mergify-recommendations-ai-specific-tuning-b-speculative-batching-speculative-checks" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>B. Speculative Batching (Speculative Checks)</h4>
-<p>If you have multiple PRs moving through the queue, enable <strong>Speculative Checks</strong>.</p>
-<ul>
-<li><strong>Action:</strong> Mergify will create temporary branches combining multiple PRs to run CI in parallel.</li>
-<li><strong>Benefit:</strong> Reduces the total wait time for your local environment to be “synced” with main.</li>
-</ul>
-<h4 id="2-mergify-recommendations-ai-specific-tuning-c-the-hotfix-jump-protocol" class="docmd-heading"><a href="#2-mergify-recommendations-ai-specific-tuning-c-the-hotfix-jump-protocol" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>C. The “Hotfix” Jump-Protocol</h4>
-<p>Define a high-priority queue for labels like <code>🚑 hotfix</code>.</p>
-<ul>
-<li><strong>Logic:</strong> Allow critical fixes to bypass the standard queue order. This aligns with <strong>ADV-8 (Pre-Mortem Heuristic)</strong> by ensuring emergency mitigations are deployed instantly.</li>
-</ul>
-<h4 id="2-mergify-recommendations-ai-specific-tuning-d-commit-message-templating" class="docmd-heading"><a href="#2-mergify-recommendations-ai-specific-tuning-d-commit-message-templating" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>D. Commit Message Templating</h4>
-<ul>
-<li><strong>Recommendation:</strong> Use Mergify’s <code>commit_message_template</code> to include a summary of the AI’s review in the final merge commit.</li>
-<li><strong>Why:</strong> This creates a durable record of <em>why</em> the code was approved, satisfying <strong>PHI-13 (Workflow Durability)</strong>.</li>
-</ul>
-<hr>
-<h3 id="3-implementation-example-mergifyyml" class="docmd-heading"><a href="#3-implementation-example-mergifyyml" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>3. Implementation Example (<code>.mergify.yml</code>)</h3>
-<pre class="hljs"><code><span class="hljs-attr">queue_rules:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">default</span>
-    <span class="hljs-attr">speculative_checks:</span> <span class="hljs-number">5</span> <span class="hljs-comment"># Run CI on up to 5 PRs in parallel</span>
-    <span class="hljs-attr">merge_conditions:</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;check-success=CodeRabbit&quot;</span>  <span class="hljs-comment"># Wait for AI Reviewer</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;check-success=ci/tests&quot;</span>    <span class="hljs-comment"># Wait for GitHub Actions</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;#approved-reviews-by&gt;=1&quot;</span>   <span class="hljs-comment"># Human sanity check</span>
+                                    <h1 id="docmd-integration-notes">Docmd Integration Notes</h1>
+<p><strong>Status:</strong> In Progress<br>
+<strong>Date:</strong> 2026-03-26<br>
+<strong>Agent:</strong> ctx-vs</p>
+<h2 id="docmd-integration-notes-remaining-tasks" class="docmd-heading"><a href="#docmd-integration-notes-remaining-tasks" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Remaining Tasks</h2>
+<h3 id="docmd-integration-notes-remaining-tasks-1-update-loading-process-document" class="docmd-heading"><a href="#docmd-integration-notes-remaining-tasks-1-update-loading-process-document" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. 📋 Update Loading Process Document</h3>
+<p>The <code>playbook-loading-process-tracker.md</code> should be updated to document the new docmd-based documentation system.</p>
+<p><strong>Suggested additions:</strong></p>
+<pre class="hljs"><code><span class="hljs-section">## Documentation (Updated 2026-03-26)</span>
 
-<span class="hljs-attr">pull_request_rules:</span>
-  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">Auto-queue</span> <span class="hljs-string">when</span> <span class="hljs-string">AI</span> <span class="hljs-string">and</span> <span class="hljs-string">CI</span> <span class="hljs-string">are</span> <span class="hljs-string">Green</span>
-    <span class="hljs-attr">conditions:</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;check-success=CodeRabbit&quot;</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;check-success=ci/tests&quot;</span>
-      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;label!=work-in-progress&quot;</span>
-    <span class="hljs-attr">actions:</span>
-      <span class="hljs-attr">queue:</span>
-        <span class="hljs-attr">name:</span> <span class="hljs-string">default</span>
-        <span class="hljs-attr">method:</span> <span class="hljs-string">squash</span> <span class="hljs-comment"># Keep history clean (Deductive Minimalism)</span>
+<span class="hljs-section">### Docmd Integration</span>
 
+The project now uses Docmd for documentation. See <span class="hljs-code">`docs/docmd.config.ts`</span>.
+
+<span class="hljs-strong">**Commands:**</span>
+<span class="hljs-bullet">-</span> <span class="hljs-code">`bun scripts/dev.ts docs build`</span> - Build static docs
+<span class="hljs-bullet">-</span> <span class="hljs-code">`bun scripts/dev.ts docs serve`</span> - Dev server with live reload
+<span class="hljs-bullet">-</span> <span class="hljs-code">`bun scripts/dev.ts docs auto`</span> - Generate TODO/export inventory
+
+<span class="hljs-strong">**Output:**</span> <span class="hljs-code">`docs-site/`</span> directory with HTML pages and <span class="hljs-code">`llms.txt`</span> for AI agents.
+
+<span class="hljs-strong">**Source:**</span> All <span class="hljs-code">`.md`</span> files in <span class="hljs-code">`playbooks/`</span>, <span class="hljs-code">`briefs/`</span>, <span class="hljs-code">`debriefs/`</span>, <span class="hljs-code">`src/`</span>, <span class="hljs-code">`docs/`</span>
 </code></pre>
-<h3 id="ctx-opinion" class="docmd-heading"><a href="#ctx-opinion" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Ctx Opinion</h3>
-<p>The combination of <strong>Local Work-trees</strong> (to stay agile) and <strong>Mergify</strong> (to enforce discipline) solves the “Substrate Issue” of <strong>Biddability</strong>. By automating the merge, we remove the temptation to “cheat” and merge before the AI has completed its rigourous check.</p>
-<p><strong>Next Step:</strong> Would you like me to generate a shell script to automate the creation of these task-specific <code>work-trees</code> tied to your <code>td</code> entries?</p>
+<h3 id="docmd-integration-notes-remaining-tasks-2-remove-toc-sections-from-playbooks" class="docmd-heading"><a href="#docmd-integration-notes-remaining-tasks-2-remove-toc-sections-from-playbooks" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. 🗑️ Remove TOC Sections from Playbooks</h3>
+<p>Docmd automatically generates a Table of Contents sidebar. Manual TOC sections in playbooks are redundant.</p>
+<p><strong>Action:</strong> Search for and remove TOC sections from all playbooks.</p>
+<pre class="hljs"><code><span class="hljs-comment"># Find playbooks with TOC sections</span>
+grep -l <span class="hljs-string">&quot;^## Table of Contents\|^## Contents\|^## TOC&quot;</span> playbooks/*.md
+
+<span class="hljs-comment"># Or remove lines matching TOC patterns</span>
+sed -i <span class="hljs-string">&#x27;&#x27;</span> <span class="hljs-string">&#x27;/^## Table of Contents/,/^## /d&#x27;</span> playbooks/*.md
+</code></pre>
+<p><strong>Pattern to remove:</strong></p>
+<pre class="hljs"><code><span class="hljs-section">## Verification</span>
+<span class="hljs-bullet">-</span> [ ] Links in docmd sidebar work
+<span class="hljs-bullet">-</span> [ ] <span class="hljs-code">`llms.txt`</span> contains src documentation
+<span class="hljs-bullet">-</span> [ ] Loading process doc updated
+<span class="hljs-bullet">-</span> [ ] Manual TOCs removed from playbooks
+</code></pre>
 
                                       
                               </div>
@@ -2570,40 +2518,16 @@
 </span></h2>
     <ul class="toc-list">
       
-        <li class="toc-item toc-level-3">
-          <a href="#mentation-integrated-pr-queue-ai-review-protocol" class="toc-link">Mentation: Integrated PR Queue &amp; AI-Review Protocol</a>
+        <li class="toc-item toc-level-2">
+          <a href="#docmd-integration-notes-remaining-tasks" class="toc-link">Remaining Tasks</a>
         </li>
       
         <li class="toc-item toc-level-3">
-          <a href="#1-the-workflow-brief-atomic-to-main" class="toc-link">1. The Workflow Brief: “Atomic-to-Main”</a>
+          <a href="#docmd-integration-notes-remaining-tasks-1-update-loading-process-document" class="toc-link">1. 📋 Update Loading Process Document</a>
         </li>
       
         <li class="toc-item toc-level-3">
-          <a href="#2-mergify-recommendations-ai-specific-tuning" class="toc-link">2. Mergify Recommendations: AI-Specific Tuning</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#2-mergify-recommendations-ai-specific-tuning-a-the-ai-staged-approval-gate" class="toc-link">A. The “AI-Staged” Approval Gate</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#2-mergify-recommendations-ai-specific-tuning-b-speculative-batching-speculative-checks" class="toc-link">B. Speculative Batching (Speculative Checks)</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#2-mergify-recommendations-ai-specific-tuning-c-the-hotfix-jump-protocol" class="toc-link">C. The “Hotfix” Jump-Protocol</a>
-        </li>
-      
-        <li class="toc-item toc-level-4">
-          <a href="#2-mergify-recommendations-ai-specific-tuning-d-commit-message-templating" class="toc-link">D. Commit Message Templating</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#3-implementation-example-mergifyyml" class="toc-link">3. Implementation Example (.mergify.yml)</a>
-        </li>
-      
-        <li class="toc-item toc-level-3">
-          <a href="#ctx-opinion" class="toc-link">Ctx Opinion</a>
+          <a href="#docmd-integration-notes-remaining-tasks-2-remove-toc-sections-from-playbooks" class="toc-link">2. 🗑️ Remove TOC Sections from Playbooks</a>
         </li>
       
     </ul>

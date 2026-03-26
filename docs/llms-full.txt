@@ -735,6 +735,125 @@ Ensure `conceptual-lexicon.json` has the core Ctx terms:
 ## Estimated Points
 5 (new tool with file I/O and multiple actions)
 ---
+## [Master Brief: Repository Architecture & Knowledge Sleeve](https://polyvis.local/briefs/archive/brief-doc-manage/)
+This **Consolidated Master Brief** serves as the single source of truth for the repository's architecture. It integrates the **Persona Stack**, **Tiered Type-Safety**, **Docmd Knowledge Sleeve**, and your **Root-Level Visibility** preference into a single executable mission.
+---
+# Master Brief: Repository Architecture & Knowledge Sleeve
+**Date:** 2026-03-26
+**Agent:** `ctx-vs` (or current active agent)
+**Environment:** Local / Bun Runtime
+**Status:** [ ] UNINITIALIZED | [ ] IN-PROGRESS | [ ] COMPLETE
+## 1. Objective
+To instantiate a "Context-as-Code" environment where the AI persona (Ctx) is integrated through a specialized utility CLI (`dev-box`), a tiered safety model, and a high-density documentation sleeve (Docmd) that treats root-level playbooks as active infrastructure.
+## 2. Structural Requirements (Root-Level Visibility)
+Maintain the following directory structure to ensure "Context is Code" is at the forefront of the mental space:
+```text
+/repo-root
+├── /briefs         # [NEW] Active and archived mission parameters
+├── /playbooks       # [NEW] TTS v2, UI-Color, CLI-Design, etc.
+├── /debriefs        # [NEW] Post-mortem analysis and entropy reduction
+├── /scripts         # Utility CLI (CITTY + Bun)
+│   ├── dev.ts       # Main Entry Point
+│   ├── /commands    # Formalized Tier 2 Utilities
+│   └── /lab         # Tier 1 "Stuff" (Experimental scripts)
+├── /src             # Tier 3 "Edifice" (Production Hono/Bun)
+└── /docs            # Docmd configuration and additional context
+```
+## 3. Technology Stack & Tiered Type-Safety (TTS v2.0)
+| Tier | Location | Strictness | Patterns |
+| :--- | :--- | :--- | :--- |
+| **Tier 1: Sieve** | `/scripts/lab` | `// @ts-nocheck` | Rapid "Tree Climbing," exploratory logic. |
+| **Tier 2: Net** | `/scripts/commands` | Moderate | CITTY args, Type Guards, basic logging. |
+| **Tier 3: Edifice**| `/src` | `strict: true` | Branded Types, Discriminated Unions, Exhaustive Checks. |
+### ⚠️ Secret Management Constraint (Critical)
+**`.env` files are deprecated for secrets.** This project uses **Skate** as the approved identity-based secret store.
+| Approved Pattern | Prohibited Pattern |
+|-----------------|-------------------|
+| `skate set OLLAMA_API_KEY <key>` | Copying `.env.example` to `.env` |
+| `getSkateSecret('OLLAMA_API_KEY')` | Committing secrets to `.env` files |
+| See: `src/lib/secrets.ts` | See: `briefs/archive/brief-skate-powered-secrets.md` |
+**Rationale:** Skate enables **Worktree-Agile Security** - secrets follow your SSH identity, not the filesystem. This prevents credential drift across worktrees.
+## 4. Key Actions Checklist
+### Phase A: The Utility Sleeve (dev-box)
+- [ ] **Setup:** Initialize `scripts/package.json` with `citty`, `pino`, and `@docmd/core`.
+- [ ] **Command Logic:** Implement `lab` (run raw scripts) and `docs` (run Docmd).
+- [ ] **Promotion Heuristic:** Update the `promote` command to generate TTS v2.0 boilerplate (discriminated unions and `never` default cases).
+### Phase B: The Knowledge Sleeve (Docmd)
+- [ ] **Config:** Create `docs/docmd.config.ts` to scan root directories (`/briefs`, `/playbooks`, `/debriefs`).
+- [ ] **AI Optimization:** Enable `llms.txt` and `llms-full.txt` to provide high-density search for agents.
+- [ ] **UI Integration:** Apply **UI-Color Playbook** colors (60-30-10 rule) to the Docmd theme.
+### Phase C: Context Migration
+- [ ] **Persist:** Move all recently generated playbooks (TTS v2.0, UI-Color, etc.) into the root `/playbooks` folder.
+- [ ] **Verify:** Run `bun scripts/dev.ts docs` and ensure the `llms.txt` correctly maps the root folders.
+## 5. Implementation Code Snippets
+### The Promotion Template (Tier 2 Scaffolding)
+```typescript
+const ttsTemplate = `
+// TIER 2 UTILITY: Promoted from /lab
+export default defineCommand({
+  run() {
+    type State = { status: "idle" } | { status: "error", msg: string };
+    const state: State = { status: "idle" };
+    switch(state.status) {
+      case "idle": return console.log("Success");
+      case "error": return console.error(state.msg);
+      default: { const _ex: never = state; return _ex; }
+    }
+  }
+});`;
+```
+### The Docmd "Root-Scanning" Config
+```typescript
+export default defineConfig({
+  scanDirs: ["../briefs", "../playbooks", "../debriefs", "./"],
+  llms: { enabled: true, includeAll: true }
+});
+```
+## 6. Verification
+- **Agent Access:** Can the agent find `llms.txt` and describe the project's TTS tiers?
+- **CLI Performance:** Does `bun scripts/dev.ts lab hello` execute without type-errors?
+- **Visibility:** Are `/briefs` and `/playbooks` visible in the root during a standard `ls` command?
+- **Secret Boundary:** No `.env` files created; secrets loaded via `getSkateSecret()` from `src/lib/secrets.ts`
+---
+**Proceed with Implementation: [ ]**
+---
+## [Docmd Integration Notes](https://polyvis.local/briefs/archive/brief-docmd-integration-notes/)
+# Docmd Integration Notes
+**Status:** In Progress
+**Date:** 2026-03-26
+**Agent:** ctx-vs
+## Remaining Tasks
+### 1. 📋 Update Loading Process Document
+The `playbook-loading-process-tracker.md` should be updated to document the new docmd-based documentation system.
+**Suggested additions:**
+```markdown
+## Documentation (Updated 2026-03-26)
+### Docmd Integration
+The project now uses Docmd for documentation. See `docs/docmd.config.ts`.
+**Commands:**
+- `bun scripts/dev.ts docs build` - Build static docs
+- `bun scripts/dev.ts docs serve` - Dev server with live reload
+- `bun scripts/dev.ts docs auto` - Generate TODO/export inventory
+**Output:** `docs-site/` directory with HTML pages and `llms.txt` for AI agents.
+**Source:** All `.md` files in `playbooks/`, `briefs/`, `debriefs/`, `src/`, `docs/`
+```
+### 2. 🗑️ Remove TOC Sections from Playbooks
+Docmd automatically generates a Table of Contents sidebar. Manual TOC sections in playbooks are redundant.
+**Action:** Search for and remove TOC sections from all playbooks.
+```bash
+# Find playbooks with TOC sections
+grep -l "^## Table of Contents\|^## Contents\|^## TOC" playbooks/*.md
+# Or remove lines matching TOC patterns
+sed -i '' '/^## Table of Contents/,/^## /d' playbooks/*.md
+```
+**Pattern to remove:**
+```markdown
+## Verification
+- [ ] Links in docmd sidebar work
+- [ ] `llms.txt` contains src documentation
+- [ ] Loading process doc updated
+- [ ] Manual TOCs removed from playbooks
+---
 ## [Brief: Edinburgh Protocol Agent](https://polyvis.local/briefs/archive/brief-edinburgh-protocol/)
 # Brief: Edinburgh Protocol Agent
 ## Objectives
@@ -2615,125 +2734,6 @@ console.log("Context: Dev-Box CLI successfully reached the Lab.");
 ---
 ### Next Step
 The "Edifice" is framed. Would you like me to generate a **Promotion Template** script that an agent can use to automatically wrap a `/lab` file into a boilerplate `citty` command?
----
-## [Master Brief: Repository Architecture & Knowledge Sleeve](https://polyvis.local/briefs/brief-doc-manage/)
-This **Consolidated Master Brief** serves as the single source of truth for the repository's architecture. It integrates the **Persona Stack**, **Tiered Type-Safety**, **Docmd Knowledge Sleeve**, and your **Root-Level Visibility** preference into a single executable mission.
----
-# Master Brief: Repository Architecture & Knowledge Sleeve
-**Date:** 2026-03-26
-**Agent:** `ctx-vs` (or current active agent)
-**Environment:** Local / Bun Runtime
-**Status:** [ ] UNINITIALIZED | [ ] IN-PROGRESS | [ ] COMPLETE
-## 1. Objective
-To instantiate a "Context-as-Code" environment where the AI persona (Ctx) is integrated through a specialized utility CLI (`dev-box`), a tiered safety model, and a high-density documentation sleeve (Docmd) that treats root-level playbooks as active infrastructure.
-## 2. Structural Requirements (Root-Level Visibility)
-Maintain the following directory structure to ensure "Context is Code" is at the forefront of the mental space:
-```text
-/repo-root
-├── /briefs         # [NEW] Active and archived mission parameters
-├── /playbooks       # [NEW] TTS v2, UI-Color, CLI-Design, etc.
-├── /debriefs        # [NEW] Post-mortem analysis and entropy reduction
-├── /scripts         # Utility CLI (CITTY + Bun)
-│   ├── dev.ts       # Main Entry Point
-│   ├── /commands    # Formalized Tier 2 Utilities
-│   └── /lab         # Tier 1 "Stuff" (Experimental scripts)
-├── /src             # Tier 3 "Edifice" (Production Hono/Bun)
-└── /docs            # Docmd configuration and additional context
-```
-## 3. Technology Stack & Tiered Type-Safety (TTS v2.0)
-| Tier | Location | Strictness | Patterns |
-| :--- | :--- | :--- | :--- |
-| **Tier 1: Sieve** | `/scripts/lab` | `// @ts-nocheck` | Rapid "Tree Climbing," exploratory logic. |
-| **Tier 2: Net** | `/scripts/commands` | Moderate | CITTY args, Type Guards, basic logging. |
-| **Tier 3: Edifice**| `/src` | `strict: true` | Branded Types, Discriminated Unions, Exhaustive Checks. |
-### ⚠️ Secret Management Constraint (Critical)
-**`.env` files are deprecated for secrets.** This project uses **Skate** as the approved identity-based secret store.
-| Approved Pattern | Prohibited Pattern |
-|-----------------|-------------------|
-| `skate set OLLAMA_API_KEY <key>` | Copying `.env.example` to `.env` |
-| `getSkateSecret('OLLAMA_API_KEY')` | Committing secrets to `.env` files |
-| See: `src/lib/secrets.ts` | See: `briefs/archive/brief-skate-powered-secrets.md` |
-**Rationale:** Skate enables **Worktree-Agile Security** - secrets follow your SSH identity, not the filesystem. This prevents credential drift across worktrees.
-## 4. Key Actions Checklist
-### Phase A: The Utility Sleeve (dev-box)
-- [ ] **Setup:** Initialize `scripts/package.json` with `citty`, `pino`, and `@docmd/core`.
-- [ ] **Command Logic:** Implement `lab` (run raw scripts) and `docs` (run Docmd).
-- [ ] **Promotion Heuristic:** Update the `promote` command to generate TTS v2.0 boilerplate (discriminated unions and `never` default cases).
-### Phase B: The Knowledge Sleeve (Docmd)
-- [ ] **Config:** Create `docs/docmd.config.ts` to scan root directories (`/briefs`, `/playbooks`, `/debriefs`).
-- [ ] **AI Optimization:** Enable `llms.txt` and `llms-full.txt` to provide high-density search for agents.
-- [ ] **UI Integration:** Apply **UI-Color Playbook** colors (60-30-10 rule) to the Docmd theme.
-### Phase C: Context Migration
-- [ ] **Persist:** Move all recently generated playbooks (TTS v2.0, UI-Color, etc.) into the root `/playbooks` folder.
-- [ ] **Verify:** Run `bun scripts/dev.ts docs` and ensure the `llms.txt` correctly maps the root folders.
-## 5. Implementation Code Snippets
-### The Promotion Template (Tier 2 Scaffolding)
-```typescript
-const ttsTemplate = `
-// TIER 2 UTILITY: Promoted from /lab
-export default defineCommand({
-  run() {
-    type State = { status: "idle" } | { status: "error", msg: string };
-    const state: State = { status: "idle" };
-    switch(state.status) {
-      case "idle": return console.log("Success");
-      case "error": return console.error(state.msg);
-      default: { const _ex: never = state; return _ex; }
-    }
-  }
-});`;
-```
-### The Docmd "Root-Scanning" Config
-```typescript
-export default defineConfig({
-  scanDirs: ["../briefs", "../playbooks", "../debriefs", "./"],
-  llms: { enabled: true, includeAll: true }
-});
-```
-## 6. Verification
-- **Agent Access:** Can the agent find `llms.txt` and describe the project's TTS tiers?
-- **CLI Performance:** Does `bun scripts/dev.ts lab hello` execute without type-errors?
-- **Visibility:** Are `/briefs` and `/playbooks` visible in the root during a standard `ls` command?
-- **Secret Boundary:** No `.env` files created; secrets loaded via `getSkateSecret()` from `src/lib/secrets.ts`
----
-**Proceed with Implementation: [ ]**
----
-## [Docmd Integration Notes](https://polyvis.local/briefs/brief-docmd-integration-notes/)
-# Docmd Integration Notes
-**Status:** In Progress
-**Date:** 2026-03-26
-**Agent:** ctx-vs
-## Remaining Tasks
-### 1. 📋 Update Loading Process Document
-The `playbook-loading-process-tracker.md` should be updated to document the new docmd-based documentation system.
-**Suggested additions:**
-```markdown
-## Documentation (Updated 2026-03-26)
-### Docmd Integration
-The project now uses Docmd for documentation. See `docs/docmd.config.ts`.
-**Commands:**
-- `bun scripts/dev.ts docs build` - Build static docs
-- `bun scripts/dev.ts docs serve` - Dev server with live reload
-- `bun scripts/dev.ts docs auto` - Generate TODO/export inventory
-**Output:** `docs-site/` directory with HTML pages and `llms.txt` for AI agents.
-**Source:** All `.md` files in `playbooks/`, `briefs/`, `debriefs/`, `src/`, `docs/`
-```
-### 2. 🗑️ Remove TOC Sections from Playbooks
-Docmd automatically generates a Table of Contents sidebar. Manual TOC sections in playbooks are redundant.
-**Action:** Search for and remove TOC sections from all playbooks.
-```bash
-# Find playbooks with TOC sections
-grep -l "^## Table of Contents\|^## Contents\|^## TOC" playbooks/*.md
-# Or remove lines matching TOC patterns
-sed -i '' '/^## Table of Contents/,/^## /d' playbooks/*.md
-```
-**Pattern to remove:**
-```markdown
-## Verification
-- [ ] Links in docmd sidebar work
-- [ ] `llms.txt` contains src documentation
-- [ ] Loading process doc updated
-- [ ] Manual TOCs removed from playbooks
 ---
 ## [Untitled](https://polyvis.local/briefs/brief-mastra-autoresearch-skill/)
 ---
@@ -12514,6 +12514,168 @@ sidecar --version
 - [Git Workflow Playbook](./git-workflow-playbook.md) – Git workflows
 - [Playbook Setup Guide](./setup-playbook.md) – Installation & configuration
 ---
+## [Stoolap Playbook](https://polyvis.local/playbooks/stoolap-playbook/)
+---
+id: PB-STOOLAP
+title: "Stoolap Playbook"
+role: "Orchestrate"
+infrastructure: [stoolap]
+last_updated: "2026-03-26"
+tags: [playbook]
+---
+# Stoolap Playbook
+Embedded SQL database with MVCC, graph, and vector support. Replaces SQLite with saner defaults and no WAL confusion.
+**Core Philosophy:** Simple mental model. One file = one database. No modes to manage.
+## Usage
+### Quick Start
+```bash
+# Install
+bun add @stoolap/node
+# Initialize database
+bun scripts/lab/stoolap-cli.ts help
+```
+### CLI Commands
+```bash
+# Concepts (CRUD)
+bun scripts/lab/stoolap-cli.ts list
+bun scripts/lab/stoolap-cli.ts add <key> <type> <name> [description]
+bun scripts/lab/stoolap-cli.ts get <key>
+bun scripts/lab/stoolap-cli.ts update <key> <field> <value>
+bun scripts/lab/stoolap-cli.ts delete <key>
+# Graph (Relationships)
+bun scripts/lab/stoolap-cli.ts link <from> <to> <relationship> [weight]
+bun scripts/lab/stoolap-cli.ts links [key]
+# Vector (Embeddings)
+bun scripts/lab/stoolap-cli.ts embed <key> <dim1> <dim2> ...
+bun scripts/lab/stoolap-cli.ts similar <key> [limit]
+# Utility
+bun scripts/lab/stoolap-cli.ts stats
+```
+---
+## Reference
+### Schema
+```sql
+-- Concepts
+CREATE TABLE concepts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  concept_key TEXT UNIQUE NOT NULL,
+  name TEXT NOT NULL,
+  type TEXT,
+  description TEXT,
+  tags TEXT,
+  version TEXT DEFAULT '1.0',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- Relationships (Graph)
+CREATE TABLE relationships (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  from_key TEXT NOT NULL,
+  to_key TEXT NOT NULL,
+  relationship TEXT NOT NULL,
+  weight REAL DEFAULT 1.0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- Embeddings (Vector)
+CREATE TABLE embeddings (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  concept_key TEXT NOT NULL,
+  dimension INTEGER NOT NULL,
+  vector TEXT NOT NULL,  -- JSON array
+  normalized INTEGER DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- Decisions (Audit)
+CREATE TABLE decisions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  concept_key TEXT NOT NULL,
+  context TEXT,
+  decision TEXT NOT NULL,
+  rationale TEXT,
+  outcome TEXT,
+  agent_id TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- Audit Log
+CREATE TABLE audit_log (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  action TEXT NOT NULL,
+  entity_type TEXT NOT NULL,
+  entity_key TEXT,
+  details TEXT,
+  agent_id TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+### API (Node.js)
+```typescript
+import { Database } from "@stoolap/node";
+// Open database
+const db = await Database.open(":memory:");  // or file path
+// Execute SQL
+await db.exec(`CREATE TABLE ...`);
+// Query with parameters
+const results = await db.query(
+  `SELECT * FROM concepts WHERE type = $1`,
+  ["persona"]
+);
+// Execute (no results)
+await db.execute(
+  `INSERT INTO concepts (concept_key, name, type) VALUES ($1, $2, $3)`,
+  ["key-001", "Name", "type"]
+);
+// Close
+await db.close();
+```
+### Parameters
+- Positional: `$1`, `$2`, `$3`...
+- Named: `:name` (object syntax)
+### Gotchas
+1. **INTEGER PRIMARY KEY** - Only INTEGER (not TEXT) can be primary key
+2. **AUTOINCREMENT** - Use explicitly
+3. **Reserved words** - Avoid: `KEY`, `SELECT`, `TABLE`, etc.
+---
+## Setup
+### Installation
+```bash
+bun add @stoolap/node
+# If native bindings missing:
+cd node_modules/@stoolap/node && npm rebuild
+```
+### Database Location
+Default: `data/lexicon.stoolap`
+Create directory if needed:
+```bash
+mkdir -p data
+```
+---
+## Migration from SQLite
+### SQLite → Stoolap Mapping
+| SQLite | Stoolap | Notes |
+|--------|---------|-------|
+| `INTEGER PRIMARY KEY` | Same | Required |
+| `AUTOINCREMENT` | `AUTOINCREMENT` | Same syntax |
+| `?` params | `$1`, `$2` | Different |
+| `WAL mode` | N/A | Not needed |
+| `BEGIN TRANSACTION` | N/A | Not needed |
+### Migration Steps
+1. Export SQLite schema
+2. Convert parameter syntax (`?` → `$1`)
+3. Remove WAL mode settings
+4. Test queries
+5. Swap connection string
+### Example
+```typescript
+// SQLite
+db.prepare("SELECT * FROM users WHERE id = ?").get(id);
+// Stoolap
+const results = await db.query("SELECT * FROM users WHERE id = $1", [id]);
+```
+---
+## See Also
+- [Setup Playbook](./setup-playbook.md) - Tool installation
+- [Loading Process](./loading-process-playbook.md) - Two-step loading pattern
+---
 ## [TD Agent Playbook](https://polyvis.local/playbooks/td-agent-playbook/)
 ---
 id: PB-022
@@ -14335,6 +14497,37 @@ td list --json | from json | to csv -n > export.csv
 **Version:** 1.0  
 **Last Updated:** 2026-03-21  
 **Maintained by:** PolyVis Development Team
+---
+## [Phase 3: Agent Interaction Test](https://polyvis.local/scratchpad/agent-stoolap-test/)
+# Phase 3: Agent Interaction Test
+## Mission
+Test if an agent can interact with stoolap Conceptual Lexicon without confusion.
+## Task
+Add a new concept to the lexicon using the existing POC:
+1. Add a concept: `ctx-symmetric-mentation`
+   - type: pattern
+   - name: Symmetric Mentation
+   - description: Split execution between local (gumption) and cloud (sovereignty)
+   - tags: ["agent", "workflow", "split"]
+2. Query the lexicon to list all concepts
+3. Update the concept to add a version
+4. Delete a different concept (ctx-handoff)
+5. Query audit_log to see the action history
+## Success Criteria
+- Agent completes task without asking for help
+- Agent figures out API without prompting
+- No confusion about database mode, WAL, locking, etc.
+## Failure Indicators
+- Asks about WAL mode or read-write settings
+- Gets confused by database state
+- Needs multiple retries to complete simple operations
+- Asks "what's the database schema?"
+## Log Observations
+Note any:
+- Hesitation points
+- Incorrect API guesses
+- Questions about database internals
+- Successful API usage
 ---
 ## [MastraCode Environment Variable Management Scripts](https://polyvis.local/scripts/)
 # MastraCode Environment Variable Management Scripts
