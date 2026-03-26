@@ -75,7 +75,6 @@ export async function runDocsCommand(args: string[]) {
 
 async function generatePlaceholderLlms() {
   const { writeFileSync } = await import('fs');
-  const { resolve, join } = await import('path');
 
   const docsDir = resolve(join(import.meta.dir, '..', '..', 'docs'));
 

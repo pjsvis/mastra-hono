@@ -9,7 +9,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join, resolve } from 'path';
 
 export async function runPromoteCommand(args: string[]) {
-  const [name, ...rest] = args;
+  const [name] = args;
 
   if (!name) {
     console.log('Usage: bun scripts/dev.ts promote <utility-name>');
