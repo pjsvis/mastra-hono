@@ -882,4 +882,4 @@ cat output.txt | fabric -p analyze_code
 
 **Version:** 1.0  
 **Last Updated:** 2026-03-21  
-**Maintained by:** Mastra Development Team
+**Maintained by:** PolyVis Development Team

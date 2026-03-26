@@ -427,4 +427,4 @@ Our goal isn't to write bad code - it's to write **AI-maintainable code**. Somet
 
 **Version:** 1.0  
 **Last Updated:** 2026-03-21  
-**Maintained by:** Mastra Development Team
+**Maintained by:** PolyVis Development Team
