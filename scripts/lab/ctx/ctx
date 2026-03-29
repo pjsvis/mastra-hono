@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# ctx - Terminal-to-LLM weaponization wrapper
+# Part of the Lean-Yggdrasil: ctx CLI implementation
+
+set -e
+
+# Resolve script directory
+SCRIPT_DIR="${0%/*}"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+LOGIC_SCRIPT="$SCRIPT_DIR/ctx-logic.ts"
+
+# Check if bun is available
+if ! command -v bun &> /dev/null; then
+  echo "❌ Error: bun runtime not found. Install from https://bun.sh"
+  exit 1
+fi
+
+# Run the logic script with bun
+exec bun "$LOGIC_SCRIPT" "$@"
