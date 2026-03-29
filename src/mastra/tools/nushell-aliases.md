@@ -94,6 +94,27 @@ alias sk-set = "skate set"
 alias sk-del = "skate delete"
 
 # ══════════════════════════════════════════════════════════════════════════════
+# PERSONAL KNOWLEDGE BASE
+# See playbooks/deferred-context-loading.md for documentation
+# Usage: bun scripts/personal/personal.ts <command> <category> [args]
+# ══════════════════════════════════════════════════════════════════════════════
+
+alias p-add = "bun scripts/personal/personal.ts add"
+alias p-list = "bun scripts/personal/personal.ts list"
+alias p-check = "bun scripts/personal/personal.ts check"
+alias p-top = "bun scripts/personal/personal.ts top"
+alias p-filter = "bun scripts/personal/personal.ts filter"
+alias p-seen = "bun scripts/personal/personal.ts list"
+
+# Quick: show unseen from staging
+alias p-unseen = "bun scripts/personal/personal.ts filter"
+
+# Personal TV/Movies
+alias p-tv = "bun scripts/personal/personal.ts list tv"
+alias p-movies = "bun scripts/personal/personal.ts list movies"
+alias p-books = "bun scripts/personal/personal.ts list books"
+
+# ══════════════════════════════════════════════════════════════════════════════
 # GIT
 # ══════════════════════════════════════════════════════════════════════════════
 

@@ -188,5 +188,151 @@ mv data/staging data/archive/2026-03-29-tv-shows
 
 ---
 
+# Personal Knowledge Base
+
+## Purpose
+
+**Your personal data becomes the filter for everyone's data.**
+
+Lists are always half-baked and not maintained. This pattern makes maintaining lists **low friction** and **high value** - the more you use it, the smarter it gets.
+
+## The Problem
+
+- "I've seen all of those" → no way to filter
+- Lists get stale → no maintenance workflow
+- Ratings are rare → effort vs. reward unclear
+
+## The Solution
+
+```
+data/
+  personal/
+    tv.json        # {"breaking bad": {rating: 5}, "the wire": {rating: 5}, ...}
+    movies.json    # Same structure
+    books.json     # Same structure
+  staging/
+    tv.json        # Fetched from external API
+```
+
+**Easy to add. Automatic filtering. Compounding value.**
+
+## Personal CLI
+
+```bash
+# Add something you've watched/read/used
+personal add tv "Breaking Bad" --rating 5
+
+# Quick list of your collection
+personal list tv
+
+# Check if you've seen something
+personal check tv "The Wire"
+
+# Your top picks (rated 4+)
+personal top tv
+
+# Filter external data against your list
+personal filter tv data/staging/tv.json --unseen
+```
+
+## The Compounding Effect
+
+```
+Week 1:  Fetch 20 shows → 12 unseen
+Week 2:  Fetch 20 shows → 8 unseen (4 added to list)
+Week 3:  Fetch 20 shows → 5 unseen (3 more added)
+...
+Week N:  Fetch 20 shows → 2 unseen (personal list is now a great curator)
+```
+
+## The Filter Workflow
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   EXTERNAL DATA                          │
+│                                                         │
+│   data/staging/tv.json (20 shows)                      │
+└─────────────────────────────────────────────────────────┘
+                           │
+                           ▼
+            ┌──────────────────────────────┐
+            │     personal filter tv       │
+            │     --unseen                 │
+            │     --minRating 4            │
+            └──────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────┐
+│                  FILTERED OUTPUT                         │
+│                                                         │
+│   Only shows I haven't seen AND rated 4+                │
+│   Much smaller list → easier to decide                   │
+└─────────────────────────────────────────────────────────┘
+```
+
+## Adding Ratings
+
+```bash
+# Quick add (no rating)
+personal add movies "The Matrix"
+
+# Add with rating (1-5 stars)
+personal add movies "The Matrix" --rating 5
+
+# Add with notes
+personal add movies "The Matrix" --rating 5 --notes "First time I saw bullet time"
+
+# Later, update rating
+personal add movies "The Matrix" --rating 4
+# Overwrites previous entry
+```
+
+## Script Integration
+
+```typescript
+// In any fetch script, add filter option:
+const { values } = parseArgs({ args: process.argv, options: { unseen: { type: 'boolean' } } });
+
+if (values.unseen) {
+  const personalData = loadData('tv');
+  shows = shows.filter(show => !personalData[show.name.toLowerCase()]);
+}
+```
+
+## Categories
+
+The same pattern works for anything:
+
+| Category | Use Case |
+|----------|----------|
+| `tv` | TV shows to watch |
+| `movies` | Movies to see |
+| `books` | Books to read |
+| `podcasts` | Podcasts to try |
+| `games` | Games to play |
+| `recipes` | Food to cook |
+| `tools` | CLI tools to learn |
+| `patterns` | Code patterns to use |
+
+## The Insight
+
+> **Maintenance is the feature.** Low friction add → high value filter → compounding recommendations.
+
+Traditional recommendation engines try to guess your preferences. Your personal knowledge base *knows* your preferences.
+
+---
+
+## Cleanup
+
+```bash
+# Staging: temporary, can be deleted after review
+rm -rf data/staging
+
+# Personal: permanent, grows more valuable over time
+# Keep in version control or separate backup
+```
+
+---
+
 **Version:** 1.0  
 **Last Updated:** 2026-03-29
