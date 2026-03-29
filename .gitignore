@@ -36,6 +36,9 @@ coverage/
 
 # mastra
 .mastra/
+
+# documentation build artifacts
+docs-site/
 *.db
 *.db-shm
 *.db-wal
