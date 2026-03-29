@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# ctx - Terminal-to-LLM weaponization wrapper
+# Part of the Lean-Yggdrasil: ctx CLI implementation
+
+set -e
+
+# Resolve script directory robustly
+# Handles invocation from PATH, symlinks, and direct paths
+if [[ "$0" == */* ]]; then
+  # $0 contains a path - use it directly
+  SCRIPT_DIR="$(cd "${0%/*}" && pwd)"
+elif command -v ctx >/dev/null 2>&1; then
+  # Invoked from PATH - resolve actual location
+  SCRIPT_DIR="$(cd "$(dirname "$(command -v ctx)")" && pwd)"
+else
+  # Fallback: assume we're in the expected location relative to repo root
+  SCRIPT_DIR="$(cd "${BASH_SOURCE[0]%/*}" && pwd)"
+fi
+
+# Project root is 4 levels up from scripts/lab/ctx/
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+LOGIC_SCRIPT="$SCRIPT_DIR/ctx-logic.ts"
+
+# Check if bun is available
+if ! command -v bun &> /dev/null; then
+  echo "❌ Error: bun runtime not found. Install from https://bun.sh"
+  exit 1
+fi
+
+# Change to project root for correct path resolution
+cd "$PROJECT_ROOT"
+
+# Run the logic script with bun
+exec bun "$LOGIC_SCRIPT" "$@"
