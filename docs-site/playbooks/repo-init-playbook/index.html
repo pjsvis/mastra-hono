@@ -113,16 +113,16 @@
         Repository Initialization &amp; Environment Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7lvv0g">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mnad5asn">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7lvv0g"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mnad5asn"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7lvv0g"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mnad5asn"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7lvv0g" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mnad5asn" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -2143,6 +2143,22 @@
     
       <li class="" >
       
+        <a href="../../playbooks/tmux-playbook" class=" "
+          >
+          
+          <span class="nav-item-title">
+            tmux Session Management Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
         <a href="../../playbooks/typescript-standards" class=" "
           >
           
@@ -2430,7 +2446,7 @@
                                 
                                     <h1 id="repository-initialization-environment-playbook">Repository Initialization &amp; Environment Playbook</h1>
 <h2 id="repository-initialization-environment-playbook-purpose" class="docmd-heading"><a href="#repository-initialization-environment-playbook-purpose" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Purpose</h2>
-<p>This playbook defines the “Golden Path” for initializing a local development environment for the Mastra-Hono stack. It ensures that both human developers and AI agents operate within a synchronized, secure, and conflict-free “Context-as-Code” environment.</p>
+<p>This playbook defines the “Golden Path” for initializing a local development environment for the PolyVis stack. It ensures that both human developers and AI agents operate within a synchronized, secure, and conflict-free “Context-as-Code” environment.</p>
 <hr>
 <h2 id="repository-initialization-environment-playbook-1-toolchain-prerequisites" class="docmd-heading"><a href="#repository-initialization-environment-playbook-1-toolchain-prerequisites" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>1. Toolchain Prerequisites</h2>
 <p>Ensure the following binaries are installed and available in your <code>$PATH</code>:</p>
@@ -2441,6 +2457,7 @@
 <li><strong>Workspace/Worktree:</strong> <code>sidecar</code> (Internal CLI)</li>
 <li><strong>Documentation:</strong> <code>docmd</code> (Internal CLI)</li>
 <li><strong>Linting/Formatting:</strong> <code>biome</code> (via <code>bun</code>)</li>
+<li><strong>Session Management:</strong> <code>tmux</code> (see section 10)</li>
 </ul>
 <hr>
 <h2 id="repository-initialization-environment-playbook-2-global-git-configuration" class="docmd-heading"><a href="#repository-initialization-environment-playbook-2-global-git-configuration" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>2. Global Git Configuration</h2>
@@ -2547,7 +2564,116 @@ git rebase main
 <h2 id="repository-initialization-environment-playbook-9-opinion-why-this-works" class="docmd-heading"><a href="#repository-initialization-environment-playbook-9-opinion-why-this-works" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>9. Opinion: Why this works</h2>
 <p>By combining <strong>Skate</strong> (Identity), <strong>TD</strong> (Task State), and <strong>Sidecar</strong> (Filesystem Isolation), we solve the “Context Drift” problem. The agent can work on a PR in a worktree without touching your active editor files, and your global Git config ensures that even if you both move forward at once, a simple <code>pull</code> will reconcile the history without manual intervention.</p>
 <hr>
-<p><strong>Version:</strong> 1.0<br>
+<h2 id="repository-initialization-environment-playbook-10-session-management-tmux" class="docmd-heading"><a href="#repository-initialization-environment-playbook-10-session-management-tmux" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>10. Session Management (tmux)</h2>
+<p>We use <strong>tmux</strong> for persistent terminal sessions, especially for remote development over Tailscale.</p>
+<h3 id="repository-initialization-environment-playbook-10-session-management-tmux-installation" class="docmd-heading"><a href="#repository-initialization-environment-playbook-10-session-management-tmux-installation" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Installation</h3>
+<p><strong>macOS:</strong></p>
+<pre class="hljs"><code>brew install tmux
+</code></pre>
+<p><strong>Linux (Debian/Ubuntu):</strong></p>
+<pre class="hljs"><code><span class="hljs-built_in">sudo</span> apt update &amp;&amp; <span class="hljs-built_in">sudo</span> apt install tmux
+</code></pre>
+<p><strong>Linux (CentOS/RHEL/Rocky):</strong></p>
+<pre class="hljs"><code><span class="hljs-built_in">sudo</span> yum install tmux
+</code></pre>
+<h3 id="repository-initialization-environment-playbook-10-session-management-tmux-basic-configuration-tmuxconf" class="docmd-heading"><a href="#repository-initialization-environment-playbook-10-session-management-tmux-basic-configuration-tmuxconf" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Basic Configuration (<code>~/.tmux.conf</code>)</h3>
+<p>Create or update your tmux configuration:</p>
+<pre class="hljs"><code><span class="hljs-comment"># ~/.tmux.conf</span>
+
+<span class="hljs-comment"># Extended keys support (for modern terminal emulators)</span>
+<span class="hljs-built_in">set</span> -g extended-keys on
+<span class="hljs-built_in">set</span> -g extended-keys-format csi-u
+
+<span class="hljs-comment"># Enable mouse support (scrolling, pane selection, resizing)</span>
+<span class="hljs-built_in">set</span> -g mouse on
+
+<span class="hljs-comment"># Improve colors</span>
+<span class="hljs-built_in">set</span> -g default-terminal <span class="hljs-string">&quot;screen-256color&quot;</span>
+
+<span class="hljs-comment"># Start window numbering at 1 (easier to reach)</span>
+<span class="hljs-built_in">set</span> -g base-index 1
+setw -g pane-base-index 1
+
+<span class="hljs-comment"># Renumber windows when one is closed</span>
+<span class="hljs-built_in">set</span> -g renumber-windows on
+
+<span class="hljs-comment"># Increase scrollback buffer (10k lines)</span>
+<span class="hljs-built_in">set</span> -g history-limit 10000
+
+<span class="hljs-comment"># Status bar customization</span>
+<span class="hljs-built_in">set</span> -g status-right <span class="hljs-string">&#x27;#[fg=green]#H #[default]%Y-%m-%d %H:%M&#x27;</span>
+
+<span class="hljs-comment"># Reload config shortcut (Ctrl-b r)</span>
+<span class="hljs-built_in">bind</span> r source-file ~/.tmux.conf \; display <span class="hljs-string">&quot;Config reloaded!&quot;</span>
+
+<span class="hljs-comment"># Shows [tmux] in green at the start of your status bar</span>
+<span class="hljs-built_in">set</span> -g status-left <span class="hljs-string">&#x27;#[fg=green,bold][tmux] #[fg=blue]#S #[default]&#x27;</span>
+</code></pre>
+<h3 id="repository-initialization-environment-playbook-10-session-management-tmux-session-identification-ipadremote" class="docmd-heading"><a href="#repository-initialization-environment-playbook-10-session-management-tmux-session-identification-ipadremote" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Session Identification (iPad/Remote)</h3>
+<p>When working on iPad Mini or other devices with smaller screens, it’s easy to lose track of whether you’re inside tmux. Add these to your config:</p>
+<pre class="hljs"><code><span class="hljs-comment"># Visual indicator that you&#x27;re in tmux</span>
+<span class="hljs-built_in">set</span> -g status-left <span class="hljs-string">&#x27;#[fg=green,bold][tmux] #[fg=blue]#S #[default]&#x27;</span>
+
+<span class="hljs-comment"># Or add an emoji indicator to your shell prompt</span>
+<span class="hljs-comment"># Add this to ~/.bashrc or ~/.zshrc:</span>
+<span class="hljs-comment"># if [[ -n &quot;$TMUX&quot; ]]; then export PS1=&quot;🟢 $PS1&quot;; fi</span>
+</code></pre>
+<h3 id="repository-initialization-environment-playbook-10-session-management-tmux-ipad-optimized-settings" class="docmd-heading"><a href="#repository-initialization-environment-playbook-10-session-management-tmux-ipad-optimized-settings" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>iPad-Optimized Settings</h3>
+<p>For smaller screens (iPad Mini, phones):</p>
+<pre class="hljs"><code><span class="hljs-comment"># Larger scrollback for smaller screen</span>
+<span class="hljs-built_in">set</span> -g history-limit 50000
+
+<span class="hljs-comment"># Status bar with session name (helpful when multitasking)</span>
+<span class="hljs-built_in">set</span> -g status-left <span class="hljs-string">&#x27;#[fg=blue]#S #[default]&#x27;</span>
+
+<span class="hljs-comment"># Simpler status for narrow screens</span>
+<span class="hljs-built_in">set</span> -g status-right <span class="hljs-string">&#x27;#[fg=green]%H:%M&#x27;</span>
+
+<span class="hljs-comment"># Ensure mouse works with touch</span>
+<span class="hljs-built_in">set</span> -g mouse on
+</code></pre>
+<h3 id="repository-initialization-environment-playbook-10-session-management-tmux-daily-workflow" class="docmd-heading"><a href="#repository-initialization-environment-playbook-10-session-management-tmux-daily-workflow" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Daily Workflow</h3>
+<pre class="hljs"><code><span class="hljs-comment"># Create or attach to a session</span>
+tmux new-session -A -s main
+
+<span class="hljs-comment"># Detach (keep running): Ctrl-b d</span>
+<span class="hljs-comment"># Reattach later: tmux attach -t main</span>
+</code></pre>
+<h3 id="repository-initialization-environment-playbook-10-session-management-tmux-auto-cleanup-of-old-sessions" class="docmd-heading"><a href="#repository-initialization-environment-playbook-10-session-management-tmux-auto-cleanup-of-old-sessions" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Auto-Cleanup of Old Sessions</h3>
+<p>Idle tmux sessions consume memory (5-20MB each). Create <code>~/.local/bin/tmux-cleanup</code>:</p>
+<pre class="hljs"><code><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-comment"># Kill tmux sessions idle for &gt;7 days</span>
+MAX_AGE_DAYS=7
+CUTOFF=$(<span class="hljs-built_in">date</span> +%s -d <span class="hljs-string">&quot;<span class="hljs-variable">$MAX_AGE_DAYS</span> days ago&quot;</span> 2&gt;/dev/null || <span class="hljs-built_in">date</span> -v-<span class="hljs-variable">${MAX_AGE_DAYS}</span>d +%s)
+
+tmux <span class="hljs-built_in">ls</span> -F <span class="hljs-string">&#x27;#{session_name}:#{session_created}&#x27;</span> 2&gt;/dev/null | \
+  <span class="hljs-keyword">while</span> IFS=: <span class="hljs-built_in">read</span> -r name created; <span class="hljs-keyword">do</span>
+    <span class="hljs-keyword">if</span> [[ <span class="hljs-string">&quot;<span class="hljs-variable">$created</span>&quot;</span> -lt <span class="hljs-string">&quot;<span class="hljs-variable">$CUTOFF</span>&quot;</span> ]]; <span class="hljs-keyword">then</span>
+      <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Killing old session: <span class="hljs-variable">$name</span> (created <span class="hljs-subst">$(date -r <span class="hljs-string">&quot;<span class="hljs-variable">$created</span>&quot;</span> &#x27;+%Y-%m-%d&#x27;)</span>)&quot;</span>
+      tmux kill-session -t <span class="hljs-string">&quot;<span class="hljs-variable">$name</span>&quot;</span>
+    <span class="hljs-keyword">fi</span>
+  <span class="hljs-keyword">done</span>
+</code></pre>
+<p>Make executable and add to crontab:</p>
+<pre class="hljs"><code><span class="hljs-built_in">chmod</span> +x ~/.local/bin/tmux-cleanup
+crontab -e
+<span class="hljs-comment"># Add: 0 2 * * * ~/.local/bin/tmux-cleanup &gt;&gt; ~/.local/share/tmux-cleanup.log 2&gt;&amp;1</span>
+</code></pre>
+<h3 id="repository-initialization-environment-playbook-10-session-management-tmux-tailscale-integration" class="docmd-heading"><a href="#repository-initialization-environment-playbook-10-session-management-tmux-tailscale-integration" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Tailscale Integration</h3>
+<p>Since Tailscale provides encrypted mesh networking, SSH to remote hosts is automatically secured:</p>
+<pre class="hljs"><code><span class="hljs-comment"># SSH via Tailscale (encrypted end-to-end)</span>
+ssh user@hostname.tailnet-name.ts.net
+
+<span class="hljs-comment"># Start persistent session on remote</span>
+tmux new-session -A -s dev
+
+<span class="hljs-comment"># Work, detach with Ctrl-b d, disconnect SSH</span>
+<span class="hljs-comment"># Later: reconnect and resume exactly where you left off</span>
+ssh user@hostname.tailnet-name.ts.net
+tmux attach -t dev
+</code></pre>
+<hr>
+<p><strong>Version:</strong> 1.2<br>
 <strong>Status:</strong> Operational<br>
 <strong>Maintained by:</strong> PolyVis Development Team</p>
 
@@ -2629,6 +2755,38 @@ git rebase main
           <a href="#repository-initialization-environment-playbook-9-opinion-why-this-works" class="toc-link">9. Opinion: Why this works</a>
         </li>
       
+        <li class="toc-item toc-level-2">
+          <a href="#repository-initialization-environment-playbook-10-session-management-tmux" class="toc-link">10. Session Management (tmux)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#repository-initialization-environment-playbook-10-session-management-tmux-installation" class="toc-link">Installation</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#repository-initialization-environment-playbook-10-session-management-tmux-basic-configuration-tmuxconf" class="toc-link">Basic Configuration (~/.tmux.conf)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#repository-initialization-environment-playbook-10-session-management-tmux-session-identification-ipadremote" class="toc-link">Session Identification (iPad/Remote)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#repository-initialization-environment-playbook-10-session-management-tmux-ipad-optimized-settings" class="toc-link">iPad-Optimized Settings</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#repository-initialization-environment-playbook-10-session-management-tmux-daily-workflow" class="toc-link">Daily Workflow</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#repository-initialization-environment-playbook-10-session-management-tmux-auto-cleanup-of-old-sessions" class="toc-link">Auto-Cleanup of Old Sessions</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#repository-initialization-environment-playbook-10-session-management-tmux-tailscale-integration" class="toc-link">Tailscale Integration</a>
+        </li>
+      
     </ul>
   </div>
 
@@ -2654,10 +2812,10 @@ git rebase main
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7lvv0g"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7lvv0g" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mnad5asn"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mnad5asn" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7lvv0g" ></script>
+<script src="../../assets/js/docmd-search.js?v=mnad5asn" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

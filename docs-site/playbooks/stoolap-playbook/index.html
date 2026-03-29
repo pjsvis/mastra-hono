@@ -113,16 +113,16 @@
         Stoolap Playbook
       </title>
       
-        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mn7lvv0g">
+        <link rel="stylesheet" href="../../assets/css/docmd-main.css?v=mnad5asn">
         
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mn7lvv0g"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-light.css?v=mnad5asn"
             id="hljs-light" >
 
-          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mn7lvv0g"
+          <link rel="stylesheet" href="../../assets/css/docmd-highlight-dark.css?v=mnad5asn"
             id="hljs-dark" disabled>
           
             
-<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mn7lvv0g" >
+<link rel="stylesheet" href="../../assets/css/docmd-theme-sky.css?v=mnad5asn" >
               
                   <script>/**
  * --------------------------------------------------------------------
@@ -2143,6 +2143,22 @@
     
       <li class="" >
       
+        <a href="../../playbooks/tmux-playbook" class=" "
+          >
+          
+          <span class="nav-item-title">
+            tmux Session Management Playbook
+            </span>
+          
+          
+        </a>
+        
+
+        
+      </li>
+    
+      <li class="" >
+      
         <a href="../../playbooks/typescript-standards" class=" "
           >
           
@@ -2566,6 +2582,32 @@ bun scripts/lab/stoolap-cli.ts stats
 <pre class="hljs"><code><span class="hljs-built_in">mkdir</span> -p data
 </code></pre>
 <hr>
+<h2 id="stoolap-playbook-browser-wasm" class="docmd-heading"><a href="#stoolap-playbook-browser-wasm" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Browser (WASM)</h2>
+<pre class="hljs"><code><span class="hljs-comment">// Load WASM</span>
+<span class="hljs-keyword">const</span> wasm = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;/assets/wasm/stoolap.js&#x27;</span>);
+<span class="hljs-keyword">await</span> wasm.<span class="hljs-title function_">default</span>();
+
+<span class="hljs-keyword">const</span> db = <span class="hljs-keyword">new</span> wasm.<span class="hljs-title class_">StoolapDB</span>();
+
+<span class="hljs-comment">// Use same SQL API</span>
+db.<span class="hljs-title function_">execute_batch</span>(<span class="hljs-string">`
+  CREATE TABLE products (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+  );
+  INSERT INTO products VALUES (1, &#x27;Laptop&#x27;);
+`</span>);
+
+<span class="hljs-keyword">const</span> results = db.<span class="hljs-title function_">query</span>(<span class="hljs-string">&quot;SELECT * FROM products&quot;</span>);
+</code></pre>
+<h3 id="stoolap-playbook-browser-wasm-benefits" class="docmd-heading"><a href="#stoolap-playbook-browser-wasm-benefits" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Benefits</h3>
+<ul>
+<li>Zero backend</li>
+<li>Offline capable</li>
+<li>Sync when online</li>
+<li>Edge functions (Cloudflare Workers, Deno Deploy)</li>
+</ul>
+<hr>
 <h2 id="stoolap-playbook-migration-from-sqlite" class="docmd-heading"><a href="#stoolap-playbook-migration-from-sqlite" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>Migration from SQLite</h2>
 <h3 id="stoolap-playbook-migration-from-sqlite-sqlite-stoolap-mapping" class="docmd-heading"><a href="#stoolap-playbook-migration-from-sqlite-sqlite-stoolap-mapping" class="heading-anchor" aria-label="Permalink to this section"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-link2-icon lucide-link-2"><path d="M9 17H7A5 5 0 0 1 7 7h2m6 0h2a5 5 0 1 1 0 10h-2m-7-5h8"/></svg></a>SQLite → Stoolap Mapping</h3>
 <div class="table-wrapper"><table>
@@ -2697,6 +2739,14 @@ db.<span class="hljs-title function_">prepare</span>(<span class="hljs-string">&
         </li>
       
         <li class="toc-item toc-level-2">
+          <a href="#stoolap-playbook-browser-wasm" class="toc-link">Browser (WASM)</a>
+        </li>
+      
+        <li class="toc-item toc-level-3">
+          <a href="#stoolap-playbook-browser-wasm-benefits" class="toc-link">Benefits</a>
+        </li>
+      
+        <li class="toc-item toc-level-2">
           <a href="#stoolap-playbook-migration-from-sqlite" class="toc-link">Migration from SQLite</a>
         </li>
       
@@ -2741,10 +2791,10 @@ db.<span class="hljs-title function_">prepare</span>(<span class="hljs-string">&
 
                         </div>
             </div>
-            <script src="../../assets/js/docmd-main.js?v=mn7lvv0g"></script>
-            <script src="../../assets/js/docmd-image-lightbox.js?v=mn7lvv0g" ></script>
+            <script src="../../assets/js/docmd-main.js?v=mnad5asn"></script>
+            <script src="../../assets/js/docmd-image-lightbox.js?v=mnad5asn" ></script>
 <script src="https://cdn.jsdelivr.net/npm/minisearch@7.2.0/dist/umd/index.min.js" ></script>
-<script src="../../assets/js/docmd-search.js?v=mn7lvv0g" ></script>
+<script src="../../assets/js/docmd-search.js?v=mnad5asn" ></script>
 
   <!-- Search Modal (Injected by @docmd/plugin-search) -->
   <div id="docmd-search-modal" class="docmd-search-modal" style="display: none;">

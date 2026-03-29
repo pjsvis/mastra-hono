@@ -92,6 +92,7 @@ Context-as-Code documentation for the PolyVis project
 - [TD Skill Playbook](https://polyvis.local/playbooks/td-skill-playbook/)
 - [TD User Playbook](https://polyvis.local/playbooks/td-user-playbook/)
 - [Tiered Type-Safety (TTS) Playbook v2.0](https://polyvis.local/playbooks/tiered-type-safety-playbook/)
+- [tmux Session Management Playbook](https://polyvis.local/playbooks/tmux-playbook/)
 - [TypeScript Standards Playbook](https://polyvis.local/playbooks/typescript-standards/)
 - [UI Color Decision Playbook (UCDP) v1.0](https://polyvis.local/playbooks/ui-color-decision-playbook/)
 - [Vercel Labs Agentic Playbook](https://polyvis.local/playbooks/vercel-playbook/)

@@ -11432,13 +11432,13 @@ td list --json | from json | to nuon
 id: PB-030
 title: "Repository Initialization & Environment Playbook"
 role: "Orchestrate"
-infrastructure: [git, skate, td, sidecar, docmd]
+infrastructure: [git, skate, td, sidecar, docmd, tmux]
 last_updated: "2026-03-26"
 tags: [setup, onboarding, workflow]
 ---
 # Repository Initialization & Environment Playbook
 ## Purpose
-This playbook defines the "Golden Path" for initializing a local development environment for the Mastra-Hono stack. It ensures that both human developers and AI agents operate within a synchronized, secure, and conflict-free "Context-as-Code" environment.
+This playbook defines the "Golden Path" for initializing a local development environment for the PolyVis stack. It ensures that both human developers and AI agents operate within a synchronized, secure, and conflict-free "Context-as-Code" environment.
 ---
 ## 1. Toolchain Prerequisites
 Ensure the following binaries are installed and available in your `$PATH`:
@@ -11448,6 +11448,7 @@ Ensure the following binaries are installed and available in your `$PATH`:
 - **Workspace/Worktree:** `sidecar` (Internal CLI)
 - **Documentation:** `docmd` (Internal CLI)
 - **Linting/Formatting:** `biome` (via `bun`)
+- **Session Management:** `tmux` (see section 10)
 ---
 ## 2. Global Git Configuration
 To prevent "divergent branch" errors and maintain a linear history, every environment must be configured with these defaults:
@@ -11521,7 +11522,109 @@ Because agents are frequently merging PRs on GitHub, follow this routine daily:
 ## 9. Opinion: Why this works
 By combining **Skate** (Identity), **TD** (Task State), and **Sidecar** (Filesystem Isolation), we solve the "Context Drift" problem. The agent can work on a PR in a worktree without touching your active editor files, and your global Git config ensures that even if you both move forward at once, a simple `pull` will reconcile the history without manual intervention.
 ---
-**Version:** 1.0  
+## 10. Session Management (tmux)
+We use **tmux** for persistent terminal sessions, especially for remote development over Tailscale.
+### Installation
+**macOS:**
+```bash
+brew install tmux
+```
+**Linux (Debian/Ubuntu):**
+```bash
+sudo apt update && sudo apt install tmux
+```
+**Linux (CentOS/RHEL/Rocky):**
+```bash
+sudo yum install tmux
+```
+### Basic Configuration (`~/.tmux.conf`)
+Create or update your tmux configuration:
+```bash
+# ~/.tmux.conf
+# Extended keys support (for modern terminal emulators)
+set -g extended-keys on
+set -g extended-keys-format csi-u
+# Enable mouse support (scrolling, pane selection, resizing)
+set -g mouse on
+# Improve colors
+set -g default-terminal "screen-256color"
+# Start window numbering at 1 (easier to reach)
+set -g base-index 1
+setw -g pane-base-index 1
+# Renumber windows when one is closed
+set -g renumber-windows on
+# Increase scrollback buffer (10k lines)
+set -g history-limit 10000
+# Status bar customization
+set -g status-right '#[fg=green]#H #[default]%Y-%m-%d %H:%M'
+# Reload config shortcut (Ctrl-b r)
+bind r source-file ~/.tmux.conf \; display "Config reloaded!"
+# Shows [tmux] in green at the start of your status bar
+set -g status-left '#[fg=green,bold][tmux] #[fg=blue]#S #[default]'
+```
+### Session Identification (iPad/Remote)
+When working on iPad Mini or other devices with smaller screens, it's easy to lose track of whether you're inside tmux. Add these to your config:
+```bash
+# Visual indicator that you're in tmux
+set -g status-left '#[fg=green,bold][tmux] #[fg=blue]#S #[default]'
+# Or add an emoji indicator to your shell prompt
+# Add this to ~/.bashrc or ~/.zshrc:
+# if [[ -n "$TMUX" ]]; then export PS1="🟢 $PS1"; fi
+```
+### iPad-Optimized Settings
+For smaller screens (iPad Mini, phones):
+```bash
+# Larger scrollback for smaller screen
+set -g history-limit 50000
+# Status bar with session name (helpful when multitasking)
+set -g status-left '#[fg=blue]#S #[default]'
+# Simpler status for narrow screens
+set -g status-right '#[fg=green]%H:%M'
+# Ensure mouse works with touch
+set -g mouse on
+```
+### Daily Workflow
+```bash
+# Create or attach to a session
+tmux new-session -A -s main
+# Detach (keep running): Ctrl-b d
+# Reattach later: tmux attach -t main
+```
+### Auto-Cleanup of Old Sessions
+Idle tmux sessions consume memory (5-20MB each). Create `~/.local/bin/tmux-cleanup`:
+```bash
+#!/bin/bash
+# Kill tmux sessions idle for >7 days
+MAX_AGE_DAYS=7
+CUTOFF=$(date +%s -d "$MAX_AGE_DAYS days ago" 2>/dev/null || date -v-${MAX_AGE_DAYS}d +%s)
+tmux ls -F '#{session_name}:#{session_created}' 2>/dev/null | \
+  while IFS=: read -r name created; do
+    if [[ "$created" -lt "$CUTOFF" ]]; then
+      echo "Killing old session: $name (created $(date -r "$created" '+%Y-%m-%d'))"
+      tmux kill-session -t "$name"
+    fi
+  done
+```
+Make executable and add to crontab:
+```bash
+chmod +x ~/.local/bin/tmux-cleanup
+crontab -e
+# Add: 0 2 * * * ~/.local/bin/tmux-cleanup >> ~/.local/share/tmux-cleanup.log 2>&1
+```
+### Tailscale Integration
+Since Tailscale provides encrypted mesh networking, SSH to remote hosts is automatically secured:
+```bash
+# SSH via Tailscale (encrypted end-to-end)
+ssh user@hostname.tailnet-name.ts.net
+# Start persistent session on remote
+tmux new-session -A -s dev
+# Work, detach with Ctrl-b d, disconnect SSH
+# Later: reconnect and resume exactly where you left off
+ssh user@hostname.tailnet-name.ts.net
+tmux attach -t dev
+```
+---
+**Version:** 1.2  
 **Status:** Operational  
 **Maintained by:** PolyVis Development Team
 ---
@@ -12649,6 +12752,28 @@ Create directory if needed:
 mkdir -p data
 ```
 ---
+## Browser (WASM)
+```javascript
+// Load WASM
+const wasm = await import('/assets/wasm/stoolap.js');
+await wasm.default();
+const db = new wasm.StoolapDB();
+// Use same SQL API
+db.execute_batch(`
+  CREATE TABLE products (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL
+  );
+  INSERT INTO products VALUES (1, 'Laptop');
+`);
+const results = db.query("SELECT * FROM products");
+```
+### Benefits
+- Zero backend
+- Offline capable
+- Sync when online
+- Edge functions (Cloudflare Workers, Deno Deploy)
+---
 ## Migration from SQLite
 ### SQLite → Stoolap Mapping
 | SQLite | Stoolap | Notes |
@@ -13562,6 +13687,223 @@ To avoid global strictness conflicts, use a partitioned configuration:
 - [ ] Branded types are used for critical IDs (User, Org, Session).
 ---
 **Status:** Version 2.0 Persisted to Memory. Ready for deployment in the next **Persona Initialization Protocol (PIP)**.
+---
+## [tmux Session Management Playbook](https://polyvis.local/playbooks/tmux-playbook/)
+---
+id: PB-TMUX
+title: "tmux Session Management Playbook"
+role: "DevOps | Remote Development"
+infrastructure: [tmux, ssh, tailscale]
+last_updated: "2026-03-26"
+tags: [playbook, tmux, remote-development, tailscale]
+---
+# tmux Session Management Playbook
+## Purpose
+This playbook provides daily usage patterns and advanced workflows for tmux. For initial installation and configuration, see the [Repository Initialization Playbook](./repo-init-playbook.md#10-session-management-tmux).
+---
+## 1. Session Lifecycle Commands
+| Command | Action |
+|---------|--------|
+| `tmux new -s NAME` | Create new named session |
+| `tmux detach` or `Ctrl-b d` | Detach (keep running) |
+| `tmux attach -t NAME` | Attach to existing session |
+| `tmux new-session -A -s NAME` | Attach or create if doesn't exist |
+| `tmux ls` | List all sessions |
+| `tmux kill-session -t NAME` | Kill specific session |
+| `tmux kill-server` | Kill **all** sessions |
+| `tmux rename-session -t OLD NEW` | Rename session |
+---
+## 2. Window and Pane Management
+### Essential Shortcuts
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl-b c` | Create new window |
+| `Ctrl-b n` | Next window |
+| `Ctrl-b p` | Previous window |
+| `Ctrl-b w` | Window list (interactive) |
+| `Ctrl-b 0-9` | Switch to window number |
+| `Ctrl-b %` | Split vertically |
+| `Ctrl-b "` | Split horizontally |
+| `Ctrl-b x` | Kill pane |
+| `Ctrl-b z` | Zoom pane (toggle) |
+| `Ctrl-b [` | Enter scroll mode (vi keys) |
+---
+## 3. Resource Management
+### The Problem: Zombie Sessions
+Idle tmux sessions consume resources:
+- **Memory**: 5-20MB per session (scrollback buffer)
+- **CPU**: Near zero when idle
+- **Processes**: Background processes continue running
+- **Disk**: Scrollback history accumulates
+### Auto-Cleanup Script
+See [repo-init playbook](./repo-init-playbook.md#auto-cleanup-of-old-sessions) for the cleanup script setup.
+Quick reference:
+```bash
+# List all sessions
+tmux ls
+# Kill specific session
+tmux kill-session -t NAME
+# Kill all sessions (nuclear option)
+tmux kill-server
+```
+---
+## 4. Tailscale Integration
+### Option A: SSH over Tailscale (Recommended)
+```bash
+# SSH via Tailscale MagicDNS
+ssh user@myserver.tailnet-name.ts.net
+# Then tmux as normal
+tmux new -s dev
+```
+### Option B: Tailscale SSH (Native)
+```bash
+# On the remote machine, enable Tailscale SSH
+sudo tailscale up --ssh
+# From any tailnet device
+tailscale ssh user@myserver
+# Then tmux as normal
+tmux new -s dev
+```
+### Best Practice Workflow
+```bash
+# 1. Ensure Tailscale is up
+tailscale status
+# 2. SSH to remote (encrypted end-to-end)
+tailscale ssh user@devbox
+# 3. Create or attach to session
+tmux new-session -A -s main
+# 4. Work in persistent environment
+#    - Multiple windows: Ctrl-b c (create), Ctrl-b n (next)
+#    - Split panes: Ctrl-b % (vertical), Ctrl-b " (horizontal)
+#    - Detach: Ctrl-b d
+# 5. Later: reconnect from anywhere in your tailnet
+tailscale ssh user@devbox
+tmux attach -t main
+```
+---
+## 5. iPad Mini + Echo Terminal
+**Echo Terminal** is an iOS SSH client with excellent tmux support.
+### Setup
+1. **Install Echo Terminal** from the App Store
+2. **Add a Connection**:
+   - Host: `myserver.tailnet-name.ts.net` (Tailscale MagicDNS)
+   - Or use Tailscale IP: `100.x.x.x`
+   - Port: `22`
+   - Authentication: SSH Key or Password
+### Connection Method
+Echo Terminal provides a streamlined connection flow:
+| Feature | Benefit |
+|---------|---------|
+| **Tailscale-aware** | Auto-detects Tailscale network |
+| **Key Management** | Secure enclave for SSH keys |
+| **Touch Gestures** | Swipe between tmux panes |
+| **Hardware Keyboard** | Full support for Ctrl-b shortcuts |
+| **Clipboard Sync** | Copy/paste between iPad and remote |
+### Workflow on iPad
+```bash
+# 1. Open Echo Terminal
+# 2. Tap your saved connection
+# 3. Once connected, start or attach to tmux
+tmux new-session -A -s ipad
+# 4. Work with touch-friendly shortcuts:
+#    - Two-finger swipe: Scroll
+#    - Three-finger tap: Show/hide keyboard
+#    - Cmd+K: Clear screen
+#    - Cmd+T: New window (if enabled in Echo)
+# 5. Detach when done
+Ctrl-b d
+# 6. Echo Terminal maintains connection in background
+#    - Reopen app to resume
+#    - tmux session persists on server
+```
+### Optimizing for iPad
+See [repo-init playbook](./repo-init-playbook.md#basic-configuration-tmuxconf) for the full configuration, including iPad-optimized settings like:
+- Larger scrollback for smaller screen
+- Simpler status bar for narrow displays
+- Mouse support for touch
+### External Keyboard Shortcuts
+When using an external keyboard (Magic Keyboard, etc.):
+| Key Combo | Action |
+|-----------|--------|
+| `Ctrl-b c` | New window |
+| `Ctrl-b n/p` | Next/previous window |
+| `Ctrl-b d` | Detach (keep session running) |
+| `Cmd-Tab` | Switch iPad apps (Echo stays connected) |
+### Identifying tmux vs SSH Session
+On iPad Mini's smaller screen, it's easy to lose track. Use these methods:
+**1. Visual Indicator (Status Bar)**
+```bash
+# Add to ~/.tmux.conf - shows [tmux] in green when inside tmux
+set -g status-left '#[fg=green,bold][tmux] #[fg=blue]#S #[default]'
+```
+**2. Quick Check Commands**
+```bash
+# If this returns a number, you're in tmux
+echo $TMUX
+# Check for tmux environment variable
+env | grep TMUX
+# Show current session name (only works inside tmux)
+tmux display-message -p '#S'
+```
+**3. Prompt Indicator**
+Add to your shell profile (`~/.bashrc` or `~/.zshrc`):
+```bash
+# Show 🟢 in prompt when inside tmux
+if [[ -n "$TMUX" ]]; then
+    export PS1="🟢 $PS1"
+fi
+```
+**4. The Foolproof Test**
+```bash
+# Try to detach - if it works, you were in tmux
+Ctrl-b d
+# If you get '^B' characters instead, you're NOT in tmux
+```
+**5. iPad-Specific Tip**
+```bash
+# Create an alias to check status
+alias am-i-in-tmux='tmux info >/dev/null 2>&1 && echo "✅ In tmux session: $(tmux display-message -p '#S')" || echo "❌ Not in tmux (plain SSH)"'
+# Use it anytime you're unsure
+am-i-in-tmux
+```
+---
+## 6. Recovery Patterns
+### Session Won't Attach
+```bash
+# Force attach (detach from elsewhere)
+tmux attach -d -t session-name
+# If truly stuck, kill and restart
+tmux kill-session -t session-name
+tmux new -s session-name
+```
+### Network Disconnect While in tmux
+```bash
+# Simply reconnect and reattach
+ssh user@host
+tmux attach -t session-name
+```
+---
+## 7. Quick Reference
+```bash
+# Daily workflow
+ssh devbox                                    # Connect to remote
+tmux new-session -A -s main                   # Create or attach
+# ... work ...
+Ctrl-b d                                       # Detach
+exit                                          # Disconnect SSH
+# Later
+ssh devbox && tmux attach -t main             # Resume exactly where you left off
+```
+---
+## References
+- [tmux man page](https://man7.org/linux/man-pages/man1/tmux.1.html)
+- [Tailscale SSH](https://tailscale.com/kb/1193/tailscale-ssh)
+- [Echo Terminal](https://echo-terminal.app) - iOS SSH client with tmux support
+- [Repository Initialization Playbook](./repo-init-playbook.md#10-session-management-tmux) - Installation and configuration
+---
+**Version:** 2.3  
+**Last Updated:** 2026-03-26  
+**Maintained by:** PolyVis Development Team
 ---
 ## [TypeScript Standards Playbook](https://polyvis.local/playbooks/typescript-standards/)
 ---
