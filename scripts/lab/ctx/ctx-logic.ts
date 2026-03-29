@@ -386,7 +386,10 @@ export async function cmdWake(): Promise<void> {
     
     if (tdCurrent.exitCode === 0) {
       const task = JSON.parse(tdCurrent.stdout.toString());
-      console.log(`\n🎯 Current Task: ${task.id} - ${task.title || 'Untitled'}`);
+      const issue = task?.focused?.issue;
+      if (issue) {
+        console.log(`\n🎯 Current Task: ${issue.id} - ${issue.title || 'Untitled'}`);
+      }
     }
   } catch {
     // td not available or no current task
@@ -438,7 +441,10 @@ export async function cmdWeaponize(n: number, pattern?: string): Promise<void> {
     
     if (tdCurrent.exitCode === 0) {
       const task = JSON.parse(tdCurrent.stdout.toString());
-      contextInjection = `\n\n[Task Context]\nTask ID: ${task.id}\nStatus: ${task.status || 'unknown'}\n`;
+      const issue = task?.focused?.issue;
+      if (issue) {
+        contextInjection = `\n\n[Task Context]\nTask ID: ${issue.id}\nStatus: ${issue.status || 'unknown'}\n`;
+      }
     }
   } catch {
     // No td context
@@ -511,6 +517,12 @@ const { positionals, values } = parseArgs({
   },
   allowPositionals: true,
 });
+
+// Handle -h/--help flag: show help even without positional
+if (values.help) {
+  await cmdHelp();
+  process.exit(0);
+}
 
 const command = positionals[0] || 'wake';
 const arg = positionals[1];
