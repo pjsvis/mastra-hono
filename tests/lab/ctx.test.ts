@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import { existsSync, readdirSync } from 'fs';
-import { resolve, join } from 'path';
+import { join, resolve } from 'path';
 
 // Project root is two levels up from tests/
 const projectRoot = resolve(import.meta.dir, '..', '..');

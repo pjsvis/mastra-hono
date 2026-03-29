@@ -1,13 +1,14 @@
 #!/usr/bin/env bun
+
 /**
  * ctx-logic.ts - Core LLM communication and state management for ctx CLI
  * Part of the Lean-Yggdrasil: ctx CLI implementation
  */
 
-import { parseArgs } from 'util';
-import { readFileSync, writeFileSync, existsSync, readdirSync } from 'fs';
-import { resolve, join, dirname } from 'path';
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'fs';
 import { homedir } from 'os';
+import { dirname, join, resolve } from 'path';
+import { parseArgs } from 'util';
 
 // --- Configuration ---
 const CTX_DIR = resolve(process.cwd(), '.ctx');
