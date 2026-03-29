@@ -3,6 +3,9 @@
 /**
  * ctx-logic.ts - Core LLM communication and state management for ctx CLI
  * Part of the Lean-Yggdrasil: ctx CLI implementation
+ * 
+ * @module ctx-logic
+ * @description Provides terminal-to-LLM weaponization via local-first patterns
  */
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
@@ -17,7 +20,16 @@ const PATTERNS_DIR = resolve(process.cwd(), 'patterns');
 const DEFAULT_MODEL = process.env.CTX_MODEL || 'claude-3-5-haiku-latest';
 const LLM_PROVIDER = process.env.CTX_PROVIDER || 'anthropic';
 
-// --- TOML Parser (simple, no dependencies) ---
+/**
+ * Parses TOML-formatted string into a JavaScript object.
+ * 
+ * @param content - Raw TOML string to parse
+ * @returns Parsed object with sections as nested objects and arrays as typed arrays
+ * 
+ * @example
+ * const obj = parseTOML('version = "1.0"\n[operations]\nitems = ["a","b"]');
+ * // { version: "1.0", operations: { items: ["a", "b"] } }
+ */
 function parseTOML(content: string): Record<string, unknown> {
   const result: Record<string, unknown> = {};
   let currentSection = '';
@@ -75,6 +87,16 @@ function parseTOML(content: string): Record<string, unknown> {
   return result;
 }
 
+/**
+ * Serializes a JavaScript object into TOML-formatted string.
+ * 
+ * @param obj - Object to serialize
+ * @returns TOML-formatted string representation
+ * 
+ * @example
+ * const toml = serializeTOML({ version: "1.0", operations: ["a", "b"] });
+ * // version = "1.0"\noperations = ["a","b"]
+ */
 function serializeTOML(obj: Record<string, unknown>): string {
   const lines: string[] = [];
   
@@ -99,7 +121,16 @@ function serializeTOML(obj: Record<string, unknown>): string {
   return lines.join('\n');
 }
 
-// --- Lexicon Operations ---
+/**
+ * Loads the ops-lexicon.toml file from disk.
+ * 
+ * @returns Parsed lexicon object with version and operations array
+ * @returns Empty lexicon if file doesn't exist or parsing fails
+ * 
+ * @example
+ * const lexicon = loadLexicon();
+ * // { version: "1.0", operations: [...] }
+ */
 function loadLexicon(): Record<string, unknown> {
   if (!existsSync(LEXICON_PATH)) {
     return { version: "1.0", operations: [] };
@@ -112,6 +143,15 @@ function loadLexicon(): Record<string, unknown> {
   }
 }
 
+/**
+ * Saves the lexicon object to ops-lexicon.toml.
+ * Creates the .ctx directory if it doesn't exist.
+ * 
+ * @param lexicon - Lexicon object to serialize and save
+ * 
+ * @example
+ * saveLexicon({ version: "1.0", operations: [...] });
+ */
 function saveLexicon(lexicon: Record<string, unknown>): void {
   if (!existsSync(CTX_DIR)) {
     mkdirSync(CTX_DIR, { recursive: true });
@@ -120,6 +160,16 @@ function saveLexicon(lexicon: Record<string, unknown>): void {
   writeFileSync(LEXICON_PATH, content, 'utf-8');
 }
 
+/**
+ * Adds a new operation entry to the lexicon.
+ * 
+ * @param command - The shell command that was weaponized
+ * @param result - The LLM response result
+ * @param context - Optional context information (e.g., td task ID)
+ * 
+ * @example
+ * addOperation("git status", "Clean working tree", "task-123");
+ */
 function addOperation(command: string, result: string, context?: string): void {
   const lexicon = loadLexicon();
   const operations = (lexicon.operations as string[]) || [];
@@ -136,7 +186,16 @@ function addOperation(command: string, result: string, context?: string): void {
   saveLexicon(lexicon);
 }
 
-// --- Pattern Loading ---
+/**
+ * Loads a Fabric-style pattern from the patterns directory.
+ * 
+ * @param name - Name of the pattern directory
+ * @returns Pattern content as string, or null if not found
+ * 
+ * @example
+ * const pattern = loadPattern("summarize");
+ * // Returns content of patterns/summarize/system.md
+ */
 function loadPattern(name: string): string | null {
   const patternPath = join(PATTERNS_DIR, name, 'system.md');
   if (existsSync(patternPath)) {
@@ -145,6 +204,15 @@ function loadPattern(name: string): string | null {
   return null;
 }
 
+/**
+ * Lists all available patterns in the patterns directory.
+ * 
+ * @returns Array of pattern names that have a system.md file
+ * 
+ * @example
+ * const patterns = listPatterns();
+ * // ["summarize", "analyze", "weaponize"]
+ */
 function listPatterns(): string[] {
   if (!existsSync(PATTERNS_DIR)) return [];
   return readdirSync(PATTERNS_DIR).filter(p => 
@@ -152,7 +220,16 @@ function listPatterns(): string[] {
   );
 }
 
-// --- History Capture ---
+/**
+ * Retrieves a shell history entry by index.
+ * 
+ * @param n - History entry index to retrieve
+ * @returns Object with command and context, or null if not available
+ * 
+ * @description
+ * Currently returns a stub implementation. Future versions will
+ * integrate with nushell or bash history for actual retrieval.
+ */
 function getHistoryEntry(n: number): { command: string; context: string } | null {
   // Try nushell history first
   const histPath = join(homedir(), '.local', 'share', 'nu', 'history*.json');
@@ -165,7 +242,19 @@ function getHistoryEntry(n: number): { command: string; context: string } | null
   };
 }
 
-// --- LLM Communication ---
+/**
+ * Main LLM communication dispatcher.
+ * Routes to the appropriate provider based on model name.
+ * 
+ * @param prompt - User prompt to send to the LLM
+ * @param systemPrompt - Optional system prompt for context
+ * @param model - Optional model override
+ * @returns LLM response as string
+ * @throws Error if required API key is not set
+ * 
+ * @example
+ * const response = await callLLM("Explain git rebase", "You are a git expert");
+ */
 async function callLLM(
   prompt: string, 
   systemPrompt?: string,
@@ -189,6 +278,16 @@ async function callLLM(
   }
 }
 
+/**
+ * Calls the Anthropic Claude API.
+ * 
+ * @param prompt - User prompt to send
+ * @param systemPrompt - Optional system prompt
+ * @param apiKey - Anthropic API key
+ * @param model - Model identifier (e.g., claude-3-5-haiku-latest)
+ * @returns Response text from Claude
+ * @throws Error if API request fails
+ */
 async function callAnthropic(
   prompt: string,
   systemPrompt: string | undefined,
@@ -219,6 +318,16 @@ async function callAnthropic(
   return data.content[0]?.text || '';
 }
 
+/**
+ * Calls the OpenAI Chat API.
+ * 
+ * @param prompt - User prompt to send
+ * @param systemPrompt - Optional system prompt
+ * @param apiKey - OpenAI API key
+ * @param model - Model identifier (e.g., gpt-4)
+ * @returns Response text from OpenAI
+ * @throws Error if API request fails
+ */
 async function callOpenAI(
   prompt: string,
   systemPrompt: string | undefined,
@@ -250,8 +359,10 @@ async function callOpenAI(
   return data.choices[0]?.message?.content || '';
 }
 
-// --- Command Implementations ---
-
+/**
+ * Displays operational status from lexicon and patterns.
+ * Shows lexicon state, available patterns, LLM configuration, and current td task.
+ */
 export async function cmdWake(): Promise<void> {
   const lexicon = loadLexicon();
   const patterns = listPatterns();
@@ -289,6 +400,16 @@ export async function cmdWake(): Promise<void> {
   console.log('\n╚══════════════════════════════════════╝');
 }
 
+/**
+ * Weaponizes a shell history entry by sending it to the LLM.
+ * 
+ * @param n - History entry index to weaponize
+ * @param pattern - Optional pattern name to apply
+ * 
+ * @description
+ * Retrieves the nth history entry, applies optional pattern, calls LLM,
+ * and stores result in ops-lexicon.toml.
+ */
 export async function cmdWeaponize(n: number, pattern?: string): Promise<void> {
   console.log(`🎯 Weaponizing history entry #${n}...`);
   
@@ -349,6 +470,9 @@ export async function cmdWeaponize(n: number, pattern?: string): Promise<void> {
   }
 }
 
+/**
+ * Lists all available patterns with descriptions.
+ */
 export async function cmdListPatterns(): Promise<void> {
   const patterns = listPatterns();
   
@@ -362,6 +486,9 @@ export async function cmdListPatterns(): Promise<void> {
   }
 }
 
+/**
+ * Displays help information for the ctx CLI.
+ */
 export async function cmdHelp(): Promise<void> {
   console.log(`
 ╔══════════════════════════════════════════════════════╗
