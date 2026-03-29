@@ -225,21 +225,16 @@ function listPatterns(): string[] {
  * 
  * @param n - History entry index to retrieve
  * @returns Object with command and context, or null if not available
+ * @returns Returns null if history retrieval is not implemented
  * 
  * @description
- * Currently returns a stub implementation. Future versions will
- * integrate with nushell or bash history for actual retrieval.
+ * Currently returns null - history retrieval is not yet implemented.
+ * TODO: Integrate with nushell or bash history API.
  */
 function getHistoryEntry(n: number): { command: string; context: string } | null {
-  // Try nushell history first
-  const histPath = join(homedir(), '.local', 'share', 'nu', 'history*.json');
-  
-  // For now, use a simple approach: read from shell history
-  // This is a stub - actual implementation would use nushell's history API
-  return {
-    command: `Historical command #${n}`,
-    context: `Context from shell history at index ${n}`
-  };
+  // TODO: Implement actual shell history retrieval
+  // For now, return null to signal not-implemented
+  return null;
 }
 
 /**
