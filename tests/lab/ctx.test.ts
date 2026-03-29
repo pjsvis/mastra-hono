@@ -38,7 +38,9 @@ describe('ctx CLI', () => {
       cwd: projectRoot,
     });
     const result = await new Response(proc.stdout).text();
+    const exitCode = await proc.exited;
 
+    expect(exitCode).toBe(0);
     expect(result).toContain('CTX STATUS WAKING');
     expect(result).toContain('Patterns');
   });
@@ -49,7 +51,9 @@ describe('ctx CLI', () => {
       cwd: projectRoot,
     });
     const result = await new Response(proc.stdout).text();
+    const exitCode = await proc.exited;
 
+    expect(exitCode).toBe(0);
     expect(result).toContain('CTX CLI');
     expect(result).toContain('weaponize');
   });
@@ -60,7 +64,9 @@ describe('ctx CLI', () => {
       cwd: projectRoot,
     });
     const result = await new Response(proc.stdout).text();
+    const exitCode = await proc.exited;
 
+    expect(exitCode).toBe(0);
     expect(result).toContain('Available Patterns');
     expect(result).toContain('summarize');
     expect(result).toContain('analyze');

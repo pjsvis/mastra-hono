@@ -15,7 +15,7 @@ Take a shell command and provide:
 
 ## OUTPUT FORMAT
 ### Command
-```
+```bash
 [original command]
 ```
 

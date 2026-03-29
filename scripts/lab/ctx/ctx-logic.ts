@@ -5,7 +5,7 @@
  * Part of the Lean-Yggdrasil: ctx CLI implementation
  */
 
-import { existsSync, readdirSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
 import { homedir } from 'os';
 import { dirname, join, resolve } from 'path';
 import { parseArgs } from 'util';
@@ -21,8 +21,6 @@ const LLM_PROVIDER = process.env.CTX_PROVIDER || 'anthropic';
 function parseTOML(content: string): Record<string, unknown> {
   const result: Record<string, unknown> = {};
   let currentSection = '';
-  let currentArray: string[] = [];
-  let inArray = false;
 
   for (const line of content.split('\n')) {
     const trimmed = line.trim();
@@ -31,13 +29,10 @@ function parseTOML(content: string): Record<string, unknown> {
     if (!trimmed || trimmed.startsWith('#')) continue;
     
     // Section headers
-    if (trimmed.startsWith('[') && trimmed.endsWith(']')) {
-      // Save previous array if any
-      if (currentSection && currentArray.length > 0) {
-        result[currentSection] = currentArray;
-        currentArray = [];
-      }
+    if (trimmed.startsWith('[') && trimmed.endsWith(']') && !trimmed.includes('=')) {
       currentSection = trimmed.slice(1, -1);
+      // Initialize section as an object (not array)
+      result[currentSection] = {};
       continue;
     }
     
@@ -47,7 +42,23 @@ function parseTOML(content: string): Record<string, unknown> {
       const key = trimmed.slice(0, eqIndex).trim();
       let value = trimmed.slice(eqIndex + 1).trim();
       
-      // Handle TOML strings (simple case: no nested quotes)
+      // Handle inline arrays: key = ["item1","item2"]
+      if (value.startsWith('[') && value.endsWith(']')) {
+        const arrayContent = value.slice(1, -1);
+        const items = arrayContent
+          .split(',')
+          .map(s => s.trim().replace(/^["']|["']$/g, ''))
+          .filter(s => s.length > 0);
+        
+        if (currentSection) {
+          (result[currentSection] as Record<string, unknown>)[key] = items;
+        } else {
+          result[key] = items;
+        }
+        continue;
+      }
+      
+      // Handle TOML strings
       if (value.startsWith('"') && value.endsWith('"')) {
         value = value.slice(1, -1);
       }
@@ -59,19 +70,6 @@ function parseTOML(content: string): Record<string, unknown> {
         result[key] = value;
       }
     }
-    
-    // Handle inline arrays (simple comma-separated)
-    if (trimmed.includes('[') && trimmed.includes(']') && !trimmed.startsWith('[')) {
-      const match = trimmed.match(/^\[([^\]]+)\]$/);
-      if (match) {
-        currentArray = match[1].split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
-      }
-    }
-  }
-  
-  // Save last array
-  if (currentSection && currentArray.length > 0) {
-    result[currentSection] = currentArray;
   }
   
   return result;
@@ -82,12 +80,10 @@ function serializeTOML(obj: Record<string, unknown>): string {
   
   for (const [key, value] of Object.entries(obj)) {
     if (Array.isArray(value)) {
+      // Emit keyed inline arrays: key = ["item1","item2"]
       if (value.length > 0) {
-        lines.push(`[${key}]`);
-        for (const item of value) {
-          lines.push(`  - "${item}"`);
-        }
-        lines.push('');
+        const items = value.map(v => `"${v}"`).join(',');
+        lines.push(`${key} = [${items}]`);
       }
     } else if (typeof value === 'object' && value !== null) {
       lines.push(`[${key}]`);
@@ -118,7 +114,7 @@ function loadLexicon(): Record<string, unknown> {
 
 function saveLexicon(lexicon: Record<string, unknown>): void {
   if (!existsSync(CTX_DIR)) {
-    // Create .ctx directory silently
+    mkdirSync(CTX_DIR, { recursive: true });
   }
   const content = serializeTOML(lexicon);
   writeFileSync(LEXICON_PATH, content, 'utf-8');
@@ -175,17 +171,20 @@ async function callLLM(
   systemPrompt?: string,
   model?: string
 ): Promise<string> {
-  const apiKey = process.env.ANTHROPIC_API_KEY || process.env.OPENAI_API_KEY;
-  
-  if (!apiKey) {
-    throw new Error('No API key found. Set ANTHROPIC_API_KEY or OPENAI_API_KEY');
-  }
-  
   const modelName = model || DEFAULT_MODEL;
   
-  if (modelName.includes('claude') || modelName.includes('anthropic')) {
+  // Select API key based on provider
+  if (modelName.includes('claude') || modelName.includes('anthropic') || LLM_PROVIDER === 'anthropic') {
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      throw new Error('ANTHROPIC_API_KEY is not set');
+    }
     return callAnthropic(prompt, systemPrompt, apiKey, modelName);
   } else {
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      throw new Error('OPENAI_API_KEY is not set');
+    }
     return callOpenAI(prompt, systemPrompt, apiKey, modelName);
   }
 }

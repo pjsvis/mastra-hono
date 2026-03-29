@@ -15,5 +15,8 @@ if ! command -v bun &> /dev/null; then
   exit 1
 fi
 
+# Change to project root for correct path resolution
+cd "$PROJECT_ROOT"
+
 # Run the logic script with bun
 exec bun "$LOGIC_SCRIPT" "$@"
