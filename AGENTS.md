@@ -193,6 +193,30 @@ This project has skills installed for the following agents:
 
 Skills are automatically available to agents in your project once installed. Agents can access and use these skills without additional configuration.
 
+## Pi Extensions
+
+Pi extensions provide specialized capabilities. See `.pi/extensions/` for available extensions.
+
+### PR Review Loop Extension
+
+The `pr-review-loop` extension monitors GitHub PR reviews and automatically fixes issues.
+
+**State File Pattern:** State is persisted to `~/.ctx/pr-watch-state.json` to survive restarts.
+
+| File | Purpose |
+|------|---------|
+| `~/.ctx/pr-watch-state.json` | PID-like state file - presence indicates active monitoring |
+
+**On session start:** Extension checks for `~/.ctx/pr-watch-state.json` and resumes monitoring if found.
+
+**Commands:**
+- `/pr-watch <number>` - Start monitoring a PR
+- `/pr-status` - Show current status
+- `/pr-fix` - Auto-fix review issues
+- `/pr-stop` - Stop monitoring
+
+**Polling Cadence:** 5 minutes (eventual consistency - PR reviews are not real-time)
+
 ## Resources
 
 - [Mastra Documentation](https://mastra.ai/llms.txt)
